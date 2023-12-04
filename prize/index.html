@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<title>陀螺景品⬧Prizes</title>
+<link rel=stylesheet href=/include/component.css>
+<script src=/include/common.js></script>
+<script src=carousel.js></script>
+<style>
+    main {overflow:hidden}
+    h3 {
+        line-height:4em;
+    }
+    .groups summary picture {
+        margin-right:.2em;
+        background:none;
+        border:none;
+        filter:brightness(0%);
+        border-radius:initial;
+    }
+    h4 {
+        display:block;
+        text-align:right;
+        margin:1em 0 .5em 1em;
+    }
+    h4:first-of-type {
+        margin-top:1.5em;
+    }
+    .groups ul {
+        padding:0;margin:0;
+        display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:flex-start;
+    }
+    .groups li {
+        border:.1em solid var(--theme);border-radius:6em;
+        padding:0 .5em;margin:.3em 0 .8em .6em;
+        white-space:nowrap;font-size:1.1em;
+        width:47%;max-width:9.5em;
+        line-height:1.4;
+        display:flex;justify-content:space-between;align-items:baseline;
+        position:relative;
+        cursor:pointer;
+    }
+    .tight,time {
+        font-family:COND;
+    }
+    time {
+        font-size:smaller;
+    }
+    u {
+        position:absolute;top:2.6em;right:-.3em;
+        font-size:.6em;
+    }
+    u::before {
+        content:'《';
+    }
+    u::after {
+        content:'》';
+    }
+    #popup+label img:not(:only-child) {
+        max-width:8em;
+        margin:0;
+    }
+</style>
+
+<nav><script>nav(['/', '/products/'])</script></nav>
+<main>
+    <article class=groups hidden>
+        <details id=driver>
+            <summary>
+                <h3>Driver
+                    <picture><img src=/img/driver/Ch.png alt=Driver></picture>
+                </h3>
+            </summary>
+            <h4>抽選 &#xe02f;</h4>
+            <ul>
+                <li data-url=img/wp/20220315/BUD/0003.png>
+                    <h5>MBD</h5><time>2022-08</time>
+            </ul>
+            <h4>購物贈品 &#xe02e;</h4>
+            <ul>
+            </ul>
+            <h4>大會積分兌換 &#xe030;</h4>
+            <ul>
+            </ul>
+            <h4>コロコロ雜誌應募 &#xe02e;</h4>
+            <ul>
+            </ul>
+        </details>
+        <details id=disk>
+            <summary>
+                <h3>Disk / Frame
+                    <picture><img src=/img/disk/Wh.png alt=Disk></picture>
+                </h3>
+            </summary>
+            <h4>購物贈品 &#xe02e;</h4>
+            <ul>
+            </ul>
+            <h4>大會積分兌換 &#xe030;</h4>
+            <ul>
+            </ul>
+            <h4>コロコロ雜誌應募 &#xe02e;</h4>
+            <ul>
+            </ul>
+        </details>
+        <details id=chip>
+            <summary>
+                <h3>Chip
+                    <picture><img src=/prize/part-lc-r.png alt=Chip></picture>
+                </h3>
+            </summary>
+            <h4>購物贈品 &#xe02e;</h4>
+            <ul>
+            </ul>
+            <h4>大會比賽勝利／積分兌換 &#xe030;</h4>
+            <ul>
+            </ul>
+        </details>
+    </article>
+    <input type=checkbox id=popup>
+    <label for=popup><img></label>
+</main>
+<script>
+    const systems = [...Array(0).keys()].reverse().map(i => i + 1);
+    Q('main').prepend(new Carousel(systems.map(i => `Prize${i}.webp`), systems.map(i => `/img/system-layer${i}.png`)));
+
+    Q('li[data-url]', li => li.onclick = () => {
+        const url = li.getAttribute('data-url');
+        Q('label[for=popup]').replaceChildren(...(/\${i}/.test(url) ? [1,2,3,4] : /\${a}/.test(url) ? ['a','b','c'] : [1]).map(t => image(url.replace(/\${[ai]}/, t))));
+        Q('#popup').checked = true;
+    });
+    const image = url => E('img', {src: /^(http|\/)/.test(url) ? url : 'https://beyblade.takaratomy.co.jp/burst/public_html/' + url});
+
+    location.hash && Q(location.hash)?.setAttribute('open', true);
+</script>

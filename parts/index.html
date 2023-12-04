@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<script src=/include/common.js></script>
+<title>陀螺部件⬧Parts</title>
+<script src=catalog.js></script>
+<script src=parts.js></script>
+<link rel=stylesheet href=catalog.css>
+<link rel=stylesheet href=typography.css>
+
+<nav>
+    <script>nav(location.hash || location.search ? ['/parts/'] : ['/', '/prize/'])</script>
+    <data class=part-result></data>
+</nav>
+<!--db-status></db-status-->
+<!--magick mogrify -fuzz 5% -trim *.png-->
+<main id=catalog>
+    <span class=loading></span>
+    <details hidden>
+        <summary></summary>
+        <article></article>
+    </details>
+    <section class=catalog></section>
+</main>
+<main id=menu>
+    <div class=blade>
+        <a href=?blade=一體><h4 title="BLADE">刃擊環⬧鋼鐵戰刃</h4></a>
+    </div>
+    <div class=ratchet>
+        <a href=?ratchet=一體><h4 title="RATCHET">核輪⬧固鎖輪盤</h4></a>
+    </div>
+    <div class=bit>
+        <a href=?bit=軸心><h4 title="BIT">軸心</h4></a>
+    </div>
+
+    <!--a id=TopTier onclick='setTimeout(() => location.reload())'>Top tier 最強級部件舉例</a-->
+    <div class="catalog"></div>
+
+    <style>
+        #menu {
+            padding-bottom:5em;
+        }
+        #catalog {
+            display:none;
+        }
+        h4 {
+            font-size:.8em;
+            display:flex; flex-direction:column; justify-content:center; align-items:center;
+            width:7rem; height:7rem;
+            border-radius:9em;
+            box-shadow:0 0 1em .1em hsl(var(--c),calc(65% + var(--s-adj,0%)),calc(50% + var(--b-adj)));
+            position:relative;
+            margin:2em auto;
+            color:hsl(var(--c),65%,50%);
+        }
+        h4::before {
+            content:attr(title); font-size:2em;
+            display:block;
+        }
+        h4::after {
+            content:'';
+            position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+            width:80%; height:80%;
+            z-index:-1;
+            background:url(/img/blade/CbDr.png) center / contain no-repeat;
+            filter:contrast(0) brightness(20);
+        }
+        .ratchet h4::after {background-image:url(/img/ratchet/3-60.png);}
+        .bit h4::after {background-image:url(/img/bit/B.png);}
+
+        div a[href]:not(:has(h4)) {
+            background:hsl(var(--c),65%,80%);border-radius:9em;
+            margin:0 .5em;
+            min-width:3em;height:1.6em;
+            color:black;line-height:1.6em;
+        }
+        #TopTier {
+            background:var(--theme);border-radius:9em;
+            padding:.25em .75em;
+            color:black;
+        }
+    </style>
+</main>
+<script>location.search && Parts.catalog() || location.hash && Parts.list()</script>

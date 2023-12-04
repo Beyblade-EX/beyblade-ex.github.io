@@ -1,0 +1,178 @@
+{
+    "DZS": {
+        "group": "BSB",
+        "names": {
+            "jap": "ドランザースパイラル",
+            "eng": "DranzerSpiral",
+            "chi": "朱雀戰神 烈焰飛鳳 S"
+        },
+        "stat": ["28-"],
+        "desc": "兩攻水平刃産生高攻擊力及持久力，是重視平衡的設計。",
+        "attr": ["r","b"]
+    },
+    "WyGl": {
+        "group": "blade1",
+        "names": {
+            "jap": "ワイバーンゲイル",
+            "eng": "WyvernGale",
+            "chi": "飛龍狂風"
+        },
+        "stat": [],
+        "desc": "流線形狀四枚刃減低空氣抵抗，擅長持續迴轉。",
+        "attr": ["r","s"]
+    },
+    "PhWn": {
+        "group": "blade1",
+        "names": {
+            "jap": "フェニックスウイング",
+            "eng": "PhoenixWing",
+            "chi": "鳳凰飛翼"
+        },
+        "stat": [],
+        "desc": "厚重三枚刃猛烈撞向對手。金屬有塗裝令性能上升。",
+        "attr": ["r","a"]
+    },
+    "PhFt": {
+        "group": "blade1",
+        "names": {
+            "jap": "フェニックスフェザー",
+            "eng": "PhoenixFeather",
+            "chi": ""
+        },
+        "stat": [],
+        "desc": "",
+        "attr": ["r","a"]
+    },
+    "DrDg": {
+        "group": "blade1",
+        "names": {
+            "jap": "ドランダガー",
+            "eng": "DranDagger",
+            "chi": "翔龍雙刃 蒼龍利刃"
+        },
+        "stat": ["35-"],
+        "desc": "六枚攻擊刃擅長連打對手。",
+        "attr": ["r","a"]
+    },
+    "DrSw": {
+        "group": "blade1",
+        "names": {
+            "jap": "ドランソード",
+            "eng": "DranSword",
+            "chi": "翔龍神劍 蒼龍神劍"
+        },
+        "stat": ["35-"],
+        "desc": "三攻 Upper 刃擅長把對手向斜上方撞飛。",
+        "attr": ["r","a"]
+    },
+    "HlCh": {
+        "group": "blade1",
+        "names": {
+            "jap": "ヘルズチェイン",
+            "eng": "HellsChain",
+            "chi": "煉獄鎖鏈 惡魔鎖鏈"
+        },
+        "stat": ["33+"],
+        "desc": "性能依高度變化。有化解性下段刃及撞擊性上段刃的二層構造設計。",
+        "attr": ["r","b"]
+    },
+    "HlSc": {
+        "group": "blade1",
+        "names": {
+            "jap": "ヘルズサイズ",
+            "eng": "HellsScythe",
+            "chi": "煉獄魔鎌 惡魔紅鎌"
+        },
+        "stat": ["33-"],
+        "desc": "四枚 Smash 刃擅長令對手體勢傾倒。",
+        "attr": ["r","b"]
+    },
+    "WzAr": {
+        "group": "blade1",
+        "names": {
+            "jap": "ウィザードアロー",
+            "eng": "WizardArrow",
+            "chi": "巫師弩箭 魔導幻箭"
+        },
+        "stat": ["32-"],
+        "desc": "兩枚大型圓形刃為産生強離心力的外重心設計。",
+        "attr": ["r","s"]
+    },
+    "KnSh": {
+        "group": "blade1",
+        "names": {
+            "jap": "ナイトシールド",
+            "eng": "KnightShield",
+            "chi": "騎士護盾 騎士重盾"
+        },
+        "stat": ["32+"],
+        "desc": "採用容易以六枚防禦刃吸收衝擊的阻尼器構造。",
+        "attr": ["r","d"]
+    },
+    "KnLn": {
+        "group": "blade1",
+        "names": {
+            "jap": "ナイトランス",
+            "eng": "KnightLance",
+            "chi": "騎士長槍"
+        },
+        "stat": ["33-"],
+        "desc": "刃的位置設計在高處，擅長壓制對手的攻擊。",
+        "attr": ["r","d"]
+    },
+    "RhHr": {
+        "group": "blade1",
+        "names": {
+            "jap": "ライノホーン",
+            "eng": "RhinoHorn",
+            "chi": "犀牛號角 戰犀號角"
+        },
+        "stat": ["33-"],
+        "desc": "金屬凝縮在内側的内重心構造，是令體勢受強衝擊也難以傾倒的設計。",
+        "attr": ["r","d"]
+    },
+    "ShEd": {
+        "group": "blade1",
+        "names": {
+            "jap": "シャークエッジ",
+            "eng": "SharkEdge",
+            "chi": "烈鯊利刃 鮫鯊鋒鰭"
+        },
+        "stat": ["35-"],
+        "desc": "急角度的 Upper 刃侵入對手身内，能從低位置向上撞。",
+        "attr": ["r","a"]
+    },
+    "LnCl": {
+        "group": "blade1",
+        "names": {
+            "jap": "レオンクロー",
+            "eng": "LeonClaw",
+            "chi": "獅王鋭爪 雄獅獵爪"
+        },
+        "stat": ["31+"],
+        "desc": "一併持有攻擊刃及防禦刃，可以發射方法使用不同的性能。",
+        "attr": ["r","b"]
+    },
+    "VpTl": {
+        "group": "blade1",
+        "names": {
+            "jap": "ヴァイパーテイル",
+            "eng": "ViperTail",
+            "chi": "毒蛇靈尾 王蛇鞭尾"
+        },
+        "stat": ["35-"],
+        "desc": "向下尖鋭的六枚刃擅長從上削去對的持久力。",
+        "attr": ["r","s"]
+    },
+    "CbDr": {
+        "group": "blade1",
+        "names": {
+            "jap": "コバルトドレイク",
+            "eng": "CobaltDrake",
+            "chi": "鈷藍魔龍 蒼穹龍神"
+        },
+        "stat": ["38="],
+        "desc": "四枚大型龍刃撞飛對手。金屬有塗裝令性能上升。",
+        "attr": ["r","a"]
+    }
+}

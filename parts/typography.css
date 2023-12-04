@@ -1,0 +1,39 @@
+h2 {
+    line-height:calc(1.3em + var(--v-adj,0)*1em);
+}
+h2.char-1::first-letter,.dash h2 {
+    letter-spacing:calc(var(--h-adj,0)*1em);
+}
+h2.char-2::first-letter,h2.char-3,h2.char-3::first-letter {
+    letter-spacing:max(-.08em,var(--h-adj,0)*1em - var(--space,0)*1em/10);
+}
+.dash h2.char-2::first-letter {
+    letter-spacing:max(-.1em,var(--h-adj,0)*1em - var(--space,0)*1em/10);
+}
+h2.char-k::first-letter {
+    letter-spacing:max(-.1em,var(--h-adj,0)*1em);
+}
+h2 sub {
+    letter-spacing:-.08em;
+    vertical-align:-.2em;
+}
+
+.dash h2.char-1::first-letter {
+    letter-spacing:calc(var(--d-adj,0)*1em);
+}
+.dash h2 {
+    letter-spacing:max(-.18em,var(--d-adj,0)*1em + var(--space,0)*1em/-10);
+    margin-right:calc(-.1em + (var(--d-adj,0)*1em + var(--space,0)*1em/-10)/-1.5) !important;
+}
+
+:is(.metal,.high) h2::first-letter {
+    letter-spacing:calc(var(--h-adj,0)*1em + max(-.075em,var(--space,0)*1em/-10));
+}
+:is(.metal,.high) h2.char-3 {
+    letter-spacing:calc(var(--h-adj,0)*1em + max(-.075em,var(--space,0)*1em/-10) + .01em);
+}
+:is(#Pr.ratchet2,#M.blade5b,#Br.blade7b,a[id='+VS']) .desc {
+    transform:translateX(calc(var(--scale)*50% - 50%)) scaleX(var(--scale));
+    width:calc(100%/var(--scale));
+    letter-spacing:-.03em;
+}

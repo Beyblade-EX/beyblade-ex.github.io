@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<script src="/include/common.js"></script>
+<style>
+    section {
+        display:grid;align-items:start;
+        --size:20em;--gap:.5em;
+        padding-bottom:calc(var(--size)/2);
+    }
+    section.even #left {margin-right:calc(var(--size)/2 + var(--gap)/2);}
+    section.even #right {margin-left:calc(var(--size)/2 + var(--gap)/2);}
+    div {
+        grid-area:1/1/2/2;
+        display:grid;grid-template-columns:repeat(auto-fill,var(--size));justify-content:center;
+        gap:var(--gap);
+    }
+    #right {
+        width:calc(100% - var(--size)/2 - var(--gap));
+        justify-self:center;
+        transform:translateY(calc(var(--size)/2 + var(--gap)/2));
+    }
+    a {
+        min-width:var(--size);height:var(--size);
+        clip-path:polygon(50% 0%,0% 50%,50% 100%,100% 50%);
+        background:white;text-align:center;line-height:calc(var(--size)/2);
+    }
+</style>
+<section>
+<div id="left">
+<a>1</a>
+<a>2</a>
+<a>3</a>
+<a>4</a>
+<a>5</a>
+<a>6</a>
+<a>7</a>
+<a>8</a>
+<a>9</a>
+<a>10</a>
+<a>11</a>
+<a>12</a>
+<a>13</a>
+</div>
+<div id="right">
+<a>14</a>
+<a>15</a>
+<a>16</a>
+<a>17</a>
+<a>18</a>
+<a>19</a>
+<a>20</a>
+<a>21</a>
+<a>22</a>
+<a>23</a>
+<a>24</a>
+<a>25</a>
+<a>26</a>
+<a>27</a>
+<a>28</a>
+</div>
+</section>
+<script>
+    const order = [...document.querySelectorAll('a:not([hidden])')];
+    onresize = () => {//nw+(n-1)g=W,n=(W+g)/(w+g)
+        let gap = parseFloat(getComputedStyle(Q('#left')).gap);
+        let amount = div => Math.floor((div.getBoundingClientRect().width + gap) / (order[0].getBoundingClientRect().width + gap));
+        let left = amount(Q('section')), right = amount(Q('#right'));
+        Q('section').classList.toggle('even', left === right);
+
+        let grouped = chunk(order, left + right);
+        grouped.forEach(group => {
+            Q('#left').append(...group.slice(0, left));
+            Q('#right').append(...group.slice(left, left + right));
+        });
+    };
+    chunk = (array, size) => Array(Math.ceil(array.length / size)).fill().map((_, i) => i * size).map(begin => array.slice(begin, begin + size));
+    onresize();
+</script>

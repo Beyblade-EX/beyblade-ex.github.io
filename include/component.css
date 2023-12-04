@@ -1,0 +1,207 @@
+.groups h2 {
+    font-size: 2em;text-align:right;
+    line-height:1.2em;
+    position:relative;
+    display:block;
+    padding:.6em;margin:3rem 0.5rem 0 0;
+    border-bottom:.6em double hsla(0,0%,70%,.7);
+    border-right:.6em solid black;
+    border-top:.6em solid transparent;
+}
+.groups h2::before {
+    content:'';
+    background:linear-gradient(to right,black 10%,rgba(0,0,0,0));
+    position:absolute;right:0;
+    width:calc(100% + .6em);height:100%;
+}
+.groups h2::after {
+    content:'';
+    border-style:solid;border-color:transparent;
+    border-width:.6em .6em .6em 0;
+    position:absolute;right:-.6em;top:50%;transform:translate(0,-50%);
+    height:120%;
+    border-right-color:var(--theme-dark);
+}
+.groups details {
+    max-width:1000px;
+    padding:0 .5em;margin:2em auto;
+}
+.groups summary {
+    background:var(--theme-dark);
+    position:relative;
+    padding:.5em .5em .5em 2em;
+    border-top-right-radius:5em;border-bottom-right-radius:5em;
+    z-index:1;
+    white-space:nowrap;
+    text-align:left;
+}
+.groups ::-webkit-details-marker {
+    display:none;
+}
+.groups summary::before,.groups summary::after {
+    content:'';
+    border-style:solid;border-color:transparent;
+    position:absolute;left:0;top:50%;
+    transform:translate(0,-50%);
+}
+.groups summary::before {
+    border-left-color:var(--backdrop);
+    height:calc(4em + .35em*2*1.41);
+    border-width:1.35em 0 1.35em 1.35em;
+}
+.groups summary::after {
+    border-left-color:var(--theme-dark);
+    transition:border-left-color .5s;
+    height:4em;
+    border-width:1em 0 1em 1em;
+}
+.groups details[open] summary::after {
+    border-left-color:var(--theme);
+}
+.groups summary small {
+    display:block;
+    font-size:.85em;
+    opacity:.7;
+    margin-top:.2em;
+}
+.groups picture {
+    position:absolute; top:50%; right:.5em; transform:translate(0,-50%);
+    width:4em; height:4em;
+    background:url() center / var(--size,100%) no-repeat;
+    border:.2em solid var(--theme-dark); border-radius:9em;
+    box-sizing:content-box !important;
+    transition:border-color .5s;
+    z-index:-1;
+    overflow:hidden;
+    display:flex; justify-content:center; align-items:center;
+}
+.groups details[open] picture {
+    border-color:var(--theme);
+}
+.groups picture img {
+    height:85%;
+}
+
+.boards {
+    display:flex;flex-wrap:wrap;justify-content:center;
+    text-align:center;
+}
+.boards li {
+    width:11em;
+    margin:2em .5em 0 .5em;
+    background:var(--light);
+    position:relative;
+}
+.boards li>:not(:last-child) {
+    margin-bottom:.5em;
+}
+.boards li>:last-child {
+    margin-bottom:1em;
+}
+.boards li[data-error]::after {
+    content:attr(data-error);
+    position:absolute;right:1.5em;bottom:1.3em;
+    font-size:.8em;color:black;
+}
+.boards li::before {
+    content:'';
+    position:absolute;left:50%;bottom:100%;transform:translate(-50%,0);
+    width:75%;
+    border-color:transparent transparent var(--light) transparent;
+    border-width:0 1em 1em 1em;
+    border-style:solid;
+}
+.boards code {
+    position:relative;
+    display:block;
+    margin:-.7em auto .2em auto;
+    line-height:1.3em;
+    width:75%;
+    white-space:pre-wrap;
+}
+.boards figure {
+    width:9em; height:9em;
+    margin:auto;
+    position:relative;
+    overflow:hidden;
+}
+.boards img {
+    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+    width:var(--size,100%);
+}
+.boards img~* {
+    font-size:.85em;
+}
+.boards h5,.boards img {
+    display:block;margin:auto;
+}
+.boards p {
+    margin-top:0;
+}
+.boards ruby {
+    display:inline-grid;
+    white-space:nowrap;
+    margin:0 -3em;
+    line-height:1.4em;
+}
+.boards ruby::before {
+    content:'〖';
+    grid-area:1/1/3/2;
+}
+.boards ruby::after {
+    content:'〗';
+    grid-area:1/3/3/3;
+}
+.boards ruby::before,.boards ruby::after {
+    font-size:2.5em;
+}
+.boards rt {
+    font-size:.9em;text-align:center;
+    line-height:inherit;
+}
+code::before,code::after {
+    position:absolute;top:-.7em;
+}
+.r code::after {
+    content:"\e01e";
+    right:-1.2em;
+}
+.l code::before {
+    content:"\e01d";
+    left:-1.2em;
+}
+
+.scroller {
+    display:flex; gap:.5em; overflow-x:scroll;
+    font-size:.8rem;
+    margin-bottom:.5em;
+}
+.scroller::-webkit-scrollbar {
+    background:transparent;
+    height:.5em;
+}
+.scroller::-webkit-scrollbar-thumb {
+    background:#ffffff66;
+}
+.scroller>:not(h4:first-child) {
+    min-width:9em; max-width:9em;
+    overflow:hidden;
+    position:relative;
+}
+.scroller figure {
+    background:white;
+    display:flex; justify-content:center; align-items:center;
+}
+.scroller img {
+    width:100%;
+    vertical-align:middle;
+}
+.scroller>:is(h4,h5,p) {
+    padding:.5em;
+}
+.scroller h4 {
+    padding-bottom:0;
+}
+.scroller figure::before,.scroller figure::after {
+    position:absolute; z-index:1;
+}

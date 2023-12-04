@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<script src=/include/common.js></script>
+<title>陀螺商品⬧Merchandise</title>
+<link rel=stylesheet href=products.css>
+
+<nav>
+    <script>nav(['/', '/parts/'])</script>
+    <span class=free-search>部件檢索</span>
+    <div class=prod-search>
+        <label for=free>&#xe00a;</label>
+        <input id=free placeholder=騎士/HN/low>
+    </div>
+    <data class=prod-result>結果</data>
+    <button class=prod-reset>&#xe029; 重設</button>
+</nav>
+<input type=radio name=system id=DB data-part='[["Core","blade7c"],["Blade","blade7b"],["Armor","blade7a"]]' checked>
+<input type=radio name=system id=SP data-part='[["Chip","blade6c"],["Ring","blade6r"],["Chassis","blade6s"]]'>
+<input type=radio name=system id=GT data-part='[["Chip","blade5c"],["Base","blade5b"],["Weight","blade5w"]]'>
+<input type=checkbox id=eng>
+<input type=checkbox id=jap>
+<main>
+    <form>
+        <div>
+            <a href="https://kyoganken.web.fc2.com/beyx/index.htm#parts1">競</a>
+            <a href="http://obakeblader.com/?s=%E5%85%A5%E6%89%8B%E6%B3%95">お</a>
+        </div>
+        <details>
+        </details>
+        <div>
+            <a href=launchers.html></a>
+            <a href=assistance.html class=disabled></a>
+        </div>
+    </form>
+
+    <details id=filter>
+        <summary>&#xe027; 分類<i></i></summary>
+        <div>
+            <label for=S class=S title=附發射器的單陀螺>Starter</label>
+            <label for=B class=B title=單陀螺>Booster</label>
+            <label for=St class=St title=至少包含兩陀螺>Set</label>
+            <label for=SS class=SS title=含對戰盤及陀螺>Stadium Set</label>
+            <label for=RB class=RB title=單陀螺抽包>Random Booster</label>
+        </div>
+        <span>&#xe02a; 異色版／再推出版</span>
+        <div>
+            <label for=S-H class='S H'>Starter</label>
+            <label for=B-H class='B H'>Booster</label>
+            <label for=St-H class='St H'>Set</label>
+            <label for=SS-H class='SS H'>Stadium Set</label>
+            <label for=RB-H class='RB H'>Random Booster</label>
+        </div>
+        <span hidden>&#xe02b; 系統<button>全部</button></span>
+        <div class=system hidden>
+            <label for=blade1><img src=/img/system-blade1.png alt=single></label>
+            <label for=MFB><img src=/img/system-MFB.png alt=MFB></label>
+            <label for=BSB><img src=/img/system-BSB.png alt=BSB></label>
+        </div>
+    </details>
+
+    <table id=regular class=new>
+        <caption class=loading>
+            <!--span>&#xe028; 2021.04～</span-->
+            <button hidden>顯示全部</button>
+            <label for=eng>A</label>
+            <label for=jap>ア</label>
+        </caption>
+        <thead>
+            <tr class=comp>
+                <th>No</th>
+                <th colspan=7 class=blade>Blade</th>
+                <th colspan=3 class=ratchet>Ratchet</th>
+                <th colspan=3 class=bit>Bit</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot><tr><td><td><td><td>.<td><td><td><td><td><td><td><td><td><td></tfoot>
+    </table>
+
+    <input type=checkbox id=popup>
+    <label for=popup class=catalog></label>
+    <!--iframe style="width:min(30em,99%);height:15em;border:none;" src="//obakeblader.com/ブレード-ヴァイパーテイル/#toc2"></iframe-->
+</main>
+
+<script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js></script>
+<script src=https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js></script>
+<script src=table.js></script>
+<script src=maps.js></script>
+<script src=row.js></script>
+<script src=/parts/catalog.js></script>
+
+<script>
+Table.events = () => {
+    Q('#jap').onchange = ev => {
+        Q('#eng').checked = false;
+        Q('#eng').disabled = ev.target.checked;
+        Q('tbody tr', tr => Row.fill([null, ev.target.checked ? 'jap' : 'chi'], tr));
+        Table.flush();
+    };
+    Q('#eng').onchange = ev => Table.colspan(ev.target.checked ? 'eng' : 'cjk');
+    Q('.prod-reset').onclick = Table.reset;
+    Q('table button').onclick = Table.entire;
+    window.onresize = () => Table.flush();
+}
+Find.events = () => {
+    Q('input:not([type])', input => input.onkeypress = ({code}) => code == 'Enter' ? Find() : '');
+    Q('label[for=free]').onclick = () => Find();
+}
+Filter.events = () => {
+    Filter.systems.forEach((input, _, all) => input.addEventListener('change', () => all.forEach(i => i.checked = i == input)));
+    Q('#filter button').onclick = () => (Filter.systems.forEach(input => input.checked = true), Filter.filter());
+    Filter.inputs.forEach(input => input.onchange = Filter.filter);
+    Q('#filter label[title]', label => label.onmouseover = () => Q('#filter summary i').innerText = `｛${label.innerText}｝：${label.title}`);
+}
+Filter();
+Table.events(), Filter.events(), Find.events();
+
+Table();
+</script>
+
+<link rel=stylesheet href=/parts/catalog.css>
+<link rel=stylesheet href=/parts/typography.css>

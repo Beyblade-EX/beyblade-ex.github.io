@@ -1,0 +1,191 @@
+<!DOCTYPE HTML>
+<meta name=description content="最新日本陀螺情報、所有部件圖鑑、限量產品，都一應俱全。">
+<script src=include/common.js></script>
+<title>非官方資訊站⬧Unofficial site</title>
+<link rel=stylesheet href=index.css>
+<link rel=stylesheet href=/include/component.css>
+<style>
+    html {background:black;}
+    html::before {
+        content:'請重新整理 Please refresh';
+        opacity:0;animation:appear .5s 2s forwards;
+        text-align:center;color:white;font-size:3em;
+        position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    }
+    @keyframes appear { to {opacity:1;} }
+    body {background:linear-gradient(#00000066,#00000088),url(bg.jpg) center / cover;}
+</style>
+<img src="https://beyblade.takaratomy.co.jp/anime/_image/kv_chara.png" hidden>
+
+<input>
+
+<header>
+    <h1 hidden>戰鬥陀螺 X⬧爆旋陀螺 X⬧ベイブレード X⬧Beyblade X</h1>
+    <img src="https://beyblade.takaratomy.co.jp/_image/cmn_logo.svg" alt="戰鬥陀螺 X⬧爆旋陀螺 X⬧ベイブレード X⬧Beyblade X">
+    <h2>非官方資訊站</h2>
+</header>
+
+<section id=contents>
+    <h3>本站内容</h3>
+    <a href=products/ >商品</a>
+    <a href=parts/ >部件</a>
+    <a href=prize/ class="disabled">景品</a>
+</section>
+
+<section id=links>
+    <h3>外部連結</h3>
+    <a href="https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"><i>🛍️</i></a><span>商品陣容</span>
+    <a href="https://m.youtube.com/@BEYBLADEOfficialYouTube/videos"><i>🎞️</i></a><span>YouTube</span> 
+    <a href="https://www.corocoro.jp/episode/4856001361379685850"><i>🖍️</i></a><span>漫畫閲覽</span>
+    <a href="https://beyblade.takaratomy.co.jp/anime/character/"><i>📺</i></a><span>動畫資訊</span>
+    <a href="https://www.roblox.com/games/14478075491/BEYBLADE-PARK">
+        <i style="width:100%;height:100%;background:url(https://images.rbxcdn.com/7bba321f4d8328683d6e59487ce514eb) center / 35% no-repeat"></i>
+    </a><span>Roblox</span>
+    <a href="https://twitter.com/tbh_pr"><i>🛠️</i></a><span>𝕏</span>
+</section>
+
+<section id=products>
+    <h3>最新商品</h3>
+</section>
+
+<!--section id=reboot>
+    <div>
+        <p><i id=flush>&#xe010;</i><span>更新檔案（～250 KB）</span><i></i></p>
+        &#xe00d; 如在本網遇上問題 &#xe00e;
+        <p><i id=reset>&#xe010;</i><span>重設儲存（～30 MB）</span><i></i></p>
+    </div>
+</section-->
+
+<script>
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => entry.target.classList.toggle('seeing', entry.isIntersecting)));
+    fetch('/db/-update.json').then(resp => resp.json()).then(({news}) => announce(news))
+    .then(() => Q('header,section,time,.scroller', content => observer.observe(content))).catch(console.error);
+        
+    const announce = news => Object.entries(news).forEach(([date, beys]) => {
+        let base = `https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/`;
+        Q('#products').append(E('time', {title: date}));
+        beys.forEach(bey => {
+            let {code, name, imgs, desc, type, color, class: classi} = bey;
+            imgs ??= [];
+            if (name && /[BU]X-/.test(code)) {
+                let c = code.match(/[BU]XG?-\d+/)[0].replace('-','');
+                imgs = [base + `${c}@1.png`, ...imgs];
+                !code.includes('random') && imgs.push(...[2,3,4].map(n => base + `${c}${color ? `_${color}` : ''}_0${n}@1.png`));
+            }
+            let div = E('div', [
+                E('h5', code, {classList: type ?? ''}), E('h4', name.replaceAll('-', '‑').replaceAll('<br>', String.fromCharCode(10))), 
+                ...imgs.map(src => E('figure', [E('img', {src})])), 
+                ...([desc ?? []].flat()).map(d => E('p', d.replaceAll('-', '‑')))
+            ], {classList: `scroller ${classi || announce.colors.find(code)}`});
+
+            div.Q('img', img => img.onerror = () => img.parentElement.remove());
+            Q('#products').appendChild(div);
+        });
+    });
+    announce.colors = new Mapping(
+        /entry set/i, 'SS',
+        /組合|Set/i, 'St',
+        /Starter/i, 'S',
+        /Random/i, 'RB',
+        /Booster/i, 'B',
+        'others'
+    );
+
+    let endX;
+    const press = ({target: dragged, clientX: startX}) => {
+        let message = dragged.nextElementSibling;
+        let drop = message.nextElementSibling;
+        let action = () => dragged.id == 'flush' ? flush(message) : reset(message);
+        dragged.style.transition = null;
+        document.onpointermove = document.ontouchmove = moving => move(moving, startX, dragged, drop);
+        document.onpointerup = document.ontouchend = lifting => lift(lifting, dragged, drop, action);
+    }
+    Q('#reboot i:first-of-type', el => el.onpointerdown = press);
+    const move = (moving, startX, dragged, drop) => {
+        moving.preventDefault();
+        endX = moving.clientX || moving.targetTouches?.[0].pageX; 
+        dragged.style.transform = `translateX(${endX - startX}px)`;
+        endX > drop.getBoundingClientRect().x ? dragged.style.background = 'lime' : null;
+    }
+    const lift = (lifting, dragged, drop, action) => {
+        if (!document.onpointermove) return;
+        document.onpointermove = document.ontouchmove = null;
+        (lifting.clientX || endX) < drop.getBoundingClientRect().x ?
+            Object.assign(dragged.style, {
+                transform: null, background: null,
+                transition: 'transform .5s'
+            }) :
+            action().then(() => {
+                window.onbeforeunload = () => window.scrollTo(0, 0);
+                location.reload();
+            }).catch(er => console.error(er));
+    }
+    const flush = message => fetch('/sw/update').then(resp => message.innerText = resp.status == 200 ? '成功' : '失敗');
+    const reset = message => Promise.all([
+        DB.discard('V6', ev => message.innerText = ev.type == 'blocked' ? '請先關閉所有本網的分頁' : ev.type),
+        caches.delete('V6'), caches.delete('parts'),
+        document.cookie.split(/;\s?/).forEach(c => document.cookie = c.replace(/=.*/, `=; max-age=0; path=/`))
+    ]);
+</script>
+
+<details>
+    <summary>初心者資訊</summary>
+    <article>
+        <h3>積分獎勵</h3>
+        <img src="https://beyblade.takaratomy.co.jp/beyblade-x/app/_image/pict11.jpg">
+        <p>每個商品都有一個 QR code，使用 App 掃描就能累積 BeyPoint 分數。每 1000 分能玩抽獎一次，成功的話就能獲得特別陀螺。</p>
+        <img src="https://beyblade.takaratomy.co.jp/beyblade-x/app/_image/app_rea1.png">
+        <img src="https://beyblade.takaratomy.co.jp/beyblade-x/app/_image/app_rea2.png">
+        <p>左：抽中後獲贈；右：抽中後購買</p>
+        <img src="https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BX09@1.png" style="width:min(50%,20em)">
+        <p>若想得到更多分數，可購買 BX-09 BeyBattle Pass，除能測量發射力度外，亦能令發射、模擬訓練等獲得 BeyPoint，掃描 BeyCode 亦多加 100 分數。
+        <p>以上系統，台灣、香港預計 2024 年方會推出。日版的 App 只能掃描日版商品才有分數。
+    </article>
+    <article>
+        <h3>對戰規則</h3>
+        <a href=https://beyblade.takaratomy.co.jp/beyblade-x/_image/regulation.pdf>官方 Regulation</a><br>
+        <a href=https://www.youtube.com/watch?v=Y6POuwEsur8?t=280>對戰實例</a>
+        <p>若要選定於對戰盤左或右側發射，將會以如猜拳等公平方法決定。直到與對手分出勝負前都不能轉換位置。
+        <p>對戰盤主要的陀螺活動範圍為「Battle Zone」，兩角的小出口為「Over Zone」，之間的大出口為「Xtreme Zone」。</p>
+        <img src=https://beyblade.takaratomy.co.jp/beyblade-x/guide/_image/pict5.jpg>
+        <ul style="text-align:left;">
+            <li>Xtreme Finish (XF)：陀螺從「Xtreme Zone」離開對戰盤並未有再返回。得 3 分。
+            <li>Over Finish (OF)：陀螺掉入「Over Zone」並未有再返回對戰盤。得 2 分。
+            <li>Burst Finish (BF)：陀螺任何部件脫落並分離。得 2 分。
+            <li>Spin Finish (SF)：陀螺原先迴轉方向的迴轉速度降至 0。得 1 分。
+        </ul>
+        <p>當任何一陀螺較早發生以上情況，對方就可得分。先取四分為勝。
+        <p>若陀螺於發射口離開並未有返回，則需重賽。
+        <h4>難解情況</h4>
+        <p>若自己陀螺先停轉再被擊出，對方獲 SF 一分。
+        <p>若自己陀螺先被擊爆再被擊出，對方獲 BF 兩分。
+        <p>若自己陀螺先被從 Xtreme Zone 離開再因碰撞對戰盤爆裂，對方獲 XF 三分。
+        <p>若自己陀螺被擊爆，反彈力令對方陀螺被擊出，對方獲 BF 兩分，因被擊爆時一刻對方陀螺仍未離開對戰盤。
+        <p>若自己陀螺被擊至 Over Zone 但仍在轉動，然後對手陀螺於 Battle Zone 先停下，自己陀螺隨後亦停下，對方獲 OF 兩分。
+        <p>若自己陀螺被擊至 Over Zone 但仍在轉動，然後對手陀螺於 Battle Zone 先停下，其後自己陀螺彈回對戰盤，自己獲 SF 一分。
+        <p>XF 及 OF 發生後需要未有<ruby><rb>返回對戰盤</rb><rt>Reverse</rt></ruby>才成立，要等到確認未有返回，才以先發生的事件作得分。
+            <br>若發生 Reverse 情況，XF 及 OF 事件將被取消。
+    </article>
+</details>
+
+<a href="https://beyblade-burst.github.io/" id="bbb"><img src="/img/system-BBB.png"></a>
+
+<footer>
+    對於本網所載資料的準確性或完整性，製作者不會作任何保證或聲明，或因提供或使用此網資料而直接或間接引致的任何損失、損壞或傷害，負上任何責任。
+    <br>Developed and Designed by V Man (MKK). 2023–.
+</footer>
+
+<script>
+Q('input').onkeypress = ev => {
+    if ((ev.keyCode || ev.which) != 13) return;
+    if (/^i#.+$/i.test(ev.target.value))
+        return location.href = `https://instagram.com/explore/tags/${/(?<=#).+/.exec(ev.target.value)}`;
+    if (/^i@.+$/i.test(ev.target.value))
+        return location.href = `https://instagram.com/${/(?<=@).+/.exec(ev.target.value)}`;
+     if (/^t\?.+$/i.test(ev.target.value))
+        return location.href = `https://twitter.com/search?q=${/(?<=\?).+/.exec(ev.target.value)}&f=live`;
+    if (/^t#.+$/i.test(ev.target.value))
+        return location.href = `https://twitter.com/hashtag/${/(?<=#).+/.exec(ev.target.value)}/?f=live`;
+    return location.href = `https://${ev.target.value}`;
+}
+</script>

@@ -1,0 +1,49 @@
+{
+  "prod-new": ["2023/11/14 23:35:00"],
+  "ratchet": ["2023/11/05 20:30:00"],
+  "bit": ["2023/12/08 09:40:00"],
+  "blade": ["2023/03/14 16:20:00"],
+  "meta": ["2022/10/15 09:50:00"],
+  "prod-launcher": ["2022/09/15 16:20:00"],
+  "news": {
+    "2023-12-02":[ 
+      {"code":"BX-22 entry starter","name":"DranSword 3-60F","type":"a",
+      "imgs":["https://m.media-amazon.com/images/I/61cvA0+AcHL._AC_SL1100_.jpg"],
+      "desc":["BX-01 附 Entry Launcher（入門發射器）版"]}
+    ],
+    "2023-12-15":[{"code":"コロコロ雜誌贈品（Blade）","name":"フェニックスフェザー<br>PhoenixFeather",
+      "imgs":["https://corocoro.jp/wp-content/uploads/2023/11/87793aed7eff815a87da9d135ffe8e4b.jpg"],"desc":"較輕量的 Blade（33g）"}
+    ],
+    "2023-12-27":[
+      {"code":"BX-23 starter","name":"フェニックスウイング 9-60GF<br>PhonenixWing 9-60GF","type":"a",
+      "imgs":["https://takaratomymall.jp/img/goods/5/4904810913092_f7abcaae2bcc41c689c0a8315e9251f5.jpg","https://takaratomymall.jp/img/goods/C/4904810913092_37b7b02af2144c20970dce12904bc561.jpg","https://takaratomymall.jp/img/goods/1/4904810913092_bdf7dc02bf524c5c872ebf5fca4b5d29.jpg"],
+      "desc":["【PhoenixWing】：厚重三枚刃撞飛對手，金屬有塗裝令「性能提升」","【9-60】Ratchet：九枚刃連打","【Gear Flat】Bit：齒紋延長，更易發動 X Dash"]},
+      {"code":"BX-24 random booster vol.2","name":"ワイバーンゲイル 5-80GB<br>WyvernGale 5-80GB","type":"s",
+      "imgs":["https://takaratomymall.jp/img/goods/L/4904810913108_ff34393d340947c2baa5501697180f04.jpg","https://m.media-amazon.com/images/S/aplus-media-library-service-media/0dba8416-59bf-431a-a564-89b48871c3b9.__CR0,0,970,600_PT0_SX970_V1___.jpg"],
+      "desc":["【WyvernGale】：流線形四枚刃減低空氣阻力","【Gear Ball】Bit：齒紋延長，更易發動 X Dash"]},
+      {"code":"BX-25","name":"Gear Case","desc":["能存放至少 8 顆陀螺的軟包"]}
+    ], 
+    "2024-01":[
+      {"code":"BX-26 Booster","name":"","imgs":[],"desc":[]}
+    ],
+    "2024-02":[
+      {"code":"BX-27 random booster select","name":"","imgs":[],"desc":["小抽包"]}
+    ],
+    "2024-03":[
+      {"code":"BX-28 string launcher","name":"","imgs":[],"desc":["拉線發射器"]},
+      {"code":"BX-29 launcher grip","name":"","imgs":[],"desc":["手把"]},
+      {"code":"BX-30 launcher grip","name":"","imgs":[],"desc":["手把"]},
+      {"code":"UX-01 starter","name":"","imgs":[],"desc":[]},
+      {"code":"UX-02 starter","name":"","imgs":[],"desc":[]},
+      {"code":"UX-03 booster","name":"","imgs":[],"desc":[]},
+      {"code":"UX-04 entry set","name":"","imgs":[],"desc":[]}
+    ],
+    "2024-04":[
+      {"code":"BX-31 random booster vol.3","name":"","imgs":[],"desc":[]},
+      {"code":"BX-32 Stadium","name":"","imgs":[],"desc":["對戰盤"]},
+      {"code":"BXG-04 booster","name":"","imgs":[],"desc":[]}
+    ],
+    "2024-05":[
+      {"code":"UX-05 random booster select","name":"","imgs":[],"desc":["小抽包"]}
+    ]
+  }}
