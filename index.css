@@ -211,10 +211,10 @@ time::after {
     display:inline-block; width:3em; height:3em;
     margin-bottom:.5em;
 }
-.b::before {background:url(/img/type-B.png) center / contain no-repeat;}
-.a::before {background:url(/img/type-A.png) center / contain no-repeat;}
-.d::before {background:url(/img/type-D.png) center / contain no-repeat;}
-.s::before {background:url(/img/type-S.png) center / contain no-repeat;}
+.b::before {background:url(/img/type-b.png) center / contain no-repeat;}
+.a::before {background:url(/img/type-a.png) center / contain no-repeat;}
+.d::before {background:url(/img/type-d.png) center / contain no-repeat;}
+.s::before {background:url(/img/type-s.png) center / contain no-repeat;}
 #products p {
     margin:0;
 }
