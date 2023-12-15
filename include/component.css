@@ -183,26 +183,23 @@ code::before,code::after {
 .scroller::-webkit-scrollbar-thumb {
     background:#ffffff66;
 }
-.scroller>:not(h4:first-child) {
+.scroller>* {
     min-width:9em; max-width:9em;
     overflow:hidden;
     position:relative;
 }
 .scroller figure {
+    min-width:12em;
     background:white;
     display:flex; justify-content:center; align-items:center;
-    position:relative;
 }
-.scroller figure::before {
-    content:'🖼️';
-    position:absolute; right:0; top:0;
+.scroller figure a {
+    position:absolute; right:0; top:.25em;
     font-size:1.5em;
-    pointer-events:none;
 }
 .scroller img {
     width:100%;
     vertical-align:middle;
-    cursor:pointer;
 }
 .scroller>:is(h4,h5,p) {
     padding:.5em;

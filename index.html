@@ -75,14 +75,11 @@
             let div = E('div', [
                 E('h5', code, {classList: type ?? ''}),
                 E('h4', name.replaceAll('-', '‑').replaceAll('<br>', String.fromCharCode(10))), 
-                ...imgs.map(src => E('figure', [E('img', {src})])), 
+                ...imgs.map(src => E('figure', [E('a', '🖼️', {href: src}), E('img', {src})])), 
                 ...([desc ?? []].flat()).map(d => E('p', {innerHTML: d.replaceAll('-', '‑')}))
             ], {classList: `scroller ${classi || announce.colors.find(code)}`});
 
-            div.Q('img', img => {
-                img.onerror = () => img.parentElement.remove();
-                img.onclick = () => location.href = img.src;
-            });
+            div.Q('img', img => img.onerror = () => img.parentElement.remove());
             Q('#products').appendChild(div);
         });
     });
