@@ -28,7 +28,7 @@
             "eng": "PhoenixWing",
             "chi": "鳳凰飛翼"
         },
-        "stat": [],
+        "stat": ["38-"],
         "desc": "厚重三枚刃猛烈撞向對手。金屬有塗裝令性能上升。",
         "attr": ["r","a"]
     },
@@ -39,7 +39,7 @@
             "eng": "PhoenixFeather",
             "chi": ""
         },
-        "stat": [],
+        "stat": ["33="],
         "desc": "",
         "attr": ["r","a"]
     },

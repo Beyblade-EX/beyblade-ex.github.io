@@ -6,13 +6,8 @@
   "meta": ["2022/10/15 09:50:00"],
   "prod-launcher": ["2022/09/15 16:20:00"],
   "news": {
-    "2023-12-02":[ 
-      {"code":"BX-22 entry starter","name":"DranSword 3-60F","type":"a",
-      "imgs":["https://m.media-amazon.com/images/I/61cvA0+AcHL._AC_SL1100_.jpg"],
-      "desc":["BX-01 附 Entry Launcher（入門發射器）版"]}
-    ],
-    "2023-12-15":[{"code":"コロコロ雜誌贈品（Blade）","name":"フェニックスフェザー<br>PhoenixFeather",
-      "imgs":["https://corocoro.jp/wp-content/uploads/2023/11/87793aed7eff815a87da9d135ffe8e4b.jpg"],"desc":"較輕量的 Blade（33g）"}
+    "2023-12-15":[{"code":"コロコロ一月號雜誌贈品（Blade）","name":"フェニックスフェザー<br>PhoenixFeather",
+      "imgs":["https://corocoro.jp/wp-content/uploads/2023/12/5698a52905518ee6e5f8a2cebee3ee9c.jpg"],"desc":"較輕量的 Blade（33g）"}
     ],
     "2023-12-27":[
       {"code":"BX-23 starter","name":"フェニックスウイング 9-60GF<br>PhonenixWing 9-60GF","type":"a",
@@ -23,8 +18,11 @@
       "desc":["【WyvernGale】：流線形四枚刃減低空氣阻力","【Gear Ball】Bit：齒紋延長，更易發動 X Dash"]},
       {"code":"BX-25","name":"Gear Case","desc":["能存放至少 8 顆陀螺的軟包"]}
     ], 
-    "2024-01":[
-      {"code":"BX-26 Booster","name":"","imgs":[],"desc":[]}
+    "2024-01-15":[
+      {"code":"コロコロ雜誌全員 service 應募品（經二月號雜誌的應募券購買）","name":"ヘルズサイズ 3-80F<br>HellsScythe 3-80F","imgs":["https://corocoro.jp/wp-content/uploads/2023/12/f919dd35dc468956f947d2d2ab3551d1.jpg"],"desc":["主角們隊伍<ruby class=below><rb>「ペルソナ」<rt>Persona</ruby>主題","一月下旬發送"]}
+    ],
+    "2024-01-27":[
+      {"code":"BX-26 Booster","name":"","imgs":["https://preview.redd.it/beyblade-xs-chapter-7-cover-revealed-2-new-beys-owned-by-v0-qi3w848q6a6c1.png?width=387&format=png&auto=webp&s=b3935c13379884b24a8c90826568cf6475a1913f"],"desc":["「Double style」"]}
     ],
     "2024-02":[
       {"code":"BX-27 random booster select","name":"","imgs":[],"desc":["小抽包"]}

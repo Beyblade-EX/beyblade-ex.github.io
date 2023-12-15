@@ -73,12 +73,16 @@
                 !code.includes('random') && imgs.push(...[2,3,4].map(n => base + `${c}${color ? `_${color}` : ''}_0${n}@1.png`));
             }
             let div = E('div', [
-                E('h5', code, {classList: type ?? ''}), E('h4', name.replaceAll('-', '‑').replaceAll('<br>', String.fromCharCode(10))), 
+                E('h5', code, {classList: type ?? ''}),
+                E('h4', name.replaceAll('-', '‑').replaceAll('<br>', String.fromCharCode(10))), 
                 ...imgs.map(src => E('figure', [E('img', {src})])), 
-                ...([desc ?? []].flat()).map(d => E('p', d.replaceAll('-', '‑')))
+                ...([desc ?? []].flat()).map(d => E('p', {innerHTML: d.replaceAll('-', '‑')}))
             ], {classList: `scroller ${classi || announce.colors.find(code)}`});
 
-            div.Q('img', img => img.onerror = () => img.parentElement.remove());
+            div.Q('img', img => {
+                img.onerror = () => img.parentElement.remove();
+                img.onclick = () => location.href = img.src;
+            });
             Q('#products').appendChild(div);
         });
     });

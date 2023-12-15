@@ -191,10 +191,18 @@ code::before,code::after {
 .scroller figure {
     background:white;
     display:flex; justify-content:center; align-items:center;
+    position:relative;
+}
+.scroller figure::before {
+    content:'🖼️';
+    position:absolute; right:0; top:0;
+    font-size:1.5em;
+    pointer-events:none;
 }
 .scroller img {
     width:100%;
     vertical-align:middle;
+    cursor:pointer;
 }
 .scroller>:is(h4,h5,p) {
     padding:.5em;
