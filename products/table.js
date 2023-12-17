@@ -127,8 +127,7 @@ Object.assign(Find, {
                 Find.regexp.some(regex => regex.test(tr.abbr)) || 
                 tr.more?.split(',').some(m => Find.target.more.includes(m))
             ));
-            Find.state(true);
-            //where == 'form' && (Q('iframe').src = `//obakeblader.com/ブレード-ヴァイパーテイル/#toc2`);
+            Find.state(true, where == 'form' && Find.target.parts);
         }
     },
     build(where) {
@@ -144,11 +143,16 @@ Object.assign(Find, {
         }
         return this;
     },
-    state(searching) {
+    state(searching, obake) {
         Q('#regular').classList.toggle('searching', searching);
         Q('html,body', el => el.scrollTop = searching ? Q('tfoot').offsetTop : 0);
         Q('input:not([type])', input => searching ? input.blur() : input.value = '');
         Table.count(), Table.flush(true);
+
+        let [comp, sym] = obake ? Object.entries(Find.target.parts)[0] : [];
+        sym &&= comp == 'blade' ? NAMES[comp][sym].jap : sym;
+        comp &&= {blade: 'ブレード', ratchet: 'ラチェット', bit: 'ビット'}[comp];
+        Q('a[href*=obake]').href = 'http://obakeblader.com/' + (obake && Q('.prod-result').value > 1 ? `${comp}-${sym}/#toc2` : `?s=入手法`);
     },
     autofill(pairs) {
         Find.state(false);

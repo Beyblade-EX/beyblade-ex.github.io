@@ -20,6 +20,9 @@ form a[href] {
     font-size:1.5em; line-height:2.8rem; color:white;
     position: relative;
 }
+a[href$='#toc2'] {
+    outline-color:hsl(45,90%,48%) !important;
+}
 div:first-child a[href]::before {
     content:'\e02a';
     position:absolute; left:50%; top:50%; transform:translate(-50%,-47%);
