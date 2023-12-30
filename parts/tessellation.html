@@ -2,30 +2,21 @@
 <script src="/include/common.js"></script>
 <style>
     section {
-        display:grid;align-items:start;
-        --size:20em;--gap:.5em;
-        padding-bottom:calc(var(--size)/2);
-    }
-    section.even #left {margin-right:calc(var(--size)/2 + var(--gap)/2);}
-    section.even #right {margin-left:calc(var(--size)/2 + var(--gap)/2);}
-    div {
-        grid-area:1/1/2/2;
-        display:grid;grid-template-columns:repeat(auto-fill,var(--size));justify-content:center;
+        --size:15em;--gap:1em;
+        padding:calc(var(--size)/2) 0;
+        display:flex; flex-wrap:wrap; justify-content:center;
         gap:var(--gap);
-    }
-    #right {
-        width:calc(100% - var(--size)/2 - var(--gap));
-        justify-self:center;
-        transform:translateY(calc(var(--size)/2 + var(--gap)/2));
     }
     a {
         min-width:var(--size);height:var(--size);
-        clip-path:polygon(50% 0%,0% 50%,50% 100%,100% 50%);
         background:white;text-align:center;line-height:calc(var(--size)/2);
+        clip-path:polygon(50% 0%,0% 50%,50% 100%,100% 50%);
+        margin:-4em 0;
     }
+    a.left {margin-left:calc(var(--size)/2 + var(--gap)/2);}
+    a.right {margin-right:calc(var(--size)/2 + var(--gap)/2);}
 </style>
 <section>
-<div id="left">
 <a>1</a>
 <a>2</a>
 <a>3</a>
@@ -39,8 +30,6 @@
 <a>11</a>
 <a>12</a>
 <a>13</a>
-</div>
-<div id="right">
 <a>14</a>
 <a>15</a>
 <a>16</a>
@@ -56,22 +45,26 @@
 <a>26</a>
 <a>27</a>
 <a>28</a>
-</div>
 </section>
 <script>
-    const order = [...document.querySelectorAll('a:not([hidden])')];
-    onresize = () => {//nw+(n-1)g=W,n=(W+g)/(w+g)
-        let gap = parseFloat(getComputedStyle(Q('#left')).gap);
-        let amount = div => Math.floor((div.getBoundingClientRect().width + gap) / (order[0].getBoundingClientRect().width + gap));
-        let left = amount(Q('section')), right = amount(Q('#right'));
-        Q('section').classList.toggle('even', left === right);
-
-        let grouped = chunk(order, left + right);
-        grouped.forEach(group => {
-            Q('#left').append(...group.slice(0, left));
-            Q('#right').append(...group.slice(left, left + right));
-        });
+    onresize = () => {
+        //nw+(n-1)g=W, n=(W+g)/(w+g)
+        //nw+(n-1)g=W-(w+g/2), n=(2W-w+g)/2(w+g)
+        let W = Q('section').getBoundingClientRect().width, 
+            g = parseFloat(getComputedStyle(Q('section')).gap),
+            w = Q('section a:first-child').getBoundingClientRect().width;
+        let n1 = Math.floor((W + g) / (w + g)),
+            n2 = Math.floor((2*W - w + g) / 2 / (w + g));
+        n1 != n2 ? 
+            margin(i => (2*n1-1)*i - (n1-2), i => (2*n1-1)*i) : 
+            margin(i => (2*n1*i) - (n1-1), i => 2*n1*i - n1)
     };
-    chunk = (array, size) => Array(Math.ceil(array.length / size)).fill().map((_, i) => i * size).map(begin => array.slice(begin, begin + size));
+
+    const margin = (mth, nth) => {
+        Q('.left,.right', li => li.classList = '');
+        let i = j = 1, el;
+        while (el = Q(`a:nth-child(${mth(i++)}`)) el.classList.add('left');
+        while (el = Q(`a:nth-child(${nth(j++)}`)) el.classList.add('right');
+    }
     onresize();
 </script>

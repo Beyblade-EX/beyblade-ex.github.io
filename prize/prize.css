@@ -1,0 +1,141 @@
+.diamonds {
+    padding:calc(var(--size)/2) 0;
+    display:grid; grid-template-columns:repeat(auto-fill,var(--size)); justify-content:center;
+    gap:var(--gap);
+    --size:20em; --gap:.5em;
+    font-size:.8em;
+}
+.diamonds li {
+    width:var(--size); height:var(--size);
+    clip-path:polygon(50% 0%,0% 50%,50% 100%,100% 50%);
+    background:#fbfbfd; color:black;
+    display:grid; grid-template:20% 7.5% 45% 12.5% 15% / 10% 80% 7% 3%;
+    grid-template-areas:'. type . .' '. desc . .' '. img img .' '. name . .' '. date . .';
+    margin:calc(var(--size)/-4 + var(--gap)/-4) 0;
+}
+li.left  {transform:translate(calc(var(--size)/2 + var(--gap)/2));}
+li.right~.left {transform:translate(calc(var(--size)/4 + var(--gap)/4));}
+li.right {transform:translate(calc(var(--size)/-4 + var(--gap)/-4));}
+li.next {grid-column:1;}
+
+.diamonds b {
+    grid-area:type; align-self:end;
+    color:white; font-size:.9em;
+    padding-top:2em; 
+}
+.diamonds b::before {
+    display:block;
+    font-size:1.7em;
+    line-height:.9;
+}
+.比賽 b {background:olive;}
+.比賽 b::before {content:'\e031';}
+.抽獎 b {background:darkslategray;}
+.抽獎 b::before {content:'\e02f';}
+.贈品 b {background:steelblue;}
+.贈品 b::before {content:'\e002';}
+.限定商品 b {background:darkred;}
+.限定商品 b::before {content:'\e001';}
+
+.diamonds p {
+    grid-area:desc;
+    font-size:.7em;
+    margin-top:.2em;
+}
+.diamonds p a {
+    color:green;
+}
+.diamonds div {
+    grid-area:img;
+    text-align:left;
+}
+.diamonds figure {
+    position:relative;
+    width:8em; height:8em;
+    overflow:hidden;
+    shape-outside:ellipse(50% 30%); float:left;
+    border-radius:8em;
+    margin:.5em .3em;
+}
+.diamonds img {
+    position:absolute; left:var(--left,50%); top:var(--top,50%); transform:translate(-50%,-50%);
+    width:var(--width,100%);
+}
+.diamonds h5 {
+    font-size:.9em; line-height:1.1;
+    display:block; 
+    margin-top:4.5em;
+}
+.diamonds small {
+    display:block;
+    color:grey;
+}
+.diamonds h5 small {
+    margin-top:.3em;
+    font-size:.8em;
+    transform:scaleX(.95);
+}
+.diamonds :is(span,h5 small) {
+    letter-spacing:-.05em;
+}
+.diamonds i {
+    grid-area:name;
+    font-size:.7em; font-style:italic;
+}
+.diamonds time {
+    grid-area:date;
+    font-size:.75em; font-family:inherit;
+}
+
+h3 {
+    line-height:4em;
+}
+.groups summary picture {
+    margin-right:.2em;
+    background:none;
+    border:none;
+    filter:brightness(0%);
+    border-radius:initial;
+}
+article h4 {
+    display:block;
+    text-align:right;
+    margin:1em 0 .5em 1em;
+}
+article h4:first-of-type {
+    margin-top:1.5em;
+}
+.groups ul {
+    padding:0;margin:0;
+    display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:flex-start;
+}
+.groups li {
+    border:.1em solid var(--theme);border-radius:6em;
+    padding:0 .5em;margin:.3em 0 .8em .6em;
+    white-space:nowrap;font-size:1.1em;
+    width:47%;max-width:9.5em;
+    line-height:1.4;
+    display:flex;justify-content:space-between;align-items:baseline;
+    position:relative;
+    cursor:pointer;
+}
+.tight,time {
+    font-family:COND;
+}
+time {
+    font-size:smaller;
+}
+u {
+    position:absolute;top:2.6em;right:-.3em;
+    font-size:.6em;
+}
+u::before {
+    content:'《';
+}
+u::after {
+    content:'》';
+}
+#popup+label img:not(:only-child) {
+    max-width:8em;
+    margin:0;
+}
