@@ -6,18 +6,6 @@
   "meta": ["2022/10/15 09:50:00"],
   "prod-launcher": ["2022/09/15 16:20:00"],
   "news": {
-    "2023-12-15":[{"code":"コロコロ一月號雜誌贈品（Blade）","name":"フェニックスフェザー<br>PhoenixFeather",
-      "imgs":["https://corocoro.jp/wp-content/uploads/2023/12/5698a52905518ee6e5f8a2cebee3ee9c.jpg"],"desc":"較輕量的 Blade（33g）"}
-    ],
-    "2023-12-27":[
-      {"code":"BX-23 starter","name":"フェニックスウイング 9-60GF<br>PhonenixWing 9-60GF","type":"a",
-      "imgs":["https://takaratomymall.jp/img/goods/5/4904810913092_f7abcaae2bcc41c689c0a8315e9251f5.jpg","https://takaratomymall.jp/img/goods/C/4904810913092_37b7b02af2144c20970dce12904bc561.jpg","https://takaratomymall.jp/img/goods/1/4904810913092_bdf7dc02bf524c5c872ebf5fca4b5d29.jpg"],
-      "desc":["【PhoenixWing】：厚重三枚刃撞飛對手，金屬有塗裝令「性能提升」","【9-60】Ratchet：九枚刃連打","【Gear Flat】Bit：齒紋延長，更易發動 X Dash"]},
-      {"code":"BX-24 random booster vol.2","name":"ワイバーンゲイル 5-80GB<br>WyvernGale 5-80GB","type":"s",
-      "imgs":["https://takaratomymall.jp/img/goods/L/4904810913108_ff34393d340947c2baa5501697180f04.jpg","https://m.media-amazon.com/images/S/aplus-media-library-service-media/0dba8416-59bf-431a-a564-89b48871c3b9.__CR0,0,970,600_PT0_SX970_V1___.jpg"],
-      "desc":["【WyvernGale】：流線形四枚刃減低空氣阻力","【Gear Ball】Bit：齒紋延長，更易發動 X Dash"]},
-      {"code":"BX-25","name":"Gear Case","desc":["能存放至少 8 顆陀螺的軟包"]}
-    ], 
     "2024-01-15":[
       {"code":"コロコロ雜誌全員 service 應募品（經二月號雜誌的應募券購買）","name":"ヘルズサイズ 3-80F<br>HellsScythe 3-80F","imgs":["https://corocoro.jp/wp-content/uploads/2023/12/f919dd35dc468956f947d2d2ab3551d1.jpg"],"desc":["主角們隊伍<ruby class=below><rb>「ペルソナ」<rt>Persona</ruby>主題","一月下旬發送"]}
     ],
