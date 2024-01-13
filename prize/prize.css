@@ -53,7 +53,7 @@ li.next {grid-column:1;}
     position:relative;
     width:8em; height:8em;
     overflow:hidden;
-    shape-outside:ellipse(50% 30%); float:left;
+    shape-outside:ellipse(50% 40%); float:left;
     border-radius:8em;
     margin:.5em .3em;
 }
