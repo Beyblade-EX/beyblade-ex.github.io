@@ -24,7 +24,7 @@ class Part {
     }
     static revise = {
         name: (ref, pref) => [...pref].reverse().reduce((names, p) => concat(Part.revise.name[p], names), ref?.names ?? ref),
-        desc: (ref, pref, desc) => [...pref].map(p => Part.revise.desc[p]).join('、') + `的【${ref.sym}】bit。` + desc
+        desc: (ref, pref, desc) => [...pref].map(p => Part.revise.desc[p]).join('、') + `的【${ref.sym}】bit${desc ? `，${desc}` : '。'}`
     }
     
     strip = what => Part.strip(this.sym, what);

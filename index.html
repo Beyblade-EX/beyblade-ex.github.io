@@ -70,7 +70,7 @@
             if (name && /[BU]X-/.test(code)) {
                 let c = code.match(/[BU]XG?-\d+/)[0].replace('-','');
                 imgs = [base + `${c}@1.png`, ...imgs];
-                !code.includes('random') && imgs.push(...[2,3,4].map(n => base + `${c}${color ? `_${color}` : ''}_0${n}@1.png`));
+                imgs.push(...[2,3,4,5,6,7,8].map(n => base + `${c}${color ? `_${color}` : ''}_0${n}@1.png`));
             }
             let div = E('div', [
                 E('h5', code, {classList: type ?? ''}),

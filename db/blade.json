@@ -10,6 +10,28 @@
         "desc": "兩攻水平刃産生高攻擊力及持久力，是重視平衡的設計。",
         "attr": ["r","b"]
     },
+    "SpCw": {
+        "group": "blade1",
+        "names": {
+            "jap": "スフィンクスカウル",
+            "eng": "SphinxCowl",
+            "chi": ""
+        },
+        "stat": [],
+        "desc": "以圓形配置的連打九枚刃把從各個方向而來的攻擊都分散及撞回。",
+        "attr": ["r","d"]
+    },
+    "UnSt": {
+        "group": "blade1",
+        "names": {
+            "jap": "ユニコーンスティング",
+            "eng": "UnicornSting",
+            "chi": ""
+        },
+        "stat": [],
+        "desc": "左右的刃形狀有巨大差異，一併持有攻擊及防禦。",
+        "attr": ["r","b"]
+    },
     "WyGl": {
         "group": "blade1",
         "names": {

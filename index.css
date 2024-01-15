@@ -231,9 +231,7 @@ time::after {
 #products p:nth-of-type(3) {order:7;}
 #products figure:nth-of-type(5) {order:8;}
 #products p:nth-of-type(4) {order:9;}
-#products figure:nth-of-type(6) {order:10;}
-#products p:nth-of-type(5) {order:11;}
-#products figure:nth-of-type(7) {order:12;}
+#products figure:nth-of-type(n+6) {order:10;}
 
 #reboot {
     user-select:none;-webkit-user-select:none;
