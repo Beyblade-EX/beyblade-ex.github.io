@@ -4,91 +4,48 @@
 <link rel=stylesheet href=products.css>
 <link rel=stylesheet href=/include/component.css>
 <style>
-    section {
-        display:grid;align-items:start;
-        --size:15.5em;--gap:.5em;
-        padding-bottom:calc(var(--size)/2);
-    }
-    section.even .left {margin-right:calc(var(--size)/2 + var(--gap)/2);}
-    section.even .right {margin-left:calc(var(--size)/2 + var(--gap)/2);}
-    .left,.right {
-        grid-area:2/1/3/2;
-        display:grid;grid-template-columns:repeat(auto-fill,var(--size));justify-content:center;
-        gap:var(--gap);
-    }
-    .right {
-        width:calc(100% - var(--size)/2 - var(--gap));
-        justify-self:center;
-        transform:translateY(calc(var(--size)/2 + var(--gap)/2));
-    }
-    :is(.left,.right)>* {
-        min-width:var(--size);height:var(--size);
-        clip-path:polygon(50% 0%,0% 50%,50% 100%,100% 50%);
-        background:white;
-        position:relative;
-    }
-    figure img {
-        position: absolute;left: 50%;top: 50%;transform: translate(-50%,-50%);
-        width: var(--size,100%);
-        z-index:-1;
-    }
-    figure code {
-        background:var(--light);
-        display:block;
-        margin-top:1.4em;
-        font-family:COND;
-        padding:.1em 0;
+    main {
+        max-width:1000px;
+        margin:auto;
+        --size:150%;
     }
 </style>
 
 <nav><script>nav(['/','/products/'])</script></nav>
 <!--db-status></db-status-->
-<main></main>
+<main class=groups>
+    <h1 style='display:none'>輔助用具</h1>
+</main>
 
 <script>
-    const List = items => items.map(([code, classList, src, size]) => {
-        let img = E('img', {src: List.src(code, src)});
-        size && img.style.setProperty('--size', size + '%');
-        return E('figure', [E('code', code), img], {classList});
-    });
-    List.src = (code, src) => 
-        /^[@_]/.test(src) ? `https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/${code.replace('-', '')}${src}.png` : 
-        /^\d\/\d+/.test(src) ? `https://takaratomymall.jp/img/goods/${src}.jpg` : src;
-
-    Object.entries({
-        "陀螺對戰盤<br>Xtreme Stadium": [
-            ["BXG-02","b","5/4904810913009_ee23e657ce1a4fc6a0ae08278e6f40de",65],
-            ["BX-07","ss","_07@1"],
-            ["BX-10","b","@1"],
-            ["BX-17","ss","_07@1",110]
-        ],
-        "aa":[]
-    }).forEach(([h2, items]) => Q('main').append(E('section', [
-        E('h2', {innerHTML: h2}),
-        E('div', {classList: 'left'}),
-        E('div', {classList: 'right'}, List(items))
-    ])));
+const listing = (details, colors) => {
+    for (let [classes, no, img, size] of colors) {
+        let li = E('li', [
+            E('code', no.replace('<br>', String.fromCharCode(10))),
+            E('figure', [E('img', {src: listing.src([, no, img]), alt: no})])
+        ], {classList: classes.split(' ').join(' ')})
+        size && li.Q('img').style.setProperty('--size', size + '%');
+        details.Q('ol').append(li);
+    }
+}
+listing.src = ([, no, href]) => /^https|\/img/.test(href) ? href : /^B/.test(href) ? `https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/${href}.png` : `https://pbs.twimg.com/media/${href}?format=jpg&name=large`;
+listing.winder = {};
+(async () => {
+    //await DB.open();
+    let /*launchers = await DB.get('html', 'prod-launcher');
+    launchers || DB.put('html', ['prod-launcher',*/ launchers = await (await fetch('/db/prod-accessory.json')).json();//]);
     
-    onresize = () => {//nw+(n-1)g=W,n=(W+g)/(w+g)
-        let gap = parseFloat(getComputedStyle(Q('.left')[0]).gap);
-        let amount = div => Math.floor((div.getBoundingClientRect().width + gap) / (Q(':is(.left,.right)>*')[0].getBoundingClientRect().width + gap));
-        Q('section', section => {
-            let left = amount(section), right = amount(section.Q('.right'));
-            section.classList.toggle('even', left === right);
-
-            let grouped = chunk(section.Q(':is(.left,.right)>*'), left + right);
-            grouped.forEach(group => {
-                section.Q('.left').append(...group.slice(0, left));
-                section.Q('.right').append(...group.slice(left, left + right));
-            });
-
-            let firstRow = div => [...div.children].filter((figure, _, list) => figure.offsetTop == list[0].offsetTop).length;
-            let ratio = firstRow(section.Q('.left')) / firstRow(section.Q('.right'));
-            if (ratio >= 3) {
-                isFinite(ratio) ? section.Q('.right').prepend(section.Q('.left>:last-child')) : section.classList.remove('even');
-            }
-        });
-    };
-    chunk = (array, chunk_size) => Array(Math.ceil(array.length / chunk_size)).fill().map((_, index) => index * chunk_size).map(begin => array.slice(begin, begin + chunk_size));
-    onresize();
+    for (let {eng, jap, desc, colors} of launchers.reverse()) {
+        let details = E('details', [
+            E('summary', [
+                E('h3', {innerHTML: `${jap}<br>${eng}`}),
+                E('small', desc),
+                E('picture', {style: {backgroundImage: `url(${listing.src(colors[1] || colors[0])})`}})
+            ]),
+            E('ol', {classList: 'boards'})
+        ]);
+        details.Q('summary').addEventListener('click', () => listing(details, colors), {once: true});
+        Q(`h1`).after(details);
+    }
+})();
 </script>

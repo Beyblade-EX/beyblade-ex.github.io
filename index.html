@@ -34,14 +34,12 @@
 
 <section id=links>
     <h3>外部連結</h3>
-    <a href="https://beyblade.takaratomy.co.jp/beyblade-x/lineup/"><i>🛍️</i></a><span>商品陣容</span>
-    <a href="https://m.youtube.com/@BEYBLADEOfficialYouTube/videos"><i>🎞️</i></a><span>YouTube</span> 
-    <a href="https://www.corocoro.jp/episode/4856001361379685850"><i>🖍️</i></a><span>漫畫閲覽</span>
-    <a href="https://beyblade.takaratomy.co.jp/anime/character/"><i>📺</i></a><span>動畫資訊</span>
-    <a href="https://www.roblox.com/games/14478075491/BEYBLADE-PARK">
-        <i style="width:100%;height:100%;background:url(https://images.rbxcdn.com/7bba321f4d8328683d6e59487ce514eb) center / 35% no-repeat"></i>
-    </a><span>Roblox</span>
-    <a href="https://twitter.com/tbh_pr"><i>🛠️</i></a><span>𝕏</span>
+    <a href="//beyblade.takaratomy.co.jp/beyblade-x/lineup/"><i>🛍️</i></a><span>商品陣容</span>
+    <a href="//m.youtube.com/@BEYBLADEOfficialYouTube/videos"><i>🎞️</i></a><span>YouTube</span> 
+    <a href="//www.corocoro.jp/episode/4856001361379685850" data-href="//drive.google.com/drive/folders/1vSOCv8UNyiJ76KCDhUbexuS7E7Hs-Isr"><i>🖍️</i></a><span>漫畫閲覽</span>
+    <a href="//beyblade.takaratomy.co.jp/anime/character/"><i>📺</i></a><span>動畫資訊</span>
+    <a><i>📥</i></a><span>App 下載</span>
+    <a href="//twitter.com/tbh_pr"><i>🛠️</i></a><span>𝕏</span>
 </section>
 
 <section id=products>
@@ -57,6 +55,8 @@
 </section-->
 
 <script>
+    //Q('#links a[href=_]').href = navigator.appVersion.includes('Mac') ? 'a':'b';
+
     const observer = new IntersectionObserver(entries => entries.forEach(entry => entry.target.classList.toggle('seeing', entry.isIntersecting)));
     fetch('/db/-update.json').then(resp => resp.json()).then(({news}) => announce(news))
     .then(() => Q('header,section,time,.scroller', content => observer.observe(content))).catch(console.error);
@@ -128,6 +128,47 @@
         caches.delete('V6'), caches.delete('parts'),
         document.cookie.split(/;\s?/).forEach(c => document.cookie = c.replace(/=.*/, `=; max-age=0; path=/`))
     ]);
+
+    const Knob = {
+        init: knob => {
+            knob.minθ = parseInt(getComputedStyle(knob).getPropertyValue('--min'));
+            knob.maxθ = 360 - knob.minθ;
+            knob.currentθ = () => parseFloat(getComputedStyle(knob).getPropertyValue('--angle'));
+            knob.onpointerdown = ev => Knob.press(ev, knob);
+            knob.onpointerenter = ev => Knob.hover(knob, true);
+            knob.onpointerout = ev => Knob.hover(knob, false);
+            knob.onclick = ev => Knob.click(knob);
+        },
+        hover: (knob, doing) => knob.classList.contains('dragged') || knob.style.setProperty('--angle', `${doing ? knob.maxθ : knob.minθ}deg`),
+        press: ({clientY}, knob) => {
+            knob.startY = clientY;
+            knob.startθ = knob.currentθ();
+
+            Q('html').classList.add('dragging');
+            document.onpointermove = ev => Knob.drag(ev, knob);
+            document.onpointerup = ev => Knob.lift(knob);
+        },
+        drag: (ev, knob) => {
+            ev.preventDefault();
+            knob.classList.add('dragged');
+            let currentθ = knob.currentθ();
+            (currentθ == knob.minθ || currentθ == knob.maxθ) && (knob.startθ = currentθ);
+
+            let currentY = ev.clientY;
+            let updatedθ = Math.max(knob.minθ, Math.min(knob.startθ - (currentY - knob.startY), knob.maxθ));
+            (updatedθ == knob.minθ || updatedθ == knob.maxθ) && (knob.startY = currentY);
+            knob.style.setProperty('--angle', `${updatedθ}deg`);
+
+            let value = (updatedθ - knob.minθ) / (knob.maxθ - knob.minθ);
+            knob.classList.toggle('empty', value === 0);
+        },
+        lift: knob => {
+            Q('html').classList.remove('dragging');
+            document.onpointermove = null;
+        },
+        click: knob => knob.classList.contains('empty') ? knob.href = knob.getAttribute('data-href') ?? knob.href : ''
+    };
+    Q('#links a', a => Knob.init(a));
 </script>
 
 <details>
