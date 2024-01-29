@@ -90,7 +90,7 @@ class Cell {
     }
     eng = (name, comp, core) => (comp == 'bit' && name.length > 16 ? name.replace(' ', '<br>') : name);
     jap = (name, comp, core) => (comp == 'bit' && name.length > 8 ? name : name);
-    chi = (name, comp, core) => name.replace(' ', '⬧');
+    chi = (name, comp, core) => name.replace(' ', '⬧').replace('/', '');
     add = (name, dash, mode) => (name && dash ? '<i>′</i>' : '');
 }
 const Dissect = (td, preview) => {
