@@ -110,7 +110,7 @@ Object.assign(Part.prototype.catalog.html, {
     },
     stat: function() {
         let {sym, stat, comp} = this.part;
-        comp == 'ratchet' && stat.push(...sym.split('-'));
+        comp == 'ratchet' && stat[0] && stat.push(...sym.split('-'));
         return E('dl', stat.flatMap((s, i) => [
             E('dt', Parts.meta.terms[i]), 
             E('dd', {innerHTML: `${s}`.replace(/[+\-=]/, '<sup>$&</sup>').replace('-','−').replace('=','≈')})
