@@ -56,9 +56,9 @@ class Part {
     }
 }
 Object.assign(Part.revise.name, {
-    H: {eng: 'High ', jap: 'ハイ', chi: ''},
-    L: {eng: 'Low ', jap: 'ロー', chi: ''},
-    G: {eng: 'Gear ', jap: 'ギア', chi: ''}
+    H: {eng: 'High ', jap: 'ハイ'},
+    L: {eng: 'Low ', jap: 'ロー'},
+    G: {eng: 'Gear ', jap: 'ギア'}
 });
 Object.assign(Part.revise.desc, {H: `高度提升 10 `, L: `高度下降 10 `, G: `齒部延長`});
 
@@ -95,9 +95,9 @@ Object.assign(Part.prototype.catalog.html, {
             [this.symbol(), ...['chi','jap','eng'].map(l => E('h5', names[l], {classList: l}))] : 
             [
                 E('div', {classList: 'chi'}, [
-                    E('h5', {innerHTML: names.chi[0].replace(/(?<=..)/, '<br>')}),
+                    this.names.chi(names.chi[0]),
                     ...names.chi[1] ? [E('span'),
-                    E('h5', {innerHTML: names.chi[1].replace(/(?<=..)/, '<br>')})] : [],
+                    this.names.chi(names.chi[1])] : [],
                 ]),
                 E('h5', {classList: 'jap'}, names.jap),
                 E('h5', {classList: 'eng', innerHTML: names.eng.replace(/^.+(?=[A-Z])/, '<span>$&</span>')}),
@@ -116,4 +116,8 @@ Object.assign(Part.prototype.catalog.html, {
             E('dd', {innerHTML: `${s}`.replace(/[+\-=]/, '<sup>$&</sup>').replace('-','−').replace('=','≈')})
         ]));
     }
+});
+Part.prototype.catalog.html.names.chi = chi => E('h5', {
+    innerHTML: chi.replace(...chi.includes('/') ? [/(.+)\/(.+)/, '<span>$1</span><br>$2'] : [/(?<=..)/, '<br>']), 
+    classList: chi.length > 4 ? 'oversize' : ''
 });

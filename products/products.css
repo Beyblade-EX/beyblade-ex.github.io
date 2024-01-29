@@ -267,7 +267,8 @@ td[data-part$=blade]+td+td,td[data-part$=ratchet]+td+td {
 }
 #eng:not(:checked)~main table:not(.bilingual) .left,
 #eng:checked~main table:not(.bilingual) .right,
-#jap:checked~main .left {
+#jap:checked~main .left,
+table.bilingual .right:last-child {
     font-size:0;
 }
 /*.bilingual*/ label[for=eng],

@@ -144,12 +144,12 @@
             knob.startY = clientY;
             knob.startθ = knob.currentθ();
 
-            Q('html').classList.add('dragging');
             document.onpointermove = ev => Knob.drag(ev, knob);
             document.onpointerup = ev => Knob.lift(knob);
         },
         drag: (ev, knob) => {
             ev.preventDefault();
+            Q('html').classList.add('dragging');
             knob.classList.add('dragged');
             let currentθ = knob.currentθ();
             (currentθ == knob.minθ || currentθ == knob.maxθ) && (knob.startθ = currentθ);

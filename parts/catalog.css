@@ -80,18 +80,23 @@ div.chi {
 .chi h5:only-child {width:2em;}
 .chi h5:first-child {text-align:right;}
 .chi h5:last-child {text-align:left;}
-.chi h5::first-line,.eng span,
-.reverse :is(.chi h5,.eng),
-h4 {
+.chi h5::first-line,h5.oversize span,.eng span,.reverse :is(.chi h5,.eng),h4 {
     color:var(--type);
 }
 .reverse .chi h5::first-line,.reverse .eng span,
 :is(.BSB,.MFB,.BBB) .chi h5::first-line {
     color:var(--on);
 }
-.chi span {
+.chi>span {
     background:var(--type);
     width:.1em;
+}
+h5.oversize span {
+    display:inline-block;
+    transform:scaleX(.7) translateX(calc(15%/.7));
+}
+h5.oversize:last-child span {
+    transform:scaleX(.7) translateX(calc(-15%/.7));
 }
 h5.jap {
     font-size:.8em;

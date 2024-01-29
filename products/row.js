@@ -2,37 +2,36 @@ class AbsPart {
     constructor(sym, fusion = false) {
         [this.sym, this.fusion] = [sym, fusion];
     }
-    code(part = `${this.sym}.${this.constructor.name.toLowerCase()}`, symCode = this.symCode, fusion = this.fusion) {
+    cells(part = `${this.sym}.${this.constructor.name.toLowerCase()}`, fusion = this.fusion) {
         if (this.sym == '/') return this.none();
-        return `<td data-part='${part}'>${symCode}<td class=left><td class='right${fusion ? ' fusion' : ''}'>`;
+        let tds = [E('td', {innerHTML: this.symHTML}), E('td', {classList: 'left'}), E('td', {classList: `right${fusion ? ' fusion' : ''}`})];
+        tds[0].setAttribute('data-part', part);
+        return tds;
     }
-    none = hidden => `<td><s>${hidden ? this.sym : 'ꕕ'}</s><td><td class=right>`;
-    static number = (no, sub) => '<td>' + no.replace(/^B-(?=\d\d)$/, 'B-<s>0</s>&nbsp;') + (sub ? `<sub>${sub}</sub>` : '');
+    none = hidden => [E('td', [E('s', hidden ? this.sym : 'ꕕ')]), E('td'), E('td', {classList: 'right'})];
+    static number = (no, sub) => [E('td', no.replace(/^B-(?=\d\d)$/, 'B-<s>0</s>&nbsp;')), sub ? E('sub', sub) : ''];
 }
 class Blade extends AbsPart {
     constructor(sym, upperFusion) {
         super(sym, upperFusion);
-        this.symCode = sym;
+        this.symHTML = sym;
     }
-    code(part = `${this.sym}.${this.constructor.name.toLowerCase()}`, fusion = this.fusion) {
-        if (this.sym == '/') return this.none();
-        return `<td data-part='${part}'><td class=left><td class='right${fusion ? ' fusion' : ''}'>`;
+    cells(part = `${this.sym}.${this.constructor.name.toLowerCase()}`, fusion = this.fusion) {
+        let tds = super.cells(part, fusion);
+        tds[0].innerHTML = '';
+        return tds;
     }
 }
 class Ratchet extends AbsPart {
     constructor(sym) {
         super(sym);
-        this.symCode = sym;
-    }
-    code(part = `${this.sym}.${this.constructor.name.toLowerCase()}`, fusion = this.fusion) {
-        if (this.sym == '/') return this.none();
-        return `<td data-part='${part}'>${this.symCode}<td class=left><td class='right${fusion ? ' fusion' : ''}'>`;
+        this.symHTML = sym;
     }
 }
 class Bit extends AbsPart {
     constructor(sym, lowerFusion) {
         super(sym, lowerFusion);
-        this.symCode = (lowerFusion || sym.length == 1 ? '&nbsp;' : '') + sym;
+        this.symHTML = (lowerFusion || sym.length == 1 ? '&nbsp;' : '') + sym;
     }
 }
 
@@ -54,7 +53,7 @@ class Row {
         let [blade, ratchet, bit] = abbr.split(' ');
         [blade, ratchet, bit] = [new Blade(blade), new Ratchet(ratchet), new Bit(bit)];
 
-        this.tr.innerHTML = AbsPart.number(...no.split('.')) + blade.code() + (bit.fusion ? bit.code() + bit.none(true) : ratchet.code() + bit.code());
+        this.tr.append(...[AbsPart.number(...no.split('.')), blade.cells(), bit.fusion ? [bit.cells(), bit.none(true)] : [ratchet.cells(), bit.cells()]].flat(9));
         this.tr.classList = [type, blade.system ?? ''].join(' ');
         this.tr.setAttribute('data-no', no.split('.')[0]);
         this.tr.setAttribute('data-abbr', abbr);
@@ -84,6 +83,7 @@ class Cell {
     preview = () => Preview(this.td.matches('td:first-child') ? 'image' : 'part')(this.td);
     code = lang => {
         let {sym, comp, pref, dash, core, mode} = Dissect(this.td);
+        comp == 'bit' && lang == 'chi' && (lang = 'eng');
         let name = (comp == 'bit' && (pref || dash) ? Part.revise.name(NAMES[comp][sym], pref[0]) : NAMES[comp]?.[sym])?.[lang] ?? '';
         this.td.innerHTML = this[lang](name, comp, core) + this.add(name, dash, mode);
         this.td.classList.toggle('small', name.length >= (Mapping.maps.oversize[lang].find(comp) || 99));

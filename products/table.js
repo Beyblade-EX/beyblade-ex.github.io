@@ -39,7 +39,7 @@ Object.assign(Table, {
         })
     },
     flush(update = false) {
-        document.body.scrollWidth > 300 ?
+        document.body.scrollWidth > 400 ?
             Table.colspan(Q('#jap').checked ? 'cjk' : 'both') : Table.colspan(Q('#eng').checked ? 'eng' : 'cjk');
         $('#regular').trigger('update', [false]);
     },
