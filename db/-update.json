@@ -11,14 +11,43 @@
         "https://m.media-amazon.com/images/S/aplus-media-library-service-media/94ec86c3-ec4c-4730-9be5-1798742ac111.__CR0,0,970,600_PT0_SX970_V1___.jpg"
       ],"desc":["小抽包","Blade 及 Ratchet 也是連打九枚刃"]}
     ],
-    "2024-03":[
-      {"code":"BX-28 string launcher","name":"","imgs":[],"desc":["拉線發射器"]},
-      {"code":"BX-29 launcher grip","name":"","imgs":[],"desc":["手把"]},
-      {"code":"BX-30 launcher grip","name":"","imgs":[],"desc":["手把"]},
-      {"code":"UX-01 starter","name":"","imgs":[],"desc":[]},
-      {"code":"UX-02 starter","name":"","imgs":[],"desc":[]},
-      {"code":"UX-03 booster","name":"","imgs":[],"desc":[]},
-      {"code":"UX-04 entry set","name":"","imgs":[],"desc":[]}
+    "2024-03-30":[
+      {"code":"BX-28","name":"ストリングランチャー ホワイトVer.<br>String Launcher (White)","imgs":[
+        "https://image.yodobashi.com/product/100/000/001/008/307/714/100000001008307714_10214.jpg",
+        "https://image.yodobashi.com/product/100/000/001/008/307/714/100000001008307714_10204.jpg"
+      ],"desc":["拉線發射器"]},
+      {"code":"BX-29","name":"カスタムグリップ ホワイトVer.<br>Custom Grip (White)","imgs":[
+        "https://image.yodobashi.com/product/100/000/001/008/307/715/100000001008307715_10209.jpg",
+        "https://image.yodobashi.com/product/100/000/001/008/307/715/100000001008307715_10219.jpg"
+        ],"desc":[
+        "更多可拆除組件的手把，以調節最適握感"]},
+      {"code":"BX-30","name":"カスタムグリップ レッドVer.<br>Custom Grip (Red)","imgs":[
+        "https://image.yodobashi.com/product/100/000/001/008/307/716/100000001008307716_10209.jpg",
+        "https://image.yodobashi.com/product/100/000/001/008/307/716/100000001008307716_10219.jpg"
+      ],"desc":[]},
+      {"code":"UX-01 starter","name":"ドランバスター1-60A<br>DranBuster 1-60A","type":"a","imgs":[
+        "https://image.yodobashi.com/product/100/000/001/008/307/710/100000001008307710_10214.jpg",
+        "https://image.yodobashi.com/product/100/000/001/008/307/710/100000001008307710_10219.jpg",
+        "https://image.yodobashi.com/product/100/000/001/008/307/710/100000001008307710_10204.jpg"
+      ],
+      "desc":["首款 <ruby class=below><rb>UX</rb><rt>unique</rt></ruby> 商品，<ruby class=below><rb>BX</rb><rt>basic</rt></ruby> 的另一線",
+      "DranBuster Blade：大型攻擊刃，加強瞬間攻擊性能","A Bit：齒數增多，增加一擊 X Dash 性能"]},
+      {"code":"UX-02 starter","name":"ヘルズハンマー3-70H<br>HellsHammer 3-70H","type":"b","imgs":[
+        "https://image.yodobashi.com/product/100/000/001/008/307/711/100000001008307711_10214.jpg",
+        "https://image.yodobashi.com/product/100/000/001/008/307/711/100000001008307711_10219.jpg",
+        "https://image.yodobashi.com/product/100/000/001/008/307/711/100000001008307711_10204.jpg"
+      ],"desc":[
+        "HellsHammer Blade：厚 Smash 刃，把對手向下壓","H Bit：容易保持直立"
+      ]},
+      {"code":"UX-03 booster","name":"ウィザードロッド5-70DB<br>WizardRod 5-70DB","type":"s","imgs":[
+        "https://image.yodobashi.com/product/100/000/001/008/307/712/100000001008307712_10209.jpg",
+        "https://image.yodobashi.com/product/100/000/001/008/307/712/100000001008307712_10214.jpg",
+        "https://image.yodobashi.com/product/100/000/001/008/307/712/100000001008307712_10204.jpg"
+      ],"desc":["WizardRod Blade：外重心、大徑","DB Bit：附有圓環的 B Bit"]},
+      {"code":"UX-04 entry set","name":"バトルエントリーセットU<br>Battle Entry Set U","imgs":[
+        "https://image.yodobashi.com/product/100/000/001/008/307/713/100000001008307713_10204.jpg",
+        "https://image.yodobashi.com/product/100/000/001/008/307/713/100000001008307713_10219.jpg"
+      ],"desc":[]}
     ],
     "2024-04":[
       {"code":"BX-31 random booster vol.3","name":"","imgs":[],"desc":[]},
