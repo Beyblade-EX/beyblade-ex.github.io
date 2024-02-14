@@ -275,7 +275,7 @@ dfn.fusion {--c:270;}
 }
 .part-filter label img {
     height:1.01em;
-    margin-top:.1em;
+    margin-top:.15em;
 }
 .part-filter input:checked+label {
     color:var(--fg);

@@ -1,4 +1,3 @@
-let Parts = {bit: {prefix: 'GHL'}};
 const concat = (...objs) => objs.reduce((summed, o, i) => i === 0 ? summed : Object.fromEntries(Object.entries(summed).map(([k, v]) => [k, v += o[k] ?? ''])), objs[0]);
 class Part {
     constructor(dict, array) {this.array = array;
@@ -56,11 +55,17 @@ class Part {
     }
 }
 Object.assign(Part.revise.name, {
+    D: {eng: 'Down ', jap: 'ハイ'},
+    G: {eng: 'Gear ', jap: 'ギア'},
     H: {eng: 'High ', jap: 'ハイ'},
-    L: {eng: 'Low ', jap: 'ロー'},
-    G: {eng: 'Gear ', jap: 'ギア'}
+    L: {eng: 'Low ', jap: 'ロー'}
 });
-Object.assign(Part.revise.desc, {H: `高度提升 10 `, L: `高度下降 10 `, G: `齒部延長`});
+Object.assign(Part.revise.desc, {
+    G: `齒部延長`,
+    H: `高度提升 10 `, 
+    L: `高度下降 10 `, 
+});
+let Parts = {bit: {prefix: Object.keys(Part.revise.name).join('')}};
 
 Part.prototype.catalog.html = function() {
     return [

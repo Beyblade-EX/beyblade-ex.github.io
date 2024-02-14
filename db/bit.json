@@ -1,4 +1,14 @@
 {
+    "A": {
+        "group": "flat",
+        "names": {
+            "jap": "",
+            "eng": ""
+        },
+        "stat": [],
+        "desc": "",
+        "attr": ["a"]
+    },
     "B": {
         "group": "round",
         "names": {
@@ -8,6 +18,10 @@
         "stat": ["2=",12,78],
         "desc": "球狀軸端以適度移動來躱避攻擊及實現高持久力。",
         "attr": ["s"]
+    },
+    "DB": {
+        "stat": [],
+        "desc": ""
     },
     "GB": {
         "stat": ["2="],
@@ -30,6 +44,16 @@
     "LF": {
         "stat": ["2+"],
         "desc": "軸端的凹洞亦被填滿。"
+    },
+    "H": {
+        "group": "sharp",
+        "names": {
+            "jap": "",
+            "eng": ""
+        },
+        "stat": [],
+        "desc": "",
+        "attr": ["b"]
     },
     "N": {
         "group": "sharp",

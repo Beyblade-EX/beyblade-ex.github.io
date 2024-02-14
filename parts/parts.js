@@ -19,11 +19,13 @@ Parts = {
     cataloging: async () => {
         let compare = (u, v, f = p => p) => +(f(u) > f(v)) || -(f(u) < f(v));
         let sorting = (p, q) =>
-            /^blade\d|MFB|BSB$/.test(p.group) && compare(q, p, p => p.group)
+            /^MFB|BSB$/.test(p.group) && compare(q, p, p => p.group)
+            || p.comp == 'ratchet' && compare(p, q, p => parseInt(p.sym.match(/\d+$/)))
             || compare(p, q, p => p.sym[0] == '+')
             || compare(p, q, p => parseInt(p.sym))
             || p.group == 'BSB' && compare(p, q, p => p.sym.match(/^..[^S]?/))
-            || compare(p, q, p => p.strip().toLowerCase());
+            || compare(p, q, p => p.strip().toLowerCase())
+            || p.comp == 'bit' && compare(p, q, p => p.sym.match(new RegExp(`^[${Parts.bit.prefix}]`)));
 
         Parts.unmade = Object.entries(await (await fetch(`/db/${Parts.comp}.json`)).json()).map(([sym, part]) => ({...part, key: `${sym}.${Parts.comp}`}));
         //await Promise.all(Parts.meta.groups.map(g => DB.get.parts(g)));
@@ -112,17 +114,17 @@ Object.assign(Filter, {
         group: [Parts.category, Parts.meta.groups.map((g, i) => ({id: g, text: Parts.meta.labels?.[i] || g.replace(Parts.comp, '')}) )],
         type: ['類型', ['a','b','s','d'].map(t => ({id: t, text: E('img', {src: `/img/type-${t[0]}.png`})}) )],
         spin: ['迴轉', ['l','r'].map((s, i) => ({id: s, text: ['\ue01d','\ue01e'][i]}) )],
-        prefix: ['變化', ['–','G','H','L'].map(p => ({id: p, text: p}) )],
+        prefix: ['變化', ['–', ...Parts.bit.prefix].map(p => ({id: p, text: p}) )],
     }),
     filter: async group => {
         group && await Parts.switch(group);
         let show = [Q('.part-filter:not([hidden])')].flat().map(dl => 
-            `:is(${[dl.Q('input:checked')].flat().map(input => input.id == '–' ? Filter.normal(dl) : `.${input.id}`)})`
+            `:is(${[dl.Q('input:checked')].flat().map(input => input.id == '–' ? Filter.normal(dl) : `[class~=${input.id}]`)})`
         ).join('');
         Q('.catalog>a[class]', a => a.hidden = !a.matches(show));
         group && Filter.toggle();
         Parts.count(group);
     },
-    normal: dl => `:not(${dl.Q('input').map(input => `.${input.id}`)})`,
+    normal: dl => `:not(${dl.Q('input').map(input => `[class~=${input.id}]`)})`,
     toggle: () => {}
 });

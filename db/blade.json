@@ -10,8 +10,41 @@
         "desc": "兩攻水平刃産生高攻擊力及持久力，是重視平衡的設計。",
         "attr": ["r","b"]
     },
+    "WzRd": {
+        "group": "UX",
+        "names": {
+            "jap": "ウィザードロッド",
+            "eng": "WizardRod",
+            "chi": ""
+        },
+        "stat": [],
+        "desc": "",
+        "attr": ["r","s"]
+    },
+    "HlHm": {
+        "group": "UX",
+        "names": {
+            "jap": "ヘルズハンマー",
+            "eng": "HellsHammer",
+            "chi": ""
+        },
+        "stat": [],
+        "desc": "",
+        "attr": ["r","b"]
+    },
+    "DrBs": {
+        "group": "UX",
+        "names": {
+            "jap": "ドランバスター",
+            "eng": "DranBuster",
+            "chi": ""
+        },
+        "stat": [],
+        "desc": "",
+        "attr": ["r","a"]
+    },
     "SpCw": {
-        "group": "blade1",
+        "group": "BX",
         "names": {
             "jap": "スフィンクスカウル",
             "eng": "SphinxCowl",
@@ -22,7 +55,7 @@
         "attr": ["r","d"]
     },
     "UnSt": {
-        "group": "blade1",
+        "group": "BX",
         "names": {
             "jap": "ユニコーンスティング",
             "eng": "UnicornSting",
@@ -33,7 +66,7 @@
         "attr": ["r","b"]
     },
     "WyGl": {
-        "group": "blade1",
+        "group": "BX",
         "names": {
             "jap": "ワイバーンゲイル",
             "eng": "WyvernGale",
@@ -44,7 +77,7 @@
         "attr": ["r","s"]
     },
     "PhWn": {
-        "group": "blade1",
+        "group": "BX",
         "names": {
             "jap": "フェニックスウイング",
             "eng": "PhoenixWing",
@@ -55,7 +88,7 @@
         "attr": ["r","a"]
     },
     "PhFt": {
-        "group": "blade1",
+        "group": "BX",
         "names": {
             "jap": "フェニックスフェザー",
             "eng": "PhoenixFeather",
@@ -66,7 +99,7 @@
         "attr": ["r","a"]
     },
     "DrDg": {
-        "group": "blade1",
+        "group": "BX",
         "names": {
             "jap": "ドランダガー",
             "eng": "DranDagger",
@@ -77,7 +110,7 @@
         "attr": ["r","a"]
     },
     "DrSw": {
-        "group": "blade1",
+        "group": "BX",
         "names": {
             "jap": "ドランソード",
             "eng": "DranSword",
@@ -88,7 +121,7 @@
         "attr": ["r","a"]
     },
     "HlCh": {
-        "group": "blade1",
+        "group": "BX",
         "names": {
             "jap": "ヘルズチェイン",
             "eng": "HellsChain",
@@ -99,7 +132,7 @@
         "attr": ["r","b"]
     },
     "HlSc": {
-        "group": "blade1",
+        "group": "BX",
         "names": {
             "jap": "ヘルズサイズ",
             "eng": "HellsScythe",
@@ -110,7 +143,7 @@
         "attr": ["r","b"]
     },
     "WzAr": {
-        "group": "blade1",
+        "group": "BX",
         "names": {
             "jap": "ウィザードアロー",
             "eng": "WizardArrow",
@@ -121,7 +154,7 @@
         "attr": ["r","s"]
     },
     "KnSh": {
-        "group": "blade1",
+        "group": "BX",
         "names": {
             "jap": "ナイトシールド",
             "eng": "KnightShield",
@@ -132,7 +165,7 @@
         "attr": ["r","d"]
     },
     "KnLn": {
-        "group": "blade1",
+        "group": "BX",
         "names": {
             "jap": "ナイトランス",
             "eng": "KnightLance",
@@ -143,7 +176,7 @@
         "attr": ["r","d"]
     },
     "RhHr": {
-        "group": "blade1",
+        "group": "BX",
         "names": {
             "jap": "ライノホーン",
             "eng": "RhinoHorn",
@@ -154,7 +187,7 @@
         "attr": ["r","d"]
     },
     "ShEd": {
-        "group": "blade1",
+        "group": "BX",
         "names": {
             "jap": "シャークエッジ",
             "eng": "SharkEdge",
@@ -165,7 +198,7 @@
         "attr": ["r","a"]
     },
     "LnCl": {
-        "group": "blade1",
+        "group": "BX",
         "names": {
             "jap": "レオンクロー",
             "eng": "LeonClaw",
@@ -176,7 +209,7 @@
         "attr": ["r","b"]
     },
     "VpTl": {
-        "group": "blade1",
+        "group": "BX",
         "names": {
             "jap": "ヴァイパーテイル",
             "eng": "ViperTail",
@@ -187,7 +220,7 @@
         "attr": ["r","s"]
     },
     "CbDr": {
-        "group": "blade1",
+        "group": "BX",
         "names": {
             "jap": "コバルトドレイク",
             "eng": "CobaltDrake",
