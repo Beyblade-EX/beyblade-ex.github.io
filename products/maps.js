@@ -2,14 +2,10 @@ Mapping.brochure = (no, upper) => `detail_${no.replace('-', '')[`to${upper ? 'Up
 Mapping.maps = {
     ...Mapping.maps,
     image: new Mapping(
-        'BXG-05', 'https://takaratomymall.jp/img/goods/5/4904810936114_d7b7e1db554f4b4f8afde656e6904180.jpg',
-        'BXG-03', 'https://takaratomymall.jp/img/goods/3/4904810913344_79d06c0bdc8743569fad277a2be9a560.jpg',
         no => no.replace('-', '') + '@1'
     ),
     brochure: new Mapping(
-        'BXG-06', no => Mapping.brochure(no, true),
-        'BXG-05', 'https://takaratomymall.jp/img/goods/BEYBLADE/img_4904810936114.jpg',
-        'BXG-03', 'https://takaratomymall.jp/img/goods/BEYBLADE/img_4904810913344.jpg',
+        /^BXG-/, no => Mapping.brochure(no, true),
         'BX-21', no => ['p','y','o'].map(c => `${Mapping.brochure(no)}_${c}`),
         'BX-20', no => ['B','G','P'].map(c => `${Mapping.brochure(no)}${c}`),
         ['BX-17','UX-04'], no => ['A','B'].map(c => `${Mapping.brochure(no)}${c}`),
