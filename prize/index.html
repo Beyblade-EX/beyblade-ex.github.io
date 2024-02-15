@@ -32,7 +32,8 @@
 <script>
     let names;
     DB.get.names().then(result => names = result).then(() => fetch('/db/keihin.json')).then(resp => resp.json()).then(keihins => 
-        Q('.diamonds').append(...keihins.map(([type, date, bey, note, desc, image, adjust]) => {
+        Q('.diamonds').append(...keihins.map(([kind, date, bey, note, desc, image, adjust]) => {
+            let [type, BXA] = kind.split('|');
             let [blade, ...others] = bey.split(' ');
             let [jap, eng] = note.split('|');
             let [text, href] = desc.split('|');
@@ -40,7 +41,12 @@
                 E('b', type), E('p', href ? [E('a', {href}, text)] : desc),
                 E('div', [
                     E('figure', [E('img', {src: image})]), 
-                    E('h5', [E('span', names.blade[blade].jap), ` ${others}`.replace('-', '‑'), E('small', {innerHTML: jap})]),
+                    E('h5', [
+                        BXA ? E('span', `${BXA} 日本外亞洲地區`, {classList: 'BXA'}) : '', 
+                        E('span', names.blade[blade].jap), 
+                        ` ${others}`.replace('-', '‑'), 
+                        E('small', {innerHTML: jap})
+                    ]),
                 ]),
                 E('i', [names.blade[blade].chi.replace(' ', '⬧') + ` ${others}`.replace('-', '‑') || '　', E('small', eng)]),
                 E('time', date.replace('-','‒'))

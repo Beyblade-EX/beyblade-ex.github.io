@@ -65,15 +65,24 @@ li.next {grid-column:1;}
     font-size:.9em; line-height:1.1;
     display:block; 
     margin-top:4.5em;
+    position:relative;
 }
-.diamonds small {
+.diamonds h5:has(.BXA) {
+    margin-top:3.4em;
+}
+.BXA {
+    transform:translate(.3em);
+}
+.diamonds small,.BXA {
     display:block;
     color:grey;
+    margin:.3em 0;
 }
 .diamonds h5 small {
-    margin-top:.3em;
-    font-size:.8em;
     transform:scaleX(.95);
+}
+.diamonds h5 small,.BXA {
+    font-size:.8em;
 }
 .diamonds :is(span,h5 small) {
     letter-spacing:-.05em;
