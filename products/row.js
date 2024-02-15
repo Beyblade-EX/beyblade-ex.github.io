@@ -113,7 +113,7 @@ Object.assign(Dissect, {
     }),
     items: (comp, preview) => ['mode', ...comp == 'bit' && !preview ? ['pref', 'dash'] : []],
     regex: {
-        pref: /^[GHL]+(?=[^a-z].*)/,
+        pref: new RegExp(`^[${Parts.bit.prefix}]+(?=[^a-z].*)`),
         dash: /′(?:\+.)?$/,
         //core: /[\dα′_]+(?=\D)/,
         mode: /\+[^.′ ]+/

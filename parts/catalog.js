@@ -55,12 +55,13 @@ class Part {
     }
 }
 Object.assign(Part.revise.name, {
-    D: {eng: 'Down ', jap: 'ハイ'},
+    D: {eng: 'Disk ', jap: 'ディスク'},
     G: {eng: 'Gear ', jap: 'ギア'},
     H: {eng: 'High ', jap: 'ハイ'},
     L: {eng: 'Low ', jap: 'ロー'}
 });
 Object.assign(Part.revise.desc, {
+    D: `加上圓盤狀重量點`,
     G: `齒部延長`,
     H: `高度提升 10 `, 
     L: `高度下降 10 `, 

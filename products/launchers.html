@@ -30,7 +30,7 @@ const listing = (details, colors) => {
         details.Q('ol').append(li);
     }
 }
-listing.src = ([, no, href]) => /^https|\/img/.test(href) ? href : /^B/.test(href) ? `https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/${href}.png` : `https://pbs.twimg.com/media/${href}?format=jpg&name=large`;
+listing.src = ([, no, href]) => /^https|\/img/.test(href) ? href : /^[BU]/.test(href) ? `https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/${href}.png` : `https://pbs.twimg.com/media/${href}?format=jpg&name=large`;
 listing.winder = {};
 (async () => {
     //await DB.open();

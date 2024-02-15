@@ -2,11 +2,11 @@
     "A": {
         "group": "flat",
         "names": {
-            "jap": "",
-            "eng": ""
+            "jap": "アクセル",
+            "eng": "Accel"
         },
         "stat": [],
-        "desc": "",
+        "desc": "由平坦軸端加上大型 Gear 組成的設計，提高 X Dash 性能。",
         "attr": ["a"]
     },
     "B": {
@@ -21,7 +21,7 @@
     },
     "DB": {
         "stat": [],
-        "desc": ""
+        "desc": "產生離心力及堅韌的迴轉。"
     },
     "GB": {
         "stat": ["2="],
@@ -34,12 +34,12 @@
             "eng": "Flat"
         },
         "stat": ["2+",12,94],
-        "desc": "平坦軸端令陀螺跑動，提高以 X Dash 決勝的容易度。",
+        "desc": "平坦軸端令陀螺跑動，提高以 X Dash 決勝的容易度。",
         "attr": ["a"]
     },
     "GF": {
         "stat": ["2+"],
-        "desc": "更容易勾住 X Line，實現更高速的 X Dash。"
+        "desc": "更容易勾住 X Line，實現更高速的 X Dash。"
     },
     "LF": {
         "stat": ["2+"],
@@ -48,11 +48,11 @@
     "H": {
         "group": "sharp",
         "names": {
-            "jap": "",
-            "eng": ""
+            "jap": "ヘキサ",
+            "eng": "Hexa"
         },
         "stat": [],
-        "desc": "",
+        "desc": "軸端側面六個平面形狀抑制陀螺的傾斜，持續保持安定姿勢。",
         "attr": ["b"]
     },
     "N": {
@@ -71,7 +71,7 @@
     },
     "GN": {
         "stat": [],
-        "desc": "同時容易穩守對戰盤中央及 X Dash。"
+        "desc": "同時容易穩守對戰盤中央及 X Dash。"
     },
     "O": {
         "group": "round",
@@ -104,7 +104,7 @@
             "eng": "Rush"
         },
         "stat": ["2=",10,94],
-        "desc": "十枚刃 Gear 以壓抑 X Dash 的速度來增加 Dash 次數。",
+        "desc": "十枚刃 Gear 以壓抑 X Dash 的速度來增加 Dash 次數。",
         "attr": ["a"]
     },
     "S": {
