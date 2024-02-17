@@ -31,14 +31,11 @@ div:first-child a[href]::before {
     -webkit-background-clip:text; color:transparent;
     font-size:1.5em;
 }
-form a[href='launchers.html'] {
+form a[href$='#launchers'] {
     background:url(https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BX18@1.png) center / 150%;
 }
-form a[href='accessories.html'] {
+form a[href$='#others'] {
     background:url(https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BX11@1.png) center / 120%;
-}
-form a[href='stadiums.html'] {
-    background:url(https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BX10_02@1.png) center / 120%;
 }
 form div {
     width:3em;

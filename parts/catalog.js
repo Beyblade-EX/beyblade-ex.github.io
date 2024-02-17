@@ -61,7 +61,7 @@ Object.assign(Part.revise.name, {
     L: {eng: 'Low ', jap: 'ロー'}
 });
 Object.assign(Part.revise.desc, {
-    D: `加上圓盤狀重量點`,
+    D: `加上圓盤狀重量`,
     G: `齒部延長`,
     H: `高度提升 10 `, 
     L: `高度下降 10 `, 
