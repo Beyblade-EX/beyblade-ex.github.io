@@ -93,7 +93,7 @@ input[type=checkbox],input[type=radio],::-webkit-details-marker {
 
 html {
     background:var(--backdrop);
-    --backdrop:black;--overlay1:#383838E8;--overlay1-s:#383838;--overlay2:#555555;
+    --backdrop:black;--overlay1:#383838E8;--overlay1-s:#383838;--overlay2:#505050;
     color:var(--on); --on:#ddd;
     --c:87; --theme:#b5fb5c; --theme-50:#a2ff1f80; --theme-dark:#365709;
 }
