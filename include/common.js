@@ -100,7 +100,7 @@ const DB = {
     }),
     open: () => new Promise(res => {
         if (DB.db) return res(true);
-        let opening = indexedDB.open('V6', 1), familiar;
+        let opening = indexedDB.open('V2', 1), familiar;
         opening.onerror = DB.indicator.error;
         opening.onsuccess = () => ((DB.db = opening.result).onerror = opening.onerror) && (familiar ?? res(true));
         opening.onupgradeneeded = () => (familiar = false) || DB.init(opening).then(DB.cache).then(() => res(false)).catch(opening.onerror);

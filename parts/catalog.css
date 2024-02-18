@@ -268,7 +268,7 @@ dfn.fusion {--c:270;}
     border-bottom:.1em solid transparent;
     text-transform:capitalize;
     margin-left:.3em; padding:0 .1em;
-    color:var(--overlay3); text-shadow:0 0 .05em rgba(0,0,0,.2);
+    color:gray; text-shadow:0 0 .05em rgba(0,0,0,.2);
     filter:saturate(0);
     display:inline-block; height:1.4em;
     line-height:1.5;

@@ -57,12 +57,13 @@ class Row {
         this.tr.classList = [type, blade.system ?? ''].join(' ');
         this.tr.setAttribute('data-no', no.split('.')[0]);
         this.tr.setAttribute('data-abbr', abbr);
-        video && this.tr.setAttribute('data-video', video);
-        extra && this.extra(extra);
+        typeof video == 'string' && this.tr.setAttribute('data-video', video);
+        (typeof video == 'object' || extra) && this.extra(extra || video);
 
         return Q(place).appendChild(this.tr);
     }
-    extra({chip, more}) {
+    extra({more, coat}) {
+        coat && this.tr.style.setProperty('--coat', coat);
         more && this.tr.setAttribute('data-more', Object.keys(more));
         more && Object.entries(more).forEach(([part, column], i) => {
             this.tr.Q(`td:nth-child(${column})`).setAttribute('data-more', i);

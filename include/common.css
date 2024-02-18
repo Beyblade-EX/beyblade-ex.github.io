@@ -51,7 +51,7 @@ ruby {
     display:inline-flex;flex-direction:column-reverse;align-items:center;
 }
 article ruby {
-    display:inline;
+    display:revert;
 }
 rt {
     margin-top:0;line-height:.7;
@@ -93,7 +93,7 @@ input[type=checkbox],input[type=radio],::-webkit-details-marker {
 
 html {
     background:var(--backdrop);
-    --backdrop:black;--overlay1:#383838E8;--overlay1-s:#383838;--overlay2:#606060;--overlay3:#999;
+    --backdrop:black;--overlay1:#383838E8;--overlay1-s:#383838;--overlay2:#555555;
     color:var(--on); --on:#ddd;
     --c:87; --theme:#b5fb5c; --theme-50:#a2ff1f80; --theme-dark:#365709;
 }
