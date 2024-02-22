@@ -19,7 +19,7 @@ Object.assign(Table, {
     },
     async fetch(key, tbody = '#regular tbody') {
         //let beys = await DB.get('html', key);
-        let beys = await (await fetch('/db/prod-new.json')).json();
+        let beys = await (await Fetch('/db/prod-new.json')).json();
         if (typeof beys == 'string') {
             beys = [...E('template', {innerHTML: beys}).content.children];
             Q(tbody).append(...beys);
@@ -123,7 +123,7 @@ Object.assign(Find, {
         beys: where => {
             Q('#regular.new') && Table.entire();
             Q('tbody tr', tr => tr.hidden = !(
-                [/\d+/.exec(tr.no)[0], tr.no.toLowerCase()].includes(Find.target.free.toLowerCase()) ||
+                Find.target.free.length >= 2 && tr.no.toLowerCase().includes(Find.target.free.toLowerCase()) ||
                 Find.regexp.some(regex => regex.test(tr.abbr)) || 
                 tr.more?.split(',').some(m => Find.target.more.includes(m))
             ));

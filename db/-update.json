@@ -1,10 +1,12 @@
 {
-  "prod-new": ["2023/11/14 23:35:00"],
-  "ratchet": ["2023/11/05 20:30:00"],
-  "bit": ["2023/12/08 09:40:00"],
-  "blade": ["2023/03/14 16:20:00"],
-  "meta": ["2022/10/15 09:50:00"],
-  "prod-launcher": ["2022/09/15 16:20:00"],
+  "/db/prod-new.json":      ["2024/02/22 23:08:00"],
+  "/db/prod-launchers.json":["2024/02/20 23:10:00"],
+  "/db/prod-others.json":   ["2024/02/20 23:15:00"],
+  "/db/part-ratchet.json":  ["2024/02/20 23:10:00"],
+  "/db/part-bit.json":      ["2024/02/21 00:31:00"],
+  "/db/part-blade.json":    ["2024/02/22 23:10:00"],
+  "/db/part-meta.json":     ["2024/02/20 23:10:00"],
+  "/db/keihin.json":        ["2024/02/20 23:10:00"],
   "news": {
     "2024-02-22":[
       {"code":"BX-27 random booster select","type":"d","name":"スフィンクスカウル 9-80GN<br>SphinxCowl 9-80GN","imgs":[

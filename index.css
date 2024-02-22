@@ -217,6 +217,7 @@ time::after {
     display:inline-block; width:3rem; height:3rem;
     font-size:.7em; line-height:7rem;
     margin-bottom:1.25rem;
+    color:var(--type);
 }
 [class=b]::before {content:'平衡型';background:url(/img/type-b.png) center / contain no-repeat;}
 [class=a]::before {content:'攻擊型';background:url(/img/type-a.png) center / contain no-repeat;}

@@ -102,7 +102,7 @@ Table.events = () => {
     window.onresize = () => Table.flush();
 }
 Find.events = () => {
-    Q('input:not([type])', input => input.onkeypress = ({code}) => code == 'Enter' ? Find() : '');
+    Q('input:not([type])', input => input.onkeypress = ({keyCode}) => keyCode == 13 ? Find() : '');
     Q('label[for=free]').onclick = () => Find();
 }
 Filter.events = () => {

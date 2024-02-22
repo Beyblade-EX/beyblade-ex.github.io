@@ -151,7 +151,7 @@ Object.assign(DB.put, {
     }),
 });
 Object.assign(DB.get, {
-    names: () => Promise.all(['blade', 'ratchet', 'bit'].map(comp => fetch(`/db/${comp}.json`).then(resp => resp.json())))
+    names: () => Promise.all(['blade', 'ratchet', 'bit'].map(comp => Fetch(`/db/part-${comp}.json`).then(resp => resp.json())))
         .then(([blade, ratchet, bit]) => ({
             blade: Object.fromEntries(Object.entries(blade).map(([sym, {names}]) => [sym, names])), 
             ratchet: Object.fromEntries(Object.entries(ratchet).map(([sym]) => [sym, {}])), 
@@ -197,3 +197,15 @@ class Mapping {
     }
     static maps = {};
 }
+let files = {
+    updated: JSON.parse(localStorage.getItem('updated') || '{}'),
+    stored: JSON.parse(localStorage.getItem('stored') || '{}')
+}
+location.pathname == '/' && fetch('/db/-update.json').then(resp => resp.json())
+.then(({news, ...others}) => Object.entries(others).forEach(([url, [time]]) => files.updated[url] = new Date(time).getTime()))
+.then(() => localStorage.setItem('updated', JSON.stringify(files.updated)));
+
+const Fetch = url => files.stored[url] >= files.updated[url] && caches.match(url)
+    || console.log(url) || fetch(url).then(resp => caches.open('json').then(cache => cache.add(url, resp)) 
+        && localStorage.setItem('stored', JSON.stringify(files.stored = {...files.stored, [url]: new Date().getTime()})) || resp
+    )

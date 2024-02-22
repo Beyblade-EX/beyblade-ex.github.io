@@ -31,7 +31,7 @@
 </main>
 <script>
     let names;
-    DB.get.names().then(result => names = result).then(() => fetch('/db/keihin.json')).then(resp => resp.json()).then(keihins => 
+    DB.get.names().then(result => names = result).then(() => Fetch('/db/keihin.json')).then(resp => resp.json()).then(keihins => 
         Q('.diamonds').append(...keihins.map(([kind, date, bey, note, desc, image, adjust]) => {
             let [type, BXA] = kind.split('|');
             let [blade, ...others] = bey.split(' ');

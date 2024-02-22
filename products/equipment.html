@@ -70,7 +70,7 @@ const List = {
     let target = location.hash.substring(1);
     //await DB.open();
     let /*launchers = await DB.get('html', 'prod-launcher');
-    launchers || DB.put('html', ['prod-launcher',*/ products = await (await fetch(`/db/prod-${target}.json`)).json();//]);
+    launchers || DB.put('html', ['prod-launcher',*/ products = await (await Fetch(`/db/prod-${target}.json`)).json();//]);
     List.headers(Q(`#${target}`), products, List.determinant[target]);
 })();
 </script>

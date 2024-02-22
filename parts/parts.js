@@ -10,7 +10,7 @@ Parts = {
         await Part.firstly();
     },
     before: async () => {
-        Parts.meta = (await (await fetch('/db/meta.json')).json())[Parts.comp][Parts.category];
+        Parts.meta = (await (await Fetch('/db/part-meta.json')).json())[Parts.comp][Parts.category];
         //['info', 'title', 'label'].forEach(async m => {
         //    let meta = await DB.get('meta', m);
         //    Parts.meta[m] = Parts.meta.groups.reduce((obj, g) => ({...obj, [g]: meta[g] ?? Parts.meta[m]}), {});
@@ -27,7 +27,7 @@ Parts = {
             || compare(p, q, p => p.strip().toLowerCase())
             || p.comp == 'bit' && compare(p, q, p => p.sym.match(new RegExp(`^[${Parts.bit.prefix}]`)));
 
-        Parts.unmade = Object.entries(await (await fetch(`/db/${Parts.comp}.json`)).json()).map(([sym, part]) => ({...part, key: `${sym}.${Parts.comp}`}));
+        Parts.unmade = Object.entries(await (await Fetch(`/db/part-${Parts.comp}.json`)).json()).map(([sym, part]) => ({...part, key: `${sym}.${Parts.comp}`}));
         //await Promise.all(Parts.meta.groups.map(g => DB.get.parts(g)));
         Parts.unmade = Parts.unmade.flat().map((p, _, ar) => new Part(p, ar)).sort(sorting).map(p => p.prepare());
     },
@@ -99,7 +99,7 @@ Object.assign(Filter.prototype, {
     },
     events: function() {
         this.dl.Q('dt').onclick = async () => {
-            !this.dl.matches('.radio') && this.inputs.forEach(input => input.checked = true);
+            this.inputs.forEach(input => input.checked = true);
             await Filter.filter(this.type == 'group' && 'all');
         }
         this.inputs.forEach(input => input.onchange = async (ev, check) => {
