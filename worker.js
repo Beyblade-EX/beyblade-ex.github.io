@@ -34,7 +34,7 @@ const is = {
     cacheable: url => /tier\.json$/.test(new URL(url).pathname) || !/\.json$/.test(new URL(url).pathname),
 }
 const goFetch = url =>
-    fetch(new Request(url, {mode: 'no-cors'})).then(async resp => {
+    fetch(new Request(`${url}${/css|js|json$/.test(url) ? `?${Math.random()}` : ''}`, {mode: 'no-cors'})).then(async resp => {
         //if (resp.status == 200 && is.internal(url) && is.cacheable(url))
         //    (await caches.open(is.parts(url) ? 'parts' : 'BBX')).add(url.replace(/[?#].*$/, ''), resp.clone());
         return resp;
