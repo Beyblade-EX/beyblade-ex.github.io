@@ -8,7 +8,7 @@ Q = Node.prototype.Q = function(el, func) {
 const E = (el, ...stuff) => {
     let [text, attr, children] = ['String', 'Object', 'Array'].map(t => stuff.find(s => Object.prototype.toString.call(s).includes(t)));
     text && (attr = {textContent: text, ...attr ?? {}});
-    el == 'img' && (attr = {alt: '　', ...attr ?? {}});
+    el == 'img' && (attr = {alt: '　', onerror: ev => ev.target.remove(), ...attr ?? {}});
     el = document.createElement(el);
     el.append(...children ?? []);
     Object.assign(el.style, attr?.style ?? {});

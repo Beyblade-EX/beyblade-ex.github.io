@@ -79,7 +79,6 @@
                 ...([desc ?? []].flat()).map(d => E('p', {innerHTML: d.replaceAll('-', '‑')}))
             ], {classList: `scroller ${classi || announce.colors.find(code)}`});
 
-            div.Q('img', img => img.onerror = () => img.parentElement.remove());
             Q('#products').appendChild(div);
         });
     });

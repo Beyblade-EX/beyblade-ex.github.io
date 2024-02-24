@@ -305,7 +305,7 @@ input[type='range']::-webkit-slider-thumb {
     display:block; width:3em; height:3em;
     background:url(https://www.gstatic.com/alkali/e90fc2de5a0e583a01f03acda2e3e61f9577a646.svg) center / contain no-repeat;
 }
-#popup+label>img {
+#popup+label>p~* {
     max-width:min(30em,95%);
     margin-top:1em;
 }
@@ -316,3 +316,16 @@ input[type='range']::-webkit-slider-thumb {
     width:min(35em,95%);
     color:white;
 }
+#popup+label details {
+    pointer-events:none;
+}
+#popup+label summary {
+    pointer-events:initial;
+}
+#popup+label details img {
+    width:30%; margin:.5em;
+}
+#popup+label summary::before {content:'▶';}
+#popup+label summary::after  {content:'◀';}
+#popup+label details[open]>summary::before,
+#popup+label details[open]>summary::after {content:'▼';}

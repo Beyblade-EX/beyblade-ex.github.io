@@ -270,7 +270,7 @@ td[data-part$=blade]+td+td,td[data-part$=ratchet]+td+td {
 table.bilingual .right:last-child {
     font-size:0;
 }
-/*.bilingual*/ label[for=eng],
+.bilingual label[for=eng],
 #jap:not(:checked)~main .bilingual u {
     display:none;
 }

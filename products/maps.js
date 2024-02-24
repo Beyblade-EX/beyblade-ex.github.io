@@ -14,7 +14,7 @@ Mapping.maps = {
     ),
     rare: new Mapping(
     ),
-    rate: new Mapping(
+    note: new Mapping(
         ['BXG-05','BXG-03'], 'App 内抽中後購買',
         ['BX-16'], '各款封入比例均等',
         ['BX-24','BX-14'], '封入比例：01、02 各 3；04、05 各 4；03、06 各 5',

@@ -132,13 +132,19 @@ Object.assign(Preview, {
         `https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/${href}.png`,
     image: ({parentNode: tr}) => {
         Preview.popup.classList.remove('catalog');
-        let image = [Mapping.maps.image.find(tr.no, true), Mapping.maps.brochure.find(tr.no, true)].flat();
         let video = tr.getAttribute('data-video') || $(tr).prevAll(`tr[data-video][data-no=${tr.no}]`)[0]?.getAttribute('data-video');
         Preview.popup.replaceChildren(
-            E('p', Mapping.maps.rate.find(tr.no)),
-            ...video?.split(',').map(href => E('a', {href: `//youtu.be/${href}?start=40`})) ?? [], 
-            ...image.flatMap(Preview.src).map(src => E('img', {src}))
+            E('p', Mapping.maps.note.find(tr.no)),
+            ...video?.split(',').map(href => E('a', {href: `//youtu.be/${href}?start=60`})) ?? [],
+            E('img', {src: Preview.src(Mapping.maps.image.find(tr.no, true))}),
+            //E('details', [E('summary', '更多圖片', {onclick: Preview.more})]),
+            ...[Mapping.maps.brochure.find(tr.no, true)].flat().map(src => E('img', {src: Preview.src(src)})),
         );
+    },
+    more: ev => {
+        if (ev.target.nextSibling) return;
+        let src = ev.target.parentNode.previousSibling.src;
+        ev.target.parentNode.append(...[1,2,3,4,5,6,7,8,9].map(i => E('img', {src: src.replace('@1', `_0${i}@1`)})));
     },
     part: async td => {
         Preview.popup.classList.add('catalog');
