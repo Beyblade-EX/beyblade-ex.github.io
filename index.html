@@ -74,7 +74,7 @@
             }
             let div = E('div', [
                 E('h5', code, {classList: type ?? ''}),
-                E('h4', name.replaceAll('-', '‑').replaceAll('<br>', String.fromCharCode(10))), 
+                E('h4', name?.replaceAll('-', '‑').replaceAll('<br>', String.fromCharCode(10))), 
                 ...imgs.map(src => E('figure', [E('a', '🖼️', {href: src}), E('img', {src})])), 
                 ...([desc ?? []].flat()).map(d => E('p', {innerHTML: d.replaceAll('-', '‑')}))
             ], {classList: `scroller ${classi || announce.colors.find(code)}`});
