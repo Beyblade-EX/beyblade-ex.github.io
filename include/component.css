@@ -193,6 +193,9 @@ code::before,code::after {
     background:white;
     display:flex; justify-content:center; align-items:center;
 }
+.scroller figure:not(:has(img)) {
+    display:none;
+}
 .scroller figure a {
     position:absolute; right:0; top:.25em;
     font-size:1.5em;
