@@ -42,7 +42,7 @@ class Row {
     static connectedCallback(tr) {
         Row.fill(['eng', 'chi'], tr);
         ['no', 'abbr', 'more'].forEach(a => tr[a] = tr.getAttribute(`data-${a}`));
-        tr.Q('td:first-child', td => td.onclick = () => new Cell(td).preview());
+        tr.Q('td', td => td.onclick = () => new Cell(td).preview());
     }
     static fill(lang, tr) {
         tr.Q(`td[data-part]:not([data-part$=ratchet])`, td =>
@@ -149,7 +149,13 @@ Object.assign(Preview, {
     part: async td => {
         Preview.popup.classList.add('catalog');
         Preview.awaited ||= await Part.firstly().then(() => true);
-        for (const p of Dissect(td, true))
-            new Part(await DB.get('parts', p)).catalog(true);
+        Parts.meta = (await (await Fetch('/db/part-meta.json')).json()).bit.軸心;
+
+        for (const p of Dissect(td, true)) {
+            //new Part(await DB.get('parts', p)).catalog(true);
+            let [sym, comp] = p.split('.');
+            Fetch(`/db/part-${comp}.json`).then(resp => resp.json())
+            .then(parts => new Part({...parts[sym], key: p}, Object.entries(parts).map(([sym, part]) => ({...part, sym}))).catalog(true));
+        }
     }
 });

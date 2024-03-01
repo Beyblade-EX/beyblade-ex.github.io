@@ -8,9 +8,9 @@ Parts = {
     firstly: async () => {
         Q('#menu').remove();
         await Part.firstly();
+        Parts.meta = (await (await Fetch('/db/part-meta.json')).json())[Parts.comp][Parts.category];
     },
     before: async () => {
-        Parts.meta = (await (await Fetch('/db/part-meta.json')).json())[Parts.comp][Parts.category];
         //['info', 'title', 'label'].forEach(async m => {
         //    let meta = await DB.get('meta', m);
         //    Parts.meta[m] = Parts.meta.groups.reduce((obj, g) => ({...obj, [g]: meta[g] ?? Parts.meta[m]}), {});

@@ -78,10 +78,6 @@ section h3 {
     --min:15deg;
     margin-top:.1em;
 }
-#links a:not([href]) {
-    pointer-events:none;
-    filter:saturate(0);
-}
 #links a:not(.dragged) {
     transition:--angle .5s;
 }
@@ -354,4 +350,8 @@ time.seeing::before {
 }
 #links:not(.seeing) {
     transform:rotate(-70deg);
+}
+
+#app img {
+    height:3em;
 }

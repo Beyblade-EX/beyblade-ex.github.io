@@ -89,6 +89,7 @@ Object.assign(Part.prototype.catalog.html, {
         let {group, attr} = this.part;
         let icons = new Mapping('l', '\ue01d', 'r', '\ue01e', /^[abds]$/, t => [E('img', {src: `/img/type-${t}.png`})]);
         return E('ul', [
+            /X$/.test(group) ? E('li', [E('img', {src: `/img/line.svg#${group}`})]) : '', 
             /^BSB|MFB|BBB$/.test(group) ? E('li', [E('img', {src: `/img/system-${group}.png`})]) : '', 
             ...(attr ?? []).map(a => E('li', icons.find(a, true))), 
         ]);

@@ -115,9 +115,14 @@ a ul {
 }
 a ul li,a ul img {
     height:100%;
+    vertical-align:middle;
+}
+a img[src^='/img/line.svg'] {
+    height:70%;
 }
 a ul li:not(:has(img)) {
     font-size:1.1em;
+    line-height:1.6em;
 }
 a ul li:has(img[src*=system]) {
     margin-right:-.1em;

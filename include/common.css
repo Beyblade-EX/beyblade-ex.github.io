@@ -305,11 +305,11 @@ input[type='range']::-webkit-slider-thumb {
     display:block; width:3em; height:3em;
     background:url(https://www.gstatic.com/alkali/e90fc2de5a0e583a01f03acda2e3e61f9577a646.svg) center / contain no-repeat;
 }
-#popup+label>p~* {
+#popup+label:not(.catalog)>p~* {
     max-width:min(30em,95%);
     margin-top:1em;
 }
-#popup+label p:not(:empty) {
+#popup+label:not(.catalog) p:not(:empty) {
     font-size:.9em;
     border-bottom:.15em dotted;
     padding:.6em .5em;

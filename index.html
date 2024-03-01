@@ -38,13 +38,31 @@
     <a href="//m.youtube.com/@BEYBLADEOfficialYouTube/videos"><i>🎞️</i></a><span>YouTube</span> 
     <a href="//www.corocoro.jp/episode/4856001361379685850" data-href="//drive.google.com/drive/folders/1vSOCv8UNyiJ76KCDhUbexuS7E7Hs-Isr"><i>🖍️</i></a><span>漫畫閲覽</span>
     <a href="//beyblade.takaratomy.co.jp/anime/character/"><i>📺</i></a><span>動畫資訊</span>
-    <a><i>📥</i></a><span>App 下載</span>
+    <a href="_"><i>📥</i></a><span>App 下載</span>
     <a href="//twitter.com/tbh_pr"><i>🛠️</i></a><span>𝕏</span>
+</section>
+
+<section id="app">
+    <h3>官方APP</h3>
+    <a href="https://apps.apple.com/jp/app/id1670801696" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="">
+    </a>
+    <a href="https://play.google.com/store/apps/details?id=jp.co.takaratomy.beyblade&amp;pli=1" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="">
+    </a>
+    <div style="width:calc(100% - 1em); margin:auto; text-align:left;">
+        <p>官方 APP 目前已提供中文及支援香港版，但解鎖地區限制仍需時（若已下載日本版，請重新安裝）。
+        <p>最主要的用途是收集分數而進行陀螺抽獎，而分數的最主要獲得途徑是購買陀螺商品然後掃描附有的二維碼，公價 ¥1（日元）＝ 1 分。
+        <p>要獲得更多分數，可購買 BX-09 Battle Pass（目前港台仍未發售），會令往後的商品掃描都有更多積分，亦能透過發射、玩訓練小遊戲等獲得分數，但設有每周上限。
+        <p>抽中的陀螺有分購買型及獲贈型，BXG-03、05 抽中後購買、BXH-01 抽中後獲贈。
+    </div>
+    <img src="https://takaratomymall.jp/img/goods/L/4904810910510_ac63b10874dd470eb52bd9e7200c55b4.jpg" style="width:10em;height:10em;">
 </section>
 
 <section id=products>
     <h3>最新商品</h3>
 </section>
+
 
 <!--section id=reboot>
     <div>
@@ -55,7 +73,7 @@
 </section-->
 
 <script>
-    //Q('#links a[href=_]').href = navigator.appVersion.includes('Mac') ? 'a':'b';
+    Q('#links a[href=_]').href = navigator.appVersion.includes('Mac') ? 'https://apps.apple.com/jp/app/id1670801696':'https://play.google.com/store/apps/details?id=jp.co.takaratomy.beyblade&pli=1';
 
     const observer = new IntersectionObserver(entries => entries.forEach(entry => entry.target.classList.toggle('seeing', entry.isIntersecting)));
     fetch('/db/-update.json').then(resp => resp.json()).then(({news}) => announce(news))
@@ -169,46 +187,6 @@
     };
     Q('#links a', a => Knob.init(a));
 </script>
-
-<details>
-    <summary>初心者資訊</summary>
-    <article>
-        <h3>積分獎勵</h3>
-        <img src="https://beyblade.takaratomy.co.jp/beyblade-x/app/_image/pict11.jpg">
-        <p>每個商品都有一個 QR code，使用 App 掃描就能累積 BeyPoint 分數。每 1000 分能玩抽獎一次，成功的話就能獲得特別陀螺。</p>
-        <img src="https://beyblade.takaratomy.co.jp/beyblade-x/app/_image/app_rea1.png">
-        <img src="https://beyblade.takaratomy.co.jp/beyblade-x/app/_image/app_rea2.png">
-        <p>左：抽中後獲贈；右：抽中後購買</p>
-        <img src="https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BX09@1.png" style="width:min(50%,20em)">
-        <p>若想得到更多分數，可購買 BX-09 BeyBattle Pass，除能測量發射力度外，亦能令發射、模擬訓練等獲得 BeyPoint，掃描 BeyCode 亦多加 100 分數。
-        <p>以上系統，台灣、香港預計 2024 年方會推出。日版的 App 只能掃描日版商品才有分數。
-    </article>
-    <article>
-        <h3>對戰規則</h3>
-        <a href=https://beyblade.takaratomy.co.jp/beyblade-x/_image/regulation.pdf>官方 Regulation</a><br>
-        <a href=https://www.youtube.com/watch?v=Y6POuwEsur8?t=280>對戰實例</a>
-        <p>若要選定於對戰盤左或右側發射，將會以如猜拳等公平方法決定。直到與對手分出勝負前都不能轉換位置。
-        <p>對戰盤主要的陀螺活動範圍為「Battle Zone」，兩角的小出口為「Over Zone」，之間的大出口為「Xtreme Zone」。</p>
-        <img src=https://beyblade.takaratomy.co.jp/beyblade-x/guide/_image/pict5.jpg>
-        <ul style="text-align:left;">
-            <li>Xtreme Finish (XF)：陀螺從「Xtreme Zone」離開對戰盤並未有再返回。得 3 分。
-            <li>Over Finish (OF)：陀螺掉入「Over Zone」並未有再返回對戰盤。得 2 分。
-            <li>Burst Finish (BF)：陀螺任何部件脫落並分離。得 2 分。
-            <li>Spin Finish (SF)：陀螺原先迴轉方向的迴轉速度降至 0。得 1 分。
-        </ul>
-        <p>當任何一陀螺較早發生以上情況，對方就可得分。先取四分為勝。
-        <p>若陀螺於發射口離開並未有返回，則需重賽。
-        <h4>難解情況</h4>
-        <p>若自己陀螺先停轉再被擊出，對方獲 SF 一分。
-        <p>若自己陀螺先被擊爆再被擊出，對方獲 BF 兩分。
-        <p>若自己陀螺先被從 Xtreme Zone 離開再因碰撞對戰盤爆裂，對方獲 XF 三分。
-        <p>若自己陀螺被擊爆，反彈力令對方陀螺被擊出，對方獲 BF 兩分，因被擊爆時一刻對方陀螺仍未離開對戰盤。
-        <p>若自己陀螺被擊至 Over Zone 但仍在轉動，然後對手陀螺於 Battle Zone 先停下，自己陀螺隨後亦停下，對方獲 OF 兩分。
-        <p>若自己陀螺被擊至 Over Zone 但仍在轉動，然後對手陀螺於 Battle Zone 先停下，其後自己陀螺彈回對戰盤，自己獲 SF 一分。
-        <p>XF 及 OF 發生後需要未有<ruby><rb>返回對戰盤</rb><rt>Reverse</rt></ruby>才成立，要等到確認未有返回，才以先發生的事件作得分。
-            <br>若發生 Reverse 情況，XF 及 OF 事件將被取消。
-    </article>
-</details>
 
 <a href="https://beyblade-burst.github.io/" id="bbb"><img src="/img/system-BBB.png"></a>
 
