@@ -202,10 +202,14 @@ Q('input').onkeypress = ev => {
         return location.href = `https://instagram.com/explore/tags/${/(?<=#).+/.exec(ev.target.value)}`;
     if (/^i@.+$/i.test(ev.target.value))
         return location.href = `https://instagram.com/${/(?<=@).+/.exec(ev.target.value)}`;
-     if (/^t\?.+$/i.test(ev.target.value))
-        return location.href = `https://twitter.com/search?q=${/(?<=\?).+/.exec(ev.target.value)}&f=live`;
+    if (/^x\?.+$/i.test(ev.target.value))
+        return location.href = `https://x.com/search?q=${/(?<=\?).+/.exec(ev.target.value)}&f=live`;
+    if (/^x#.+$/i.test(ev.target.value))
+        return location.href = `https://x.com/hashtag/${/(?<=#).+/.exec(ev.target.value)}/?f=live`;
+    if (/^t\?.+$/i.test(ev.target.value))
+        return location.href = `https://www.threads.net/search?q=${/(?<=\?).+/.exec(ev.target.value)}`;
     if (/^t#.+$/i.test(ev.target.value))
-        return location.href = `https://twitter.com/hashtag/${/(?<=#).+/.exec(ev.target.value)}/?f=live`;
+        return location.href = `https://www.threads.net/search?q=${/#.+/.exec(ev.target.value)}`;
     return location.href = `https://${ev.target.value}`;
 }
 </script>
