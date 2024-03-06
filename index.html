@@ -209,7 +209,7 @@ Q('input').onkeypress = ev => {
     if (/^t\?.+$/i.test(ev.target.value))
         return location.href = `https://www.threads.net/search?q=${/(?<=\?).+/.exec(ev.target.value)}`;
     if (/^t#.+$/i.test(ev.target.value))
-        return location.href = `https://www.threads.net/search?q=%23${/(?<=\?).+/.exec(ev.target.value)}`;
+        return location.href = `https://www.threads.net/search?q=%23${/(?<=\?).+/.exec(ev.target.value)}&serp_type=tags`;
     return location.href = `https://${ev.target.value}`;
 }
 </script>
