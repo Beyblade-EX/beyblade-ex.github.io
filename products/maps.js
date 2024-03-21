@@ -5,6 +5,7 @@ Mapping.maps = {
         no => no.replace('-', '') + '@1'
     ),
     brochure: new Mapping(
+        'BXG-04', no => Mapping.brochure(no),
         /^BXG-(?!01)/, no => Mapping.brochure(no, true),
         'BX-21', no => ['p','y','o'].map(c => `${Mapping.brochure(no)}_${c}`),
         'BX-20', no => ['B','G','P'].map(c => `${Mapping.brochure(no)}${c}`),

@@ -1,4 +1,15 @@
 {
+    "DRS": {
+        "group": "BSB",
+        "names": {
+            "jap": "ドライガースラッシュ",
+            "eng": "DrigerSlash",
+            "chi": "青翼白虎 銀牙烈虎 S"
+        },
+        "stat": [],
+        "desc": "擁有圓形翼的兩枚刃兼備攻擊及防禦。",
+        "attr": ["b","r"]
+    },
     "DZS": {
         "group": "BSB",
         "names": {

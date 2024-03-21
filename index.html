@@ -56,7 +56,10 @@
         <p>要獲得更多分數，可購買 BX-09 Battle Pass（目前港台仍未發售），會令往後的商品掃描都有更多積分，亦能透過發射、玩訓練小遊戲等獲得分數，但設有每周上限。
         <p>抽中的陀螺有分購買型及獲贈型，BXG-03、05 抽中後購買、BXH-01 抽中後獲贈。
     </div>
-    <img src="https://takaratomymall.jp/img/goods/L/4904810910510_ac63b10874dd470eb52bd9e7200c55b4.jpg" style="width:10em;height:10em;">
+    <img src="https://takaratomymall.jp/img/goods/L/4904810910510_ac63b10874dd470eb52bd9e7200c55b4.jpg" style="width:10em;height:10em;margin-bottom:1em">
+    <hr>
+    <p><a href=https://beyblade.takaratomy.co.jp/beyblade-x/xr-project/>新 APP</a>：XR (Extended Reality) 玩虛擬陀螺</p>
+    <img src="https://beyblade.takaratomy.co.jp/beyblade-x/xr-project/_image/bnr4@1x.png" style="width:20em;max-width:95%;height:auto;">
 </section>
 
 <section id=products>
@@ -85,7 +88,7 @@
         beys.forEach(bey => {
             let {code, name, imgs, desc, type, color, class: classi} = bey;
             imgs ??= [];
-            if (name && /[BU]X-/.test(code)) {
+            if (name && /[BU]XG?-/.test(code)) {
                 let c = code.match(/[BU]XG?-\d+/)[0].replace('-','');
                 imgs = [base + `${c}@1.png`, ...imgs];
                 imgs.push(...[2,3,4,5,6,7,8].map(n => base + `${c}${color ? `_${color}` : ''}_0${n}@1.png`));

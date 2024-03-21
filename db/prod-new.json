@@ -1,5 +1,5 @@
 [
-  
+  ["BXG-04","B","DRS 4-80 P"],
   ["UX-04","SS H","DrBs 1-60 A"],["UX-04","SS H","WzRd 5-70 DB"],
   ["UX-03","B","WzRd 5-70 DB"],["UX-02","S","HlHm 3-70 H"],["UX-01","S","DrBs 1-60 A"],
   ["BXG-06","B H","ShEd 5-60 GF",{"coat": "dodgerblue"}],["BXG-05","B H","LnCl 5-60 P",{"coat": "gold"}],
