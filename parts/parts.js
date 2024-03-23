@@ -9,6 +9,7 @@ Parts = {
         Q('#menu').remove();
         await Part.firstly();
         Parts.meta = (await (await Fetch('/db/part-meta.json')).json())[Parts.comp][Parts.category];
+        Filter();
     },
     before: async () => {
         //['info', 'title', 'label'].forEach(async m => {
@@ -19,40 +20,36 @@ Parts = {
     cataloging: async () => {
         let compare = (u, v, f = p => p) => +(f(u) > f(v)) || -(f(u) < f(v));
         let sorting = (p, q) =>
-            /^MFB|BSB$/.test(p.group) && compare(q, p, p => p.group)
+            /^MFB|BSB$/.test(p.group) && -1
             || p.comp == 'ratchet' && compare(p, q, p => parseInt(p.sym.match(/\d+$/)))
             || compare(p, q, p => p.sym[0] == '+')
             || compare(p, q, p => parseInt(p.sym))
-            || p.group == 'BSB' && compare(p, q, p => p.sym.match(/^..[^S]?/))
             || compare(p, q, p => p.strip().toLowerCase())
             || p.comp == 'bit' && compare(p, q, p => p.sym.match(new RegExp(`^[${Parts.bit.prefix}]`)));
 
-        Parts.unmade = Object.entries(await (await Fetch(`/db/part-${Parts.comp}.json`)).json()).map(([sym, part]) => ({...part, key: `${sym}.${Parts.comp}`}));
+        Parts.blocks = Object.entries(await (await Fetch(`/db/part-${Parts.comp}.json`)).json()).map(([sym, part]) => ({...part, key: `${sym}.${Parts.comp}`}));
         //await Promise.all(Parts.meta.groups.map(g => DB.get.parts(g)));
-        Parts.unmade = Parts.unmade.flat().map((p, _, ar) => new Part(p, ar)).sort(sorting).map(p => p.prepare());
+        Parts.blocks = Parts.blocks.flat().map((p, _, ar) => new Part(p, ar)).sort(sorting).map(p => p.prepare().catalog());
     },
     listing: async () => {
-        Parts.unmade = await Promise.all(location.hash.substring(1).split(',').map(p => DB.get('parts', decodeURI(p))));
-        Parts.unmade = Parts.unmade.map(p => new Part(p).prepare());
+        Parts.blocks = await Promise.all(location.hash.substring(1).split(',').map(p => DB.get('parts', decodeURI(p))));
+        Parts.blocks = Parts.blocks.map(p => new Part(p).prepare().catalog());
     },
     after: async () => {
-        Filter();
         let hash = decodeURI(location.hash.substring(1));
-        let target = Parts.unmade.find(p => p.sym == hash);
-        await Q(`dl[title=group] #${(target?.group ?? hash) || Parts.meta.groups[0]}`)?.onchange(null, true);
-        target?.sym && (location.hash = target.sym);
+        let target = hash && Q(`a#${hash}`);
+        if (target)
+            return Q(`dl[title=group] #${target.classList[0]}`).click();
+        target = [hash || Cookie[Parts.comp]?.[Parts.category] || Parts.meta.default].flat();
+        target ? Q(`dl[title=group] #${target}`)?.click() : Q('dl[title=group] dt').click();
     },
     finally: async () => {
         Magnifier();
-        Parts.comp || await Promise.all(Parts.unmade.map(p => p.catalog(true)));
         Q('.loading').classList.remove('loading');
-        Q('dl[title=group] dt').click();
     },
-    switch: async group => {
-        Parts.unmade = Parts.unmade.map(p => group == 'all' || group == p.group || /^\+/.test(p.sym) ? p.catalog() : p);
-        Parts.unmade = (await Promise.all(Parts.unmade)).filter(p => p);
+    switch: async (group, keep) => {
         //if (group == 'all') return;
-        location.hash = group;
+        keep || (location.hash = group);
         document.title = document.title.replace(/^.*?(?= ￨ )/, Parts.meta.title[group]);
         Q('details article').innerHTML = Parts.meta.info[group] ?? Parts.meta.info;
         Q('details').hidden = !(Parts.meta.info[group] ?? Parts.meta.info);
@@ -94,7 +91,7 @@ Object.assign(Filter.prototype, {
             [E('dt', dtText), ...inputs.map( i => E('dd', [E('input', {type: 'checkbox', id: i.id}), E('label', {htmlFor: i.id}, [i.text])]) )]
         );
         this.inputs = [...this.dl.querySelectorAll('input')];
-        this.inputs.forEach(input => input.checked = true);
+        type != 'group' && this.inputs.forEach(input => input.checked = true);
         return this;
     },
     events: function() {
@@ -102,12 +99,13 @@ Object.assign(Filter.prototype, {
             this.inputs.forEach(input => input.checked = true);
             await Filter.filter(this.type == 'group' && 'all');
         }
-        this.inputs.forEach(input => input.onchange = async (ev, check) => {
-            check ? input.checked = true : this.inputs.forEach(i => i.checked = i == input);
+        this.inputs.forEach(input => input.onchange = async () => {
+            this.inputs.forEach(i => i.checked = i == input);
+            input.checked && Cookie.set(Parts.comp, {...Cookie[Parts.comp], [Parts.category]: input.id});
             await Filter.filter(this.type == 'group' && input.id);
         });
         return this;
-    }
+    },
 });
 Object.assign(Filter, {
     args: () => ({
