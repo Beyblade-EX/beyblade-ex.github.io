@@ -8,22 +8,6 @@
   "/db/part-meta.json":     ["2024/03/23 21:30:00"],
   "/db/keihin.json":        ["2024/03/21 12:35:00"],
   "news": {
-    "2024-03-23":[
-      {"code":"BXG-06 booster","type":"a","name":"シャークエッジ5-60GF<br>メタルコート：ブルー<br>SharkEdge 5-60GF<br>Metal Coat: Blue"}
-    ],
-    "2024-03-30":[
-      {"code":"BX-28","name":"ストリングランチャー ホワイトVer.<br>String Launcher (White)","desc":["拉線發射器"]},
-      {"code":"BX-29","name":"カスタムグリップ ホワイトVer.<br>Custom Grip (White)","desc":[
-        "更多可拆除組件的手把，以調節最適握感"]},
-      {"code":"BX-30","name":"カスタムグリップ レッドVer.<br>Custom Grip (Red)","desc":[]},
-      {"code":"UX-01 starter","name":"ドランバスター1-60A<br>DranBuster 1-60A","type":"a",
-      "desc":["首款 <ruby class=below><rb>UX</rb><rt>unique</rt></ruby> 商品，<ruby class=below><rb>BX</rb><rt>basic</rt></ruby> 的另一線",
-      "DranBuster Blade：大型攻擊刃，加強瞬間攻擊性能","A Bit：齒數增多，增加一擊 X Dash 性能"]},
-      {"code":"UX-02 starter","name":"ヘルズハンマー3-70H<br>HellsHammer 3-70H","type":"b","desc":[
-        "HellsHammer Blade：厚 Smash 刃，把對手向下壓","H Bit：容易保持直立"
-      ]},
-      {"code":"UX-03 booster","name":"ウィザードロッド5-70DB<br>WizardRod 5-70DB","type":"s","desc":["WizardRod Blade：外重心、大徑","DB Bit：附有圓環的 B Bit"]}
-    ],
     "2024-04-27":[
       {"code":"UX-04 entry set","name":"バトルエントリーセットU<br>Battle Entry Set U","desc":[]},
       {"code":"BX-31 random booster vol.3","name":"","desc":[]},
