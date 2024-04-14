@@ -12,11 +12,11 @@
       {"code":"UX-04 entry set","name":"バトルエントリーセットU<br>Battle Entry Set U","desc":[]},
       {"code":"BX-31 random booster vol.3","type":"att","name":"ティラノビート4-70Q<br>TyrannoBeat 4-70Q","imgs":["https://takaratomymall.jp/img/goods/5/4904810914532_ec5b6166a21c43339c4e4f5172d6a256.jpg","https://takaratomymall.jp/img/goods/L/4904810914532_9307330889854d0db2ab3d41d51e1dad.jpg"],
       "desc":["TyrannoBeat：鋸齒狀厚八枚刃","Q bit：尖端偏離中心，劇烈跳躍"]},
-      {"code":"BX-32 Stadium","name":"","imgs":[],
-      "desc":["對戰盤"]},
       {"code":"BXG-04 booster","type":"bal","name":"ドライガースラッシュ4-80P<br>DrigerSlash 4-80P","desc":["又是削弱度的偏重心設計"]}
     ],
     "2024-05-18":[
+      {"code":"BX-32 Stadium","name":"","imgs":[],
+      "desc":["對戰盤"]},
       {"code":"UX-05 random booster select","type":"def","name":"シノビシャドウ1-80MN<br>ShinobiShadow 1-80MN","imgs":["https://takaratomymall.jp/img/goods/5/4904810914549_ae252f626aa44230a5fc66ca6f0f9183.jpg","https://takaratomymall.jp/img/goods/L/4904810914549_035e9cea364e4fbdb16e9c7e296658eb.jpg"],
       "desc":["ShinobiShadow：圓滑形狀卸走攻擊","MN bit：尖端金屬做的 N bit"]}
     ],
