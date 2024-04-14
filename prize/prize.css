@@ -1,3 +1,11 @@
+main>a img {
+    width:3em;
+    vertical-align:bottom;
+}
+main>a span {
+    width:3em; display:inline-block;
+    line-height:1.1em; letter-spacing:.1em;
+}
 .diamonds {
     padding:calc(var(--size)/2) 0;
     display:grid; grid-template-columns:repeat(auto-fill,var(--size)); justify-content:center;

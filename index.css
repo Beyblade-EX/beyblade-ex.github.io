@@ -1,6 +1,5 @@
 *,*::before,*::after {line-height:1.5em;}
 html,body {overflow-x:hidden;}
-html.dragging {touch-action:none;}
 body {opacity:0;}
 input {
     all:unset;
@@ -77,6 +76,7 @@ section h3 {
     transform:scale(-1);
     --min:15deg;
     margin-top:.1em;
+    touch-action:none;
 }
 #links a:not(.dragged) {
     transition:--angle .5s;
@@ -192,7 +192,7 @@ section h3 {
 #products h3 {
     margin-right:calc(-1*var(--spacing));
 }
-time::after {
+:is(time,h4)::after {
     content:attr(title);
     mix-blend-mode:difference;
 }
@@ -210,15 +210,15 @@ time::after {
     flex-direction:column;
 }
 #products h5:not([class=''])::before {
-    display:inline-block; width:3rem; height:3rem;
-    font-size:.7em; line-height:7rem;
-    margin-bottom:1.25rem;
+    display:inline-block; width:2.5rem; height:2.5rem;
+    font-size:.7em; line-height:6rem;
+    margin-bottom:1.1rem;
     color:var(--type);
 }
-[class=b]::before {content:'平衡型';background:url(/img/type-b.png) center / contain no-repeat;}
-[class=a]::before {content:'攻擊型';background:url(/img/type-a.png) center / contain no-repeat;}
-[class=d]::before {content:'防禦型';background:url(/img/type-d.png) center / contain no-repeat;}
-[class=s]::before {content:'持久型';background:url(/img/type-s.png) center / contain no-repeat;}
+.bal::before {content:'平衡型';background:url(/img/type-bal.png) center / contain no-repeat;}
+.att::before {content:'攻擊型';background:url(/img/type-att.png) center / contain no-repeat;}
+.def::before {content:'防禦型';background:url(/img/type-def.png) center / contain no-repeat;}
+.sta::before {content:'持久型';background:url(/img/type-sta.png) center / contain no-repeat;}
 #products p {
     margin:0;
 }
@@ -269,8 +269,7 @@ time::after {
 }
 
 #bbb {
-    display:block; text-align:right;
-    padding-right:.5em;
+    margin-left:calc(100% - 8em);
 }
 #bbb img {
     width:7em;
@@ -282,20 +281,26 @@ footer {
     border:none;
 }
 
-article h3 {
-    padding:1rem 0;
+details {font-size:.8em;}
+details article {padding:0 .5em;}
+details h4 {
+    font-size:1.4em;
 }
 article>:not(img) {
     margin:1rem .1rem;
 }
-article img {
+article img:not([src$=ico]) {
     width:min(100%,30em);
+    margin:.5em auto 0 auto;
+    display:block;
+}
+article img[src$=ico] {
+    width:1.5em;
+    vertical-align:-.35em;
+    margin-right:.25em;
 }
 article img+:not(img) {
     margin-top:.5rem; margin-bottom:1rem;
-}
-img[src*=app_rea] {
-    width:min(49%,15em);
 }
 summary {
     list-style:revert; 
@@ -316,12 +321,12 @@ time,#reboot i,#reboot i::before
 {font-size:1.5em;}
 
 /*entry animation*/
-time {
+:is(time,details h4) {
     position:relative;
     z-index:0;
     transition:color .5s;
 }
-time::before {
+:is(time,details h4)::before {
     content:''; position:absolute;
     width:120%; height:.7em;
     left:50%; top:50%; transform:translate(-50%,-50%) skew(-20deg);
@@ -330,7 +335,7 @@ time::before {
     transition:--stop .5s;
     z-index:-1;
 }
-time.seeing::before {
+:is(time.seeing,h4)::before {
     --stop:100%;
 }
 .scroller,section{

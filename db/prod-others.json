@@ -2,7 +2,7 @@
     {
         "eng": "LAUNCHER GRIP",
         "jap": "ランチャーグリップ",
-        "desc": "兩塊可拆除 Panel 的發射器手把",
+        "desc": "一塊可拆除 Panel 的發射器手把",
         "colors":[
             ["B","BX-11","BX11@1",120],
             ["SS","BX-07","BX07_05@1"]

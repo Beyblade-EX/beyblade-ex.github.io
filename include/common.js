@@ -1,4 +1,4 @@
-navigator.serviceWorker.register('/worker.js').then(() =>
+navigator.serviceWorker?.register('/worker.js').then(() =>
     document.querySelector('link[href="/include/common.css"]') ?? location.reload()
 );
 Q = Node.prototype.Q = function(el, func) {
@@ -8,8 +8,8 @@ Q = Node.prototype.Q = function(el, func) {
 const E = (el, ...stuff) => {
     let [text, attr, children] = ['String', 'Object', 'Array'].map(t => stuff.find(s => Object.prototype.toString.call(s).includes(t)));
     text && (attr = {textContent: text, ...attr ?? {}});
-    el == 'img' && (attr = {alt: '　', onerror: ev => ev.target.remove(), ...attr ?? {}});
-    el = document.createElement(el);
+    el == 'img' && (attr = {alt: attr.src.match(/([^/.]+)(\.[^/.]+)$/)[1], onerror: ev => ev.target.remove(), ...attr ?? {}});
+    el = ['svg', 'use', 'path'].includes(el) ? document.createElementNS('http://www.w3.org/2000/svg', el) : document.createElement(el);
     el.append(...children ?? []);
     Object.assign(el.style, attr?.style ?? {});
     return Object.assign(el, (({style, ...attr}) => attr)(attr ?? {}));
@@ -117,7 +117,7 @@ const DB = {
         DB.indicator.init(outdated);
         let update = (files, ...args) => DB.update(files.filter(f => outdated ? Object.keys(outdated).includes(f) : true), ...args);
         await Promise.all([
-            update(['new', 'old'].map(f => `prod-${f}`), (json, file) => DB.put('html', [file, json])),
+            update(['beys'].map(f => `prod-${f}`), (json, file) => DB.put('html', [file, json])),
             update(['bit', 'ratchet', 'blade'], DB.put.parts, (sym, comp) => outdated?.[comp]?.includes(sym) ?? true),
             //update(['layer7', 'layer6', 'layer5'],       json => Promise.all(Object.entries(json).map(([comp, parts]) => DB.put.parts(parts, comp)))),
             update(['meta'],                             json => Promise.all(Object.entries(json).map(info => DB.put('meta', info))))

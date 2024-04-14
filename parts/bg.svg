@@ -14,36 +14,21 @@
     }
     #top-art line:nth-of-type(odd)  {stroke:hsl(var(--c),var(--s),calc(15% + .02%*var(--i)*var(--i) + var(--base-b)));}
     #top-art line:nth-of-type(even) {stroke:transparent;}
-    #art line:nth-of-type(odd)  {stroke:hsl(var(--c),var(--s),calc(10% + .2%*var(--i) + var(--base-b)));}
-    #art line:nth-of-type(even) {stroke:transparent;}
-    #top-art line,#art line {stroke-width:1.5;}
+    #top-art line {stroke-width:5;}
 
     #top+path {stroke-width:1.5; stroke:url(#line-art); fill:none;}
-    #dl       {stroke-width:.8; stroke:hsl(0,0%,90%); fill:none;}
 
-    #bot {filter:url(#shadow);}
-    #top+path,#dl {filter:url(#glow);}
+    .spin use:first-of-type {transform:skew(45deg);}
+    .spin use:last-of-type {transform:skew(-45deg); x:30;}
     </style>
     <defs>
-        <pattern id='top-art' width='150' height='1' patternTransform='rotate(-135 -35 -35)' patternUnits='userSpaceOnUse'>
+        <g id='top-art'>
             <script>// <![CDATA[
-            [s, place] = [1.5, Q('#top-art')];
-            for (let i = 1; i <= 50; i++)
-                add(`<line x1='${(i-1/2)*s}' x2='${(i-1/2)*s}' y2='1' style='--i:${i}'/>`, place);
+            [s, place] = [5, Q('#top-art')];
+            for (let i = 1; i <= 20; i++)
+                add(`<line x1='${(i-1/2)*s}' x2='${(i-1/2)*s}' y2='15' style='--i:${2.5*i}'/>`, place);
             // ]]></script>
-        </pattern>
-        <pattern id='art' width='150' height='1' patternTransform='rotate(-45 45 45)' patternUnits='userSpaceOnUse'>
-            <script>// <![CDATA[
-            [s, place] = [1.5, Q('#art')];
-            for (let i = 1; i <= 60; i++)
-                add(`<line x1='${(i-1/2)*s}' x2='${(i-1/2)*s}' y2='1' style='--i:${i}'/>`, place);
-            // ]]></script>
-        </pattern>
-        <linearGradient id='bot-art'>
-            <stop offset='0%' stop-color='hsl(var(--c),var(--s),calc(15% + var(--base-b)))'/>
-            <stop offset='100%' stop-color='hsl(var(--c),var(--s),calc(25% + var(--base-b)))'/>
-        </linearGradient>
-
+        </g>
         <g>
             <linearGradient id='line-art' gradientUnits='userSpaceOnUse'>
                 <stop offset='0%' stop-color='hsla(var(--c),70%,calc(50% + var(--base-b)),.2)'/>
@@ -52,12 +37,7 @@
                 <stop offset='90%' stop-color='hsl(var(--c),70%,calc(60% + var(--base-b)))'/>
             </linearGradient>
         </g>
-
-        <marker id='ball' viewBox='-10 -10 20 20' markerWidth='10' markerHeight='10'>
-            <circle r='3' fill='hsl(0,0%,90%)'/>
-            <circle r='7' fill='none' stroke='hsl(0,0%,90%)' stroke-width='2'/>
-        </marker>
-
+        
         <filter id='glow' y='-10' x='-10' filterUnits='userSpaceOnUse'>
             <feOffset in='SourceGraphic' dx='0' dy='0' result='offset'/>
             <feGaussianBlur in='offset' stdDeviation='0.2' result='blur1'/>
@@ -76,12 +56,16 @@
         </filter>
     </defs>
 
-    <polygon id='top' points='0,0 65,0 65,15 15,65 0,65' fill='url(#top-art)'/>
-    <polygon id='top' points='0,0 65,0 65,15 15,65 0,65' fill='url(#art)'/>
-    <path d='M -1,65 h 16 L 65,15 v -14' stroke-linecap='round'/>
-    <polygon points='55,57 55,47 38,47 29,57' fill='hsla(0,0%,100%,.2)'/>
-    <path id='dl' d='M 55,57 h -25 l -9,9 v 9 h 25 l 9,-9 v -30 l 9,-9 h 9' marker-end='url(#ball)'/>
-    <rect id='bot' width='100%' height='35' y='115' fill='url(#bot-art)'/>
-    <path d='M 17.5,115 h -17.5 v 17.5 Z' fill='hsl(var(--c),var(--s),calc(25% + var(--base-b)))'/>
-    <path d='M 132.5,150 h 17.5 v -17.5 Z' fill='hsl(var(--c),var(--s),calc(15% + var(--base-b)))'/>
+    <g id='top'>
+        <use href='#top-art'/>
+        <use y='15' href='#top-art'/>
+    </g>
+    <!-- <path d='M 0,10 L 10,0 M 0,20 L 20,0 M 0,30 L 30,0'/> -->
+    <polygon points='65,34 85,34 116,65 116,85 85,116 65,116 34,85 34,65' fill='hsla(0,0%,100%,.2)'/>
+    <!-- <polygon points='65,34 85,34 111,60 115,60 130,75 115,90 111,90 85,116 65,116 39,90 35,90 20,75 35,60 39,60' stroke='hsla(0,0%,100%,.8)' fill='hsla(0,0%,100%,.2)'/> -->
+    <script>// <![CDATA[
+        Q('#top').setAttribute('transform', 'rotate(-45) translate(-55,30)');
+        (q.left || q.right) && (Q('#top').classList = 'spin');
+        q.left && Q('#top').setAttribute('transform', 'rotate(135) translate(-65,-60)');
+    // ]]></script>
 </svg>

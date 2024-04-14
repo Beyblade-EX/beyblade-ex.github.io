@@ -2,13 +2,14 @@
 let NAMES;
 const Table = async () => {
     Table.loading(true);
+    await Parts.getMeta();
     NAMES = await DB.get.names();
-    await Promise.all([Table.fetch('prod-new')]);//.then(() => Table.fetch('prod-old'))]);
+    await Promise.all([Table.fetch('prod-beys')]);
     $('#regular').tablesorter();
     Table.RB();
     Table.loading(false);
     if (new URLSearchParams(location.search).size)
-        return Find.autofill([...new URLSearchParams(location.search.replaceAll('+','%2B'))]);
+        return Find.autofill(...[...new URLSearchParams(location.search.replaceAll('+','%2B'))][0]);
     Table.count(), Table.flush();
 }
 Object.assign(Table, {
@@ -19,7 +20,7 @@ Object.assign(Table, {
     },
     async fetch(key, tbody = '#regular tbody') {
         //let beys = await DB.get('html', key);
-        let beys = await (await Fetch('/db/prod-new.json')).json();
+        let beys = await (await Fetch('/db/prod-beys.json')).json();
         if (typeof beys == 'string') {
             beys = [...E('template', {innerHTML: beys}).content.children];
             Q(tbody).append(...beys);
@@ -27,7 +28,7 @@ Object.assign(Table, {
             beys = await beys.reduce((prev, bey) => prev.then(async arr => [...arr, await new Row().create(bey, tbody)]), Promise.resolve([]));
             //DB.put('html', [key, Table.trim(beys)]);
         }
-        beys.forEach(tr => (tr.classList.toggle('old', key == 'prod-old'), Row.connectedCallback(tr)));
+        beys.forEach(tr => tr && Row.connectedCallback(tr));
     },
     RB() {
         Q('tr.RB:not(.H)', tr => {
@@ -39,13 +40,13 @@ Object.assign(Table, {
         })
     },
     flush(update = false) {
-        document.body.scrollWidth > 400 ?
+        document.body.scrollWidth > 550 ?
             Table.colspan(Q('#jap').checked ? 'cjk' : 'both') : Table.colspan(Q('#eng').checked ? 'eng' : 'cjk');
         $('#regular').trigger('update', [false]);
     },
     colspan(lang) {
-        let colspan = {eng: [5, 1], cjk: [1, 5]}[lang] ?? [2, 4];
-        Q('td[data-part$=blade],tbody td:not([data-part]):nth-child(2)', td => new Cell(td).next2(({td}, i) => td.colSpan = colspan[i]));
+        let colspan = {eng: [1, 1], cjk: [1, 1]}[lang] ?? [1, 1];
+        Q('td[abbr$=blade],tbody td:not([abbr]):nth-child(2)', td => new Cell(td).next2(({td}, i) => td.colSpan = colspan[i]));
         Q('table', table => table.classList.toggle('bilingual', lang == 'both'));
     },
     reset() {
@@ -72,7 +73,7 @@ Filter.filter = () => {
     let hide = Filter.inputs.filter(i => !i.checked).map(i => `.${i.id.replace('-', '.')}`);
     Q('#filter').classList.toggle('active', hide.length);
     Q('tbody tr', tr => tr.classList.toggle('hidden', hide.length && tr.matches(hide)));
-    Filter.systems.some(input => !input.checked) && Q('tr[data-abbr^="/"]', tr => tr.classList.add('hidden'));
+    Filter.systems.some(input => !input.checked) && Q('tr[abbr^="/"]', tr => tr.classList.add('hidden'));
     Table.count();
 };
 
@@ -123,9 +124,9 @@ Object.assign(Find, {
         beys: where => {
             Q('#regular.new') && Table.entire();
             Q('tbody tr', tr => tr.hidden = !(
-                Find.target.free.length >= 2 && tr.no.toLowerCase().includes(Find.target.free.toLowerCase()) ||
-                Find.regexp.some(regex => regex.test(tr.abbr)) || 
-                tr.more?.split(',').some(m => Find.target.more.includes(m))
+                Find.target.free.length >= 2 && tr.Q('td:first-child').textContent.toLowerCase().includes(Find.target.free.toLowerCase()) ||
+                Find.regexp.some(regex => regex.test(tr.dataset.abbr)) || 
+                tr.dataset.more?.split(',').some(m => Find.target.more.includes(m))
             ));
             Find.state(true, where == 'form' && Find.target.parts);
         }
@@ -154,9 +155,9 @@ Object.assign(Find, {
         comp &&= {blade: 'ブレード', ratchet: 'ラチェット', bit: 'ビット'}[comp];
         Q('a[href*=obake]').href = 'http://obakeblader.com/' + (obake && Q('.prod-result').value > 1 ? `${comp}-${sym}/#toc2` : `?s=入手法`);
     },
-    autofill(pairs) {
+    autofill(comp, sym) {
         Find.state(false);
-        Q('form details').replaceChildren(...pairs.map(([name, value]) => E('input', {name, value})));
+        Q('form details').replaceChildren(...[E('input', {name: comp, value: sym})]);
         Find();
     }
 });

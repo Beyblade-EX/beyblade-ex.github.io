@@ -1,25 +1,25 @@
 {
-    "DRS": {
-        "group": "BSB",
+    "ShSh": {
+        "group": "UX",
         "names": {
-            "jap": "ドライガースラッシュ",
-            "eng": "DrigerSlash",
-            "chi": "青翼白虎 銀牙烈虎 S"
+            "jap": "",
+            "eng": "ShinobiShadow",
+            "chi": ""
         },
         "stat": [],
-        "desc": "擁有圓形翼的兩枚刃兼備攻擊及防禦。",
-        "attr": ["b","r"]
+        "desc": "",
+        "attr": ["def","right"]
     },
-    "DZS": {
-        "group": "BSB",
+    "TyBt": {
+        "group": "BX",
         "names": {
-            "jap": "ドランザースパイラル",
-            "eng": "DranzerSpiral",
-            "chi": "朱雀戰神 烈焰飛鳳 S"
+            "jap": "",
+            "eng": "TyrannoBeat",
+            "chi": ""
         },
-        "stat": ["28-"],
-        "desc": "兩攻水平刃産生高攻擊力及持久力，是重視平衡的設計。",
-        "attr": ["b","r"]
+        "stat": [],
+        "desc": "",
+        "attr": ["att","right"]
     },
     "WzRd": {
         "group": "UX",
@@ -30,7 +30,7 @@
         },
         "stat": ["35+"],
         "desc": "外重心又大徑幅的五枚刃形狀，專門產生離心力。",
-        "attr": ["s","r"]
+        "attr": ["sta","right"]
     },
     "HlHm": {
         "group": "UX",
@@ -41,7 +41,7 @@
         },
         "stat": ["33+"],
         "desc": "有厚度的 Smash 刃專門把對手砸向對戰盤。",
-        "attr": ["b","r"]
+        "attr": ["bal","right"]
     },
     "DrBs": {
         "group": "UX",
@@ -50,9 +50,9 @@
             "eng": "DranBuster",
             "chi": "翔龍破壞劍 蒼龍爆刃"
         },
-        "stat": ["36+"],
+        "stat": ["37-"],
         "desc": "突出的大型攻擊刃，專門以一擊把對手撞飛。",
-        "attr": ["a","r"]
+        "attr": ["att","right"]
     },
     "SpCw": {
         "group": "BX",
@@ -63,7 +63,7 @@
         },
         "stat": ["33-"],
         "desc": "以圓形配置的連打九枚刃把從各個方向而來的攻擊都分散及撞回。",
-        "attr": ["d","r"]
+        "attr": ["def","right"]
     },
     "UnSt": {
         "group": "BX",
@@ -74,7 +74,7 @@
         },
         "stat": ["33+"],
         "desc": "左右的刃形狀有巨大差異，一併持有攻擊及防禦。",
-        "attr": ["b","r"]
+        "attr": ["bal","right"]
     },
     "WyGl": {
         "group": "BX",
@@ -85,7 +85,7 @@
         },
         "stat": ["32="],
         "desc": "流線形狀四枚刃減低空氣抵抗，擅長持續迴轉。",
-        "attr": ["s","r"]
+        "attr": ["sta","right"]
     },
     "PhWn": {
         "group": "BX",
@@ -96,7 +96,7 @@
         },
         "stat": ["38="],
         "desc": "厚重三枚刃猛烈撞向對手。金屬有塗裝令性能上升。",
-        "attr": ["a","r"]
+        "attr": ["att","right"]
     },
     "PhFt": {
         "group": "BX",
@@ -105,9 +105,9 @@
             "eng": "PhoenixFeather",
             "chi": "鳳凰翔羽"
         },
-        "stat": ["33="],
+        "stat": ["33+"],
         "desc": "三枚輕量 Upper 刃產生高速攻擊。",
-        "attr": ["a","r"]
+        "attr": ["att","right"]
     },
     "DrDg": {
         "group": "BX",
@@ -118,7 +118,7 @@
         },
         "stat": ["35-"],
         "desc": "六枚攻擊刃擅長連打對手。",
-        "attr": ["a","r"]
+        "attr": ["att","right"]
     },
     "DrSw": {
         "group": "BX",
@@ -129,7 +129,7 @@
         },
         "stat": ["35-"],
         "desc": "三攻 Upper 刃擅長把對手向斜上方撞飛。",
-        "attr": ["a","r"]
+        "attr": ["att","right"]
     },
     "HlCh": {
         "group": "BX",
@@ -140,7 +140,7 @@
         },
         "stat": ["33+"],
         "desc": "性能依高度變化。有化解性下段刃及撞擊性上段刃的二層構造設計。",
-        "attr": ["b","r"]
+        "attr": ["bal","right"]
     },
     "HlSc": {
         "group": "BX",
@@ -151,7 +151,7 @@
         },
         "stat": ["33-"],
         "desc": "四枚 Smash 刃擅長令對手體勢傾倒。",
-        "attr": ["b","r"]
+        "attr": ["bal","right"]
     },
     "WzAr": {
         "group": "BX",
@@ -160,9 +160,9 @@
             "eng": "WizardArrow",
             "chi": "巫師弩箭 魔導幻箭"
         },
-        "stat": ["32-"],
+        "stat": ["32="],
         "desc": "兩枚大型圓形刃為産生強離心力的外重心設計。",
-        "attr": ["s","r"]
+        "attr": ["sta","right"]
     },
     "KnSh": {
         "group": "BX",
@@ -173,7 +173,7 @@
         },
         "stat": ["32+"],
         "desc": "採用容易以六枚防禦刃吸收衝擊的阻尼器構造。",
-        "attr": ["d","r"]
+        "attr": ["def","right"]
     },
     "KnLn": {
         "group": "BX",
@@ -184,7 +184,7 @@
         },
         "stat": ["33-"],
         "desc": "刃的位置設計在高處，擅長壓制對手的攻擊。",
-        "attr": ["d","r"]
+        "attr": ["def","right"]
     },
     "RhHr": {
         "group": "BX",
@@ -195,7 +195,7 @@
         },
         "stat": ["33-"],
         "desc": "金屬凝縮在内側的内重心構造，是令體勢受強衝擊也難以傾倒的設計。",
-        "attr": ["d","r"]
+        "attr": ["def","right"]
     },
     "ShEd": {
         "group": "BX",
@@ -206,7 +206,7 @@
         },
         "stat": ["35-"],
         "desc": "急角度的 Upper 刃侵入對手身内，能從低位置向上撞。",
-        "attr": ["a","r"]
+        "attr": ["att","right"]
     },
     "LnCl": {
         "group": "BX",
@@ -217,7 +217,7 @@
         },
         "stat": ["31+"],
         "desc": "一併持有攻擊刃及防禦刃，可以發射方法使用不同的性能。",
-        "attr": ["b","r"]
+        "attr": ["bal","right"]
     },
     "VpTl": {
         "group": "BX",
@@ -227,8 +227,8 @@
             "chi": "毒蛇靈尾 王蛇鞭尾"
         },
         "stat": ["35-"],
-        "desc": "向下尖鋭的六枚刃擅長從上削去對的持久力。",
-        "attr": ["s","r"]
+        "desc": "向下尖鋭的六枚刃擅長從上削去對手的持久力。",
+        "attr": ["sta","right"]
     },
     "CbDr": {
         "group": "BX",
@@ -237,8 +237,30 @@
             "eng": "CobaltDrake",
             "chi": "鈷藍魔龍 蒼穹龍神"
         },
-        "stat": ["38="],
+        "stat": ["38-"],
         "desc": "四枚大型龍刃撞飛對手。金屬有塗裝令性能上升。",
-        "attr": ["a","r"]
+        "attr": ["att","right"]
+    },
+    "DRS": {
+        "group": "BSB",
+        "names": {
+            "jap": "ドライガースラッシュ",
+            "eng": "DrigerSlash",
+            "chi": "青翼白虎 銀牙烈虎 S"
+        },
+        "stat": [],
+        "desc": "擁有圓形翼的兩枚刃兼備攻擊及防禦。（2000 年發售的陀螺之 X 代復刻版）",
+        "attr": ["bal","right"]
+    },
+    "DZS": {
+        "group": "BSB",
+        "names": {
+            "jap": "ドランザースパイラル",
+            "eng": "DranzerSpiral",
+            "chi": "朱雀戰神 烈焰飛鳳 S"
+        },
+        "stat": ["28-"],
+        "desc": "兩枚水平刃産生高攻擊力及持久力，是重視平衡的設計。（2000 年發售的陀螺之 X 代復刻版）",
+        "attr": ["bal","right"]
     }
 }

@@ -67,18 +67,25 @@
         <thead>
             <tr class=comp>
                 <th>No</th>
-                <th colspan=7 class=blade>Blade</th>
-                <th colspan=3 class=ratchet>Ratchet</th>
-                <th colspan=3 class=bit>Bit</th>
+                <th colspan=3 id=blade class=blade>Blade</th>
+                <th colspan=1 id=ratchet class=ratchet>Ratchet</th>
+                <th colspan=2 id=bit class=bit>Bit</th>
             </tr>
         </thead>
         <tbody></tbody>
-        <tfoot><tr><td><td><td><td>.<td><td><td><td><td><td><td><td><td><td></tfoot>
+        <tfoot></tfoot>
     </table>
 
     <input type=checkbox id=popup>
-    <label for=popup class=catalog></label>
-    <!--iframe style="width:min(30em,99%);height:15em;border:none;" src="//obakeblader.com/ブレード-ヴァイパーテイル/#toc2"></iframe-->
+    <label for=popup class=catalog>
+        <template>
+            <p></p>
+            <img>
+            <details>
+                <summary>更多圖片</summary>
+            </details>
+        </template>
+    </label>
 </main>
 
 <script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js></script>
@@ -93,7 +100,7 @@ Table.events = () => {
     Q('#jap').onchange = ev => {
         Q('#eng').checked = false;
         Q('#eng').disabled = ev.target.checked;
-        Q('tbody tr', tr => Row.fill([null, ev.target.checked ? 'jap' : 'chi'], tr));
+        Q('tbody tr', tr => Row.name([null, ev.target.checked ? 'jap' : 'chi'], tr));
         Table.flush();
     };
     Q('#eng').onchange = ev => Table.colspan(ev.target.checked ? 'eng' : 'cjk');

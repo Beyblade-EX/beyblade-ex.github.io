@@ -209,12 +209,18 @@ td {
     padding:0;
     z-index:1;
 }
-td[data-part],td:first-child,td::after {
+td:not(:empty) {
+    padding: 0 var(--pad);
+}
+td[headers=ratchet] {
+    text-align:center;
+}
+
+td[abbr],td:first-child,td::after {
     font-family:MONO,COND;
 }
-td[data-part]:not(:empty),td:first-child {
+td[abbr]:not(:empty),td:first-child {
     width:.1em;
-    padding:0 var(--pad);
 }
 tr[style] td:is(:nth-child(3),:nth-child(4)) {
     color:var(--coat,transparent);
@@ -223,12 +229,12 @@ tr[style] td:is(:nth-child(3),:nth-child(4)) {
 td>*:not([onclick]) {
     pointer-events:none;
 }
-td:not([data-part])::after {
+td:not([abbr])::after {
     margin-left:var(--pad);
 }
-:is(td[data-more='0']:not([data-part]),td[data-more='0']+.left,td[data-more='0']+.left+.right)::after {content:'/' var(--more0);}
-:is(td[data-more='1']:not([data-part]),td[data-more='1']+.left,td[data-more='1']+.left+.right)::after {content:'/' var(--more1);}
-td[data-part*='+'][data-part*=bit]::after {content:'\00a0';}
+:is(td[data-more='0']:not([abbr]),td[data-more='0']+.left,td[data-more='0']+.left+.right)::after {content:'/' var(--more0);}
+:is(td[data-more='1']:not([abbr]),td[data-more='1']+.left,td[data-more='1']+.left+.right)::after {content:'/' var(--more1);}
+td[abbr*='+'][abbr*=bit]::after {content:'\00a0';}
 
 td sub,td sup {
     position:absolute;
@@ -245,30 +251,18 @@ tbody tr:last-child td {
 tbody td {
     border-top:solid .5px var(--on);
 }
-td:first-child {
-    border-right:solid .5px var(--on);
-}
-.right:not(.fusion)+td {
+td[abbr] {
     border-left:solid .5px var(--on);
 }
-#eng:not(:checked)~main table:not(.bilingual) .left+.right,
-#eng:checked~main .left,
-.bilingual .left {
-    padding:0 var(--pad);
+td:last-child {
     border-left:solid .5px hsl(0,0%,55%);
-}
-td[data-part$=blade]+td,td[data-part$=ratchet]+td,
-td[data-part$=blade]+td+td,td[data-part$=ratchet]+td+td {
-    border-left:none !important;
-}
-.bilingual .right {
-    padding-right:var(--pad);
 }
 #eng:not(:checked)~main table:not(.bilingual) .left,
 #eng:checked~main table:not(.bilingual) .right,
 #jap:checked~main .left,
 table.bilingual .right:last-child {
     font-size:0;
+    padding:0;
 }
 .bilingual label[for=eng],
 #jap:not(:checked)~main .bilingual u {
