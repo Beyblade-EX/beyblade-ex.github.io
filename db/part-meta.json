@@ -42,7 +42,7 @@
                 "G": {"eng": "Gear ",  "jap": "ギア"    , "desc": "齒部延長"},
                 "H": {"eng": "High ",  "jap": "ハイ"    , "desc": "高度提升 10 "},
                 "L": {"eng": "Low ",   "jap": "ロー"    , "desc": "高度下降 10 "},
-                "M": {"eng": "Metal ", "jap": "ロー"    , "desc": "使用金屬軸端"}
+                "M": {"eng": "Metal ", "jap": "メタル"  , "desc": "使用金屬軸端"}
             }
         }
     }

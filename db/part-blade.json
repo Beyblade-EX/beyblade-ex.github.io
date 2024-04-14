@@ -2,7 +2,7 @@
     "ShSh": {
         "group": "UX",
         "names": {
-            "jap": "",
+            "jap": "シノビシャドウ",
             "eng": "ShinobiShadow",
             "chi": ""
         },
@@ -13,8 +13,8 @@
     "TyBt": {
         "group": "BX",
         "names": {
-            "jap": "",
-            "eng": "TyrannoBeat",
+            "jap": "ティラノビート",
+            "eng": "TyranoBeat",
             "chi": ""
         },
         "stat": [],
