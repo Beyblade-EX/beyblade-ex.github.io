@@ -91,10 +91,6 @@ a object {
     -webkit-text-stroke:initial;
     font-weight:normal;
 }
-.chi {
-    color:transparent; -webkit-text-stroke:.001em white;
-    font-weight:bold;
-}
 .chi span {
     font-size:1.02em; vertical-align:-.01em; letter-spacing:.08em;
 }
