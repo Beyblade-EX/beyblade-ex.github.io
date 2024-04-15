@@ -7,18 +7,18 @@
             "chi": ""
         },
         "stat": [],
-        "desc": "",
+        "desc": "圓滑三枚刃專門把對手攻擊卸走。",
         "attr": ["def","right"]
     },
     "TyBt": {
         "group": "BX",
         "names": {
             "jap": "ティラノビート",
-            "eng": "TyranoBeat",
+            "eng": "TyrannoBeat",
             "chi": ""
         },
         "stat": [],
-        "desc": "",
+        "desc": "上下方向都呈鋸齒狀又突出的厚八枚刃，擅長給予不規則的打擊。",
         "attr": ["att","right"]
     },
     "WzRd": {

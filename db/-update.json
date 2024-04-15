@@ -2,15 +2,15 @@
   "/db/prod-launchers.json":["2024/02/20 23:10:00"],
   "/db/prod-others.json":   ["2024/02/20 23:15:00"],
   "/db/prod-beys.json":     ["2024/04/14 23:25:00"],
-  "/db/part-ratchet.json":  ["2024/04/14 23:25:00"],
-  "/db/part-bit.json":      ["2024/04/14 23:25:00"],
-  "/db/part-blade.json":    ["2024/04/14 23:25:00"],
+  "/db/part-ratchet.json":  ["2024/04/15 16:40:00"],
+  "/db/part-bit.json":      ["2024/04/15 16:40:00"],
+  "/db/part-blade.json":    ["2024/04/15 16:40:00"],
   "/db/part-meta.json":     ["2024/04/14 23:25:00"],
   "/db/keihin.json":        ["2024/03/21 12:35:00"],
   "news": {
     "2024-04-27":[
       {"code":"UX-04 entry set","name":"バトルエントリーセットU<br>Battle Entry Set U","desc":[]},
-      {"code":"BX-31 random booster vol.3","type":"att","name":"ティラノビート4-70Q<br>TyranoBeat 4-70Q","imgs":["https://takaratomymall.jp/img/goods/5/4904810914532_ec5b6166a21c43339c4e4f5172d6a256.jpg","https://takaratomymall.jp/img/goods/L/4904810914532_9307330889854d0db2ab3d41d51e1dad.jpg"],
+      {"code":"BX-31 random booster vol.3","type":"att","name":"ティラノビート4-70Q<br>TyrannoBeat 4-70Q","imgs":["https://takaratomymall.jp/img/goods/5/4904810914532_ec5b6166a21c43339c4e4f5172d6a256.jpg","https://takaratomymall.jp/img/goods/L/4904810914532_9307330889854d0db2ab3d41d51e1dad.jpg"],
       "desc":["TyranoBeat：鋸齒狀厚八枚刃","Q bit：尖端偏離中心，劇烈跳躍"]},
       {"code":"BXG-04 booster","type":"bal","name":"ドライガースラッシュ4-80P<br>DrigerSlash 4-80P","desc":["又是削弱度的偏重心設計"]}
     ],
