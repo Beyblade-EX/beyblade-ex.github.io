@@ -1,8 +1,8 @@
 [
   ["UX-05","RB","ShSh 1-80 MN"],["UX-05","RB H","ShSh 9-60 LF"],["UX-05","RB H","ShSh 3-70 GP"],
   ["BXG-04","B","DRS 4-80 P","ko--Stv3vBk"],
-  ["BX-31","RB","TyBt 4-70 Q"],["BX-31","RB H","TyBt 3-60 S"],["BX-31","RB H","DrDg 4-70 P"],
-  ["BX-31","RB H","HlCh 9-80 O"],["BX-31","RB H","ShEd 1-60 Q"],["BX-31","RB H","RhHr 5-80 Q"],
+  ["BX-31","RB","TyBt 4-70 Q"],["BX-31","RB H","TyBt 3-60 S"],["BX-31","RB H","HlCh 9-80 O"],
+  ["BX-31","RB H","DrDg 4-70 P"],["BX-31","RB H","ShEd 1-60 Q"],["BX-31","RB H","RhHr 5-80 Q"],
   ["UX-04","SS H","DrBs 1-60 A"],["UX-04","SS H","WzRd 5-70 DB"],
   ["UX-03","B","WzRd 5-70 DB","503x_5cbm5Y"],["UX-02","S","HlHm 3-70 H","503x_5cbm5Y"],["UX-01","S","DrBs 1-60 A","503x_5cbm5Y"],
   ["BXG-06","B H","ShEd 5-60 GF",{"coat": "dodgerblue"}],["BXG-05","B H","LnCl 5-60 P",{"coat": "gold"}],
