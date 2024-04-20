@@ -1,53 +1,57 @@
 
 let NAMES;
-const Table = async () => {
-    Table.loading(true);
-    await Parts.getMeta();
-    NAMES = await DB.get.names();
-    await Promise.all([Table.fetch('prod-beys')]);
-    $('#regular').tablesorter();
-    Table.RB();
-    Table.loading(false);
+const Table = async (table = Q('table')) => {
+    Table.table = table;
+    await Table.loading(true).fetch.meta().fetch.beys();
+    Table.sort().loading(false);
     if (new URLSearchParams(location.search).size)
         return Find.autofill(...[...new URLSearchParams(location.search.replaceAll('+','%2B'))][0]);
-    Table.count(), Table.flush();
+    Table.count().flush();
 }
 Object.assign(Table, {
-    limit: 'BX-100',
-    loading(is) {
-        Q('#regular caption').classList.toggle('loading', is);
+    loading (is) {
+        Table.table.Q('caption').classList.toggle('loading', is);
         Q('input:not([type])', input => input.disabled = input.value = is ? 'Loading' : '');
+        return this;
     },
-    async fetch(key, tbody = '#regular tbody') {
-        //let beys = await DB.get('html', key);
-        let beys = await (await Fetch('/db/prod-beys.json')).json();
-        if (typeof beys == 'string') {
-            beys = [...E('template', {innerHTML: beys}).content.children];
-            Q(tbody).append(...beys);
-        } else {
-            beys = await beys.reduce((prev, bey) => prev.then(async arr => [...arr, await new Row().create(bey, tbody)]), Promise.resolve([]));
-            //DB.put('html', [key, Table.trim(beys)]);
-        }
-        beys.forEach(tr => tr && Row.connectedCallback(tr));
-    },
-    RB() {
-        Q('tr.RB:not(.H)', tr => {
-            let index = 1, bey = tr;
-            while (bey.matches('.RB')) {
-                bey.Q('td:first-child').append('\u00a0', E('sub', ` 0${index++}`));
-                bey = bey.nextSibling;
+    fetch: {
+        meta () {
+            Promise.all([DB.get.names(), Parts.getMeta()]).then(([names]) => NAMES = names);
+            return Table;
+        },
+        async beys () {
+            //let beys = await DB.get('html', key);
+            let beys = await (await Fetch('/db/prod-beys.json')).json();
+            if (typeof beys == 'string') {
+                beys = [...E('template', {innerHTML: beys}).content.children];
+                Table.table.append(...beys);
+            } else {
+                beys = await beys.reduce((prev, bey) => prev.then(async arr => [...arr, await new Row().create(bey)]), Promise.resolve([]));
+                //beys = beys.reduce((html, tr) => html += tr.outerHTML, '').replace(/<\/t[dr]>| (?=>)| (?:\s+)| role="row"/g, '').replaceAll('"', "'");
+                //DB.put('html', [key, beys]);
             }
-        })
+            beys.forEach(tr => tr && Row.connectedCallback(tr));
+        }
     },
-    flush(update = false) {
+    sort () {
+        $(Table.table).tablesorter();
+        return this;
+    },
+    count () {
+        Q('.prod-result').value = document.querySelectorAll(`tbody tr:not(.hidden):not([hidden])`).length;
+        return this;
+    },
+    flush () {
         document.body.scrollWidth > 550 ?
-            Table.colspan(Q('#jap').checked ? 'cjk' : 'both') : Table.colspan(Q('#eng').checked ? 'eng' : 'cjk');
-        $('#regular').trigger('update', [false]);
+            Table.set.colspan(Q('#jap').checked ? 'cjk' : 'both') : Table.set.colspan(Q('#eng').checked ? 'eng' : 'cjk');
+        $(Table.table).trigger('update', [false]);
     },
-    colspan(lang) {
-        let colspan = {eng: [1, 1], cjk: [1, 1]}[lang] ?? [1, 1];
-        Q('td[abbr$=blade],tbody td:not([abbr]):nth-child(2)', td => new Cell(td).next2(({td}, i) => td.colSpan = colspan[i]));
-        Q('table', table => table.classList.toggle('bilingual', lang == 'both'));
+    set: {
+        colspan(lang) {
+            let colspan = {eng: [1, 1], cjk: [1, 1]}[lang] ?? [1, 1];
+            //Q('td[abbr$=blade],tbody td:not([abbr]):nth-child(2)', td => new Cell(td).next2(({td}, i) => td.colSpan = colspan[i]));
+            Table.table.classList.toggle('bilingual', lang == 'both');
+        },    
     },
     reset() {
         Find.state(false);
@@ -55,12 +59,10 @@ Object.assign(Table, {
         Filter.inputs.forEach(input => input.checked = true);
         Q('#filter').classList.remove('active');
         Q('tr[hidden],tr.hidden', tr => tr.classList.toggle('hidden', tr.hidden = false));
-        Q('#regular').classList.add('new');
+        Table.table.classList.add('new');
         Table.count();
     },
-    entire: () => (Q('#regular').classList.remove('new'), Table.flush(true)),
-    count: () => Q('.prod-result').value = document.querySelectorAll(`tbody tr:not(.hidden):not([hidden])`).length,
-    trim: rows => rows.reduce((html, tr) => html += tr.outerHTML, '').replace(/<\/t[dr]>|\s(?=>)|\s(?:\s+)/g, '').replaceAll('"', "'"),
+    entire: () => (Table.table.classList.remove('new'), Table.flush(true)),
 });
 
 const Filter = () => {

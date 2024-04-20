@@ -42,39 +42,43 @@ class Bit extends AbsPart {
 }
 
 class Row {
-    constructor(hidden = false) {
-        this.tr = E('tr', {hidden});
-    }
+    constructor(hidden = false) {this.hidden = hidden;}
     static connectedCallback(tr) {
-        tr.Q('td', td => {
-            td.custom();
-            td.onclick = () => td.custom.preview();
-        });
+        Cell.prototype.dissect.regex.pref ??= new RegExp(`^[${Parts.bit.prefix}]+(?=[^a-z].*)`);
+        tr.Q('td', td => td.onclick = () => td.custom().preview());
         Row.names(['eng', 'chi'], tr);
     }
     static names(lang, tr) {
-        tr.Q(`td[headers=blade]`).custom.next2((td, i) => td.custom.fullname(lang[i]));
-        tr.Q(`td[headers=bit]+td`).custom.fullname(lang[1] == 'chi' ? 'eng' : lang[1]);
+        tr.Q(`td[headers=blade]`).custom().next2((td, i) => td.custom().fullname(lang[i]));
+        tr.Q(`td[headers=bit]+td`).custom().fullname(lang[1] == 'chi' ? 'eng' : lang[1]);
     }
-    async create([no, type, abbr, ...others], place) {
-        if (no == 'BH') return this.tr = null;
+    create([code, type, abbr, ...others], place) {
+        if (code == 'BH') return;
+        let [video, extra] = ['string', 'object'].map(t => others.find(o => typeof o == t));
         let [blade, ratchet, bit] = abbr.split(' ');
         [blade, ratchet, bit] = [new Blade(blade), new Ratchet(ratchet), new Bit(bit)];
-        
-        let video = others.find(o => typeof o == 'string') ?? [Q(`td[data-video]`)].flat().findLast(td => td?.childNodes[0].textContent == no)?.dataset.video;
-        
-        this.tr.append(...[this.number(no, video ? {video} : {}), blade.cells(), bit.fusion ? [bit.cells(), bit.none(true)] : [ratchet.cells(), bit.cells()]].flat(9));
-        this.tr.classList = [type, blade.system ?? ''].join(' ');
-        this.tr.dataset.abbr = abbr;
-        
-        this.extra(others.find(o => typeof o == 'object') ?? {});
-        return Q(place).appendChild(this.tr);
+                
+        this.tr = E('tr', [
+            this.create.code(code, type, video), 
+            blade.cells(), 
+            bit.fusion ? [bit.cells(), bit.none(true)] : [ratchet.cells(), bit.cells()]
+        ].flat(9), {
+            hidden: this.hidden,
+            classList: [type, blade.system ?? ''].join(' '),
+            dataset: {abbr}
+        });
+        this.extra(extra ?? {});
+        return Q('tbody').appendChild(this.tr);
     }
-    number(number, obj) {
-        let [no, sub] = number.split('.');
-        let td = E('td', {innerHTML: no.replace(/_X-(?=\d{2})/, 'X-&nbsp;')}, [sub ? E('sub', sub) : '']);
-        Object.assign(td.dataset, {...Mapping.maps.images.find(no), ...obj});
-        return td;
+    static create = {
+        code (code, type, video) {
+            type.split(' ')[0] == 'RB' ? Row.RB++ : Row.RB = 0;
+            video ??= [Q(`td[data-video]`)].flat().findLast(td => td?.custom().text == code)?.dataset.video;
+            return E('td', 
+                [code.replace(/_X-(?=\d{2})/, 'X- '), Row.RB ? E('sub', `0${Row.RB}`) : ''], 
+                {dataset: {...Mapping.maps.images.find(code), ...video ? {video} : {}}}
+            );
+        }
     }
     extra({more, coat}) {
         coat && this.tr.style.setProperty('--coat', coat);
@@ -83,119 +87,122 @@ class Row {
             this.tr.Q(`td:nth-child(${column})`).dataset.more = i;
             this.tr.style.setProperty(`--more${i}`, `'${part.split('.')[0]}'`);
         });
-        return this;
     }
     any = (...tds) => this.tr.querySelector(tds.map(td => `td[abbr$=${td}]`));
+    static RB = 0;
 }
+Object.assign(Row.prototype.create, Row.create);
 
-HTMLTableCellElement.prototype.custom = function () { 
-    this.custom = new custom(this);
-    this.custom.dissect.regex.pref = new RegExp(`^[${Parts.bit.prefix}]+(?=[^a-z].*)`);
-}
-let custom = function(td) {
-    this.td = td;
-    this.next2 = (action) => [this.td.nextElementSibling, this.td.nextElementSibling?.nextElementSibling].forEach(action);
+class Cell {
+    constructor(td) {this.td = td;}
+    get text() {return Cell.text(this.td);}
+    next2 = (action) => [this.td.nextElementSibling, this.td.nextElementSibling?.nextElementSibling].forEach(action);
 
-    this.dissect = (naming) => {
+    dissect (naming) {
         let td = this.td.abbr ? this.td : $(this.td).prevAll('[abbr]')[0];
         let comp = td.headers;
-        let {prop, sym} = this.dissect.exec(td.abbr, ['mode', ...comp == 'bit' && naming ? ['pref', 'dash'] : []]);
+        let {prop, abbr} = this.dissect.exec(td.abbr, naming && this.dissect.items[comp] || []);
         //prop.core ? comp = 'frame' : null;
         
-        return naming ? {...prop, sym, comp} : [
+        return naming ? {...prop, abbr, comp} : [
+            `${abbr}.${comp}`, 
             //prop.core && `${prop.core}.ratchet`, 
-            `${sym}.${comp}`, 
-            prop.mode && `${prop.mode}.${comp}`,
-            td.parentNode.more?.split(',').find(p => p.includes(comp.replace(/\d.$/, '')))
+            //prop.mode && `${prop.mode}.${comp}`,
+            //td.parentNode.more?.split(',').find(p => p.includes(comp.replace(/\d.$/, '')))
         ].filter(p => p && p[0] != '_');
-    };
-    Object.assign(this.dissect, {
-        exec (sym, items) {return {
-            prop: items.reduce((prop, item) => ({...prop, [item]: sym.match(this.regex[item])?.[0]}), {}),
-            sym: items.reduce((sym, item) => sym.replace(this.regex[item], ''), sym)
+    }
+    static dissect = {
+        items: {
+            bit: ['pref']
+        },
+        exec (abbr, items) {return{
+            prop: items.reduce((prop, item) => ({...prop, [item]: abbr.match(this.regex[item])?.[0]}), {}),
+            abbr: items.reduce((abbr, item) => abbr.replace(this.regex[item], ''), abbr)
         }},
         regex: {
-            pref: new RegExp(`^[${Parts.bit?.prefix}]+(?=[^a-z].*)`),
-            dash: /′(?:\+.)?$/,
+            pref: null,
+            //dash: /′(?:\+.)?$/,
             //core: /[\dα′_]+(?=\D)/,
-            mode: /\+[^.′ ]+/
-        }
-    });
+            //mode: /\+[^.′ ]+/
+        }    
+    }
 
-    this.fullname = (lang) => {
-        let {sym, comp, pref, dash, core, mode} = this.dissect(true);
-        let name = (comp == 'bit' && (pref || dash) ? Part.revise.name(NAMES[comp][sym], pref[0]) : NAMES[comp]?.[sym])?.[lang] ?? '';
+    fullname (lang) {
+        let {abbr, comp, pref, dash, core, mode} = this.dissect(true);
+        let name = (comp == 'bit' && (pref || dash) ? Part.revise.name(NAMES[comp][abbr], pref[0]) : NAMES[comp]?.[abbr])?.[lang] ?? '';
         this.td.innerHTML = this.fullname[lang](name, comp, core) + this.fullname.add(name, dash, mode);
         //this.td.classList.toggle('small', name.length >= (Mapping.maps.oversize[lang].find(comp) || 99));
-    };
-    Object.assign(this.fullname, {
+    }
+    static fullname = {
         eng: (name, comp, core) => (comp == 'bit' && name.length > 16 ? name.replace(' ', '<br>') : name),
         jap: (name, comp, core) => (comp == 'bit' && name.length > 8 ? name : name),
         chi: (name, comp, core) => name.replace(' ', '⬧').replace('/', ''),
         add: (name, dash, mode) => (name && dash ? '<i>′</i>' : ''),
-    });
+    }
 
-    this.preview = () => {
+    preview () {
+        Object.assign(this.preview, this._preview);
+        Object.assign(this.preview.image, this.preview._image);
+        this.preview.image.td = this.preview.td = this.td;
         Q('#popup').checked = true;
-        custom.popup.innerHTML = '';
+        Cell.popup.innerHTML = '';
         this.preview[this.td.matches('td:first-child') ? 'image' : 'part']();
     }
-    Object.assign(this.preview, {
-        image () {
-            custom.popup.classList.remove('catalog');
-            custom.popup.replaceChildren(
-                E('p', Mapping.maps.note.find(this.td.childNodes[0].textContent)),
-                ...this.td.dataset.video?.split(',').map(href => E('a', {href: `//youtu.be/${href}?start=60`})) ?? [],
-                ...this.image.parse(this.td, 'main').juxtapose(this.td),
-                ...this.image.parse(this.td, 'more').juxtapose(this.td),
-                ...this.image.parse(this.td, 'detail').juxtapose(this.td),
-            );
-        },
-        async part () {
-            custom.popup.classList.add('catalog');
+    _preview = {
+        part: async () => {
+            Cell.popup.classList.add('catalog');
             Parts._meta ??= await (await Fetch('/db/part-meta.json')).json();
     
-            for (const p of this.td.custom.dissect()) {
+            for (let p of this.dissect()) {
                 //new Part(await DB.get('parts', p)).catalog(true);
                 let [sym, comp] = p.split('.');
                 Fetch(`/db/part-${comp}.json`).then(resp => resp.json())
                 .then(parts => new Part({...parts[sym], key: p}, Object.entries(parts).map(([sym, part]) => ({...part, sym}))).catalog(true));
             }
-        }
-    });
-    Object.assign(this.preview.image, {
-        parse (td, type) {
-            custom.images = [];
-            let no = td.childNodes[0].textContent.replace('-','');
-            if (!td.dataset[type]) {
-                this.format(no, type);
-            } else {
-                let values = {no};
-                let expression = td.dataset[type].replaceAll(/\$\{.+\}/g, whole => values[whole.match(/[a-z]+/)]);
-                let group = expression.match(/(?<=\().+(?=\))/)[0];
-                group.split('|').forEach(s => this.format(expression.replace(`(${group})`, s), type));
-            }
-            return this;
         },
-        format (no, type) {
-            if (type == 'main')
-                custom.images.push(`${no}@1`);
-            else if (type == 'more')
-                custom.images.push(...[1,2,3,4,5,6,7,8,9].map(n => `${no}_0${n}@1`));
-            else if (type == 'detail')
-                custom.images.push(`detail_${no.replace(/.+(?=\d)/, s => no.dataset?.detailUpper ? s : s.toLowerCase())}`);
+        image () {
+            Cell.popup.classList.remove('catalog');
+            Cell.popup.replaceChildren(
+                E('p', Mapping.maps.note.find(this.text)),
+                ...this.td.dataset.video?.split(',').map(href => E('a', {href: `//youtu.be/${href}?start=60`})) ?? [],
+                ...this.image.parse('main').juxtapose(),
+                ...this.image.parse('more').juxtapose(),
+                ...this.image.parse('detail').juxtapose(),
+            );
         },
-        src: href => /^https|\/img\//.test(href) ? href : href.length >= 15 ? 
-            `https://pbs.twimg.com/media/${href}?format=png&name=large` : 
-            `https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/${href}.png`,
-        juxtapose () {return [custom.images].flat().map(src => E('img', {src: this.src(src)}))},
-    });
-    alias(this);
+        _image: {
+            parse (type) {
+                Cell.images = [];
+                let no = Cell.text(this.td).replace('-','');
+                if (!this.td.dataset[type]) {
+                    this.format(no, type);
+                } else {
+                    let values = {no};
+                    let expression = this.td.dataset[type].replaceAll(/\$\{.+\}/g, whole => values[whole.match(/[a-z]+/)]);
+                    let group = expression.match(/(?<=\().+(?=\))/)[0];
+                    group.split('|').forEach(s => this.format(expression.replace(`(${group})`, s), type));
+                }
+                return this;
+            },
+            format (no, type) {
+                if (type == 'main')
+                    Cell.images.push(`${no}@1`);
+                else if (type == 'more')
+                    Cell.images.push(...[1,2,3,4,5,6,7,8,9].map(n => `${no}_0${n}@1`));
+                else if (type == 'detail')
+                    Cell.images.push(`detail_${no.replace(/.+(?=\d)/, s => no.dataset?.detailUpper ? s : s.toLowerCase())}`);
+            },
+            juxtapose () {return [Cell.images].flat().map(src => E('img', {src: this.src(src)}))},
+            src: href => /^https|\/img\//.test(href) ? href : href.length >= 15 ? 
+                `https://pbs.twimg.com/media/${href}?format=png&name=large` : 
+                `https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/${href}.png`,
+        },
+    }
+    static text = td => td.childNodes[0].textContent;
+    static popup = Q('label[for=popup]');
 }
-let alias = level => {
-    Object.keys(level).forEach(m => {
-        Object.keys(level[m]).length && alias(level[m]);
-        level[m].td = level.td;
-    });
-}
-custom.popup = Q('label[for=popup]');
+Object.assign(Cell.prototype.dissect, Cell.dissect);
+Object.assign(Cell.prototype.fullname, Cell.fullname);
+//Object.assign(Cell.prototype.preview, Cell.prototype._preview()());
+
+HTMLTableCellElement.prototype.custom = function () {return this._custom ??= new Cell(this);}

@@ -36,14 +36,14 @@ li.next {grid-column:1;}
     font-size:1.7em;
     line-height:.9;
 }
-.比賽 b {background:olive;}
-.比賽 b::before {content:'\e031';}
-.抽獎 b {background:darkslategray;}
-.抽獎 b::before {content:'\e02f';}
-.贈品 b {background:steelblue;}
-.贈品 b::before {content:'\e002';}
-.限定商品 b {background:darkred;}
-.限定商品 b::before {content:'\e001';}
+.keihin-t b {background:olive;}
+.keihin-t b::before {content:'\e031';}
+.keihin-d b {background:darkslategray;}
+.keihin-d b::before {content:'\e02f';}
+.keihin-g b {background:steelblue;}
+.keihin-g b::before {content:'\e002';}
+.keihin-m b {background:darkred;}
+.keihin-m b::before {content:'\e001';}
 
 .diamonds p {
     grid-area:desc;
@@ -66,8 +66,8 @@ li.next {grid-column:1;}
     margin:.5em .3em;
 }
 .diamonds img {
-    position:absolute; left:var(--left,50%); top:var(--top,50%); transform:translate(-50%,-50%);
-    width:var(--width,100%);
+    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+    width:100%;
 }
 .diamonds h5 {
     font-size:.9em; line-height:1.1;
@@ -75,13 +75,13 @@ li.next {grid-column:1;}
     margin-top:4.5em;
     position:relative;
 }
-.diamonds h5:has(.BXA) {
+.diamonds h5:has(.code) {
     margin-top:3.4em;
 }
-.BXA {
+.code {
     transform:translate(.3em);
 }
-.diamonds small,.BXA {
+.diamonds small,.code {
     display:block;
     color:grey;
     margin:.3em 0;
@@ -89,10 +89,10 @@ li.next {grid-column:1;}
 .diamonds h5 small {
     transform:scaleX(.95);
 }
-.diamonds h5 small,.BXA {
+.diamonds h5 small,.code {
     font-size:.8em;
 }
-.diamonds :is(span,h5 small) {
+.diamonds :is(span:not(.code),h5 small) {
     letter-spacing:-.05em;
 }
 .diamonds i {

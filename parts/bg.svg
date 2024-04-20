@@ -19,7 +19,7 @@
     #top+path {stroke-width:1.5; stroke:url(#line-art); fill:none;}
 
     .spin use:first-of-type {transform:skew(45deg);}
-    .spin use:last-of-type {transform:skew(-45deg); x:30;}
+    .spin use:last-of-type {transform:skew(-45deg);}
     </style>
     <defs>
         <g id='top-art'>
@@ -65,7 +65,7 @@
     <!-- <polygon points='65,34 85,34 111,60 115,60 130,75 115,90 111,90 85,116 65,116 39,90 35,90 20,75 35,60 39,60' stroke='hsla(0,0%,100%,.8)' fill='hsla(0,0%,100%,.2)'/> -->
     <script>// <![CDATA[
         Q('#top').setAttribute('transform', 'rotate(-45) translate(-55,30)');
-        (q.left || q.right) && (Q('#top').classList = 'spin');
+        (q.left || q.right) && (Q('#top').classList = 'spin') && Q('use:last-of-type').setAttribute('x', 30);
         q.left && Q('#top').setAttribute('transform', 'rotate(135) translate(-65,-60)');
     // ]]></script>
 </svg>

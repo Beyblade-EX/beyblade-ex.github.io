@@ -12,7 +12,8 @@ const E = (el, ...stuff) => {
     el = ['svg', 'use', 'path'].includes(el) ? document.createElementNS('http://www.w3.org/2000/svg', el) : document.createElement(el);
     el.append(...children ?? []);
     Object.assign(el.style, attr?.style ?? {});
-    return Object.assign(el, (({style, ...attr}) => attr)(attr ?? {}));
+    Object.assign(el.dataset, attr?.dataset ?? {});
+    return Object.assign(el, (({style, dataset, ...attr}) => attr)(attr ?? {}));
 }
 const Cookie = {
     ...Object.fromEntries(document.cookie.split(/;\s?/).map(c => c.split('=')).map(([k, v]) => [k, v?.includes('{') ? JSON.parse(v) : v])),

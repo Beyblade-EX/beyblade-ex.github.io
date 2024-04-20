@@ -51,15 +51,15 @@
     min-width:15em; max-width:15em;
     min-height:15em; max-height:15em;
     position:relative;
-    color:var(--on); text-shadow:0 0 .05em black,0 0 .15em;
+    color:var(--on); text-shadow:0 0 .05em black,0 0 .1em;
     --icon:1.6em;
     display:grid; grid-template:2em auto 1em 1em / var(--icon) calc(50% - var(--icon)) auto var(--icon) var(--icon);
     padding:.3em .4em;
 }
 a img {filter:drop-shadow(0 0 .1rem var(--on));}
 a img[alt^=type] {filter:drop-shadow(0 0 .1rem var(--type));}
-a img[src$=BX] {filter:drop-shadow(0 0 .1rem #71bce9);}
-a img[src$=UX] {filter:drop-shadow(0 0 .1rem #ee7800);}
+a img[src$=BX] {filter:drop-shadow(0 0 .05rem #71bce9);}
+a img[src$=UX] {filter:drop-shadow(0 0 .05rem #ee7800);}
 
 a h4 {grid-area:3/1/5/3;}
 .chi:nth-of-type(1) {grid-area:3/2/4/4;}
@@ -78,6 +78,7 @@ a.bit h4 {grid-area:3/2/5/3;}
 a object {
     pointer-events:none;
     position:absolute; z-index:-1;
+    width:100%;
 }
 .chi {
     align-self:center; justify-self:start;
@@ -219,12 +220,14 @@ a p {
     text-align:left; font-size:.65em;
     line-height:1.4em;
     margin:0;
+    overflow:hidden;
 }
 a p::before {
-    content:'';
+    content:'一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一';
     width:100%; height: 100%;
     float:left;
-    shape-outside:polygon(0% 13%,5% 13%,80% 50%,0% 87%);
+    visibility:hidden;
+    shape-outside:polygon(0% 13%,75% 50%,0% 87%);
 }
 h4 sup,h4 sub {font-size:.65em;}
 figure img {filter:drop-shadow(0 0 .4em hsla(0,0%,100%,.3));}
