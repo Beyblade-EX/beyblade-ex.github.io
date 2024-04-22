@@ -95,7 +95,7 @@ Object.assign(Filter.prototype, {
         }
         this.inputs.forEach(input => input.onchange = async () => {
             this.inputs.forEach(i => i.checked = i == input);
-            input.checked && Cookie.set(Parts.comp, {...Cookie[Parts.comp], [Parts.category]: input.id});
+            //input.checked && Cookie.set(Parts.comp, {...Cookie[Parts.comp], [Parts.category]: input.id});
             Parts.switch([input.id], this.type == 'group');
         });
         return this;
