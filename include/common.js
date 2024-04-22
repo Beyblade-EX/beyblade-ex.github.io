@@ -206,7 +206,11 @@ location.pathname == '/' && fetch('/db/-update.json').then(resp => resp.json())
 .then(({news, ...others}) => Object.entries(others).forEach(([url, [time]]) => files.updated[url] = new Date(time).getTime()))
 .then(() => localStorage.setItem('updated', JSON.stringify(files.updated)));
 
-const Fetch = url => files.stored[url] >= files.updated[url] && caches.match(url)
-    || console.log(url) || fetch(url).then(resp => caches.open('json').then(cache => cache.add(url, resp)) 
-        && localStorage.setItem('stored', JSON.stringify(files.stored = {...files.stored, [url]: new Date().getTime()})) || resp
-    )
+const Fetch = url => (files.stored[url] >= files.updated[url] ? 
+        Promise.reject() :
+        caches.match(url).then(cache => (cache || Promise.reject())))
+    .catch(() => fetch(url).then(resp => caches.open('json').then(cache => {
+        cache.add(url, resp);
+        localStorage.setItem('stored', JSON.stringify(files.stored = {...files.stored, [url]: new Date().getTime()}));
+        return resp;}
+    )));
