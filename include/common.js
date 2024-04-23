@@ -19,7 +19,7 @@ const Cookie = {
     set: (k, v) => document.cookie = `${k}=${typeof v == 'object' ? JSON.stringify(Cookie[k] = {...Cookie[k] ?? {}, ...v}) : v}; max-age=99999999; path=/`,
     parse: v => { try { return JSON.parse(v); } catch (e) { return console.error(v) ?? null; } }
 };
-Object.assign(Cookie, ...Object.fromEntries(document.cookie.split(/;\s?/).map(c => c.split('=')).map(([k, v]) => [k, v?.includes('{') ? Cookie.parse(v) : v])));
+Object.assign(Cookie, Object.fromEntries(document.cookie.split(/;\s?/).map(c => c.split('=')).map(([k, v]) => [k, v?.includes('{') ? Cookie.parse(v) : v])));
 window.addEventListener('DOMContentLoaded', () => document.title += ' ■ 戰鬥陀螺 X⬧爆旋陀螺 X⬧ベイブレード X⬧Beyblade X');
 
 const nav = links => {
