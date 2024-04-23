@@ -16,8 +16,9 @@ const E = (el, ...stuff) => {
     return Object.assign(el, (({style, dataset, ...attr}) => attr)(attr ?? {}));
 }
 const Cookie = {
-    ...Object.fromEntries(document.cookie.split(/;\s?/).map(c => c.split('=')).map(([k, v]) => [k, v?.includes('{') ? JSON.parse(v) : v])),
+    ...Object.fromEntries(document.cookie.split(/;\s?/).map(c => c.split('=')).map(([k, v]) => [k, v?.includes('{') ? Cookie.parse(v) : v])),
     set: (k, v) => document.cookie = `${k}=${typeof v == 'object' ? JSON.stringify(Cookie[k] = {...Cookie[k] ?? {}, ...v}) : v}; max-age=99999999; path=/`,
+    parse: v => { try { return JSON.parse(v); } catch (e) { return console.error(v) ?? null; } }
 };
 window.addEventListener('DOMContentLoaded', () => document.title += ' ■ 戰鬥陀螺 X⬧爆旋陀螺 X⬧ベイブレード X⬧Beyblade X');
 
@@ -206,11 +207,12 @@ location.pathname == '/' && fetch('/db/-update.json').then(resp => resp.json())
 .then(({news, ...others}) => Object.entries(others).forEach(([url, [time]]) => files.updated[url] = new Date(time).getTime()))
 .then(() => localStorage.setItem('updated', JSON.stringify(files.updated)));
 
-const Fetch = url => fetch(url);/*(files.stored[url] >= files.updated[url] ? 
-        Promise.reject() :
-        caches.match(url).then(cache => (cache || Promise.reject())))
-    .catch(() => fetch(url).then(resp => caches.open('json').then(cache => {
+const Fetch = async url => {
+    if (files.stored[url] >= files.updated[url]) 
+        return console.log(`cache: ${url}`) ?? caches.match(url);
+    return console.log(`fetch: ${url}`) ?? fetch(url).then(resp => caches.open('json').then(cache => {
         cache.add(url, resp);
         localStorage.setItem('stored', JSON.stringify(files.stored = {...files.stored, [url]: new Date().getTime()}));
-        return resp;}
-    )));*/
+        return resp;
+    }));
+}

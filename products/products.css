@@ -225,12 +225,10 @@ td[abbr]:not(:empty),td:first-child {
 tr[style] td:is(:nth-child(3),:nth-child(4)) {
     color:var(--coat,transparent);
 }
+.RB td:first-child::after {content:'\00a0';}
 /*below td*/
 td>*:not([onclick]) {
     pointer-events:none;
-}
-td:not([abbr])::after {
-    margin-left:var(--pad);
 }
 :is(td[data-more='0']:not([abbr]),td[data-more='0']+.left,td[data-more='0']+.left+.right)::after {content:'/' var(--more0);}
 :is(td[data-more='1']:not([abbr]),td[data-more='1']+.left,td[data-more='1']+.left+.right)::after {content:'/' var(--more1);}
