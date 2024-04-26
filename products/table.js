@@ -2,7 +2,7 @@
 let NAMES;
 const Table = async (table = Q('table')) => {
     Table.table = table;
-    await Table.loading(true).fetch.meta().fetch.beys();
+    await Table.loading(true).fetch.meta().then(fetch.beys);
     Table.sort().loading(false);
     if (new URLSearchParams(location.search).size)
         return Find.autofill(...[...new URLSearchParams(location.search.replaceAll('+','%2B'))][0]);
@@ -15,10 +15,7 @@ Object.assign(Table, {
         return this;
     },
     fetch: {
-        meta () {
-            Promise.all([DB.get.names(), Parts.getMeta()]).then(([names]) => NAMES = names);
-            return Table;
-        },
+        meta: () => Promise.all([DB.get.names(), Parts.getMeta()]).then(([names]) => NAMES = names),
         async beys () {
             //let beys = await DB.get('html', key);
             let beys = await (await Fetch('/db/prod-beys.json')).json();
