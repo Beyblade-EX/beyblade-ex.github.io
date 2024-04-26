@@ -2,7 +2,7 @@
 let NAMES;
 const Table = async (table = Q('table')) => {
     Table.table = table;
-    await Table.loading(true).fetch.meta().then(fetch.beys);
+    await Table.loading(true).fetch.meta().then(Table.fetch.beys);
     Table.sort().loading(false);
     if (new URLSearchParams(location.search).size)
         return Find.autofill(...[...new URLSearchParams(location.search.replaceAll('+','%2B'))][0]);
