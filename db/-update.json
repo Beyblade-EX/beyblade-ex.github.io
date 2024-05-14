@@ -4,8 +4,8 @@
   "/db/prod-beys.json":     ["2024/04/20 23:50:00"],
   "/db/part-ratchet.json":  ["2024/04/27 11:55:00"],
   "/db/part-bit.json":      ["2024/04/27 11:55:00"],
-  "/db/part-blade.json":    ["2024/05/06 19:02:00"],
-  "/db/part-meta.json":     ["2024/05/06 19:02:00"],
+  "/db/part-blade.json":    ["2024/05/14 23:10:00"],
+  "/db/part-meta.json":     ["2024/05/14 23:10:00"],
   "/db/keihin.json":        ["2024/04/20 23:50:00"],
   "news": {
     "2024-05-18":[
@@ -18,7 +18,7 @@
     "2024-06-15":[
       {"code":"BX-33 booster","name":"ヴァイスタイガー3-60U<br>WeissTiger 3-60U","type":"bal",
     "imgs":["https://takaratomymall.jp/img/goods/C/4904810914556_4892cae5406341e5b5d4d2b3b1af663d.jpg","https://takaratomymall.jp/img/goods/L/4904810914556_461d898b73af485593f167e24ef9f288.jpg","https://takaratomymall.jp/img/goods/5/4904810914556_0e0f8edb4aeb4e7391711eb810fecb63.jpg"],
-  "desc":["ViceTiger：有攻擊、防禦、持久三種能力","U bit：有衝刺、反擊、迴避三種動態"]}
+  "desc":["WeissTiger：有攻擊、防禦、持久三種能力","U bit：有衝刺、反擊、迴避三種動態"]}
     ],
     "2024-07":[
       {"code":"BX-32 Stadium","name":"","imgs":[],
