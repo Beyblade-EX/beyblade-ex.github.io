@@ -52,7 +52,7 @@ class Row {
         tr.Q(`td[headers=blade]`).custom().next2((td, i) => td.custom().fullname(lang[i]));
         tr.Q(`td[headers=bit]+td`).custom().fullname(lang[1] == 'chi' ? 'eng' : lang[1]);
     }
-    create([code, type, abbr, ...others], place) {
+    create([code, type, abbr, ...others]) {
         if (code == 'BH') return;
         let [video, extra] = ['string', 'object'].map(t => others.find(o => typeof o == t));
         let [blade, ratchet, bit] = abbr.split(' ');
@@ -175,7 +175,7 @@ class Cell {
                 Cell.images = [];
                 let no = Cell.text(this.td).replace('-','');
                 if (!this.td.dataset[type]) {
-                    this.format(no, type);
+                    this.format(no, type, this.td.dataset.detailUpper);
                 } else {
                     let values = {no};
                     let expression = this.td.dataset[type].replaceAll(/\$\{.+\}/g, whole => values[whole.match(/[a-z]+/)]);
@@ -184,13 +184,10 @@ class Cell {
                 }
                 return this;
             },
-            format (no, type) {
-                if (type == 'main')
-                    Cell.images.push(`${no}@1`);
-                else if (type == 'more')
-                    Cell.images.push(...[1,2,3,4,5,6,7,8,9].map(n => `${no}_0${n}@1`));
-                else if (type == 'detail')
-                    Cell.images.push(`detail_${no.replace(/.+(?=\d)/, s => no.dataset?.detailUpper ? s : s.toLowerCase())}`);
+            format (no, type, upper) {
+                type == 'main' && Cell.images.push(`${no}@1`);
+                type == 'more' && Cell.images.push(...[1,2,3,4,5,6,7,8,9].map(n => `${no}_0${n}@1`));
+                type == 'detail' && Cell.images.push(`detail_${no.replace(/.+(?=\d)/, s => upper ? s : s.toLowerCase())}`);
             },
             juxtapose () {return [Cell.images].flat().map(src => E('img', {src: this.src(src)}))},
             src: href => /^https|\/img\//.test(href) ? href : href.length >= 15 ? 

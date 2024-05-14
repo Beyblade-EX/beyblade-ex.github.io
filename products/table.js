@@ -1,38 +1,45 @@
 
 let NAMES;
-const Table = async (table = Q('table')) => {
-    Table.table = table;
-    await Table.loading(true).fetch.meta().then(Table.fetch.beys);
-    Table.sort().loading(false);
-    if (new URLSearchParams(location.search).size)
-        return Find.autofill(...[...new URLSearchParams(location.search.replaceAll('+','%2B'))][0]);
-    Table.count().flush();
-}
+const Table = () => Table.firstly().then(Table.tabulate).then(Table.finally);
 Object.assign(Table, {
-    loading (is) {
-        Table.table.Q('caption').classList.toggle('loading', is);
-        Q('input:not([type])', input => input.disabled = input.value = is ? 'Loading' : '');
-        return this;
+    table: Q('table'),
+    firstly () {
+        Table.table.Q('caption').classList.add('loading');
+        Q('input:not([type])', input => input.disabled = input.value = 'Loading');
+        Table.events();
+        return Promise.all([DB.get.names(), Parts.getMeta()]).then(([names]) => NAMES = names);
     },
-    fetch: {
-        meta: () => Promise.all([DB.get.names(), Parts.getMeta()]).then(([names]) => NAMES = names),
-        async beys () {
-            //let beys = await DB.get('html', key);
-            let beys = await (await Fetch('/db/prod-beys.json')).json();
-            if (typeof beys == 'string') {
-                beys = [...E('template', {innerHTML: beys}).content.children];
-                Table.table.append(...beys);
-            } else {
-                beys = await beys.reduce((prev, bey) => prev.then(async arr => [...arr, await new Row().create(bey)]), Promise.resolve([]));
-                //beys = beys.reduce((html, tr) => html += tr.outerHTML, '').replace(/<\/t[dr]>| (?=>)| (?:\s+)| role="row"/g, '').replaceAll('"', "'");
-                //DB.put('html', [key, beys]);
-            }
-            beys.forEach(tr => tr && Row.connectedCallback(tr));
+    async tabulate () {
+        let beys = await (await Fetch('/db/prod-beys.json')).json();
+        if (typeof beys == 'string') {
+            beys = [...E('template', {innerHTML: beys}).content.children];
+            Table.table.append(...beys);
+        } else {
+            beys = await beys.reduce((prev, bey) => prev.then(async arr => [...arr, await new Row().create(bey)]), Promise.resolve([]));
+            //beys = beys.reduce((html, tr) => html += tr.outerHTML, '').replace(/<\/t[dr]>| (?=>)| (?:\s+)| role="row"/g, '').replaceAll('"', "'");
+            //DB.put('html', [key, beys]);
         }
+        beys.forEach(tr => tr && Row.connectedCallback(tr));
     },
-    sort () {
+    finally () {
         $(Table.table).tablesorter();
-        return this;
+        Table.table.Q('caption').classList.remove('loading');
+        Q('input:not([type])', input => input.disabled = input.value = '');
+        if (new URLSearchParams(location.search).size)
+            return Finder.find([...new URLSearchParams(location.search.replaceAll('+','%2B'))]);
+        Table.count().flush();    
+    },
+    events () {
+        Q('#jap').onchange = ev => {
+            Q('#eng').checked = false;
+            Q('#eng').disabled = ev.target.checked;
+            Q('tbody tr', tr => Row.name([null, ev.target.checked ? 'jap' : 'chi'], tr));
+            Table.flush();
+        };
+        Q('#eng').onchange = ev => Table.colspan(ev.target.checked ? 'eng' : 'cjk');
+        Q('.prod-reset').onclick = Table.reset;
+        Q('table button').onclick = Table.entire;
+        window.onresize = () => Table.flush();
     },
     count () {
         Q('.prod-result').value = document.querySelectorAll(`tbody tr:not(.hidden):not([hidden])`).length;
@@ -50,8 +57,8 @@ Object.assign(Table, {
             Table.table.classList.toggle('bilingual', lang == 'both');
         },    
     },
-    reset() {
-        Find.state(false);
+    reset () {
+        Finder.state(false);
         location.search && history.pushState('', '', '/products/');
         Filter.inputs.forEach(input => input.checked = true);
         Q('#filter').classList.remove('active');
@@ -63,54 +70,68 @@ Object.assign(Table, {
 });
 
 const Filter = () => {
-    let type = Q('#filter label[for]').map(label => label.htmlFor);
-    Q('style').innerText += type.map(id => `#${id}:not(:checked)~#filter label[for=${id}]`) + '{opacity:.5;background-color:initial !important;}';
-    Q('#filter').before(...type.map(id => E('input', {id, name: 'filter', type: 'checkbox', checked: true})));
-    [Filter.inputs, Filter.systems] = [Q('input[name=filter]'), Q('#RB-H~input[name=filter]')];
+    Filter.inputs = Q('#filter label[for]').map(label => E('input', {id: label.htmlFor, type: 'checkbox', checked: true}));
+    Q('#filter').prepend(...Filter.inputs);
+    Q('style').innerText += Filter.inputs.map(({id}) => `#${id}:not(:checked)~* label[for=${id}]`) + '{opacity:.5;background:initial !important;}';
+    Filter.systems = Q('#RB-H~input');
+    Filter.events();
 }
-Filter.filter = () => {
-    let hide = Filter.inputs.filter(i => !i.checked).map(i => `.${i.id.replace('-', '.')}`);
-    Q('#filter').classList.toggle('active', hide.length);
-    Q('tbody tr', tr => tr.classList.toggle('hidden', hide.length && tr.matches(hide)));
-    Filter.systems.some(input => !input.checked) && Q('tr[abbr^="/"]', tr => tr.classList.add('hidden'));
-    Table.count();
-};
+Object.assign(Filter, {
+    filter () {
+        let hide = Filter.inputs.filter(i => !i.checked).map(i => `.${i.id.replace('-', '.')}`);
+        Q('#filter').classList.toggle('active', hide.length);
+        Q('tbody tr', tr => tr.classList.toggle('hidden', 
+            hide.length && tr.matches(hide) || Filter.systems.some(i => !i.checked) && tr.matches('[abbr^="/"]')));
+        Table.count();
+    },
+    events () {
+        Filter.systems.forEach((input, _, all) => input.addEventListener('change', () => all.forEach(i => i.checked = i == input)));
+        Q('#filter button').onclick = () => {
+            Filter.systems.forEach(input => input.checked = true);
+            Filter.filter();
+        };
+        Filter.inputs.forEach(input => input.onchange = Filter.filter);
+        Q('#filter label[title]', label => label.onmouseover = () => Q('#filter summary i').innerText = `｛${label.innerText}｝：${label.title}`);
+    }
+});
 
-const Find = () => {
-    Find.regexp = [], Find.target = {more: [], parts: {}, free: ''};
-    for (const w of ['free', 'form'])
-        if (Find.read(w)) 
-            return Find.process(w).build(w).search.beys(w);
-};
-Object.assign(Find, {
+const Finder = () => Finder.events();
+Object.assign(Finder, {
     esc: string => (string ?? '').replaceAll(' ', '').replace(/[’'ʼ´ˊ]/g, '′').replace(/([^\\])?([.*+?^${}()|[\]\\])/g, '$1\\$2'),
-    read(where) {
+    find (query) {
+        Finder.regexp = [], Finder.target = {more: [], parts: {}, free: ''};
+        query && Q('form details').replaceChildren(...query.map(([comp, sym]) => E('input', {name: comp, value: sym})));
+        for (let where of ['free', 'form'])
+            if (Finder.read(where)) 
+                return Finder.process(where).build(where).search.beys(where);
+    },
+    read (where) {
         if (where == 'free')
             return /^\/.+\/$/.test(Q('#free').value) ? 
-                Find.regexp.push(new RegExp(Q('#free').value.replaceAll('/', ''))) : Find.target.free = Find.esc(Q('#free').value);
+                Finder.regexp.push(new RegExp(Q('#free').value.replaceAll('/', ''))) : Finder.target.free = Finder.esc(Q('#free').value);
 
-        Find.target.parts = Object.fromEntries([...new FormData(Q('form'))].map(([k, v]) => [k, [decodeURIComponent(v)]]));
-        return Object.keys(Find.target.parts).length > 0;
+        Finder.target.parts = Object.fromEntries([...new FormData(Q('form'))].map(([k, v]) => [k, [decodeURIComponent(v)]]));
+        return Object.keys(Finder.target.parts).length > 0;
     },
-    process(where) {
-        where == 'free' && Find.target.free && Find.search.parts();
+    process (where) {
+        where == 'free' && Finder.target.free && Finder.search.parts();
         //Find.target.more.push(...Object.entries(Find.target.parts).flatMap(([comp, syms]) => syms.map(s => `${s}.${comp}`)));
-        return Find;
+        return this;
     },
     search: {
         parts: () => {
             let terms = Object.values(Part.revise.name).map(terms => new RegExp(Object.values(terms).join('|').replace(/ |\|(?!.)/g,''), 'i'));
             let prefix = [];
             Object.keys(Part.revise.name).forEach((p, i) => {
-                if (terms[i].test(Find.target.free)) {
+                if (terms[i].test(Finder.target.free)) {
                     prefix.push(p);
-                    Find.target.free = Find.target.free.replace(terms[i], '')
+                    Finder.target.free = Finder.target.free.replace(terms[i], '')
                 }
             });
             Object.keys(NAMES).forEach(comp => {
-                let found = Find.target.free && Find.target.free.split('/').flatMap(typed => Find.search.names(comp, typed)) || [];
-                Find.target.parts[comp] = [...new Set(found)];
-                comp == 'bit' && (Find.target.parts[comp].prefix = prefix);
+                let found = Finder.target.free && Finder.target.free.split('/').flatMap(typed => Finder.search.names(comp, typed)) || [];
+                Finder.target.parts[comp] = [...new Set(found)];
+                comp == 'bit' && (Finder.target.parts[comp].prefix = prefix);
             });
         },
         names: (comp, typed) => {
@@ -123,40 +144,39 @@ Object.assign(Find, {
         beys: where => {
             Q('#regular.new') && Table.entire();
             Q('tbody tr', tr => tr.hidden = !(
-                Find.target.free.length >= 2 && tr.Q('td:first-child').textContent.toLowerCase().includes(Find.target.free.toLowerCase()) ||
-                Find.regexp.some(regex => regex.test(tr.dataset.abbr)) || 
-                tr.dataset.more?.split(',').some(m => Find.target.more.includes(m))
+                Finder.target.free.length >= 2 && tr.Q('td:first-child').textContent.toLowerCase().includes(Finder.target.free.toLowerCase()) ||
+                Finder.regexp.some(regex => regex.test(tr.dataset.abbr)) || 
+                tr.dataset.more?.split(',').some(m => Finder.target.more.includes(m))
             ));
-            Find.state(true, where == 'form' && Find.target.parts);
+            Finder.state(true, where == 'form' && Finder.target.parts);
         }
-    },
-    build(where) {
-        let s = Find.target.parts;
+    }, 
+    build (where) {
+        let s = Finder.target.parts;
         if (s.blade?.length)
-            Find.regexp.push(new RegExp('^(' + s.blade.join('|') + ') .+$', 'u'));
+            Finder.regexp.push(new RegExp('^(' + s.blade.join('|') + ') .+$', 'u'));
         if (s.ratchet?.length)
-            Find.regexp.push(new RegExp('^.+? (' + s.ratchet.join('|') + ') .+$'));
+            Finder.regexp.push(new RegExp('^.+? (' + s.ratchet.join('|') + ') .+$'));
         if (s.bit?.length || s.bit?.prefix?.length) {
             let prefix = where == 'form' ? '' : s.bit.prefix?.length ? `[${s.bit.prefix.join('')}]` : `[${Parts.bit.prefix}]?`;
             let bit = s.bit?.length ? `(${s.bit.join('|')})` : '[^a-z].*';
-            Find.regexp.push(new RegExp(`^.+? ${prefix}${bit}$`, 'u'));
+            Finder.regexp.push(new RegExp(`^.+? ${prefix}${bit}$`, 'u'));
         }
         return this;
     },
-    state(searching, obake) {
-        Q('#regular').classList.toggle('searching', searching);
+    state (searching, obake) {
+        Table.table.classList.toggle('searching', searching);
         Q('html,body', el => el.scrollTop = searching ? Q('tfoot').offsetTop : 0);
         Q('input:not([type])', input => searching ? input.blur() : input.value = '');
-        Table.count(), Table.flush(true);
+        Table.count().flush(true);
 
-        let [comp, sym] = obake ? Object.entries(Find.target.parts)[0] : [];
+        let [comp, sym] = obake ? Object.entries(Finder.target.parts)[0] : [];
         sym &&= comp == 'blade' ? NAMES[comp][sym].jap : sym;
         comp &&= {blade: 'ブレード', ratchet: 'ラチェット', bit: 'ビット'}[comp];
         Q('a[href*=obake]').href = 'http://obakeblader.com/' + (obake && Q('.prod-result').value > 1 ? `${comp}-${sym}/#toc2` : `?s=入手法`);
     },
-    autofill(comp, sym) {
-        Find.state(false);
-        Q('form details').replaceChildren(...[E('input', {name: comp, value: sym})]);
-        Find();
+    events () {
+        Q('input:not([type])', input => input.onkeypress = ({keyCode}) => keyCode == 13 ? Finder.find() : '');
+        Q('label[for=free]').onclick = () => Finder.find();
     }
 });

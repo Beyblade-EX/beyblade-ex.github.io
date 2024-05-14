@@ -166,8 +166,8 @@ a dl {
 a dt {
     font-size:.6em;
     text-align:right; line-height:1.1;
-    width:3.5em;
-    margin-left:.8em;
+    white-space:pre;
+    margin-left:1em;
 }
 a dd {
     font-size:1.6em; font-style:italic;
@@ -177,16 +177,18 @@ a dt:first-of-type {
     grid-column-start: 3;
     justify-self:end;
     border-bottom: .2em solid;
-    transform: translate(3em,-1.8em);
+    transform: translate(2em,-1.8em);
     height: 1.4em; width: 3em;
 }
 a dd:first-of-type {
     text-align:right;
-    min-width:1.3em;
+    min-width:1em;
+    transform:translateX(-.5em);
 }
 dd sup {
-    margin-left:.1em;
+    margin-left:.15em;
     line-height:0;
+    position:absolute;
 }
 strong {
     justify-self:start; align-self:end;
@@ -219,7 +221,7 @@ figure img {
 a p {
     text-align:left; font-size:.65em;
     line-height:1.4em;
-    margin:0;
+    margin:0; padding-left:.5em;
     overflow:hidden;
 }
 a p::before {
@@ -355,24 +357,27 @@ dfn.fusion {--c:270;}
 .part-filter[title=group] dt {
     background:var(--fg);filter:saturate(80%);
 }
-:is(.part-filter,.part-sorter) label {
+:is(.part-filter,.part-sorter) dd {
     border-bottom:.1em solid transparent;
     text-transform:capitalize;
     margin-left:.3em; padding:0 .1em;
     color:gray; text-shadow:0 0 .05em rgba(0,0,0,.2);
     filter:saturate(0);
-    display:inline-block; height:1.4em;
-    line-height:1.5;
+    height:1.4em;
+    line-height:1.5em;
+}
+.part-filter.blade dd:last-child label {
+    font-size:.9em;
 }
 :is(.part-filter,.part-sorter) label img {
     height:1.01em;
     margin-top:.15em;
 }
-:is(.part-filter,.part-sorter) input:checked+label {
+:is(.part-filter,.part-sorter) dd:has(input:checked) {
     color:var(--fg);
     border-color:var(--fg);
     filter:none;
 }
-.part-filter[title=type] input:checked+label {
+.part-filter[title=type] dd:has(input:checked) {
     border-color:var(--type);
 }

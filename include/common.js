@@ -8,7 +8,7 @@ Q = Node.prototype.Q = function(el, func) {
 const E = (el, ...stuff) => {
     let [text, attr, children] = ['String', 'Object', 'Array'].map(t => stuff.find(s => Object.prototype.toString.call(s).includes(t)));
     text && (attr = {textContent: text, ...attr ?? {}});
-    el == 'img' && (attr = {alt: attr.src.match(/([^/.]+)(\.[^/.]+)$/)[1], onerror: ev => ev.target.remove(), ...attr ?? {}});
+    el == 'img' && (attr = {alt: attr.src.match(/([^/.]+)(\.[^/.]+)$/)?.[1], onerror: ev => ev.target.remove(), ...attr ?? {}});
     el = ['svg', 'use', 'path'].includes(el) ? document.createElementNS('http://www.w3.org/2000/svg', el) : document.createElement(el);
     el.append(...children ?? []);
     Object.assign(el.style, attr?.style ?? {});
@@ -207,12 +207,14 @@ location.pathname == '/' && fetch('/db/-update.json').then(resp => resp.json())
 .then(({news, ...others}) => Object.entries(others).forEach(([url, [time]]) => files.updated[url] = new Date(time).getTime()))
 .then(() => localStorage.setItem('updated', JSON.stringify(files.updated)));
 
-const Fetch = async url => {
-    if (files.stored[url] >= files.updated[url]) 
-        return console.log(`cache: ${url}`) ?? caches.match(url);
-    return console.log(`fetch: ${url}`) ?? fetch(url).then(resp => caches.open('json').then(cache => {
-        cache.add(url, resp);
-        localStorage.setItem('stored', JSON.stringify(files.stored = {...files.stored, [url]: new Date().getTime()}));
-        return resp;
-    }));
-}
+const Fetch = url =>
+    (files.stored[url] >= files.updated[url] ? 
+        caches.match(url).then(resp => (resp && console.log(`cached: ${url}`) || resp) || Promise.reject()) :
+        Promise.reject()
+    ).catch(() => console.log(`fetch: ${url}`) ??
+        fetch(url).then(resp => caches.open('json').then(cache => {
+            cache.add(url, resp);
+            localStorage.setItem('stored', JSON.stringify(files.stored = {...files.stored, [url]: new Date().getTime()}));
+            return resp;
+        }))
+    )

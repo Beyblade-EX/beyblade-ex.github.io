@@ -4,29 +4,25 @@
   "/db/prod-beys.json":     ["2024/04/20 23:50:00"],
   "/db/part-ratchet.json":  ["2024/04/27 11:55:00"],
   "/db/part-bit.json":      ["2024/04/27 11:55:00"],
-  "/db/part-blade.json":    ["2024/04/27 11:55:00"],
-  "/db/part-meta.json":     ["2024/04/27 11:55:00"],
+  "/db/part-blade.json":    ["2024/05/06 19:02:00"],
+  "/db/part-meta.json":     ["2024/05/06 19:02:00"],
   "/db/keihin.json":        ["2024/04/20 23:50:00"],
   "news": {
-    "2024-04-27":[
-      {"code":"UX-04 entry set","name":"バトルエントリーセットU<br>Battle Entry Set U","desc":[]},
-      {"code":"BX-31 random booster vol.3","type":"att","name":"ティラノビート4-70Q<br>TyrannoBeat 4-70Q","imgs":["https://takaratomymall.jp/img/goods/5/4904810914532_ec5b6166a21c43339c4e4f5172d6a256.jpg","https://takaratomymall.jp/img/goods/L/4904810914532_9307330889854d0db2ab3d41d51e1dad.jpg"],
-      "desc":["TyranoBeat：鋸齒狀厚八枚刃","Q bit：尖端偏離中心，劇烈跳躍"]},
-      {"code":"BXG-04 booster","type":"bal","name":"ドライガースラッシュ4-80P<br>DrigerSlash 4-80P","desc":["又是削弱度的偏重心設計"]}
-    ],
     "2024-05-18":[
-      {"code":"BX-32 Stadium","name":"","imgs":[],
-      "desc":["對戰盤"]},
       {"code":"UX-05 random booster select","type":"def","name":"シノビシャドウ1-80MN<br>ShinobiShadow 1-80MN","imgs":["https://takaratomymall.jp/img/goods/5/4904810914549_ae252f626aa44230a5fc66ca6f0f9183.jpg","https://takaratomymall.jp/img/goods/L/4904810914549_035e9cea364e4fbdb16e9c7e296658eb.jpg"],
       "desc":["ShinobiShadow：圓滑形狀卸走攻擊","MN bit：尖端金屬做的 N bit"]}
     ],
     "2024-06-01":[
       {"code":"BXG-07","name":"カスタムグリップ クリアブラックVer.<br>Custom Grip (Clear Black ver.)"}
     ],
-    "2024-06":[
-      {"code":"BX-33 booster"}
+    "2024-06-15":[
+      {"code":"BX-33 booster","name":"ヴァイスタイガー3-60U<br>WeissTiger 3-60U","type":"bal",
+    "imgs":["https://takaratomymall.jp/img/goods/C/4904810914556_4892cae5406341e5b5d4d2b3b1af663d.jpg","https://takaratomymall.jp/img/goods/L/4904810914556_461d898b73af485593f167e24ef9f288.jpg","https://takaratomymall.jp/img/goods/5/4904810914556_0e0f8edb4aeb4e7391711eb810fecb63.jpg"],
+  "desc":["ViceTiger：有攻擊、防禦、持久三種能力","U bit：有衝刺、反擊、迴避三種動態"]}
     ],
     "2024-07":[
+      {"code":"BX-32 Stadium","name":"","imgs":[],
+      "desc":["對戰盤"]},
       {"code":"BX-34 starter"},
       {"code":"BX-35 random booster vol. 4"}
     ],

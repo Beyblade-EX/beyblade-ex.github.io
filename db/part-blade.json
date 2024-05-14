@@ -15,9 +15,9 @@
         "names": {
             "jap": "ティラノビート",
             "eng": "TyrannoBeat",
-            "chi": "暴龍節拍"
+            "chi": "暴龍節拍 暴龍霸擊"
         },
-        "stat": ["37-"],
+        "stat": ["37="],
         "desc": "上下方向都呈鋸齒狀又突出的厚八枚刃，擅長給予不規則的打擊。",
         "attr": ["att","right"]
     },
@@ -242,7 +242,7 @@
         "attr": ["att","right"]
     },
     "DRS": {
-        "group": "BSB",
+        "group": "remake",
         "names": {
             "jap": "ドライガースラッシュ",
             "eng": "DrigerSlash",
@@ -253,7 +253,7 @@
         "attr": ["bal","right"]
     },
     "DZS": {
-        "group": "BSB",
+        "group": "remake",
         "names": {
             "jap": "ドランザースパイラル",
             "eng": "DranzerSpiral",

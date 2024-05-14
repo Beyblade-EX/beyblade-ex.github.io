@@ -58,7 +58,7 @@ const Head = {
     }'>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=IBM+Plex+Sans+JP:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&family=IBM+Plex+Sans+JP:wght@500&display=swap" rel="stylesheet">
     <style>body {transition:opacity .5s;opacity:1 !important;}</style>   
     `,
     fetch: () => caches.match(Head.url).then(resp => resp.text()),

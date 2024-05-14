@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<script src=/include/common.js></script>
+<title>我的陀螺盒⬧My Decks</title>
+<link href="deck.css" rel="stylesheet">
+<script src="deck.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<nav><script>nav(['/', '/parts/'])</script></nav>
+<h1>陀螺盒</h1>
+<main>
+    <article>
+        <div>
+            <h2 title="1">DECK</h2>
+            <button>製圖</button>
+            <button>複製文字</button>
+        </div>
+        <bey-x blade="PhWn">1</bey-x>
+        <bey-x ratchet="5-70">2</bey-x>
+        <bey-x bit="DB">3</bey-x>
+        <span></span>
+    </article>
+</main>
+<aside>
+
+</aside>
+
+<script>
+for (let i = 2; i <= 5; i++) {
+    let deck = Q('article:first-of-type').cloneNode(true);
+    deck.Q('h2').title = i;
+    Q('main').append(deck);
+}
+const Swapping = {
+    press (ev) {
+        this.startX = ev.clientX, this.startY = ev.clientY;
+        let dragged = ev.target;
+        dragged.origin = dragged.getBoundingClientRect();
+        document.onpointermove = document.ontouchmove = ev => this.move(ev, dragged);
+    },
+    move (ev, dragged) {
+        ev.preventDefault();
+        let endX = ev.clientX || ev.targetTouches?.[0].pageX; 
+        let endY = ev.clientY || ev.targetTouches?.[0].pageY; 
+        dragged.style.transform = `translate(${endX - this.startX}px,${endY - this.startY}px)`;
+        let target = Q('bey-x').find(bey => bey != dragged &&
+            (({x, y, width, height}) => endX > x && endY > y && endX < x+width && endY < y+height)(bey.getBoundingClientRect())
+        );
+        if (!target?.matches('.target')) {
+            Q('.target')?.classList.remove('target');
+            target?.classList.add('target');
+        }
+        document.onpointerup = document.ontouchend = ev => this.lift(ev, dragged, target);
+    },
+    lift (_, dragged, target) {
+        document.onpointermove = document.ontouchmove = document.onpointerup = document.ontouchend = null;
+        if (target) {
+            let {x, y} = target.getBoundingClientRect();
+            dragged.style.transform = `translate(${x - dragged.origin.x}px,${y - dragged.origin.y}px)`;
+            target.style.transform = `translate(${dragged.origin.x - x}px,${dragged.origin.y - y}px)`;
+            setTimeout(() => this.commit(dragged, target), 500);
+        } else {
+            dragged.style.transform = null;
+            setTimeout(this.revert, 500);
+        }
+        Q('body').classList.add('animating');
+    },
+    commit (dragged, target) {
+        this.revert();
+        let place = target.nextSibling; 
+        dragged.before(target);
+        place.before(dragged);
+    },
+    revert () {
+        Q('.target')?.classList.remove('target');
+        Q('body').classList.remove('animating');
+        Q('bey-x[style]', bey => bey.removeAttribute('style'));
+    }
+}
+customElements.define('bey-x', Bey);
+
+const Export = {
+    image (n) {
+        Q('body').style.setProperty('--canvas', '0');
+        html2canvas(Q(`article:nth-of-type(${n})`)).then(canvas => {
+            E('a', {
+                href: canvas.toDataURL("image/png"),
+                download: `陀螺組${n}.png`
+            }).click(); 
+            Q('body').removeAttribute('style');
+        });
+    },
+    text(n) {
+
+    }
+}
+Q('bey-x', el => el.onpointerdown = ev => Swapping.press(ev));
+Q('h2+button', button => button.onclick = () => Export.image(button.previousElementSibling.title))
+</script>

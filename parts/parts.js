@@ -5,46 +5,47 @@ Parts = {
     catalog: () => Parts.firstly().then(Parts.before).then(Parts.cataloging).then(Parts.after).then(Parts.finally),
     count: group => Q('.part-result').value = document.querySelectorAll('.catalog>a:not([id^="+"]):not([hidden])').length,
 
-    firstly: async () => {
+    async firstly () {
         Q('#menu').remove();
         await Parts.getMeta();
         Filter();
     },
-    before: async () => {
+    async before () {
         //['info', 'title', 'label'].forEach(async m => {
         //    let meta = await DB.get('meta', m);
         //    Parts.meta[m] = Parts.meta.groups.reduce((obj, g) => ({...obj, [g]: meta[g] ?? Parts.meta[m]}), {});
         //});
     },
-    cataloging: async () => {
+    async cataloging () {
         Parts.all = Object.entries(await (await Fetch(`/db/part-${Parts.comp}.json`)).json()).map(([sym, part]) => ({...part, key: `${sym}.${Parts.comp}`}));
         //await Promise.all(Parts.meta.groups.map(g => DB.get.parts(g)));
         Parts.all = await Promise.all(Parts.all.flat().map((p, _, ar) => new Part(p, ar)).map(p => p.prepare().catalog()));
     },
-    listing: async () => {
+    async listing () {
         Parts.all = await Promise.all(location.hash.substring(1).split(',').map(p => DB.get('parts', decodeURI(p))));
         Parts.all = Parts.all.map(p => new Part(p).prepare().catalog());
     },
-    after: async () => {
+    after () {
         Q('#name').click();
         let hash = decodeURI(location.hash.substring(1));
         let target = hash && Q(`a#${hash}`);
         Parts.switch([target?.classList?.[1] || hash || Parts.meta.default].flat(), target);
+        Cookie.sort && Q(`#${Cookie.sort}`).click();
     },
-    finally: async () => {
+    finally () {
         Magnifier();
         Q('.loading').classList.remove('loading');
     },
-    switch: async (groups, keep) => {
+    async switch (groups, keep) {
         groups.forEach(g => Q(`dl #${g}`).checked = true);
         await Filter.filter();
-        if (groups.length > 1 || keep === false) return;
-        keep === true ? (location.hash = groups[0]) : Parts.focus();
-        document.title = document.title.replace(/^.*?(?= ￨ )/, Parts.meta.title[groups]);
+        if (keep === false) return;
+        keep === true ? (location.hash = groups[0]) : location.hash && Parts.focus();
+        document.title = document.title.replace(/^.*?(?= ￨ )/, Parts.meta.title[groups] ?? Parts.meta.title);
         Q('details article').innerHTML = Parts.meta.info[groups] ?? Parts.meta.info;
         Q('details').hidden = !(Parts.meta.info[groups] ?? Parts.meta.info);
     },
-    focus: () => {
+    focus () {
         Q(location.hash)?.classList.add('target');
         Q(location.hash)?.scrollIntoView();
     }
@@ -64,7 +65,7 @@ Object.assign(Magnifier, {
         E('input', {type: 'range', min: .75, max: 2, step: .05}),
         ...[1,2,3].map(n => E('label', {htmlFor: `mag${n}`}))
     ]),
-    events: () => {
+    events () {
         Q('input[name=mag]', input => input.onchange = () => input.checked && Cookie.set('pref', {button: input.id}));
         Magnifier.range.oninput = ev => (Q('.catalog').style.fontSize = `${ev.target.value}em`) && Cookie.set('pref', {slider: ev.target.value});
         window.onresize = Magnifier.switch;
@@ -78,7 +79,7 @@ const Filter = function(type) {
         Q('nav a').after(...['group', ...Parts.meta.filters ?? []].map(f => new Filter(f)), Sorter());
 };
 Object.assign(Filter.prototype, {
-    create: function(type) {
+    create (type) {
         let [dtText, inputs] = Filter.args()[this.type = type];
         this.dl = E('dl', 
             {title: type, classList: `part-filter ${type == 'group' ? Parts.comp : ''}`}, 
@@ -88,14 +89,13 @@ Object.assign(Filter.prototype, {
         type != 'group' && this.inputs.forEach(input => input.checked = true);
         return this;
     },
-    events: function() {
+    events () {
         this.dl.Q('dt').onclick = async () => {
             this.inputs.forEach(input => input.checked = true);
             await Filter.filter(this.type == 'group' && 'all');
         }
         this.inputs.forEach(input => input.onchange = async () => {
             this.inputs.forEach(i => i.checked = i == input);
-            //input.checked && Cookie.set(Parts.comp, {...Cookie[Parts.comp], [Parts.category]: input.id});
             Parts.switch([input.id], this.type == 'group');
         });
         return this;
@@ -123,7 +123,10 @@ const Sorter = () => {
         {classList: `part-sorter`}, 
         [E('dt', '排序'), ...inputs.map( i => E('dd', [E('input', {type: 'radio', name: 'sort', id: i[0]}), E('label', {htmlFor: i[0]}, i[1])]) )]
     );
-    dl.Q('input', input => input.onchange = () => Q('.catalog').append(...Parts.all.sort(Sorter.sort[input.id]).map(p => p.a)));
+    dl.Q('input', input => input.onchange = () => {
+        Q('.catalog').append(...Parts.all.sort(Sorter.sort[input.id]).map(p => p.a));
+        input.checked && Cookie.set('sort', input.id);
+    });
     return dl;
 }
 Object.assign(Sorter, {
@@ -136,12 +139,11 @@ Object.assign(Sorter, {
             || Sorter.compare(p, q, p => p.strip().toLowerCase())
             || p.comp == 'bit' && Sorter.compare(p, q, p => p.sym.match(new RegExp(`^[${Parts.bit.prefix}]`))),
 
-        weight: (p, q) => Sorter.compare(q, p, p => Sorter.adjust(p.stat[0] || '0')),
-        time: (p, q) => Sorter.compare(p, q, p => Sorter.order(p.comp).lastIndexOf(p.sym)),
+        weight: (p, q) => Sorter.compare(q, p, p => (w => parseInt(w) + ({'+': .2, '-': -.2}[w.at(-1)] ?? 0))(p.stat[0] || '0')),
+        time: (p, q) => Sorter.compare(p, q, p => Sorter.schedule(p.comp).lastIndexOf(p.sym)),
         rank: (p, q) => Sorter.compare(p, q, p => p.rank || 'Z')
     },
-    adjust: w => parseInt(w) + ({ '+': .2, '-': -.2 }[w.at(-1)] ?? 0),
-    order: comp => Sorter.schedule ?? Fetch('/db/prod-beys.json').then(resp => resp.json())
-        .then(products => Sorter.schedule = products.map(([_1, _2, bey]) => bey.split(' ')[{blade: 0, ratchet: 1, bit: 2}[comp]]))
+    schedule: comp => Sorter._schedule ?? Fetch('/db/prod-beys.json').then(resp => resp.json())
+        .then(products => Sorter._schedule = products.map(([_1, _2, bey]) => bey.split(' ')[{blade: 0, ratchet: 1, bit: 2}[comp]]))
 });
-Sorter.order(Parts.comp);
+Sorter.schedule(Parts.comp);

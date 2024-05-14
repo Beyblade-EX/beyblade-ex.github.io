@@ -46,7 +46,7 @@ class Part {
             for: For,
         });
         location.pathname == '/parts/' ? this.a.href = `/products/?${comp}=${encodeURIComponent(sym)}` : null;
-        location.pathname == '/products/' ? this.a.onclick = () => Find?.autofill(comp, sym) : null;
+        location.pathname == '/products/' ? this.a.onclick = () => Finder?.find([[comp, sym]]) : null;
         return this;
     }
 }
@@ -63,35 +63,35 @@ Part.prototype.catalog.html = function() {
     Q('#triangle') || Part.triangle();
     return [
         E('object', {data: this.html.background()}),
-        ...this.html.names(),
+        E('figure', [E('img', {src: `/img/${this.part.comp}/${this.part.sym}.png`})]),
         this.html.icons(),
         ...this.part.stat ? this.html.stat() : [],
+        ...this.html.names(),
         E('p', this.part.desc ?? ''),
-        E('figure', [E('img', {src: `/img/${this.part.comp}/${this.part.sym}.png`})]),
         this.html.buttons()
     ];
 }
 Object.assign(Part.prototype.catalog.html, {
-    background: function() {
+    background () {
         let {comp, attr} = this.part;
         let spin = attr?.includes('left') ? '&left' : attr?.includes('right') ? '&right' : '';
         return `/parts/bg.svg?hue=${getComputedStyle(document.querySelector(`.${comp.match(/^[^0-9]+/)}`)).getPropertyValue('--c')}${spin}`;
     },
-    icons: function() {
-        let {group, attr} = this.part;
+    icons () {
+        let {sym, group, attr} = this.part;
         let icons = new Mapping('left', '\ue01d', 'right', '\ue01e', /^.{3}$/, t => [E('img', {src: `/img/type-${t}.png`})]);
         return E('ul', [
             /X$/.test(group) ? E('li', [E('img', {src: `/img/line.svg#${group}`})]) : '', 
-            /^BSB|MFB|BBB$/.test(group) ? E('li', [E('img', {src: `/img/system-${group}.png`})]) : '', 
+            group == 'remake' ? E('li', [E('img', {src: `/img/system-${/^D..$/.test(sym) ? 'BSB' : /\d$/.test(sym) ? 'BBB' : 'MFB'}.png`})]) : '', 
             ...(attr ?? []).map(a => E('li', icons.find(a, true))), 
         ]);
     },
-    names: function() {
+    names () {
         let {sym, group, comp, names} = this.part;
         names ??= {};
         names.chi = (names.chi ?? '').split(' ');
         let children = comp != 'blade' ? 
-            [E('h4', sym.replace('-', '‒')), ...['chi','jap','eng'].map(l => E('h5', names[l], {classList: l}))] : 
+            [E('h4', sym.replace('-', '‒')), ...['jap','eng'].map(l => E('h5', names[l], {classList: l}))] : 
             [
                 Part.chi(sym, group, names.chi[0]),
                 Part.chi(sym, group, names.chi[1] ?? ''),
@@ -100,18 +100,19 @@ Object.assign(Part.prototype.catalog.html, {
             ];
         return children;
     },
-    stat: function() {
+    stat () {
         let {sym, comp, rank, stat} = this.part;
         comp == 'ratchet' && stat[0] && stat.push(...sym.split('-'));
         return [
             E('strong', rank),
             E('dl', stat.flatMap((s, i) => [
-                E('dt', Parts.meta.terms[i]), 
+                E('dt', Parts.meta.terms[i].replace(/(?<=[A-Z])(?=[一-龢])/, `
+`)), 
                 E('dd', {innerHTML: `${s}`.replace(/[+\-=]/, '<sup>$&</sup>').replace('-','−').replace('=','≈')})
             ]))
         ];
     },
-    buttons: function() {
+    buttons () {
         let menu = E('menu', Parts.types.map(t => E('li', [E('svg', [E('use')])], {classList: t})))
         menu.Q('svg', svg => svg.setAttribute('viewBox', '-10 -10 20 10'));
         menu.Q('use', use => use.setAttribute('href', '#triangle'));
@@ -119,7 +120,7 @@ Object.assign(Part.prototype.catalog.html, {
     }
 });
 Part.chi = (sym, group, chi) => E('h5', {
-    innerHTML: ['BSB','MFB','BBB'].includes(group) ? chi : 
+    innerHTML: ['BSB','MFB','BBB'].includes(group) ? chi.replace(' ', ' ') : 
         chi.replace(...chi.includes('/') ? [/(.+)\/(.+)/, '<span>$1</span>$2'] : 
             ['CbDr'].includes(sym) ? [/(..)$/, '<span>$1</span>'] : [/^(..)/, '<span>$1</span>']
         ), 

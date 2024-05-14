@@ -15,7 +15,7 @@ summary:focus {
     font-family:COND,'IBM Plex Sans JP',sans-serif;
 }
 h1,h2,h3 {
-    font-family:'Dela Gothic one',sans-serif;
+    font-family:'Yusei Magic',sans-serif;
 }
 @font-face {
     font-family:'MONO';font-display:swap;
@@ -104,10 +104,10 @@ html {
 .blade   {--c:55;--b-adj:-5%;}
 .ratchet {--c:175;--b-adj:0%;}
 .bit     {--c:245;--s-adj:20%;--b-adj:15%;}
-.att,[for=att] {--type:#0081e3;}
-.def,[for=def] {--type:#009f48;}
-.sta,[for=sta] {--type:#f08200;}
-.bal,[for=bal] {--type:#de0010;}
+.att,dd:has([for=att]) {--type:#0081e3;}
+.def,dd:has([for=def]) {--type:#009f48;}
+.sta,dd:has([for=sta]) {--type:#f08200;}
+.bal,dd:has([for=bal]) {--type:#de0010;}
 .RB {--row-s:0%;--b-adj:5%;}
 .B  {--row-c:10;}
 .SS {--row-c:235;--b-adj:5%;}

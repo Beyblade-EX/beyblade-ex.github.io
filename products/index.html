@@ -94,35 +94,7 @@
 <script src=table.js></script>
 <script src=maps.js></script>
 <script src=row.js></script>
-
-<script>
-Table.events = () => {
-    Q('#jap').onchange = ev => {
-        Q('#eng').checked = false;
-        Q('#eng').disabled = ev.target.checked;
-        Q('tbody tr', tr => Row.name([null, ev.target.checked ? 'jap' : 'chi'], tr));
-        Table.flush();
-    };
-    Q('#eng').onchange = ev => Table.colspan(ev.target.checked ? 'eng' : 'cjk');
-    Q('.prod-reset').onclick = Table.reset;
-    Q('table button').onclick = Table.entire;
-    window.onresize = () => Table.flush();
-}
-Find.events = () => {
-    Q('input:not([type])', input => input.onkeypress = ({keyCode}) => keyCode == 13 ? Find() : '');
-    Q('label[for=free]').onclick = () => Find();
-}
-Filter.events = () => {
-    Filter.systems.forEach((input, _, all) => input.addEventListener('change', () => all.forEach(i => i.checked = i == input)));
-    Q('#filter button').onclick = () => (Filter.systems.forEach(input => input.checked = true), Filter.filter());
-    Filter.inputs.forEach(input => input.onchange = Filter.filter);
-    Q('#filter label[title]', label => label.onmouseover = () => Q('#filter summary i').innerText = `｛${label.innerText}｝：${label.title}`);
-}
-Filter();
-Table.events(), Filter.events(), Find.events();
-
-Table();
-</script>
+<script>Table(), Filter(), Finder()</script>
 
 <link rel=stylesheet href=/parts/catalog.css>
 <link rel=stylesheet href=/parts/typography.css>

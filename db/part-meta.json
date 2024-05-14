@@ -1,8 +1,9 @@
 {
     "blade": {
         "一體": {
-            "groups": ["UX","BX","BSB"],
+            "groups": ["UX","BX","remake"],
             "default": ["UX","BX"],
+            "labels": ["UX","BX","復刻"],
             "info": "",
             "title": {
                 "BSB": "〘復刻〙 攻擊環 結晶輪盤 Bakuten Shoot Beyblade",
