@@ -29,12 +29,12 @@ const updateFiles = resp =>
 
 
 const is = {
-    internal: url => 'go-shoot.github.io' == new URL(url).host,
+    internal: url => 'beyblade-ex.github.io' == new URL(url).host,
     parts: url => /img\/.+?\/.+?\.png$/.test(url),
     cacheable: url => /tier\.json$/.test(new URL(url).pathname) || !/\.json$/.test(new URL(url).pathname),
 }
 const goFetch = url =>
-    fetch(new Request(`${url}${/css|js|json$/.test(url) ? `?${Math.random()}` : ''}`, {mode: 'no-cors'})).then(async resp => {
+    fetch(new Request(`${url}${/css|js|json$/.test(url) ? `?${Math.random()}` : ''}`, /js$/.test(url) ? {} : {mode: 'no-cors'})).then(async resp => {
         //if (resp.status == 200 && is.internal(url) && is.cacheable(url))
         //    (await caches.open(is.parts(url) ? 'parts' : 'BBX')).add(url.replace(/[?#].*$/, ''), resp.clone());
         return resp;

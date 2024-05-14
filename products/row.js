@@ -163,7 +163,7 @@ class Cell {
         image () {
             Cell.popup.classList.remove('catalog');
             Cell.popup.replaceChildren(
-                E('p', Mapping.maps.note.find(this.text)),
+                E('p', Mapping.maps.note.find(Cell.text(this.td))),
                 ...this.td.dataset.video?.split(',').map(href => E('a', {href: `//youtu.be/${href}?start=60`})) ?? [],
                 ...this.image.parse('main').juxtapose(),
                 ...this.image.parse('more').juxtapose(),
