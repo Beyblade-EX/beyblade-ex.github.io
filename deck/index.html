@@ -35,13 +35,12 @@ const Swapping = {
         this.startX = ev.clientX, this.startY = ev.clientY;
         let dragged = ev.target;
         dragged.origin = dragged.getBoundingClientRect();
-        document.onpointermove = document.ontouchmove = ev => this.move(ev, dragged);
+        document.onpointermove = ev => this.move(ev, dragged);
     },
     move (ev, dragged) {
         ev.preventDefault();
-        Q('body').classList.add('dragging');
-        let endX = ev.clientX || ev.targetTouches?.[0].pageX; 
-        let endY = ev.clientY || ev.targetTouches?.[0].pageY; 
+        let endX = ev.clientX || ev.targetTouches[0].clientX; 
+        let endY = ev.clientY || ev.targetTouches[0].clientY; 
         dragged.style.transform = `translate(${endX - this.startX}px,${endY - this.startY}px)`;
         let target = Q('bey-x').find(bey => bey != dragged &&
             (({x, y, width, height}) => endX > x && endY > y && endX < x+width && endY < y+height)(bey.getBoundingClientRect())
@@ -50,10 +49,10 @@ const Swapping = {
             Q('.target')?.classList.remove('target');
             target?.classList.add('target');
         }
-        document.onpointerup = document.ontouchend = ev => this.lift(ev, dragged, target);
+        document.onpointerup = ev => this.lift(ev, dragged, target);
     },
     lift (_, dragged, target) {
-        document.onpointermove = document.ontouchmove = document.onpointerup = document.ontouchend = null;
+        document.onpointermove = document.onpointerup = null;
         if (target) {
             let {x, y} = target.getBoundingClientRect();
             dragged.style.transform = `translate(${x - dragged.origin.x}px,${y - dragged.origin.y}px)`;
@@ -63,7 +62,6 @@ const Swapping = {
             dragged.style.transform = null;
             setTimeout(this.revert, 500);
         }
-        Q('body').classList.remove('dragging');
         Q('body').classList.add('animating');
     },
     commit (dragged, target) {

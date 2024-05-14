@@ -1,9 +1,6 @@
 body {
     overflow-x:hidden;
 }
-.dragging {
-    touch-action:none;
-}
 article {
     display:grid; grid-template:auto/repeat(3,min-content); gap:.5rem;
     justify-content:center;
@@ -21,9 +18,11 @@ h2[title]::after {
 div+bey-x {
     grid-column-start:1;
 }
+bey-x {
+    touch-action:none;
+}
 bey-x[style]:not(.target) {
     z-index:1;
-    touch-action:none;
 }
 .target {
     filter:brightness(1.2);
