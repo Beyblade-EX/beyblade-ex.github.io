@@ -1,6 +1,11 @@
 [
     {
-        "type":"g", "note":"七月號コロコロ雜誌附送", "link":"https://corocoro.jp/news/385187/", "date":"2024-06",
+        "type":"m", "note":"實物版遊戲同梱", "link":"https://www.cs.furyu.jp/beyblade2024/", "date":"2024-11",
+        "bey":"ShKn 4-60LF", "ver":["メタルコート：ブルー", "Metal Coat: Blue"],
+        "img":["https://www.cs.furyu.jp/beyblade2024/assets/img/guide/special_bey.png",{"width":"100%"}]
+    },
+    {
+        "type":"g", "note":"七月號コロコロ雜誌附錄", "link":"https://corocoro.jp/news/385187/", "date":"2024-06",
         "bey":"DrSw", "ver":["メタルコート：ブルー<br>（ブレード）", "Metal Coat: Blue (Blade)"],
         "img":["https://corocoro.jp/wp-content/uploads/2024/05/745531bfaf43d87bc17ea9b9d5588099.jpg",{"width":"100%"}]
     },
@@ -25,7 +30,7 @@
         "img":["https://corocoro.jp/wp-content/uploads/2023/12/f919dd35dc468956f947d2d2ab3551d1.jpg",{"width":"115%"}]
     },
     {
-        "type":"g", "note":"一月號コロコロ雜誌附送", "link":"https://corocoro.jp/news/377761/", "date":"2023-12",
+        "type":"g", "note":"一月號コロコロ雜誌附錄", "link":"https://corocoro.jp/news/377761/", "date":"2023-12",
         "bey":"PhFt", "ver":["（ブレード）", "(Blade)"],
         "img":["https://corocoro.jp/wp-content/uploads/2023/12/5698a52905518ee6e5f8a2cebee3ee9c.jpg",{"width":"140%"}]
     },

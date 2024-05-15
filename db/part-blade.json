@@ -11,6 +11,17 @@
         "desc": "一併持有 Upper 刃、Damper 刃及 Smash 刃三種性能。",
         "attr": ["bal","right"]
     },
+    "ShKn": {
+        "group": "BX",
+        "names": {
+            "jap": "シノビナイフ",
+            "eng": "ShinobiKnife",
+            "chi": ""
+        },
+        "stat": [],
+        "desc": "小徑及高剛性內重心構造，容易抵耐對手衝擊。",
+        "attr": ["def","right"]
+    },
     "ShSh": {
         "group": "UX",
         "names": {

@@ -48,7 +48,7 @@ class Keihin {
                     E('small', {innerHTML: ver[0]})
                 ]),
             ]),
-            E('i', [names.blade[blade].chi.replace(' ', '⬧') + ` ${others}`.replace('-', '‑') || '　', E('small', ver[1])]),
+            E('i', [names.blade[blade].chi.replace(' ', '⬧') + ` ${names.blade[blade].chi ? others : ''}`.replace('-', '‑') || '　', E('small', ver[1])]),
             E('time', date.replace('-','‒'))
         ]);
     }
@@ -73,7 +73,7 @@ DB.get.names().then(result => names = result)
     
     Q(`.diamonds li:nth-child(${2*more-1}n-${more-2})`, li => {
         let [last, ...others] = li.withNext(less).reverse();
-        last.classList.add(last.matches(':last-child') && others.length == less - 1 ? 'left' : 'next');
+        last.classList.add(last.matches(':last-child') && (others.length == less - 1 || !others.length) ? 'left' : 'next');
         others.forEach(li => li.classList.add('left'));
     });
 })());
