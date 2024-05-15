@@ -17,7 +17,8 @@
         },
         "stat": ["2=",12,78],
         "desc": "球狀軸端以適度移動來躱避攻擊及實現高持久力。",
-        "attr": ["sta"]
+        "attr": ["sta"],
+        "limited": true
     },
     "DB": {
         "stat": ["3+"],
@@ -85,7 +86,8 @@
         },
         "stat": ["2=",12,78],
         "desc": "小型半球狀的軸端減低摩擦，提高持久性能。",
-        "attr": ["sta"]
+        "attr": ["sta"],
+        "limited": true
     },
     "P": {
         "group": "round",

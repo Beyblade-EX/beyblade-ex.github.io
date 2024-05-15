@@ -42,7 +42,8 @@
         },
         "stat": ["35+"],
         "desc": "外重心又大徑幅的五枚刃形狀，專門產生離心力。",
-        "attr": ["sta","right"]
+        "attr": ["sta","right"],
+        "limited": true
     },
     "HlHm": {
         "group": "UX",
@@ -108,7 +109,8 @@
         },
         "stat": ["38="],
         "desc": "厚重三枚刃猛烈撞向對手。金屬有塗裝令性能上升。",
-        "attr": ["att","right"]
+        "attr": ["att","right"],
+        "limited": true
     },
     "PhFt": {
         "group": "BX",
@@ -252,7 +254,8 @@
         },
         "stat": ["38-"],
         "desc": "四枚大型龍刃撞飛對手。金屬有塗裝令性能上升。",
-        "attr": ["att","right"]
+        "attr": ["att","right"],
+        "limited": true
     },
     "DRS": {
         "group": "remake",

@@ -71,7 +71,7 @@ figure {grid-area:2/1/3/-1;}
 menu {grid-area:2/1/3/-1;}
 a p {grid-area:1/3/-1/-1;}
 a dl {grid-area:2/2/-1/-1;}
-a strong {grid-area:2/2/3/3;}
+a strong {grid-area:1/1/2/2;}
 a ul {grid-area:3/1/-1/-1;}
 a.bit h4 {grid-area:3/2/5/3;}
 
@@ -144,9 +144,6 @@ h4 {
 a.blade :is(.jap,.eng) {
     margin-bottom:.1em;
 }
-a.blade strong {
-    margin-bottom:.05em;
-}
 a.bit img[alt^=type] {
     padding-top:.2em;
 }
@@ -191,14 +188,15 @@ dd sup {
     position:absolute;
 }
 strong {
-    justify-self:start; align-self:end;
-    font-size:2em; line-height:.9; font-family:COND;
-    background:var(--on);
+    justify-self:start; align-self:start;
+    font-size:1.5em; line-height:.9;
+    background:var(--on); mix-blend-mode:screen;
     color:black; text-shadow:none;
-    padding:.15em .1em .05em .1em; margin-left:.1em;
+    padding:.15em .1em .05em .1em; margin-top:.05em;
+    box-shadow:0 0 .1em var(--on);
 }
 strong::before {
-    content:'RANK'; font-size:.3em;
+    font-size:.3em;
     display:block;
     margin-bottom:.05em;
     font-family:'IBM Plex Sans JP';

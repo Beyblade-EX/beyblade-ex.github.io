@@ -101,10 +101,10 @@ Object.assign(Part.prototype.catalog.html, {
         return children;
     },
     stat () {
-        let {sym, comp, rank, stat} = this.part;
+        let {sym, comp, stat, limited} = this.part;
         comp == 'ratchet' && stat[0] && stat.push(...sym.split('-'));
         return [
-            E('strong', rank),
+            E('strong', limited ? 'L' : ''),
             E('dl', stat.flatMap((s, i) => [
                 E('dt', Parts.meta.terms[i].replace(/(?<=[A-Z])(?=[一-龢])/, `
 `)), 
