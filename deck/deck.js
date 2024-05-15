@@ -23,6 +23,7 @@ class Bey extends HTMLElement {
     }
     static observedAttributes = ['blade', 'ratchet', 'bit']
     connectedCallback() {
+        this.onclick = () => Q('.editing')?.classList.remove('editing') ?? this.classList.toggle('editing');
         this.deck = new Set([...this.neighbor('previous'), this, ...this.neighbor('next')]);
         Bey.validate(this.deck);
     }
@@ -34,6 +35,15 @@ class Bey extends HTMLElement {
         }
         return ar;
     }
+    getBoundingPageRect = () => (({x, y, width, height}) => ({
+        x: x + scrollX,
+        y: y + scrollY,
+        width, height
+    }))(this.getBoundingClientRect())
+    containsPointer = (dragX, dragY) => (({x, y, width, height}) => 
+        dragX > x && dragY > y && dragX < x+width && dragY < y+height
+    )(this.getBoundingPageRect())
+    
     static validate(deck) {
 
     }
@@ -41,7 +51,13 @@ class Bey extends HTMLElement {
     :host {
         display:inline-grid; grid-template:1.5em min(calc((100vw - 2rem)/3),8em) 1.5em / min(calc((100vw - 2rem)/3),8em);
         border-radius:.5em;
-        background:rgba(255,255,255,.2);
+        background:rgba(255,255,255,.3);
+    }
+    :host(.editing) {
+        outline:.2em solid var(--theme);
+    }
+    :host(.target) {
+        outline:.2em solid var(--theme-alt);
     }
     * {
         user-select:none;

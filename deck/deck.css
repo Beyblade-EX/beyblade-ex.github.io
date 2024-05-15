@@ -20,13 +20,10 @@ div+bey-x {
 }
 bey-x {
     touch-action:none;
+    transition:outline .2s;
 }
 bey-x[style]:not(.target) {
     z-index:1;
-}
-.target {
-    filter:brightness(1.2);
-    transition:filter .2s;
 }
 .animating bey-x {
     pointer-events:none;

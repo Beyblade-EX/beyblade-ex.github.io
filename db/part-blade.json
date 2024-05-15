@@ -1,4 +1,16 @@
 {
+    "WsTg": {
+        "group": "BX",
+        "names": {
+            "jap": "ヴァイスタイガー",
+            "eng": "WeissTiger",
+            "chi": "",
+            "reverse": true
+        },
+        "stat": [],
+        "desc": "一併持有 Upper 刃、Damper 刃及 Smash 刃三種性能。",
+        "attr": ["bal","right"]
+    },
     "ShSh": {
         "group": "UX",
         "names": {
@@ -235,7 +247,8 @@
         "names": {
             "jap": "コバルトドレイク",
             "eng": "CobaltDrake",
-            "chi": "鈷藍魔龍 蒼穹龍神"
+            "chi": "鈷藍魔龍 蒼穹龍神",
+            "reverse": true
         },
         "stat": ["38-"],
         "desc": "四枚大型龍刃撞飛對手。金屬有塗裝令性能上升。",

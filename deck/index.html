@@ -5,14 +5,16 @@
 <script src="deck.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<nav><script>nav(['/', '/parts/'])</script></nav>
+<nav>
+    <script>nav(['/', '/parts/'])</script>
+    <button>製圖</button>
+    <button>複製文字</button>
+</nav>
 <h1>陀螺盒</h1>
 <main>
     <article>
         <div>
             <h2 title="1">DECK</h2>
-            <button>製圖</button>
-            <button>複製文字</button>
         </div>
         <bey-x blade="PhWn">1</bey-x>
         <bey-x ratchet="5-70">2</bey-x>
@@ -32,29 +34,28 @@ for (let i = 2; i <= 5; i++) {
 }
 const Swapping = {
     press (ev) {
-        this.startX = ev.clientX, this.startY = ev.clientY;
+        if (!ev.target.matches('.editing')) return;
+        this.pressX = ev.pageX, this.pressY = ev.pageY;
         let dragged = ev.target;
-        dragged.origin = dragged.getBoundingClientRect();
+        dragged.origin = dragged.getBoundingPageRect();
         document.onpointermove = ev => this.move(ev, dragged);
+        document.onpointerup = ev => this.lift(ev, dragged);
     },
     move (ev, dragged) {
         ev.preventDefault();
-        let endX = ev.clientX || ev.targetTouches[0].clientX; 
-        let endY = ev.clientY || ev.targetTouches[0].clientY; 
-        dragged.style.transform = `translate(${endX - this.startX}px,${endY - this.startY}px)`;
-        let target = Q('bey-x').find(bey => bey != dragged &&
-            (({x, y, width, height}) => endX > x && endY > y && endX < x+width && endY < y+height)(bey.getBoundingClientRect())
-        );
+        let moveX = ev.pageX, moveY = ev.pageY; 
+        dragged.style.transform = `translate(${moveX - this.pressX}px,${moveY - this.pressY}px)`;
+        let target = Q('bey-x').find(bey => bey != dragged && bey.containsPointer(moveX, moveY));
         if (!target?.matches('.target')) {
             Q('.target')?.classList.remove('target');
             target?.classList.add('target');
         }
-        document.onpointerup = ev => this.lift(ev, dragged, target);
     },
-    lift (_, dragged, target) {
+    lift (_, dragged) {
         document.onpointermove = document.onpointerup = null;
+        target = Q('.target');
         if (target) {
-            let {x, y} = target.getBoundingClientRect();
+            let {x, y} = target.getBoundingPageRect();
             dragged.style.transform = `translate(${x - dragged.origin.x}px,${y - dragged.origin.y}px)`;
             target.style.transform = `translate(${dragged.origin.x - x}px,${dragged.origin.y - y}px)`;
             setTimeout(() => this.commit(dragged, target), 500);
@@ -72,6 +73,7 @@ const Swapping = {
     },
     revert () {
         Q('.target')?.classList.remove('target');
+        Q('.editing')?.classList.remove('editing');
         Q('body').classList.remove('animating');
         Q('bey-x[style]', bey => bey.removeAttribute('style'));
     }

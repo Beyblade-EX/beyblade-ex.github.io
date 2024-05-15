@@ -82,7 +82,7 @@ section h3 {
     transition:--angle .5s;
 }
 #links a[data-href].dragged {
-    --theme:hsl(45,90%,48%); color:hsl(45,90%,48%); --dark:hsl(45,90%,20%);
+    --theme:var(--theme-alt); color:hsl(45,90%,48%); --dark:hsl(45,90%,20%);
 }
 #links a::before {
     content:'';
@@ -331,7 +331,7 @@ time,#reboot i,#reboot i::before
     width:120%; height:.7em;
     left:50%; top:50%; transform:translate(-50%,-50%) skew(-20deg);
     background:linear-gradient(var(--theme) 10%,transparent 10% 90%,var(--theme) 90%),
-    linear-gradient(to right,hsl(45,90%,48%) var(--stop),transparent var(--stop));
+    linear-gradient(to right,var(--theme-alt) var(--stop),transparent var(--stop));
     transition:--stop .5s;
     z-index:-1;
 }

@@ -1,13 +1,17 @@
 {
   "/db/prod-launchers.json":["2024/02/20 23:10:00"],
   "/db/prod-others.json":   ["2024/04/26 17:15:00"],
-  "/db/prod-beys.json":     ["2024/05/14 23:50:00"],
+  "/db/prod-beys.json":     ["2024/05/15 12:15:00"],
   "/db/part-ratchet.json":  ["2024/04/27 11:55:00"],
-  "/db/part-bit.json":      ["2024/04/27 11:55:00"],
-  "/db/part-blade.json":    ["2024/05/14 23:10:00"],
+  "/db/part-bit.json":      ["2024/05/15 12:25:00"],
+  "/db/part-blade.json":    ["2024/05/15 12:25:00"],
   "/db/part-meta.json":     ["2024/05/14 23:10:00"],
   "/db/keihin.json":        ["2024/04/20 23:50:00"],
   "news": {
+    "2024-05-16":[
+      {"code":"BXG-08 booster","type":"bal","name":"ヘルズチェイン5-60HT<br>メタルコート：ブラック<br>HellsChain 5-60T<br>Metal Coat: Black",
+    "desc":["App 內抽中後購買"]}
+    ],
     "2024-05-18":[
       {"code":"UX-05 random booster select","type":"def","name":"シノビシャドウ1-80MN<br>ShinobiShadow 1-80MN","imgs":["https://takaratomymall.jp/img/goods/5/4904810914549_ae252f626aa44230a5fc66ca6f0f9183.jpg","https://takaratomymall.jp/img/goods/L/4904810914549_035e9cea364e4fbdb16e9c7e296658eb.jpg"],
       "desc":["ShinobiShadow：圓滑形狀卸走攻擊","MN bit：尖端金屬做的 N bit"]}
@@ -17,8 +21,8 @@
     ],
     "2024-06-15":[
       {"code":"BX-33 booster","name":"ヴァイスタイガー3-60U<br>WeissTiger 3-60U","type":"bal",
-    "imgs":["https://takaratomymall.jp/img/goods/C/4904810914556_4892cae5406341e5b5d4d2b3b1af663d.jpg","https://takaratomymall.jp/img/goods/L/4904810914556_461d898b73af485593f167e24ef9f288.jpg","https://takaratomymall.jp/img/goods/5/4904810914556_0e0f8edb4aeb4e7391711eb810fecb63.jpg"],
-  "desc":["WeissTiger：有攻擊、防禦、持久三種能力","U bit：有衝刺、反擊、迴避三種動態"]}
+    "imgs":["https://takaratomymall.jp/img/goods/C/4904810914556_4892cae5406341e5b5d4d2b3b1af663d.jpg"],
+      "desc":["WeissTiger：有攻擊、防禦、持久三種能力","Unite bit：有衝刺、反擊、迴避三種動態"]}
     ],
     "2024-07":[
       {"code":"BX-32 Stadium","name":"","imgs":[],
@@ -33,5 +37,14 @@
     "2024-09":[
       {"code":"BX-36 random booster select"},
       {"code":"BXG-?? random booster select"}
+    ],
+    "2024-11-14":[
+      {"code":"Nintendo Switch 遊戲「BEYBLADE X XONE」","type":"att","name":"附シノビナイフ4-60LF<br>メタルコート:ブルー<br>ShinobiKnife 4-60LF<br>Metal Coat: Blue",
+      "imgs":["https://www.cs.furyu.jp/beyblade2024/assets/img/guide/special_bey.png",
+      "https://www.cs.furyu.jp/beyblade2024/assets/img/guide/performance_blade.png",
+      "https://www.cs.furyu.jp/beyblade2024/assets/img/guide/performance_ratchet.png",
+      "https://www.cs.furyu.jp/beyblade2024/assets/img/guide/performance_bit.png","https://static.wikia.nocookie.net/beyblade/images/c/cb/Knife_Shinobi_4-80HN.jpg"],
+      "desc":["<a href=https://www.cs.furyu.jp/beyblade2024/>詳情</a>","最右邊圖片是孩之寶商品版"]
+    }
     ]
   }}

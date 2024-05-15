@@ -21,7 +21,7 @@ form a[href] {
     position: relative;
 }
 a[href$='#toc2'] {
-    outline-color:hsl(45,90%,48%) !important;
+    outline-color:var(--theme-alt) !important;
 }
 div:first-child a[href]::before {
     content:'\e02a';

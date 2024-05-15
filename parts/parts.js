@@ -110,7 +110,7 @@ Object.assign(Filter, {
     }),
     filter: async group => {
         let show = [Q('.part-filter[title]:not([hidden])')].flat().map(dl => 
-            `:is(${[dl.Q('input:checked')].flat().map(input => input.id == '–' ? Filter.normal(dl) : `[class~=${input.id}]`)})`
+            `:is(${[dl.Q('input:checked')].flat().map(input => input.id == '–' ? Filter.normal(dl) : `.${input.id}`)})`
         ).join('');
         Q('.catalog>a[class]', a => a.hidden = !a.matches(show));
         Parts.count(group);

@@ -93,10 +93,10 @@ Object.assign(Part.prototype.catalog.html, {
         let children = comp != 'blade' ? 
             [E('h4', sym.replace('-', '‒')), ...['jap','eng'].map(l => E('h5', names[l], {classList: l}))] : 
             [
-                Part.chi(sym, group, names.chi[0]),
-                Part.chi(sym, group, names.chi[1] ?? ''),
+                Part.chi(group, names.chi[0], names.reverse),
+                Part.chi(group, names.chi[1] ?? '', names.reverse),
                 E('h5', {classList: 'jap'}, names.jap),
-                E('h5', {classList: 'eng', innerHTML: names.eng.replace(/^.+(?=[A-Z])/, '<span>$&</span>')}),
+                Part.eng(names.eng, names.reverse)
             ];
         return children;
     },
@@ -119,12 +119,16 @@ Object.assign(Part.prototype.catalog.html, {
         return menu;
     }
 });
-Part.chi = (sym, group, chi) => E('h5', {
+Part.chi = (group, chi, reverse) => E('h5', {
     innerHTML: ['BSB','MFB','BBB'].includes(group) ? chi.replace(' ', ' ') : 
         chi.replace(...chi.includes('/') ? [/(.+)\/(.+)/, '<span>$1</span>$2'] : 
-            ['CbDr'].includes(sym) ? [/(..)$/, '<span>$1</span>'] : [/^(..)/, '<span>$1</span>']
+            reverse ? [/(..)$/, '<span>$1</span>'] : [/^(..)/, '<span>$1</span>']
         ), 
     classList: 'chi'
+});
+Part.eng = (eng, reverse) => E('h5', {
+    innerHTML: eng.replace(reverse ? /(?<=[a-z])[A-Z].+$/ : /^.+(?=[A-Z])/, '<span>$&</span>'),
+    classList: 'eng'  
 });
 
 Part.triangle = () => {

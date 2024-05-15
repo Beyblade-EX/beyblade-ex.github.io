@@ -96,6 +96,7 @@ html {
     --backdrop:black;--overlay1:#383838E8;--overlay1-s:#383838;--overlay2:#555555;
     color:var(--on); --on:#ddd;
     --c:87; --theme:#b5fb5c; --theme-50:#a2ff1f80; --theme-dark:#365709;
+    --theme-alt:hsl(45,90%,48%);
 }
 .blade,.ratchet,.bit {
     --bg:hsla(var(--c),60%,calc(30% + var(--b-adj)),.9);
@@ -146,7 +147,7 @@ form summary,caption label,:is(caption,#filter) button,#filter summary,
 }
 .loading,.part-result,.prod-result,
 #filter.active summary {
-    color:hsl(45,90%,48%);
+    color:var(--theme-alt);
 }
 
 nav {
