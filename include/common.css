@@ -1,4 +1,4 @@
-h1,h2,h3,h4,h5,h6,code,a,u,b,i,em {
+h1,h2,h3,h4,h5,h6,code,a,u,b,i,em,button {
     all:unset;
 }
 *,*::before,*::after {
@@ -174,8 +174,34 @@ nav a:first-child::before,nav a:nth-child(2)::after {
 }
 nav a:first-child::before {content:'\e00f';}
 nav a:nth-child(2)::after {content:'\e010';}
-nav>a,nav>div,.toggle {
-    display:inline-flex;align-items:center;justify-content:center;
+nav>a,nav>div {
+    display:flex; align-items:center; justify-content:center;
+}
+.toggle {
+    display:flex; align-items:center;
+    border:.1rem solid var(--theme); border-radius:9em;
+    width:3.5em; height:1.4em;
+}
+.toggle.vertical {
+    height:3.5em; width:1.4em;
+    flex-direction:column;
+    margin:auto;
+}
+.toggle:has(input:checked) {
+    flex-direction:row-reverse;
+}
+.toggle.vertical:has(input:checked) {
+    flex-direction:column-reverse;
+}
+.toggle::before {
+    content:'';
+    width:1.7em;height:1.7em;
+    margin:0 -.1em;
+    background:var(--theme);
+    border-radius:inherit;
+}
+.toggle.vertical::before {
+    margin:-.1em 0;
 }
 
 .part-result:not([value]),.prod-result:not([value]) {
@@ -233,15 +259,15 @@ nav>a,nav>div,.toggle {
     font-size:.8em;
 }
 
-.prod-search input,.prod-reset,.toggle {
+.prod-search input,.prod-reset {
     border:.1rem solid var(--theme);border-radius:3em;
     height:1.4rem;
 }
-.prod-search label,.prod-reset,.toggle::before {
+.prod-search label,.prod-reset {
     background:var(--theme);    
     color:var(--overlay1-s);
 }
-.prod-search label,.toggle::before,
+.prod-search label,
 .part-mag label,.part-mag::before,.part-mag::after {
     width:1.7rem;height:1.7rem;
     line-height:1.65;font-size:1.1rem;
@@ -258,10 +284,10 @@ nav>a,nav>div,.toggle {
 .part-mag label {
     display:none;
 }
-.part-mag,.toggle {
+.part-mag {
     width:calc(3.4rem + var(--gap));
 }
-.part-mag,.toggle,.menu-scroll {
+.part-mag,.menu-scroll {
     justify-content:space-between;
 }
 input[type='range'] {
@@ -277,10 +303,6 @@ input[type='range']::-webkit-slider-thumb {
     background:hsl(120,70%,50%);
 }
 
-.toggle::before {
-    margin:0 -.1em;
-    content:'';
-}
 @media (min-width:631px) {
     .part-mag {width:auto;}
     input[type=range] {display:initial;}

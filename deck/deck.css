@@ -1,16 +1,29 @@
 body {
     overflow-x:hidden;
 }
+bey-x {
+    touch-action:none;
+}
+.dragging,.animating bey-x {
+    pointer-events:none;
+}
+main {
+    padding:5em 0 8em 0;
+}
 article {
     display:grid; grid-template:auto/repeat(3,min-content); gap:.5rem;
     justify-content:center;
     background:black;
-    padding:.5em 0 1em 0;
+    padding:.5em 0 1em 0; margin:auto;
+    width:min(100vw,26rem);
 }
-div {
+main div {
     grid-area:auto/1/auto/-1;
     font-size:2em; text-align:left;
     transform:translateY(var(--canvas));
+}
+.actioning h2::before {
+    content:'●';
 }
 h2[title]::after {
     content:attr(title);
@@ -18,17 +31,56 @@ h2[title]::after {
 div+bey-x {
     grid-column-start:1;
 }
-bey-x {
-    touch-action:none;
+main bey-x {
     transition:outline .2s;
 }
-bey-x[style]:not(.target) {
+main bey-x[style]:not(.target) {
     z-index:1;
 }
 .animating bey-x {
-    pointer-events:none;
     transition:transform .5s;
 }
 span:empty {
+    display:none;
+}
+
+aside {
+    position:fixed; bottom:0; left:0;
+    width:100%; height:calc(.2em + min(calc((100vw - 2rem)/3),8em));
+    background:black;
+    z-index:2;
+    font-size:.8em;
+    user-select:none;
+    overflow:hidden;
+}
+aside div {
+    position:absolute; left:0; bottom:0;
+    width:3em; height:100%;
+    text-align:center;
+    display:flex; flex-direction:column; justify-content:center;
+    background:black;
+}
+aside label {
+    margin:.1em auto .2em auto !important;
+}
+aside ul {
+    display:flex; gap:.1em;
+    overflow-x:scroll;
+    margin:.1em 0 .1em 3em;
+    transform:translateY(calc(var(--slided,0)*-100% - var(--slided,0)*.1em));
+}
+.dragging aside ul {
+    transition:transform .5s;
+}
+.customizing,.customizing ul {
+    overflow:visible;
+}
+.customizing .selecting {
+    transform:translate(calc(var(--scrolled,0)*-1px), calc(var(--slided,0)*-100% - var(--slided,0)*.1em));
+}
+.customizing ul:not(.selecting) {
+    visibility:hidden;
+}
+aside ul::-webkit-scrollbar { 
     display:none;
 }

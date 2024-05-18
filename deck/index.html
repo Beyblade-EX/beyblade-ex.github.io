@@ -3,12 +3,19 @@
 <title>我的陀螺盒⬧My Decks</title>
 <link href="deck.css" rel="stylesheet">
 <script src="deck.js"></script>
+<script src="/parts/parts.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <nav>
     <script>nav(['/', '/parts/'])</script>
-    <button>製圖</button>
-    <button>複製文字</button>
+    <div>
+        <button id="random-deck">隨機組合</button>
+        <button id="export-image">製作圖片</button>
+    </div>
+    <div>
+        <button id="delete-deck">刪除組合</button>
+        <button id="export-text">複製文字</button>
+    </div>
 </nav>
 <h1>陀螺盒</h1>
 <main>
@@ -16,14 +23,17 @@
         <div>
             <h2 title="1">DECK</h2>
         </div>
-        <bey-x blade="PhWn">1</bey-x>
-        <bey-x ratchet="5-70">2</bey-x>
-        <bey-x bit="DB">3</bey-x>
+        <bey-x>1</bey-x>
+        <bey-x>2</bey-x>
+        <bey-x>3</bey-x>
         <span></span>
     </article>
 </main>
 <aside>
-
+    <ul class="blade selecting"></ul>
+    <ul class="ratchet"></ul>
+    <ul class="bit"></ul>
+    <div>尋找<label class="toggle vertical"><input type=checkbox></label>改造</div>
 </aside>
 
 <script>
@@ -32,49 +42,34 @@ for (let i = 2; i <= 5; i++) {
     deck.Q('h2').title = i;
     Q('main').append(deck);
 }
-const Swapping = {
-    press (ev) {
-        if (!ev.target.matches('.editing')) return;
-        this.pressX = ev.pageX, this.pressY = ev.pageY;
-        let dragged = ev.target;
-        dragged.origin = dragged.getBoundingPageRect();
-        document.onpointermove = ev => this.move(ev, dragged);
-        document.onpointerup = ev => this.lift(ev, dragged);
-    },
-    move (ev, dragged) {
-        ev.preventDefault();
-        let moveX = ev.pageX, moveY = ev.pageY; 
-        dragged.style.transform = `translate(${moveX - this.pressX}px,${moveY - this.pressY}px)`;
-        let target = Q('bey-x').find(bey => bey != dragged && bey.containsPointer(moveX, moveY));
-        if (!target?.matches('.target')) {
-            Q('.target')?.classList.remove('target');
-            target?.classList.add('target');
-        }
-    },
-    lift (_, dragged) {
-        document.onpointermove = document.onpointerup = null;
-        target = Q('.target');
-        if (target) {
-            let {x, y} = target.getBoundingPageRect();
-            dragged.style.transform = `translate(${x - dragged.origin.x}px,${y - dragged.origin.y}px)`;
-            target.style.transform = `translate(${dragged.origin.x - x}px,${dragged.origin.y - y}px)`;
-            setTimeout(() => this.commit(dragged, target), 500);
-        } else {
+['blade', 'ratchet', 'bit'].forEach(c => Fetch(`/db/part-${c}.json`).then(resp => resp.json()).then(p => {
+    Parts[c] = p;
+    Q(`aside .${c}`).append(...Object.entries(p)
+        .sort(([_1, p], [_2, q]) => Sorter.sort.weight(p, q))
+        .map(([abbr]) => E('li', [new Bey({[c]: abbr}, {collapse: true, pool: true})]) 
+    ));
+    new Dragging('aside bey-x', {
+        precondition: () => Q('aside input').checked,
+        drop: Q('main bey-x'),
+        lift (self, dragged) {
+            Q('.targeted')?.setAttribute(...dragged.abbr[0]);
             dragged.style.transform = null;
-            setTimeout(this.revert, 500);
+            setTimeout(Swapping.revert, 500);
+            document.body.classList.add('animating');
         }
-        Q('body').classList.add('animating');
-    },
+    });
+}));
+const Swapping = {
     commit (dragged, target) {
         this.revert();
         let place = target.nextSibling; 
         dragged.before(target);
         place.before(dragged);
     },
-    revert () {
-        Q('.target')?.classList.remove('target');
-        Q('.editing')?.classList.remove('editing');
-        Q('body').classList.remove('animating');
+    revert (keep) {
+        Q('.targeted')?.classList.remove('targeted');
+        keep || Bey.selected?.classList.remove('selected');
+        document.body.classList.remove('animating');
         Q('bey-x[style]', bey => bey.removeAttribute('style'));
     }
 }
@@ -82,19 +77,65 @@ customElements.define('bey-x', Bey);
 
 const Export = {
     image (n) {
-        Q('body').style.setProperty('--canvas', '0');
+        if (!Q('main.actioning')) return;
+        document.body.style.setProperty('--canvas', '0');
         html2canvas(Q(`article:nth-of-type(${n})`)).then(canvas => {
             E('a', {
                 href: canvas.toDataURL("image/png"),
                 download: `陀螺組${n}.png`
             }).click(); 
-            Q('body').removeAttribute('style');
+            document.body.removeAttribute('style');
         });
+        Q('.actioning').classList.remove('actioning')
     },
-    text(n) {
+    text (n) {
 
+    },
+    events () {
+        Q('#export-image').onclick = () => {
+            Q('main').classList.add('actioning');
+            Q('h2', h2 => h2.onclick ??= () => Export.image(h2.title));
+        };
     }
 }
-Q('bey-x', el => el.onpointerdown = ev => Swapping.press(ev));
-Q('h2+button', button => button.onclick = () => Export.image(button.previousElementSibling.title))
+new Dragging('main bey-x', {
+    drop: Q('main bey-x'),
+    precondition: ev => Bey.selected == ev.target,
+    lift (self, dragged) {
+        let target = Q('.targeted');
+        if (target) {
+            let {x, y} = Dragging.getBoundingPageRect(target);
+            dragged.style.transform = `translate(${x - dragged.origin.x}px,${y - dragged.origin.y}px)`;
+            target.style.transform = `translate(${dragged.origin.x - x}px,${dragged.origin.y - y}px)`;
+            setTimeout(() => Swapping.commit(dragged, target), 500);
+        } else {
+            if (!dragged.style.transform) return Swapping.revert(true);
+            dragged.style.transform = null;
+            setTimeout(Swapping.revert, 500);
+        }
+        document.body.classList.add('animating');
+    }
+});
+Q('aside input').onchange = ev => {
+    let selecting = Q('aside .selecting');
+    ev.target.checked && selecting.style.setProperty('--scrolled', selecting.scrollLeft);
+    Q('aside').classList.toggle('customizing', ev.target.checked);
+}
+new Dragging('aside ul', {
+    precondition: () => !Q('aside input').checked,
+    move (self, dragged) {
+        let [dx, dy] = [self.moveX - self.pressX, self.moveY - self.pressY];
+        let slided = parseInt(getComputedStyle(dragged.parentElement).getPropertyValue('--slided') || 0);
+        if (!self.triggered && Math.abs(dy) > 50 && Math.atan(Math.abs(dy)/Math.abs(dx)) > Math.PI/3  
+            && (slided === 0 && dy < 0 || slided === 1 || slided === 2 && dy > 0)) {
+            self.triggered = true; 
+            slided -= Math.sign(dy);
+            dragged.parentElement.style.setProperty('--slided', slided);
+            Q('aside .selecting')?.classList.remove('selecting');
+            Q(`aside ul:nth-child(${slided+1})`).classList.add('selecting');
+        }
+    },
+    lift: (self) => self.triggered = false
+});
+Export.events();
 </script>

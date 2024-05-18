@@ -1,6 +1,5 @@
-[Parts.comp, Parts.category] = [...new URLSearchParams(location.search)]?.[0] ?? [];
 Parts = {
-    ...Parts,
+    ...typeof Parts == 'object' ? Parts : {},
     list: () => Parts.firstly().then(Parts.listing).then(Parts.finally),
     catalog: () => Parts.firstly().then(Parts.before).then(Parts.cataloging).then(Parts.after).then(Parts.finally),
     count: group => Q('.part-result').value = document.querySelectorAll('.catalog>a:not([id^="+"]):not([hidden])').length,
@@ -49,8 +48,8 @@ Parts = {
         Q(location.hash)?.classList.add('target');
         Q(location.hash)?.scrollIntoView();
     }
-}
-
+};
+[Parts.comp, Parts.category] = [...new URLSearchParams(location.search)]?.[0] ?? [];
 const Magnifier = () => {
     Q('nav').before(...Magnifier.inputs());
     Q('nav data').before(Magnifier.create());

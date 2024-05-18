@@ -27,9 +27,9 @@
         "names": {
             "jap": "シノビシャドウ",
             "eng": "ShinobiShadow",
-            "chi": ""
+            "chi": "忍者闇影"
         },
-        "stat": [],
+        "stat": ["28+"],
         "desc": "圓滑三枚刃專門把對手攻擊卸走。",
         "attr": ["def","right"]
     },
