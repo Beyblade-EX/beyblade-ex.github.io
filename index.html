@@ -47,13 +47,6 @@
     <h3>最新商品</h3>
 </section>
 
-<!--section id=reboot>
-    <div>
-        <p><i id=flush>&#xe010;</i><span>更新檔案（～250 KB）</span><i></i></p>
-        &#xe00d; 如在本網遇上問題 &#xe00e;
-        <p><i id=reset>&#xe010;</i><span>重設儲存（～30 MB）</span><i></i></p>
-    </div>
-</section-->
 <article id="rule">
     <h3>新增規則</h3>
     <p><dfn><ruby><rb>Limited Rule</rb><rt>リミテッドルール</rt></ruby></dfn>：適用於單陀螺賽制，即以同一配置對戰直到四分。<br>
@@ -98,7 +91,15 @@
     </article>
 </details>
 
-<script>
+<section id=reboot>
+    <div>
+        <p><i id=flush>&#xe010;</i><span>更新檔案（～250 KB）</span><i></i></p>
+        &#xe00d; 如在本網遇上問題 &#xe00e;
+        <p><i id=reset>&#xe010;</i><span>重設儲存（～30 MB）</span><i></i></p>
+    </div>
+</section>
+
+<script>    
     Q('#links a[href=_]').href = navigator.appVersion.includes('Mac') ? 'https://apps.apple.com/tw/app/id1670801696':'https://play.google.com/store/apps/details?id=jp.co.takaratomy.beyblade&pli=1';
 
     const observer = new IntersectionObserver(entries => entries.forEach(entry => entry.target.classList.toggle('seeing', entry.isIntersecting)));
@@ -109,7 +110,7 @@
         let base = `https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/`;
         Q('#products').append(E('time', {title: date}));
         beys.forEach(bey => {
-            let {code, name, imgs, desc, type, color, class: classi} = bey;
+            let {code, name, imgs, desc, type, color, class: cl} = bey;
             imgs ??= [];
             if (name && /[BU]XG?-/.test(code)) {
                 let c = code.match(/[BU]XG?-\d+/)[0].replace('-','');
@@ -121,7 +122,7 @@
                 E('h4', name?.replaceAll('-', '‑').replaceAll('<br>', String.fromCharCode(10))), 
                 ...imgs.map(src => E('figure', [E('a', '🖼️', {href: src}), E('img', {src})])), 
                 ...([desc ?? []].flat()).map(d => E('p', {innerHTML: d.replaceAll('-', '‑')}))
-            ], {classList: `scroller ${classi || announce.colors.find(code)}`});
+            ], {classList: `scroller ${cl || announce.colors.find(code)}`});
 
             Q('#products').appendChild(div);
         });
@@ -135,81 +136,64 @@
         /[BU]XG?-/, 'others',
         'Lm'
     );
+    new Dragging(Q('#products'), {scroll: {what: '.scroller', when: () => true}});
 
-    let endX;
-    const press = ({target: dragged, clientX: startX}) => {
-        let message = dragged.nextElementSibling;
-        let drop = message.nextElementSibling;
-        let action = () => dragged.id == 'flush' ? flush(message) : reset(message);
-        dragged.style.transition = null;
-        document.onpointermove = document.ontouchmove = moving => move(moving, startX, dragged, drop);
-        document.onpointerup = document.ontouchend = lifting => lift(lifting, dragged, drop, action);
-    }
-    Q('#reboot i:first-of-type', el => el.onpointerdown = press);
-    const move = (moving, startX, dragged, drop) => {
-        moving.preventDefault();
-        endX = moving.clientX || moving.targetTouches?.[0].pageX; 
-        dragged.style.transform = `translateX(${endX - startX}px)`;
-        endX > drop.getBoundingClientRect().x ? dragged.style.background = 'lime' : null;
-    }
-    const lift = (lifting, dragged, drop, action) => {
-        if (!document.onpointermove) return;
-        document.onpointermove = document.ontouchmove = null;
-        (lifting.clientX || endX) < drop.getBoundingClientRect().x ?
-            Object.assign(dragged.style, {
-                transform: null, background: null,
-                transition: 'transform .5s'
-            }) :
-            action().then(() => {
-                window.onbeforeunload = () => window.scrollTo(0, 0);
-                location.reload();
-            }).catch(er => console.error(er));
-    }
     const flush = message => fetch('/sw/update').then(resp => message.innerText = resp.status == 200 ? '成功' : '失敗');
     const reset = message => Promise.all([
         DB.discard('V6', ev => message.innerText = ev.type == 'blocked' ? '請先關閉所有本網的分頁' : ev.type),
         caches.delete('V6'), caches.delete('parts'),
         document.cookie.split(/;\s?/).forEach(c => document.cookie = c.replace(/=.*/, `=; max-age=0; path=/`))
     ]);
+    new Dragging(Q('#reboot'), {
+        drop: {
+            when: ev => ev.target.matches('i:first-child'),
+            targets: 'i:last-child',
+            x: 'min', y: false,
+            autoScroll: false
+        },
+        move: {
+            drop: (self, dragged) => dragged.classList.toggle('reached', self.target)
+        },
+        lift: {
+            drop: (self, dragged, targeted) => {
+                dragged.classList.remove('reached');
+                let action = dragged.id == 'flush' ? flush : reset;
+                targeted && action(dragged.nextElementSibling).then(() => {
+                    onbeforeunload = () => scrollTo(0, 0);
+                    location.reload();
+                }).catch(er => console.error(er));
+            }
+        }
+    })
 
-    const Knob = {
+    Knob = {
         init: knob => {
             knob.minθ = parseInt(getComputedStyle(knob).getPropertyValue('--min'));
             knob.maxθ = 360 - knob.minθ;
             knob.currentθ = () => parseFloat(getComputedStyle(knob).getPropertyValue('--angle'));
-            knob.onpointerdown = ev => Knob.press(ev, knob);
             knob.onpointerenter = ev => Knob.hover(knob, true);
             knob.onpointerout = ev => Knob.hover(knob, false);
             knob.onclick = ev => Knob.click(knob);
         },
         hover: (knob, doing) => knob.classList.contains('dragged') || knob.style.setProperty('--angle', `${doing ? knob.maxθ : knob.minθ}deg`),
-        press: (ev, knob) => {
-            knob.startY = ev.clientY;
-            knob.startθ = knob.currentθ();
-
-            document.onpointermove = ev => Knob.drag(ev, knob);
-            document.onpointerup = ev => Knob.lift(knob);
-        },
-        drag: (ev, knob) => {
-            ev.preventDefault();
-            if (Math.abs(ev.clientY - knob.startY) < 2)
-                return;
-            knob.classList.add('dragged');
-            let currentθ = knob.currentθ();
-            (currentθ == knob.minθ || currentθ == knob.maxθ) && (knob.startθ = currentθ);
-
-            let currentY = ev.clientY;
-            let updatedθ = Math.max(knob.minθ, Math.min(knob.startθ - (currentY - knob.startY), knob.maxθ));
-            (updatedθ == knob.minθ || updatedθ == knob.maxθ) && (knob.startY = currentY);
-            knob.style.setProperty('--angle', `${updatedθ}deg`);
-
-            let value = (updatedθ - knob.minθ) / (knob.maxθ - knob.minθ);
-            knob.classList.toggle('empty', value === 0);
-        },
-        lift: knob => document.onpointermove = null,
         click: knob => knob.classList.contains('empty') ? knob.href = knob.getAttribute('data-href') ?? knob.href : ''
     };
     Q('#links a', a => Knob.init(a));
+    new Dragging(Q('#links'), {
+        what: 'a',
+        press: (self, dragged) => self.pressθ = dragged.currentθ(),
+        move: (self, dragged) => {
+            if (Math.abs(self.moveY - self.pressY) < 2) return;
+            dragged.classList.add('dragged');
+
+            self.moveθ = Math.max(dragged.minθ, Math.min(self.pressθ - (self.moveY - self.pressY), dragged.maxθ));
+            (self.moveθ == dragged.minθ || self.moveθ == dragged.maxθ) && ([self.pressY, self.pressθ] = [self.moveY, self.moveθ]);
+            dragged.style.setProperty('--angle', `${self.moveθ}deg`);
+
+            let value = (self.moveθ - dragged.minθ) / (dragged.maxθ - dragged.minθ);
+            dragged.classList.toggle('empty', value === 0);
+        }
+    });
 </script>
 
 <a href="https://beyblade-burst.github.io/" id="bbb"><img src="/img/system-BBB.png"></a>

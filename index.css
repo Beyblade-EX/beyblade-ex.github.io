@@ -76,7 +76,7 @@ section h3 {
     transform:scale(-1);
     --min:15deg;
     margin-top:.1em;
-    touch-action:none;
+    -webkit-user-drag:none;
 }
 #links a:not(.dragged) {
     transition:--angle .5s;
@@ -251,6 +251,9 @@ section h3 {
 }
 #reboot p:first-of-type {
     margin-top:.5em;
+}
+.animating #reboot i {
+    transition:transform .5s;
 }
 #reboot i {
     width:2em;height:2em;

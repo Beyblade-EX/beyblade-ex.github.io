@@ -188,6 +188,9 @@ code::before,code::after {
     overflow:hidden;
     position:relative;
 }
+.scroller :not(h4) {
+    user-select:none;
+}
 .scroller figure {
     min-width:12em;
     background:white;
@@ -203,6 +206,7 @@ code::before,code::after {
 .scroller img {
     width:100%;
     vertical-align:middle;
+    pointer-events:none;
 }
 .scroller>:is(h4,h5,p) {
     padding:.5em;

@@ -1,52 +1,3 @@
-class Dragging {
-    constructor (el, custom) {
-        this.selector = el, this.custom = custom;
-        Q(el, el => el.onpointerdown = ev => this.press(ev, custom));
-    }
-    press (ev, custom) {
-        if (custom.precondition && !custom.precondition(ev)) return; 
-        let dragged = ev.target.closest(this.selector);
-        [this.pressX, this.pressY, this.scrollX, this.scrollY, this.scrollInitY] = [ev.x, ev.y, dragged.scrollLeft, 0, scrollY];
-        dragged.origin = Dragging.getBoundingPageRect(dragged);
-        this.targets = custom.drop;
-        onpointermove = ev => this.move(ev, dragged, custom?.move);
-        onscroll = () => this.move(null, dragged)
-        onpointerup = onpointercancel = () => this.lift(null, dragged, custom?.lift);
-    }
-    move (ev, dragged, custom) {
-        ev?.preventDefault();
-        document.body.classList.add('dragging');
-        ev ? 
-            [this.moveX, this.moveY, this.clientX, this.clientY] = [ev.x, ev.y, ev.clientX, ev.clientY] : 
-            [this.moveY, this.scrollY] = [this.moveY, dragged.hasAttribute('collapse') ? 0 : scrollY - this.scrollInitY];
-        if (!this.targets) {
-            dragged.scrollTo(this.scrollX - this.moveX + this.pressX, 0);
-            return custom(this, dragged);
-        }
-        dragged.style.transform = `translate(${this.moveX - this.pressX}px,${this.moveY - this.pressY + this.scrollY}px)`;
-        this.autoScroll();
-        let target = this.clientY > Q('aside').offsetTop ? null : this.targets.find(bey => bey != dragged && bey.containsPointer(this.moveX, this.moveY));
-        if (target?.matches('.targeted')) return;
-        Q('.targeted')?.classList.remove('targeted');
-        target?.classList.add('targeted');
-    }
-    lift (_, dragged, custom) {
-        onpointermove = onpointerup = onpointercancel = onscroll = null;
-        document.body.classList.remove('dragging');
-        custom?.(this, dragged);
-    }
-    static getBoundingPageRect = el => (({x, y, width, height}) => ({
-        x: x + scrollX,
-        y: y + scrollY,
-        width, height
-    }))(el.getBoundingClientRect())
-    autoScroll () {
-        let [proportion, bottomed] = [this.clientY / innerHeight, scrollY >= document.body.offsetHeight - innerHeight];
-        proportion < .1 ? scrollBy(0, -3) : 
-        proportion > .9 && !bottomed ? scrollBy(0, 3) : null;
-    }
-}
-
 class Bey extends HTMLElement {
     constructor(bey, options) {
         super();
@@ -60,7 +11,6 @@ class Bey extends HTMLElement {
             Object.entries(bey).forEach(([...p]) => this.setAttribute(...p)) :
             bey?.split(' ').forEach((p, i) => this.setAttribute(Bey.observedAttributes[i], p));
         options?.collapse && this.setAttribute('collapse', true);
-        options?.pool && this.setAttribute('pool', true);
     }
     static eachPart = el => Bey.observedAttributes.map(c => E(el, {classList: c}))
     get abbr() {
@@ -76,31 +26,36 @@ class Bey extends HTMLElement {
 
     static observedAttributes = ['blade', 'ratchet', 'bit']
     attributeChangedCallback(attr, _, after) {
+        attr == 'blade' && (this.blade = after);
         let index = Bey.observedAttributes.indexOf(attr);
         this.Q('.part').children[index].style.backgroundImage = `url(/img/${attr}/${after}.png)`;
-        this.change[attr](after);
-        this.isConnected && Bey.validate(this.deck);
+        (this.change[attr] ?? (abbr => this.Q(`h4 .${attr}`).title = abbr))(after);
+        this.dock?.tagName == 'MAIN' && Bey.main.validate(this.deck);
     }
     change = {
-        blade: (abbr) => (this.classList = Parts.blade[abbr].attr.join(' ')) && this.lang(abbr, 'chi'),
-        ratchet: (abbr) => this.Q('h4 span:nth-child(2)').title = abbr,
-        bit: (abbr) => this.Q('h4 span:nth-child(3)').title = abbr
+        blade: () => this.blade && (this.classList = Parts.blade[this.blade].attr.join(' ')) && this.lang(Q('#lang').value),
     }
-    lang = (abbr, lang) => this.Q('h4 span:nth-child(1)').title = Parts.blade[abbr].names[lang];
-    select = exec => this.classList.toggle('selected', exec)
-    static classChangedCallback ([{target}]) {
-        if (document.body.classList.contains('dragging')) return;
-        Bey.selected?.classList.remove('selected');
-        Bey.selected = target.classList.contains('selected') ? target : null;
+    lang(lang) {
+        this.Q('h4').classList = lang;
+        let i = ['hk', 'tw'].indexOf(lang);
+        if (i == -1) return this.Q('h4 .blade').title = Parts.blade[this.blade].names[lang];
+        let name = Parts.blade[this.blade].names.chi.split(' ');
+        this.Q('h4 .blade').title = (name[i] ?? name[0]).replace('/', '');
     }
-    static classObserver = Object.assign(new MutationObserver(Bey.classChangedCallback), {config: {attributeFilter: ['class']}});
+    static lang = (lang) => Q('bey-x[blade]', bey => bey.lang(lang))
     
     connectedCallback() {
-        if (this.hasAttribute('pool')) return;
-        this.onclick = () => this.classList.toggle('selected');
-        if (this.hasAttribute('collapse')) return;
-        Bey.classObserver.observe(this, Bey.classObserver.config);
-        setTimeout(() => Bey.validate(this.deck = [...new Set([...this.neighbor('previous'), this, ...this.neighbor('next')])]));
+        this.dock = this.closest('main,aside');
+        this.onclick = this.select;
+        this.dock.tagName == 'ASIDE' && !this.shadowRoot.Q('h4 [title]:not([title=""])') && this.parentElement.remove();
+        this.dock.tagName == 'MAIN' &&
+            (this.deck = [...new Set([...this.neighbor('previous'), this, ...this.neighbor('next')])]) &&
+            setTimeout(() => Bey.main.validate(this.deck));
+    }
+    select() {
+        if (!this.classList.contains('selected'))
+            this.dock.Q('.selected')?.classList.remove('selected');
+        this.classList.toggle('selected');
     }
     neighbor(direction) {
         let el = this, ar = [];
@@ -114,11 +69,13 @@ class Bey extends HTMLElement {
         dragX > x && dragY > y && dragX < x+width && dragY < y+height
     )(this.getBoundingClientRect())
     
-    static validate(deck) {
-        let parts = deck.flatMap(b => b.abbr);
-        let unique = [...new Set(parts.map(pairs => pairs.join('#')))];
-        let duplicated = unique.map(p => p.split('#')).filter(([c, p]) => parts.filter(([d, q]) => c === d && p === q).length > 1);
-        deck.forEach(bey => bey.validate(duplicated));
+    static main = {
+        validate(deck) {
+            let parts = deck.flatMap(b => b.abbr);
+            let unique = [...new Set(parts.map(pairs => pairs.join('#')))];
+            let duplicated = unique.map(p => p.split('#')).filter(([c, p]) => parts.filter(([d, q]) => c === d && p === q).length > 1);
+            deck.forEach(bey => bey.validate(duplicated));
+        }
     }
     validate(duplicated) {
         this.shadowRoot.querySelectorAll('.duplicated').forEach(span => span.classList.remove('duplicated'));
@@ -135,7 +92,7 @@ class Bey extends HTMLElement {
         outline-color:var(--theme) !important;
     }
     :host(.targeted) {
-        outline-color:var(--theme-alt);
+        outline-color:var(--theme-alt) !important;
     }
     * {
         user-select:none;
@@ -206,6 +163,10 @@ class Bey extends HTMLElement {
     }
     :host([collapse]) h4 {
         align-self:end;
+        font-size:1em; color:white;
     }
+    :host([collapse]) h4:is(.eng) {font-size:.9em;}
+    :host([collapse]) h4:is(.jap) {font-size:.7em; margin-bottom:.2em;}
     `
 }
+customElements.define('bey-x', Bey);

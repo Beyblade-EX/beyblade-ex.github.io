@@ -346,3 +346,9 @@ input[type='range']::-webkit-slider-thumb {
     padding:.6em .5em; margin:0;
     color:white;
 }
+
+@property --angle {
+    syntax:'<angle>';
+    inherits:true;
+    initial-value:15deg;
+}

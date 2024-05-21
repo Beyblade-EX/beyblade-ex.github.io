@@ -11,23 +11,12 @@
         "desc": "一併持有 Upper 刃、Damper 刃及 Smash 刃三種性能。",
         "attr": ["bal","right"]
     },
-    "ShKn": {
-        "group": "BX",
-        "names": {
-            "jap": "シノビナイフ",
-            "eng": "ShinobiKnife",
-            "chi": ""
-        },
-        "stat": [],
-        "desc": "小徑及高剛性內重心構造，容易抵耐對手衝擊。",
-        "attr": ["def","right"]
-    },
     "ShSh": {
         "group": "UX",
         "names": {
             "jap": "シノビシャドウ",
             "eng": "ShinobiShadow",
-            "chi": "忍者闇影"
+            "chi": "忍者幻影 忍者闇影"
         },
         "stat": ["28+"],
         "desc": "圓滑三枚刃專門把對手攻擊卸走。",
@@ -132,7 +121,8 @@
         },
         "stat": ["33+"],
         "desc": "三枚輕量 Upper 刃產生高速攻擊。",
-        "attr": ["att","right"]
+        "attr": ["att","right"],
+        "from": "DrSw"
     },
     "DrDg": {
         "group": "BX",
@@ -289,5 +279,53 @@
         "stat": ["28-"],
         "desc": "兩枚水平刃産生高攻擊力及持久力，是重視平衡的設計。（2000 年發售的陀螺之 X 代復刻版）",
         "attr": ["bal","right"]
+    },
+    "ShKn": {
+        "group": "BX",
+        "names": {
+            "jap": "シノビナイフ",
+            "eng": "ShinobiKnife",
+            "chi": ""
+        },
+        "stat": [],
+        "desc": "小徑及高剛性內重心構造，容易抵耐對手衝擊。（除與日本遊戲同梱外，目前只在孩之寶商品中收錄）",
+        "attr": ["def","right"],
+        "from": "RhHr"
+    },
+    "SmSt": {
+        "group": "BX",
+        "names": {
+            "jap": "サムライスチール",
+            "eng": "SamuraiSteel",
+            "chi": ""
+        },
+        "stat": [],
+        "desc": "（目前只在孩之寶商品中收錄）",
+        "attr": ["bal","right"],
+        "from": "LnCl"
+    },
+    "PtTl": {
+        "group": "BX",
+        "names": {
+            "jap": "プテラタロン",
+            "eng": "PteraTalon",
+            "chi": ""
+        },
+        "stat": [],
+        "desc": "（目前只在孩之寶商品中收錄）",
+        "attr": ["sta","right"],
+        "from": "VpTl"
+    },
+    "MmTs": {
+        "group": "BX",
+        "names": {
+            "jap": "マンモタスク",
+            "eng": "MammoTusk",
+            "chi": ""
+        },
+        "stat": [],
+        "desc": "（目前只在孩之寶商品中收錄）",
+        "attr": ["bal","right"],
+        "from": "HlSc"
     }
 }

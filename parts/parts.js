@@ -25,31 +25,33 @@ Parts = {
         Parts.all = Parts.all.map(p => new Part(p).prepare().catalog());
     },
     after () {
-        Q('#name').click();
         let hash = decodeURI(location.hash.substring(1));
         let target = hash && Q(`a#${hash}`);
         Parts.switch([target?.classList?.[1] || hash || Parts.meta.default].flat(), target);
-        Cookie.sort && Q(`#${Cookie.sort}`).click();
+        Q(`#${Cookie.sort || 'name'}`).click();
     },
     finally () {
         Magnifier();
         Q('.loading').classList.remove('loading');
     },
     async switch (groups, keep) {
-        groups.forEach(g => Q(`dl #${g}`).checked = true);
+        Q(`dl[title=group] input[id]`, input => input.checked = groups.includes(input.id));
         await Filter.filter();
         if (keep === false) return;
         keep === true ? (location.hash = groups[0]) : location.hash && Parts.focus();
         document.title = document.title.replace(/^.*?(?= ￨ )/, Parts.meta.title[groups] ?? Parts.meta.title);
-        Q('details article').innerHTML = Parts.meta.info[groups] ?? Parts.meta.info;
-        Q('details').hidden = !(Parts.meta.info[groups] ?? Parts.meta.info);
+        Q('details article').innerHTML = typeof Parts.meta.info == 'string' ? Parts.meta.info : Parts.meta.info?.[groups] ?? '';
+        Q('details').hidden = !Q('details article').innerHTML;
     },
     focus () {
+        Q('.target')?.classList.remove('target');
         Q(location.hash)?.classList.add('target');
         Q(location.hash)?.scrollIntoView();
     }
 };
 [Parts.comp, Parts.category] = [...new URLSearchParams(location.search)]?.[0] ?? [];
+onhashchange = () => Parts.after();
+
 const Magnifier = () => {
     Q('nav').before(...Magnifier.inputs());
     Q('nav data').before(Magnifier.create());
@@ -65,9 +67,9 @@ Object.assign(Magnifier, {
         ...[1,2,3].map(n => E('label', {htmlFor: `mag${n}`}))
     ]),
     events () {
-        Q('input[name=mag]', input => input.onchange = () => input.checked && Cookie.set('pref', {button: input.id}));
+        Q('.part-mag').onchange = ({target: input}) => input.checked && Cookie.set('pref', {button: input.id});
         Magnifier.range.oninput = ev => (Q('.catalog').style.fontSize = `${ev.target.value}em`) && Cookie.set('pref', {slider: ev.target.value});
-        window.onresize = Magnifier.switch;
+        onresize = Magnifier.switch;
     },
     switch: () => Q('.catalog').style.fontSize = window.innerWidth > 630 ? (Magnifier.range.value = Cookie.pref?.slider || 1) + 'em' : ''
 });
@@ -93,10 +95,10 @@ Object.assign(Filter.prototype, {
             this.inputs.forEach(input => input.checked = true);
             await Filter.filter(this.type == 'group' && 'all');
         }
-        this.inputs.forEach(input => input.onchange = async () => {
+        this.dl.onchange = async ({target: input}) => {
             this.inputs.forEach(i => i.checked = i == input);
             Parts.switch([input.id], this.type == 'group');
-        });
+        };
         return this;
     }
 });
@@ -122,10 +124,10 @@ const Sorter = () => {
         {classList: `part-sorter`}, 
         [E('dt', '排序'), ...inputs.map( i => E('dd', [E('input', {type: 'radio', name: 'sort', id: i[0]}), E('label', {htmlFor: i[0]}, i[1])]) )]
     );
-    dl.Q('input', input => input.onchange = () => {
+    dl.onchange = ({target: input}) => {
         Q('.catalog').append(...Parts.all.sort(Sorter.sort[input.id]).map(p => p.a));
         input.checked && Cookie.set('sort', input.id);
-    });
+    };
     return dl;
 }
 Object.assign(Sorter, {

@@ -64,11 +64,12 @@ Part.prototype.catalog.html = function() {
     return [
         E('object', {data: this.html.background()}),
         E('figure', [E('img', {src: `/img/${this.part.comp}/${this.part.sym}.png`})]),
-        this.html.icons(),
         ...this.part.stat ? this.html.stat() : [],
         ...this.html.names(),
         E('p', this.part.desc ?? ''),
-        this.html.buttons()
+        this.html.icons(),
+        this.html.buttons(),
+        this.part.from ? E('span', this.part.from, {onclick: ev => ev.preventDefault() ?? (location.href = `/parts/?blade=一體#${ev.target.innerText}`)}) : '',
     ];
 }
 Object.assign(Part.prototype.catalog.html, {

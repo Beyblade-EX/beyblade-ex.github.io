@@ -39,7 +39,8 @@ Object.assign(Table, {
         Q('#eng').onchange = ev => Table.colspan(ev.target.checked ? 'eng' : 'cjk');
         Q('.prod-reset').onclick = Table.reset;
         Q('table button').onclick = Table.entire;
-        window.onresize = () => Table.flush();
+        Q('tbody').onclick = ev => ev.target.custom().preview();
+        onresize = () => Table.flush();
     },
     count () {
         Q('.prod-result').value = document.querySelectorAll(`tbody tr:not(.hidden):not([hidden])`).length;
@@ -70,28 +71,29 @@ Object.assign(Table, {
 });
 
 const Filter = () => {
-    Filter.inputs = Q('#filter label[for]').map(label => E('input', {id: label.htmlFor, type: 'checkbox', checked: true}));
-    Q('#filter').prepend(...Filter.inputs);
+    Filter.el = Q('#filter');
+    Filter.inputs = Filter.el.Q('label[for]').map(label => E('input', {id: label.htmlFor, type: 'checkbox', checked: true}));
+    Filter.el.prepend(...Filter.inputs);
     Q('style').innerText += Filter.inputs.map(({id}) => `#${id}:not(:checked)~* label[for=${id}]`) + '{opacity:.5;background:initial !important;}';
     Filter.systems = Q('#RB-H~input');
     Filter.events();
 }
 Object.assign(Filter, {
     filter () {
-        let hide = Filter.inputs.filter(i => !i.checked).map(i => `.${i.id.replace('-', '.')}`);
-        Q('#filter').classList.toggle('active', hide.length);
+        let hide = this.inputs.filter(i => !i.checked).map(i => `.${i.id.replace('-', '.')}`);
+        this.el.classList.toggle('active', hide.length);
         Q('tbody tr', tr => tr.classList.toggle('hidden', 
-            hide.length && tr.matches(hide) || Filter.systems.some(i => !i.checked) && tr.matches('[abbr^="/"]')));
+            hide.length && tr.matches(hide) || this.systems.some(i => !i.checked) && tr.matches('[abbr^="/"]')));
         Table.count();
     },
     events () {
-        Filter.systems.forEach((input, _, all) => input.addEventListener('change', () => all.forEach(i => i.checked = i == input)));
-        Q('#filter button').onclick = () => {
-            Filter.systems.forEach(input => input.checked = true);
-            Filter.filter();
+        this.systems.forEach((input, _, all) => input.addEventListener('change', () => all.forEach(i => i.checked = i == input)));
+        this.el.Q('button').onclick = () => {
+            this.systems.forEach(input => input.checked = true);
+            this.filter();
         };
-        Filter.inputs.forEach(input => input.onchange = Filter.filter);
-        Q('#filter label[title]', label => label.onmouseover = () => Q('#filter summary i').innerText = `｛${label.innerText}｝：${label.title}`);
+        this.el.onchange = () => this.filter();
+        this.el.onmouseover = ({target}) => target.matches('label[title]') && (Q('#filter summary i').innerText = `｛${target.innerText}｝：${target.title}`);
     }
 });
 

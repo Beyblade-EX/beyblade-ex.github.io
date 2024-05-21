@@ -9,31 +9,32 @@
 <nav>
     <script>nav(['/', '/parts/'])</script>
     <div>
-        <button id="random-deck">隨機組合</button>
-        <button id="export-image">製作圖片</button>
+        <button id="random-deck">&#xe02f;隨機組合</button>
+        <button id="export-image">&#xe03a; 製作圖片</button>
     </div>
     <div>
-        <button id="delete-deck">刪除組合</button>
-        <button id="export-text">複製文字</button>
+        <button id="delete-deck">&#xe008; 刪除組合</button>
+        <button id="export-text">&#xe039; 複製文字</button>
     </div>
+    <spin-knob id="lang" min="90" callback="Bey.lang(this.value)">
+        <select><option value="tw">台<option value="hk">港<option value="jap">日<option value="eng">英</select>
+        <i slot="knob">&#xe00d;<br>&#xe00e;</i>
+    </spin-knob>
 </nav>
 <h1>陀螺盒</h1>
 <main>
     <article>
-        <div>
-            <h2 title="1">DECK</h2>
-        </div>
-        <bey-x>1</bey-x>
-        <bey-x>2</bey-x>
-        <bey-x>3</bey-x>
+        <h2 title="1">DECK</h2>
+        <bey-x></bey-x>
+        <bey-x></bey-x>
+        <bey-x></bey-x>
         <span></span>
     </article>
 </main>
-<aside>
+<aside class="first">
     <ul class="blade selecting"></ul>
     <ul class="ratchet"></ul>
     <ul class="bit"></ul>
-    <div>尋找<label class="toggle vertical"><input type=checkbox></label>改造</div>
 </aside>
 
 <script>
@@ -42,39 +43,84 @@ for (let i = 2; i <= 5; i++) {
     deck.Q('h2').title = i;
     Q('main').append(deck);
 }
-['blade', 'ratchet', 'bit'].forEach(c => Fetch(`/db/part-${c}.json`).then(resp => resp.json()).then(p => {
-    Parts[c] = p;
-    Q(`aside .${c}`).append(...Object.entries(p)
-        .sort(([_1, p], [_2, q]) => Sorter.sort.weight(p, q))
-        .map(([abbr]) => E('li', [new Bey({[c]: abbr}, {collapse: true, pool: true})]) 
-    ));
-    new Dragging('aside bey-x', {
-        precondition: () => Q('aside input').checked,
-        drop: Q('main bey-x'),
-        lift (self, dragged) {
-            Q('.targeted')?.setAttribute(...dragged.abbr[0]);
-            dragged.style.transform = null;
-            setTimeout(Swapping.revert, 500);
-            document.body.classList.add('animating');
-        }
-    });
-}));
+Q('aside').addEventListener('pointerdown', () => Q('aside').classList.remove('first'), {once: true});
+(() => {
+    let groups = ['round', 'flat', 'sharp', 'multi'];
+    let sorter = {
+        blade: ([_1, p], [_2, q]) => Sorter.sort.weight(p, q),
+        ratchet: ([p], [q]) => parseInt(p.split('-')[1]) - parseInt(q.split('-')[1]),
+        bit: ([a, p], [b, q]) => groups.indexOf(p.group ?? Parts.bit[a.at(-1)].group) - groups.indexOf(q.group ?? Parts.bit[b.at(-1)].group)
+    };
+    ['blade', 'ratchet', 'bit'].forEach(c => Fetch(`/db/part-${c}.json`).then(resp => resp.json()).then(p => {
+        Parts[c] = p;
+        Q(`aside .${c}`).append(...Object.entries(p)
+            .sort(sorter[c]).map(([abbr]) => E('li', [new Bey({[c]: abbr}, {collapse: true})]) 
+        ));
+    }));
+})();
+
 const Swapping = {
-    commit (dragged, target) {
-        this.revert();
-        let place = target.nextSibling; 
-        dragged.before(target);
-        place.before(dragged);
+    swap (dragged, targeted) {
+        let {x, y} = Dragging.getBoundingPageRect(targeted);
+        dragged.style.transform = `translate(${x - dragged.origin.x}px,${y - dragged.origin.y}px)`;
+        targeted.style.transform = `translate(${dragged.origin.x - x}px,${dragged.origin.y - y}px)`;
+        setTimeout(() => Swapping.commit(dragged, targeted), 500);
     },
-    revert (keep) {
-        Q('.targeted')?.classList.remove('targeted');
-        keep || Bey.selected?.classList.remove('selected');
-        document.body.classList.remove('animating');
-        Q('bey-x[style]', bey => bey.removeAttribute('style'));
+    commit (dragged, targeted) {
+        let place = targeted.nextSibling; 
+        dragged.before(targeted);
+        place.before(dragged);
+        dragged.style.transform = targeted.style.transform = null;
     }
 }
-customElements.define('bey-x', Bey);
-
+new Dragging(Q('main'), {
+    drop: {
+        targets: 'main bey-x',
+        when: ev => ev.target.classList.contains('selected')
+    },
+    lift: {
+        drop: (self, dragged, targeted) => targeted ? Swapping.swap(dragged, targeted) : (dragged.style.transform = null)
+    }
+});
+new Dragging(Q('aside'), {
+    scroll: {
+        what: 'ul',
+        when: ev => !ev.target.matches('.selected'),
+    },
+    drop: {
+        targets: 'main bey-x',
+        when: ev => ev.target.matches('.selected')
+    },
+    press: {
+        drop (self, dragged) {
+            let list = Q('aside .selecting');
+            list.style.setProperty('--scrolled', list.scrollLeft);
+            Q('aside').classList.add('customizing');
+        }
+    },
+    move: {
+        scroll (self, dragged) {
+            let [dx, dy] = [self.moveX - self.pressX, self.moveY - self.pressY], aside = Q('aside');
+            let slided = parseInt(getComputedStyle(aside).getPropertyValue('--slided') || 0);
+            if (!self.triggered && Math.abs(dy) > 50 && Math.atan(Math.abs(dy)/Math.abs(dx)) > Math.PI/3  
+                && (slided === 0 && dy < 0 || slided === 1 || slided === 2 && dy > 0)) {
+                self.triggered = true; 
+                slided -= Math.sign(dy);
+                aside.style.setProperty('--slided', slided);
+                Dragging.class.temp(aside, 'sliding');
+                Dragging.class.switch(`aside ul:nth-child(${slided+1})`, 'selecting');
+            }
+        },
+    },
+    lift: {
+        scroll: (self) => self.triggered = false,
+        drop (self, dragged, targeted) {
+            targeted?.setAttribute(...dragged.abbr[0]);
+            dragged.style.transform = null;
+            setTimeout(() => Q('.customizing')?.classList.remove('customizing'), 500);
+        }
+    }
+});
 const Export = {
     image (n) {
         if (!Q('main.actioning')) return;
@@ -98,44 +144,5 @@ const Export = {
         };
     }
 }
-new Dragging('main bey-x', {
-    drop: Q('main bey-x'),
-    precondition: ev => Bey.selected == ev.target,
-    lift (self, dragged) {
-        let target = Q('.targeted');
-        if (target) {
-            let {x, y} = Dragging.getBoundingPageRect(target);
-            dragged.style.transform = `translate(${x - dragged.origin.x}px,${y - dragged.origin.y}px)`;
-            target.style.transform = `translate(${dragged.origin.x - x}px,${dragged.origin.y - y}px)`;
-            setTimeout(() => Swapping.commit(dragged, target), 500);
-        } else {
-            if (!dragged.style.transform) return Swapping.revert(true);
-            dragged.style.transform = null;
-            setTimeout(Swapping.revert, 500);
-        }
-        document.body.classList.add('animating');
-    }
-});
-Q('aside input').onchange = ev => {
-    let selecting = Q('aside .selecting');
-    ev.target.checked && selecting.style.setProperty('--scrolled', selecting.scrollLeft);
-    Q('aside').classList.toggle('customizing', ev.target.checked);
-}
-new Dragging('aside ul', {
-    precondition: () => !Q('aside input').checked,
-    move (self, dragged) {
-        let [dx, dy] = [self.moveX - self.pressX, self.moveY - self.pressY];
-        let slided = parseInt(getComputedStyle(dragged.parentElement).getPropertyValue('--slided') || 0);
-        if (!self.triggered && Math.abs(dy) > 50 && Math.atan(Math.abs(dy)/Math.abs(dx)) > Math.PI/3  
-            && (slided === 0 && dy < 0 || slided === 1 || slided === 2 && dy > 0)) {
-            self.triggered = true; 
-            slided -= Math.sign(dy);
-            dragged.parentElement.style.setProperty('--slided', slided);
-            Q('aside .selecting')?.classList.remove('selecting');
-            Q(`aside ul:nth-child(${slided+1})`).classList.add('selecting');
-        }
-    },
-    lift: (self) => self.triggered = false
-});
 Export.events();
 </script>

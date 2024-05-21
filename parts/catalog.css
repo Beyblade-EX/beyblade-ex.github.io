@@ -36,6 +36,9 @@
     input[type=range] {
         display:initial;}
 }
+html,body {
+    scroll-padding-top:5em;
+}
 
 #catalog {
     padding-bottom:4em;
@@ -47,7 +50,7 @@
     user-select:none;
 }
 
-.catalog a {
+.catalog a[id] {
     min-width:15em; max-width:15em;
     min-height:15em; max-height:15em;
     position:relative;
@@ -75,6 +78,7 @@ a dl {grid-area:2/2/-1/-1;}
 a strong {grid-area:1/1/2/2;}
 a ul {grid-area:3/1/-1/-1;}
 a.bit h4 {grid-area:3/2/5/3;}
+a>span {grid-area:2/2/3/3;}
 
 a object {
     pointer-events:none;
@@ -137,6 +141,20 @@ a ul li img {
     object-fit:contain;
     height:100%; width:100%;
 }
+
+a>span {
+    font-size:.8em; color:var(--theme);
+    line-height:1;
+    margin-left:.2em;
+    justify-self:start; align-self:end;
+    z-index:1;
+}
+a>span::before {
+    content:'\e03c';
+    font-size:1.45em;
+    margin-right:.1em;
+}
+
 h4 {
     justify-self:start;
     font-size:1.5em;

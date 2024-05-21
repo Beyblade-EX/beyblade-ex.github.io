@@ -45,7 +45,6 @@ class Row {
     constructor(hidden = false) {this.hidden = hidden;}
     static connectedCallback(tr) {
         Cell.prototype.dissect.regex.pref ??= new RegExp(`^[${Parts.bit.prefix}]+(?=[^a-z].*)`);
-        tr.Q('td', td => td.onclick = () => td.custom().preview());
         Row.names(['eng', 'chi'], tr);
     }
     static names(lang, tr) {
