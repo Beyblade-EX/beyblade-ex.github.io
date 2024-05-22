@@ -148,8 +148,8 @@ class Bey extends HTMLElement {
         color:red;
     }
     :host([class]:not([class='']):not([collapse])) h4 span:not([title])::before {content:'?';}
-    h4 span:nth-child(1)::after {content:' '}
-    h4 span:nth-child(2)::after {content:' '}
+    h4 span:nth-child(1):has(+span[title])::after {content:' '}
+    h4 span:nth-child(2):has(+span[title])::after {content:' '}
     :host([collapse]) {
         grid-template-rows:0 min(calc((100vw - 2rem)/3),8em) 0;
         outline:.1em solid; outline-offset:-.1em;
