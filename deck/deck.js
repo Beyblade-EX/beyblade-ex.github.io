@@ -100,6 +100,7 @@ class Bey extends HTMLElement {
     }
     ol {
         list-style:none; padding:0; margin:0;
+        height:100%; /*safari*/
     }
     .rank {
         text-align:left;
