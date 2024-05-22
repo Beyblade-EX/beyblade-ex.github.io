@@ -141,7 +141,7 @@ class Bey extends HTMLElement {
     }
     h4 {
         margin:0;
-        text-align:center;
+        text-align:center; font-weight:normal; /*safari*/
         white-space:nowrap;
     }
     .duplicated {
