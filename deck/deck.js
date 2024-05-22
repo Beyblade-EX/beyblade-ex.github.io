@@ -19,8 +19,9 @@ class Bey extends HTMLElement {
     get stringify() {
         return Bey.observedAttributes.map(c => this.getAttribute(c) || '?').join(' ');
     }
-    get parts() {
-        return Bey.observedAttributes.map(c => [c, this.getAttribute(c)]).filter(([c, p]) => p);
+    get name() {
+        let spaces = [' ', ' '];
+        return this.shadowRoot.Q('h4 span').map((span, i) => (span.title || '?') + (spaces[i] || '')).join('');
     }
     Q = el => this.shadowRoot.Q(el)
 
@@ -139,21 +140,15 @@ class Bey extends HTMLElement {
     }
     h4 {
         margin:0;
-        font-size:.7em; text-align:center;
+        text-align:center;
         white-space:nowrap;
-    }
-    h4 span:nth-child(1):has(+span[title])::after {
-        content:' '
-    }
-    h4 span:nth-child(2):has(+span[title])::after {
-        content:' '
     }
     .duplicated {
         color:red;
     }
-    :host-context(body[style]) [title]::before {
-        padding-right:.2rem;
-    }
+    :host([class]:not([class='']):not([collapse])) h4 span:not([title])::before {content:'?';}
+    h4 span:nth-child(1)::after {content:' '}
+    h4 span:nth-child(2)::after {content:' '}
     :host([collapse]) {
         grid-template-rows:0 min(calc((100vw - 2rem)/3),8em) 0;
         outline:.1em solid; outline-offset:-.1em;
@@ -163,10 +158,17 @@ class Bey extends HTMLElement {
     }
     :host([collapse]) h4 {
         align-self:end;
-        font-size:1em; color:white;
+        color:white;
+        mix-blend-mode:exclusion;
     }
-    :host([collapse]) h4:is(.eng) {font-size:.9em;}
-    :host([collapse]) h4:is(.jap) {font-size:.7em; margin-bottom:.2em;}
+    :host([collapse]) {font-size:1em;}
+    :host([collapse]) h4.eng {font-size:.9em;}
+    :host([collapse]) h4.jap {font-size:.7em; margin-bottom:.2em;}
+
+    :host(:not([collapse])) h4 {font-size:.7em;}
+    :host(:not([collapse])) h4.eng {font-size:.65em;}
+    :host(:not([collapse])) h4.jap {font-size:.55em;}
+    :host(:not([collapse])) h4.jap span:first-child {letter-spacing:-.05em;}
     `
 }
 customElements.define('bey-x', Bey);

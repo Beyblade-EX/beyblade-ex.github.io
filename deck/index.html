@@ -9,12 +9,12 @@
 <nav>
     <script>nav(['/', '/parts/'])</script>
     <div>
-        <button id="random-deck">&#xe02f;隨機組合</button>
-        <button id="export-image">&#xe03a; 製作圖片</button>
+        <button type="button" id="random-deck">&#xe02f;隨機組合</button>
+        <button type="button" id="export-image">&#xe03a; 製作圖片</button>
     </div>
     <div>
-        <button id="delete-deck">&#xe008; 刪除組合</button>
-        <button id="export-text">&#xe039; 複製文字</button>
+        <button type="button" id="delete-deck">&#xe008; 刪除組合</button>
+        <button type="button" id="export-text">&#xe039; 複製文字</button>
     </div>
     <spin-knob id="lang" min="90" callback="Bey.lang(this.value)">
         <select><option value="tw">台<option value="hk">港<option value="jap">日<option value="eng">英</select>
@@ -23,13 +23,20 @@
 </nav>
 <h1>陀螺盒</h1>
 <main>
-    <article>
-        <h2 title="1">DECK</h2>
-        <bey-x></bey-x>
-        <bey-x></bey-x>
-        <bey-x></bey-x>
-        <span></span>
-    </article>
+    <template>
+        <article>
+            <h2 title="1">DECK</h2>
+            <bey-x></bey-x>
+            <bey-x></bey-x>
+            <bey-x></bey-x>
+            <span></span>
+        </article>
+    </template>
+    <input type=checkbox id=popup>
+    <label for=popup>
+        <p class="image" hidden>請等候數秒，圖片會自動下載<br>並不是所有設備或瀏覽器都有完美成品</p>
+        <p class="text" hidden>已複製：<blockquote></blockquote></p>
+    </label>
 </main>
 <aside class="first">
     <ul class="blade selecting"></ul>
@@ -37,9 +44,10 @@
     <ul class="bit"></ul>
 </aside>
 
+
 <script>
-for (let i = 2; i <= 5; i++) {
-    let deck = Q('article:first-of-type').cloneNode(true);
+for (let i = 1; i <= 5; i++) {
+    let deck = Q('template').content.cloneNode(true);
     deck.Q('h2').title = i;
     Q('main').append(deck);
 }
@@ -123,7 +131,8 @@ new Dragging(Q('aside'), {
 });
 const Export = {
     image (n) {
-        if (!Q('main.actioning')) return;
+        Q('#popup').checked = true;
+        Q('#popup+label .image').hidden = false;
         document.body.style.setProperty('--canvas', '0');
         html2canvas(Q(`article:nth-of-type(${n})`)).then(canvas => {
             E('a', {
@@ -131,17 +140,34 @@ const Export = {
                 download: `陀螺組${n}.png`
             }).click(); 
             document.body.removeAttribute('style');
+            Q('#popup+label p:not([hidden])').hidden = true;
+            Q('#popup').checked = false;
         });
-        Q('.actioning').classList.remove('actioning')
+        Export.reset();
     },
     text (n) {
-
+        Q('#popup').checked = true;
+        Q('#popup+label .text').hidden = false;
+        let deck = Q(`article:nth-of-type(${n}) bey-x`).map(bey => bey.name).join('\n');
+        Q('#popup+label blockquote').innerText = deck;
+        navigator.clipboard.writeText(deck);
+        Q('#popup+label p:not([hidden])').hidden = true;
+        Export.reset();
+    },
+    reset() {
+        Q('button.selected').classList.remove('selected');
+        Q('.actioning').classList.remove('actioning');
     },
     events () {
-        Q('#export-image').onclick = () => {
-            Q('main').classList.add('actioning');
-            Q('h2', h2 => h2.onclick ??= () => Export.image(h2.title));
+        Q('nav').onclick = ev => {
+            if (ev.target.tagName != 'BUTTON') return;
+            ev.target.classList.toggle('selected');
+            Q('main').classList.toggle('actioning');
         };
+        Q('h2', h2 => h2.onclick = () => ({
+            'export-image': Export.image,
+            'export-text': Export.text
+        })[Q('button.selected').id]?.(h2.title));
     }
 }
 Export.events();
