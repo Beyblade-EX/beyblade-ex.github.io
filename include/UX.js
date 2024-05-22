@@ -161,7 +161,7 @@ class Knob extends HTMLElement {
         position:relative;
         font-size:2em;
         display:inline-block; width:2em; height:2em;
-        touch-action:none;
+        touch-action:none; user-select:none;
     }
     ::slotted(:is(input,select)) {
         display:none;
