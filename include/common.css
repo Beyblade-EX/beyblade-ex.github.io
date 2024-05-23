@@ -352,6 +352,6 @@ input[type='range']::-webkit-slider-thumb {
     inherits:true;
     initial-value:15deg;
 }
-.dragged {
+.selected {
     touch-action:none;
 }

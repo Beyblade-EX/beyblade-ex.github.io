@@ -47,7 +47,7 @@ html,body {
     padding-top:2rem;
     display:flex; flex-wrap:wrap; justify-content:center;
     gap:.2rem;
-    user-select:none;
+    user-select:none; -webkit-user-select:none;
 }
 
 .catalog a[id] {

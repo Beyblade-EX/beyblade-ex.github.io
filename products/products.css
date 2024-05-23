@@ -76,7 +76,7 @@ form summary *,caption>* {
     min-width:8em;
     border:.08rem solid;border-radius:9em;
     padding:.2em .5em;
-    user-select:none;
+    user-select:none; -webkit-user-select:none;
 }
 #filter .system label {
     width:5em;

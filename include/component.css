@@ -189,7 +189,7 @@ code::before,code::after {
     position:relative;
 }
 .scroller :not(h4) {
-    user-select:none;
+    user-select:none; -webkit-user-select:none;
 }
 .scroller figure {
     min-width:12em;

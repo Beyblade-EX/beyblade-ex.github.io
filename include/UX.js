@@ -17,19 +17,20 @@ class Dragging {
     }
     _press = {
         scroll: (ev) => {
+            this.ev = ev;
             this.dragged = ev.target.closest(this.scroll.what);
             this.scrollInitX = this.dragged.scrollLeft;
         },
         drop: (ev) => {
+            this.targets = [this.drop.targets].flat().map(el => [Q(el)].flat());
             this.dragged.origin = Dragging.getBoundingPageRect(this.dragged);
-            [this.scrollY, this.scrollInitY] = [0, scrollY];
+            [this.scrollY, this.scrollInitY, this.limitY] = [0, scrollY, Q('aside')?.offsetTop];
             onscroll = () => this.move();
         }
     }
     move (ev, custom) {
-        ev && ([this.moveX, this.moveY] = [ev.x, ev.y]);
-        if (Math.hypot(this.moveX-this.pressX, this.moveY-this.pressY) < 2) return;
-        ev?.preventDefault();
+        ev && ([this.moveX, this.moveY] = [ev.x, ev.y]) && ev.preventDefault();
+        if (!this.dragged || Math.hypot(this.moveX-this.pressX, this.moveY-this.pressY) < 2) return;
         this.dragged.classList.add('dragged');
         this._move[this.mode]?.(ev);
         (typeof custom == 'object' ? custom?.[this.mode] : custom)?.(this, this.dragged);
@@ -63,14 +64,19 @@ class Dragging {
         proportion > .95 && !bottomed ? scrollBy(0, 3) : null;
     }
     findTarget () {
-        this.targeted = this.clientY > Q('aside')?.offsetTop ? null : Q(this.drop.targets).find(el => el != this.dragged && Dragging.containsPointer(el, this.moveX, this.moveY));
+        this.targeted = null;
+        let i = 0;
+        if (!this.limitY || this.clientY <= this.limitY)
+            while (i < this.targets.length && !this.targeted)
+                this.targeted = this.targets[i++].find(el => el != this.dragged && Dragging.containsPointer(el, this.moveX, this.moveY));
         if (this.targeted?.matches('.targeted')) return;
         Q('.targeted')?.classList.remove('targeted');
         this.targeted?.classList.add('targeted');      
     }
     reset () {
-        this.dragged.classList.remove('dragged', 'selected');
+        this.dragged?.classList.remove('dragged', 'selected');
         this.targeted?.classList.remove('targeted');
+        this.dragged = this.targeted = this.mode = null;
     }
 
     static getBoundingPageRect = el => (({x, y, width, height}) => ({
@@ -101,15 +107,20 @@ class Knob extends HTMLElement {
         super();
         this.attachShadow({mode: 'open'}).append(E('label', [E('slot', {name: 'knob'})]), E('span'), E('style', this.css));
     }
-    get value() {return this.Q('input,select').value;}
+    get value() {return this.input.value;}
+    set value(value) {this[this.type].adjustValue(value);}
+    θ = () => parseFloat(getComputedStyle(this).getPropertyValue('--angle'));
+
     connectedCallback() {
         this.beforeChildren();
         setTimeout(() => this.afterChildren());
         new Dragging(this, {
-            press: (self, dragged) => self.pressθ = dragged.currentθ(),
-            move: (self, dragged) => {
-                if (Math.abs(self.moveY - self.pressY) < 2) return;    
-                this.Q('select') ? this.discrete(self, dragged) : this.continuous(self, dragged);
+            press: (drag) => drag.pressθ = this.θ,
+            move: (drag) => {
+                let delta = Math.abs(drag.moveY - drag.pressY);
+                if (this.type == 'continuous' && delta < 2 || this.type == 'discrete' && delta < 50) return;
+                this[this.type].getΔY(drag);
+                this[this.type].adjustValue();
             },
         });
     }
@@ -121,41 +132,51 @@ class Knob extends HTMLElement {
         this.callback = new Function('Knob', this.getAttribute('callback')).bind(this);
     }
     afterChildren() {
-        if (!this.Q('option'))
-            this.append(E('input', {type: 'range'}));
+        this.type = this.Q('option') ? 'discrete' : 'continuous';
+        this.input = this.Q('input,select');
+        if (this.type == 'continuous')
+            this.input || this.append(this.input = E('input', {type: 'range'}));
         else {
-            this.setAttribute('discrete', this.n = this.Q('option').length);
-            this.shadowRoot.Q('style').textContent += `:host([discrete]) label {background:conic-gradient(${this.gradient()})}`;
+            this.setAttribute('discrete', this.discrete.total = this.Q('option').length);
+            this.shadowRoot.Q('style').textContent += `:host([discrete]) label {background:conic-gradient(${this.discrete.ticks()})}`;
         }
-        this.Q('input,select').onchange = () => this.event();
-        this.Q('select').dispatchEvent(new Event('change'));
+        this.input.onchange = () => this.event();
+        this.input.dispatchEvent(new Event('change'));
     }
-    gradient() {
-        let css = `transparent ${this.discreteθ(0) - 1.5}deg,`;
-        for (let i = 0; i < this.n; i++)
-            css += `var(--dark) ${this.discreteθ(i) - 1.5}deg ${this.discreteθ(i) + 1.5}deg,
-                    transparent ${this.discreteθ(i) + 1.5}deg ${this.discreteθ(i+1) - 1.5}deg,`;
-        return css.replace(/,$/, '');
+    discrete = {
+        ticks () {
+            let css = `transparent ${this.θ(0) - 1.5}deg,`;
+            for (let i = 0; i < this.total; i++)
+                css += `var(--dark) ${this.θ(i) - 1.5}deg ${this.θ(i) + 1.5}deg,
+                        transparent ${this.θ(i) + 1.5}deg ${this.θ(i+1) - 1.5}deg,`;
+            return css.replace(/,$/, '');
+        },
+        getΔY (drag) {
+            this.index = Math.max(0, Math.min((this.index ?? 0) - Math.sign(drag.moveY - drag.pressY), this.total - 1));
+            drag.pressY = drag.moveY;
+        },
+        adjustValue: (value) => {
+            value && (this.discrete.index = this.Q('option').findIndex(o => o.value == value));
+            this.Q(`option:nth-child(${this.discrete.index+1})`).selected = true;
+            this.style.setProperty('--angle', `${this.discrete.θ()}deg`);
+            this.input.dispatchEvent(new Event('change'));
+        },
+        θ: (x = this.discrete.index) => ((this.maxθ - this.minθ) / (this.discrete.total - 1))*x + this.minθ
+    }
+    continuous = {
+        getΔY: (drag) => {
+            drag.moveθ = Math.max(this.minθ, Math.min(drag.pressθ - (drag.moveY - drag.pressY), this.maxθ));
+            (drag.moveθ == this.minθ || drag.moveθ == this.maxθ) && ([drag.pressY, drag.pressθ] = [drag.moveY, drag.moveθ]);
+        },
+        adjustValue: () => {
+            this.style.setProperty('--angle', `${value}deg`);
+            this.input.dispatchEvent(new Event('change'));
+        }
     }
     event() {
-        this.Q('option') && (this.shadowRoot.Q('span').textContent = this.Q('option:checked').textContent);
+        this.type == 'discrete' && (this.shadowRoot.Q('span').textContent = this.Q('option:checked').textContent);
         this.callback?.();
     }
-    continuous(self) {
-        self.moveθ = Math.max(this.minθ, Math.min(self.pressθ - (self.moveY - self.pressY), this.maxθ));
-        (self.moveθ == this.minθ || self.moveθ == this.maxθ) && ([self.pressY, self.pressθ] = [self.moveY, self.moveθ]);
-        this.style.setProperty('--angle', `${self.moveθ}deg`);
-    }
-    discrete(self) {
-        if (Math.abs(self.moveY - self.pressY) < 50) return;
-        this.x = Math.max(0, Math.min((this.x ?? 0) - Math.sign(self.moveY - self.pressY), this.n - 1));
-        self.pressY = self.moveY;
-        this.style.setProperty('--angle', `${this.discreteθ(this.x)}deg`);
-        this.Q(`option:nth-child(${this.x+1})`).selected = true;
-        this.Q('select').dispatchEvent(new Event('change'));
-    }
-    discreteθ = (x) => ((this.maxθ - this.minθ) / (this.n - 1))*x + this.minθ
-    currentθ = () => parseFloat(getComputedStyle(this).getPropertyValue('--angle'));
     css = `
     :host {
         position:relative;
@@ -220,7 +241,7 @@ class Knob extends HTMLElement {
     slot[name=knob] {
         z-index:1;
         position:absolute; 
-        user-select:none; pointer-events:none;
+        user-select:none; -webkit-user-select:none; pointer-events:none;
         display:flex; justify-content:center; align-items:center;
         transform:scale(-1);
     }

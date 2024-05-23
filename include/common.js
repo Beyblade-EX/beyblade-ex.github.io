@@ -24,7 +24,7 @@ window.addEventListener('DOMContentLoaded', () => document.title += ' ■ �
 
 const nav = links => {
     let icons = {'/': '&#xe000;', '/products/': '&#xe001;', '/prize/': '&#xe002;', '/parts/' : '&#xe003;'};
-    Q('nav').innerHTML = links.map(l => l ? `<a href=${l} ${l == '/' ? '' : ''}>${icons[l]}</a>` : '').join('') + `
+    Q('nav').innerHTML = links.map(l => l ? `<a href=${l} ${l == '/' ? '' : ''}>${icons[l] ?? 'g'}</a>` : '').join('') + `
     <!--div class=menu-scroll>
         <label onclick=window.scrollTo(0,0) data-icon=></label>
         <label onclick=window.scrollTo(0,document.body.scrollHeight) data-icon=></label>
@@ -110,17 +110,17 @@ const DB = {
     init: ({result, transaction}) => new Promise(res => {
         DB.db = result;
         DB.indicator.init();
-        ['meta', 'html'].forEach(store => DB.db.createObjectStore(store));
+        ['meta', 'html', 'user'].forEach(store => DB.db.createObjectStore(store));
         DB.db.createObjectStore('parts', {keyPath: 'key'}).createIndex('group', 'group');
         transaction.oncomplete = () => res();
     }),
     cache: async outdated => {
         Q('a', a => a.classList.add('disabled'));
         DB.indicator.init(outdated);
-        let update = (files, ...args) => DB.update(files.filter(f => outdated ? Object.keys(outdated).includes(f) : true), ...args);
+        let update = (files, ...args) => DB.update(files.filter(f => outdated ? outdated.includes(f) : true), ...args);
         await Promise.all([
             update(['beys'].map(f => `prod-${f}`), (json, file) => DB.put('html', [file, json])),
-            update(['bit', 'ratchet', 'blade'], DB.put.parts, (sym, comp) => outdated?.[comp]?.includes(sym) ?? true),
+            update(['bit', 'ratchet', 'blade'], DB.put.parts),
             //update(['layer7', 'layer6', 'layer5'],       json => Promise.all(Object.entries(json).map(([comp, parts]) => DB.put.parts(parts, comp)))),
             update(['meta'],                             json => Promise.all(Object.entries(json).map(info => DB.put('meta', info))))
         ]);
@@ -131,9 +131,8 @@ const DB = {
         let updates = await fetch(`/db/-update.json?${Math.random()}`).catch(() => DB.indicator.setAttribute('status', 'offline'))
             .then(resp => resp.json()).then(({news, ...updates}) => (typeof announce != 'undefined' && announce(news), updates));
         if (!familiar) return;
-        let outdated = Object.entries(updates).reduce((obj, [item, [time, which]]) => new Date(time) / 1000 > (Cookie.history?.[item] || 0) ? {...obj, [item]: which} : obj, {});
-        Object.keys(outdated).length && fetch('/sw/delete?' + Object.keys(outdated).filter(item => /^layer|disk|driver/.test(item)))
-            .then(() => DB.cache(outdated)).then(() => DB.indicator.update(true));
+        let outdated = Object.entries(updates).filter(([item, [time]]) => new Date(time) / 1000 > (Cookie.history?.[item] || 0));
+        outdated.length && DB.cache(outdated).then(() => DB.indicator.update(true));
     },
     update: (files, action, filter) => Promise.all(files.map(file => 
         fetch(`/db/${file}.json?${Math.random()}`).then(resp => resp.json()).then(json => action(json, file, filter))

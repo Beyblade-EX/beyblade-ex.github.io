@@ -26,13 +26,13 @@ spin-knob i {
     font-size:.6em; line-height:.8em;
     margin-top:.25em;
 }
-.animating bey-x {
+.animating :is(main,aside) {
     pointer-events:none;
 }
 main {
     padding:5em 0 8em 0;
 }
-article {
+#deck article {
     display:grid; grid-template:auto/repeat(3,min-content); gap:.5rem;
     justify-content:center;
     background:black;
@@ -56,9 +56,6 @@ h2+bey-x {
 main bey-x {
     transition:outline .2s;
 }
-main bey-x[style]:not(.target) {
-    z-index:1;
-}
 .animating bey-x {
     transition:transform .5s;
 }
@@ -72,7 +69,7 @@ aside {
     background:black;
     z-index:2;
     font-size:.8em;
-    user-select:none;
+    user-select:none; -webkit-user-select:none;
     overflow:hidden;
 }
 aside.first::before {
@@ -107,6 +104,9 @@ aside ul {
     margin:.1em 0;
     transform:translateY(calc(var(--slided,0)*-100% - var(--slided,0)*.1em));
 }
+aside li {
+    display:block;
+}
 .sliding ul {
     transition:transform .5s;
 }
@@ -123,8 +123,19 @@ aside ul::-webkit-scrollbar {
     display:none;
 }
 body:has(.dragged) {
-    user-select:none;
+    user-select:none; -webkit-user-select:none;
 }
 aside bey-x {
     touch-action:none;
+}
+
+#tier div {
+    width:100%; min-height:min(calc((100vw - 2rem)/3),8em);
+    background:#444;
+    font-size:.7em;
+    display:flex; flex-wrap:wrap; gap:.1em;
+    transition:background-color .5s;
+}
+#tier div.targeted {
+    background:silver;
 }

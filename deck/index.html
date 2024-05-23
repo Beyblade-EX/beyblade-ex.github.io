@@ -3,11 +3,12 @@
 <title>我的陀螺盒⬧My Decks</title>
 <link href="/deck/deck.css" rel="stylesheet">
 <script src="/deck/deck.js"></script>
+<script src="/deck/bey.js"></script>
 <script src="/parts/parts.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <nav>
-    <script>nav(['/', '/parts/'])</script>
+    <script>nav(['/', location.hash == '#deck' ? '#tier' : '#deck'])</script>
     <div>
         <button type="button" id="random-deck">&#xe02f;隨機組合</button>
         <button type="button" id="export-image">&#xe03a; 製作圖片</button>
@@ -21,120 +22,49 @@
         <i slot="knob">&#xe00d;<br>&#xe00e;</i>
     </spin-knob>
 </nav>
-<h1>陀螺盒</h1>
-<main>
+<h1 hidden>陀螺盒</h1>
+<main id="deck" hidden>
     <template>
         <article>
-            <h2 title="1">DECK</h2>
-            <bey-x></bey-x>
-            <bey-x></bey-x>
-            <bey-x></bey-x>
+            <h2>DECK</h2>
+            <bey-x expand></bey-x>
+            <bey-x expand></bey-x>
+            <bey-x expand></bey-x>
             <span></span>
         </article>
     </template>
-    <input type=checkbox id=popup>
-    <label for=popup>
-        <p class="image" hidden>請等候數秒，圖片會自動下載<br>並不是所有設備或瀏覽器都有完美成品</p>
-        <p class="text" hidden>已複製：<blockquote></blockquote></p>
-    </label>
+</main>
+<main id="tier" hidden>
+    <template>
+        <article>
+            <h2>TIER</h2>
+            <div><span></div>
+        </article>
+    </template>
 </main>
 <aside class="first">
     <ul class="blade selecting"></ul>
     <ul class="ratchet"></ul>
     <ul class="bit"></ul>
 </aside>
-
+<input type=checkbox id=popup>
+<label for=popup>
+    <p class="image" hidden>請等候數秒，圖片會自動下載<br>並不是所有設備或瀏覽器都有完美成品</p>
+    <p class="text" hidden>已複製：<blockquote></blockquote></p>
+</label>
 
 <script>
-for (let i = 1; i <= 5; i++) {
-    let deck = Q('template').content.cloneNode(true);
-    deck.Q('h2').title = i;
-    Q('main').append(deck);
-}
-Q('aside').addEventListener('pointerdown', () => Q('aside').classList.remove('first'), {once: true});
-(() => {
-    let groups = ['round', 'flat', 'sharp', 'multi'];
-    let sorter = {
-        blade: ([_1, p], [_2, q]) => Sorter.sort.weight(p, q),
-        ratchet: ([p], [q]) => parseInt(p.split('-')[1]) - parseInt(q.split('-')[1]),
-        bit: ([a, p], [b, q]) => groups.indexOf(p.group ?? Parts.bit[a.at(-1)].group) - groups.indexOf(q.group ?? Parts.bit[b.at(-1)].group)
-    };
-    ['blade', 'ratchet', 'bit'].forEach(c => Fetch(`/db/part-${c}.json`).then(resp => resp.json()).then(p => {
-        Parts[c] = p;
-        Q(`aside .${c}`).append(...Object.entries(p)
-            .sort(sorter[c]).map(([abbr]) => E('li', [new Bey({[c]: abbr}, {collapse: true})]) 
-        ));
-    }));
-})();
+App();
+App.fetch().then(App.load).then(App.switch);
+App.events();
+onhashchange = () => App.switch();
 
-const Swapping = {
-    swap (dragged, targeted) {
-        let {x, y} = Dragging.getBoundingPageRect(targeted);
-        dragged.style.transform = `translate(${x - dragged.origin.x}px,${y - dragged.origin.y}px)`;
-        targeted.style.transform = `translate(${dragged.origin.x - x}px,${dragged.origin.y - y}px)`;
-        setTimeout(() => Swapping.commit(dragged, targeted), 500);
-    },
-    commit (dragged, targeted) {
-        let place = targeted.nextSibling; 
-        dragged.before(targeted);
-        place.before(dragged);
-        dragged.style.transform = targeted.style.transform = null;
-    }
-}
-new Dragging(Q('main'), {
-    drop: {
-        targets: 'main bey-x',
-        when: ev => ev.target.classList.contains('selected')
-    },
-    lift: {
-        drop: (self, dragged, targeted) => targeted ? Swapping.swap(dragged, targeted) : (dragged.style.transform = null)
-    }
-});
-new Dragging(Q('aside'), {
-    scroll: {
-        what: 'ul',
-        when: ev => !ev.target.matches('.selected'),
-    },
-    drop: {
-        targets: 'main bey-x',
-        when: ev => ev.target.matches('.selected')
-    },
-    press: {
-        drop (self, dragged) {
-            let list = Q('aside .selecting');
-            list.style.setProperty('--scrolled', list.scrollLeft);
-            Q('aside').classList.add('customizing');
-        }
-    },
-    move: {
-        scroll (self, dragged) {
-            let [dx, dy] = [self.moveX - self.pressX, self.moveY - self.pressY], aside = Q('aside');
-            let slided = parseInt(getComputedStyle(aside).getPropertyValue('--slided') || 0);
-            if (!self.triggered && Math.abs(dy) > 50 && Math.atan(Math.abs(dy)/Math.abs(dx)) > Math.PI/3  
-                && (slided === 0 && dy < 0 || slided === 1 || slided === 2 && dy > 0)) {
-                self.triggered = true; 
-                slided -= Math.sign(dy);
-                aside.style.setProperty('--slided', slided);
-                Dragging.class.temp(aside, 'sliding');
-                Dragging.class.switch(`aside ul:nth-child(${slided+1})`, 'selecting');
-            }
-        },
-    },
-    lift: {
-        scroll: (self) => self.triggered = false,
-        drop (self, dragged, targeted) {
-            targeted?.setAttribute(...dragged.abbr[0]);
-            dragged.style.transform = null;
-            setTimeout(() => Q('.customizing')?.classList.remove('customizing'), 500);
-        }
-    }
-});
 const Export = {
     image (n) {
         Q('#popup').checked = true;
         Q('#popup+label .image').hidden = false;
         document.body.style.setProperty('--canvas', '0');
-        html2canvas(Q(`article:nth-of-type(${n})`)).then(canvas => {
+        setTimeout(() => html2canvas(Q(`#deck article:nth-of-type(${n})`)).then(canvas => {
             E('a', {
                 href: canvas.toDataURL("image/png"),
                 download: `陀螺組${n}.png`
@@ -142,7 +72,7 @@ const Export = {
             document.body.removeAttribute('style');
             Q('#popup+label p:not([hidden])').hidden = true;
             Q('#popup').checked = false;
-        });
+        }).catch(er => console.error(er) ?? (Q('#popup+label').textContent = er)));
         Export.reset();
     },
     text (n) {
@@ -162,7 +92,7 @@ const Export = {
         Q('nav').onclick = ev => {
             if (ev.target.tagName != 'BUTTON') return;
             ev.target.classList.toggle('selected');
-            Q('main').classList.toggle('actioning');
+            Q('main:not([hidden])').classList.toggle('actioning');
         };
         Q('h2', h2 => h2.onclick = () => ({
             'export-image': Export.image,
