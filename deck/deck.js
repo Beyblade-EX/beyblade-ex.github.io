@@ -141,7 +141,7 @@ Object.assign(App, {
                     if (targeted.tagName == 'BEY-X')
                         return targeted?.setAttribute(...dragged.abbr[0]);
                     dragged.classList.remove('selected');
-                    targeted.Q('span').before(dragged.cloneNode(true), ' ');
+                    targeted.Q('span').before(dragged.cloneNode(true));
                     dragged.used = true;
                 }
             }
@@ -157,7 +157,8 @@ const Swapping = {
         setTimeout(() => Swapping.commit(dragged, targeted), 500);
     },
     commit (dragged, targeted) {
-        let place = targeted.nextSibling;!place &&console.log(dragged)
+        targeted.nextSibling || targeted.after('');
+        let place = targeted.nextSibling;
         dragged.before(targeted);
         place.before(dragged);
         dragged.style.transform = targeted.style.transform = null;
