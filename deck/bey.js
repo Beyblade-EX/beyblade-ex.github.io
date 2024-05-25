@@ -81,7 +81,7 @@ class Bey extends HTMLElement {
         if (!this.classList.contains('selected'))
             this.dock.Q('.selected')?.classList.remove('selected');
         this.classList.toggle('selected');
-        navigator.vibrate(200);
+        navigator.vibrate?.(200);
     }
 
     main(redeck) {
