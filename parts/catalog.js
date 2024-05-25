@@ -1,52 +1,52 @@
 const concat = (...objs) => objs.reduce((summed, o, i) => i === 0 ? summed : Object.fromEntries(Object.entries(summed).map(([k, v]) => [k, v += o[k] ?? ''])), objs[0]);
 class Part {
     constructor(dict, array) {this.array = array;
-        [dict.sym, dict.comp] = dict.key.split('.');
+        dict.key && ([dict.abbr, dict.comp] = dict.key.split('.'));
         Object.assign(this, dict);
     }
-    async revision() {
+    async revise() {
         if (this.comp != 'bit' || this.names)
             return this;
-        let [, pref, ref] = new RegExp(`^([${Parts.bit.prefix}]+)([^a-z].*)$`).exec(this.sym);
+        let [, pref, ref] = new RegExp(`^([${Parts.bit.prefix}]+)([^a-z].*)$`).exec(this.abbr);
         Parts.ref ??= {};
-        Parts.ref[ref] ??= this.array.find(p => p.sym == ref);//await DB.get('parts', this.strip() + '.bit');
-        this.revise.name(Parts.ref[ref], pref);
-        this.revise.attr(Parts.ref[ref], pref);
-        this.revise.stat(Parts.ref[ref]);
-        this.revise.desc(Parts.ref[ref], pref);
+        Parts.ref[ref] ??= this.array ? this.array.find(p => p.abbr == ref || p.sym == ref) : await DB.get('bit', this.strip());
+        this._revise.name(Parts.ref[ref], pref);
+        this._revise.attr(Parts.ref[ref], pref);
+        this._revise.stat(Parts.ref[ref]);
+        this._revise.desc(Parts.ref[ref], pref);
         return this;
     }
-    revise = {
+    _revise = {
         name: (ref, pref) => this.names = Part.revise.name(ref, pref),
         attr: (ref, pref) => [this.group, this.attr] = [ref.group, [...this.attr ?? [], ...ref.attr, ...pref]],
         stat: ref => this.stat.length === 1 && this.stat.push(...ref.stat.slice(1)),
-        desc: (ref, pref) => this.desc = [...pref].map(p => Parts.meta.prefix[p].desc).join('、') + `的【${ref.sym}】bit${this.desc ? `，${this.desc}` : '。'}`
+        desc: (ref, pref) => this.desc = [...pref].map(p => Parts.meta.prefix[p].desc).join('、') + `的【${ref.abbr || ref.sym}】bit${this.desc ? `，${this.desc}` : '。'}`
     }
     static revise = {
         name: (ref, pref) => [...pref].reverse().reduce((names, p) => concat(Parts.meta.prefix[p], names), ref?.names ?? ref),
     }
     
-    strip = what => Parts.comp == 'bit' ? Part.strip(this.sym, what) : this.sym;
-    static strip = (sym, what) => sym.replace(what == 'dash' ? '′' : new RegExp(`^[${Parts.bit.prefix}]+(?=[^′a-z])|′`, what == 'prefORdash' ? '' : 'g'), '');
+    strip = what => this.comp == 'bit' ? Part.strip(this.abbr, what) : this.abbr;
+    static strip = (abbr, what) => abbr.replace(what == 'dash' ? '′' : new RegExp(`^[${Parts.bit.prefix}]+(?=[^′a-z])|′`, what == 'prefORdash' ? '' : 'g'), '');
 
     prepare() {
         this.a = Q('.catalog').appendChild(E('a', {hidden: true}));
         return this;
     }
     async catalog(show) {
-        let {sym, comp, group, attr, for: For} = await this.revision();
+        let {abbr, comp, group, attr, for: For} = await this.revise();
         this.catalog.part = this.catalog.html.part = this;
 
         this.a ??= Q('.catalog').appendChild(E('a'));
         this.a.append(...this.catalog.html());
         Object.assign(this.a, {
-            id: sym,
+            id: abbr,
             className: [comp, group, ...(attr ?? [])].filter(c => c).join(' '),
             hidden: !show,
             for: For,
         });
-        location.pathname == '/parts/' ? this.a.href = `/products/?${comp}=${encodeURIComponent(sym)}` : null;
-        location.pathname == '/products/' ? this.a.onclick = () => Finder?.find([[comp, sym]]) : null;
+        location.pathname == '/parts/' ? this.a.href = `/products/?${comp}=${encodeURIComponent(abbr)}` : null;
+        location.pathname == '/products/' ? this.a.onclick = () => Finder?.find([[comp, abbr]]) : null;
         return this;
     }
 }
@@ -63,7 +63,7 @@ Part.prototype.catalog.html = function() {
     Q('#triangle') || Part.triangle();
     return [
         E('object', {data: this.html.background()}),
-        E('figure', [E('img', {src: `/img/${this.part.comp}/${this.part.sym}.png`})]),
+        E('figure', [E('img', {src: `/img/${this.part.comp}/${this.part.abbr}.png`})]),
         ...this.part.stat ? this.html.stat() : [],
         ...this.html.names(),
         E('p', this.part.desc ?? ''),
@@ -79,20 +79,20 @@ Object.assign(Part.prototype.catalog.html, {
         return `/parts/bg.svg?hue=${getComputedStyle(document.querySelector(`.${comp.match(/^[^0-9]+/)}`)).getPropertyValue('--c')}${spin}`;
     },
     icons () {
-        let {sym, group, attr} = this.part;
+        let {abbr, group, attr} = this.part;
         let icons = new Mapping('left', '\ue01d', 'right', '\ue01e', /^.{3}$/, t => [E('img', {src: `/img/type-${t}.png`})]);
         return E('ul', [
             /X$/.test(group) ? E('li', [E('img', {src: `/img/line.svg#${group}`})]) : '', 
-            group == 'remake' ? E('li', [E('img', {src: `/img/system-${/^D..$/.test(sym) ? 'BSB' : /\d$/.test(sym) ? 'BBB' : 'MFB'}.png`})]) : '', 
+            group == 'remake' ? E('li', [E('img', {src: `/img/system-${/^D..$/.test(abbr) ? 'BSB' : /\d$/.test(abbr) ? 'BBB' : 'MFB'}.png`})]) : '', 
             ...(attr ?? []).map(a => E('li', icons.find(a, true))), 
         ]);
     },
     names () {
-        let {sym, group, comp, names} = this.part;
+        let {abbr, group, comp, names} = this.part;
         names ??= {};
         names.chi = (names.chi ?? '').split(' ');
         let children = comp != 'blade' ? 
-            [E('h4', sym.replace('-', '‒')), ...['jap','eng'].map(l => E('h5', names[l], {classList: l}))] : 
+            [E('h4', abbr.replace('-', '‒')), ...['jap','eng'].map(l => E('h5', names[l], {classList: l}))] : 
             [
                 Part.chi(group, names.chi[0], names.reverse),
                 Part.chi(group, names.chi[1] ?? '', names.reverse),
@@ -102,8 +102,8 @@ Object.assign(Part.prototype.catalog.html, {
         return children;
     },
     stat () {
-        let {sym, comp, stat, limited} = this.part;
-        comp == 'ratchet' && stat[0] && stat.push(...sym.split('-'));
+        let {abbr, comp, stat, limited} = this.part;
+        comp == 'ratchet' && stat[0] && stat.push(...abbr.split('-'));
         return [
             E('strong', limited ? 'L' : ''),
             E('dl', stat.flatMap((s, i) => [

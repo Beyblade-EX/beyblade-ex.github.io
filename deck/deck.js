@@ -1,17 +1,3 @@
-const Swapping = {
-    swap (dragged, targeted) {
-        let {x, y} = Dragging.getBoundingPageRect(targeted);
-        dragged.style.transform = `translate(${x - dragged.origin.x}px,${y - dragged.origin.y}px)`;
-        targeted.style.transform = `translate(${dragged.origin.x - x}px,${dragged.origin.y - y}px)`;
-        setTimeout(() => Swapping.commit(dragged, targeted), 500);
-    },
-    commit (dragged, targeted) {
-        let place = targeted.nextSibling;
-        dragged.before(targeted);
-        place.before(dragged);
-        dragged.style.transform = targeted.style.transform = null;
-    }
-};
 const Aside = {
     
 }
@@ -22,54 +8,49 @@ const App = () => {
         Q(where).append(deck);
     }
     [1,2,3,4,5].forEach(t => create('#deck', t));
-    ['S','A','B','C','D'].forEach(t => create('#tier', t));
-    Object.assign(indexedDB.open('user', 1), {
-        onsuccess: ev => App.DB = ev.target.result,
-        onerror: console.error,
-        onupgradeneeded: ev => (App.familiar = false) && ev.target.result.createObjectStore('user')
-    });
+    [1,2,3,4,5].forEach(t => create('#tier', t));
 };
 Object.assign(App, {
     load () {
-        let store = App.DB.transaction('user').objectStore('user');
-        store.get('pref').onsuccess = ev => (({lang}) => Q('#lang').value = lang)(ev.target.result);
-        App.familiar !== false && Q('aside.first').classList.remove('first');
+        DB.get('user', 'pref').then(re => re && (Q('#lang').value = re.lang));
         return Promise.all([
-        new Promise(res => store.get('#deck').onsuccess = ev => res(
-            ev.target.result?.forEach((deck, i) => Q(`#deck article:nth-of-type(${i+1}) bey-x`, (bey, j) => bey.init(deck[j])))
-        )),
-        new Promise(res => store.get('#tier').onsuccess = ev => res(
-            Object.entries(ev.target.result ?? {}).forEach(([tier, beys]) => {
-                Q(`h2[title=${tier}]+div span`).before(...beys.map(([c, p]) => [new Bey({[c]: p}, {collapse: true}), ' ']).flat());
-            })
-        ))]);
+            DB.get('user', '#deck').then(re =>
+                re?.forEach((deck, i) => Q(`#deck article:nth-of-type(${i+1}) bey-x`, (bey, j) => bey.init(deck[j])))
+            ),
+            DB.get('user', '#tier').then(re => Object.entries(re ?? {}).forEach(([tier, beys]) =>
+                Q(`h2[title='${tier}']+div span`).before(...beys.map(([c, p]) => [new Bey({[c]: p}, {collapse: true}), ' ']).flat())
+            ))
+        ]);
     },
     fetch () {
         let groups = ['round', 'flat', 'sharp', 'multi'];
         let sorter = {
-            blade: ([_1, p], [_2, q]) => Sorter.sort.weight(p, q),
-            ratchet: ([p], [q]) => parseInt(p.split('-')[1]) - parseInt(q.split('-')[1]),
-            bit: ([a, p], [b, q]) => groups.indexOf(p.group ?? Parts.bit[a.at(-1)].group) - groups.indexOf(q.group ?? Parts.bit[b.at(-1)].group)
+            blade: (p, q) => Sorter.sort.weight(p, q),
+            ratchet: (p, q) => parseInt(p.abbr.split('-')[1]) - parseInt(q.abbr.split('-')[1]),
+            bit: (p, q) => groups.indexOf(p.group ?? Parts.bit[p.abbr.at(-1)].group) - groups.indexOf(q.group ?? Parts.bit[q.abbr.at(-1)].group)
         };
-        return Promise.all(['blade', 'ratchet', 'bit'].map(c => Fetch(`/db/part-${c}.json`).then(resp => resp.json()).then(p => {
-            Parts[c] = p;
-            Q(`aside .${c}`).append(...Object.entries(p)
-                .filter(([_, p]) => c!= 'blade' || c == 'blade' && p.names.chi)
-                .sort(sorter[c]).map(([abbr], i) => E('li', [new Bey({[c]: abbr}, {order: i, collapse: true})]) 
-            ));
-        })));
+        return Parts.getMeta().then(() => Promise.all(['blade', 'ratchet', 'bit'].map(c => DB.get.parts(c)
+            .then(parts => c == 'bit' ? Promise.all(parts.map(p => new Part(p).revise())) : parts)
+            .then(parts => 
+                Q(`aside .${c}`).append(...parts
+                    .filter(p => c != 'blade' || c == 'blade' && p.names.chi)
+                    .sort(sorter[c]).map((p, i) => E('li', [new Bey({[c]: p.abbr}, {attr: p.attr, order: i, collapse: true})]) 
+                ))
+        ))));
     },
     save (hash) {
-        let store = App.DB.transaction('user', 'readwrite').objectStore('user');
-        hash == '#deck' && store.put(Q('#deck article').map(article => article.Q('bey-x').map(bey => bey.string)), '#deck');
-        hash == '#tier' && store.put(Q('#tier article').reduce((obj, article) => 
-            ({...obj, [article.Q('h2').title]: [...article.querySelectorAll('bey-x')].map(bey => bey.abbr[0])}),{}), '#tier');
-        hash || store.put({lang: Q('#lang').value}, 'pref');
+        if (!App.interacted) return;
+        hash == '#deck' && DB.put('user', {'#deck': Q('#deck article').map(ar => ar.Q('bey-x').map(bey => bey.string))});
+        hash == '#tier' && DB.put('user', {'#tier': Q('#tier article').reduce((obj, ar) => 
+            ({...obj, [ar.Q('h2').title]: [...ar.querySelectorAll('bey-x')].map(bey => bey.abbr[0])}),{})
+        });
+        hash || DB.put('user', {pref: {lang: Q('#lang').value}});
     },
     switch () {
         Q('main', main => main.hidden = true);
         Q(location.hash ||= '#deck').hidden = false;
         Q('nav a:nth-of-type(2)').href = location.hash == '#deck' ? '#tier' : '#deck';
+        Q('.deck', el => el.hidden = location.hash != '#deck');
         if (location.hash == '#deck') {
             [Q('bey-x.used')].flat().forEach(bey => bey && (bey.used = false));
             Q('ul', ul => ul.append(...ul.Q('bey-x').sort((b, c) => b.order - c.order).map(bey => bey.parentElement)));
@@ -78,7 +59,8 @@ Object.assign(App, {
         }
     },
     events () {
-        Q('aside').addEventListener('pointerdown', ev => ev.target.classList.remove('first'), {once: true});
+        document.addEventListener('pointerdown', () => App.interacted = true, {once: true});
+        Q('aside').addEventListener('pointerdown', () => Q('aside').classList.remove('first'), {once: true});
         onhashchange = App.switch;
 
         new Dragging(Q('#deck'), {
@@ -91,6 +73,7 @@ Object.assign(App, {
             }
         });
         new Dragging(Q('#tier'), {
+            holdToRedispatch: pressed => pressed.select(),
             drop: {
                 targets: ['#tier bey-x', '#tier h2+div', '#tier'],
                 when: ev => ev.target.classList.contains('selected')
@@ -99,24 +82,24 @@ Object.assign(App, {
                 drop (_, dragged, targeted) {
                     if (targeted?.tagName == 'BEY-X') 
                         return Swapping.swap(dragged, targeted);
-                    if (targeted?.tagName == 'DIV') {
+                    if (targeted?.tagName == 'DIV')
                         targeted?.append(dragged);
-                        dragged.style.transform = null;
-                    }
-                    if (targeted?.tagName == 'MAIN') {
+                    else if (targeted?.tagName == 'MAIN') {
                         let [c, p] = dragged.abbr[0];
-                        let recovered = Q(`aside bey-x[${c}='${p}']`);
                         dragged.remove();
+                        let recovered = Q(`aside bey-x[${c}='${p}']`);
                         recovered.used = false;
                         recovered.closest('ul').append(...recovered.closest('ul').Q('bey-x')
                             .sort((b, c) => (b.classList.contains('used') - c.classList.contains('used')) || (b.order - c.order))
                             .map(bey => bey.parentElement)
                         );
                     }
+                    dragged.style.transform = null;
                 }
             }
         });
         new Dragging(Q('aside'), {
+            holdToRedispatch: pressed => pressed.select(),
             scroll: {
                 what: 'ul',
                 when: ev => !ev.target.matches('.selected'),
@@ -126,13 +109,6 @@ Object.assign(App, {
                 when: ev => ev.target.matches('.selected')
             },
             press: {
-                scroll (self) {
-                    self.timer = setTimeout(() => {
-                        self.ev.target.select();
-                        onpointermove = onpointerup = onpointercancel = onscroll = null;
-                        self.ev.target.dispatchEvent(new MouseEvent('pointerdown', self.ev));
-                    }, 500);
-                },
                 drop () {
                     let list = Q('aside .selecting');
                     list.style.setProperty('--scrolled', list.scrollLeft);
@@ -141,7 +117,6 @@ Object.assign(App, {
             },
             move: {
                 scroll (self) {
-                    clearTimeout(self.timer);
                     let [dx, dy] = [self.moveX - self.pressX, self.moveY - self.pressY], aside = Q('aside');
                     let slided = parseInt(getComputedStyle(aside).getPropertyValue('--slided') || 0);
                     if (!self.triggered && Math.abs(dy) > 50 && Math.atan(Math.abs(dy)/Math.abs(dx)) > Math.PI/3  
@@ -165,6 +140,7 @@ Object.assign(App, {
                     if (!targeted) return;
                     if (targeted.tagName == 'BEY-X')
                         return targeted?.setAttribute(...dragged.abbr[0]);
+                    dragged.classList.remove('selected');
                     targeted.Q('span').before(dragged.cloneNode(true), ' ');
                     dragged.used = true;
                 }
@@ -173,3 +149,17 @@ Object.assign(App, {
         
     },
 });
+const Swapping = {
+    swap (dragged, targeted) {
+        let {x, y} = Dragging.getBoundingPageRect(targeted);
+        dragged.style.transform = `translate(${x - dragged.origin.x}px,${y - dragged.origin.y}px)`;
+        targeted.style.transform = `translate(${dragged.origin.x - x}px,${dragged.origin.y - y}px)`;
+        setTimeout(() => Swapping.commit(dragged, targeted), 500);
+    },
+    commit (dragged, targeted) {
+        let place = targeted.nextSibling;!place &&console.log(dragged)
+        dragged.before(targeted);
+        place.before(dragged);
+        dragged.style.transform = targeted.style.transform = null;
+    }
+};

@@ -5,16 +5,17 @@
 <script src="/deck/deck.js"></script>
 <script src="/deck/bey.js"></script>
 <script src="/parts/parts.js"></script>
+<script src="/parts/catalog.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <nav>
     <script>nav(['/', location.hash == '#deck' ? '#tier' : '#deck'])</script>
     <div>
-        <button type="button" id="random-deck">&#xe02f;隨機組合</button>
+        <button type="button" id="random-deck" class="deck">&#xe02f;隨機陀螺</button>
         <button type="button" id="export-image">&#xe03a; 製作圖片</button>
     </div>
     <div>
-        <button type="button" id="delete-deck">&#xe008; 刪除組合</button>
+        <button type="button" id="delete-deck" class="deck">&#xe008; 刪除陀螺</button>
         <button type="button" id="export-text">&#xe039; 複製文字</button>
     </div>
     <spin-knob id="lang" min="90" callback="Bey.lang(this.value)">
@@ -23,6 +24,8 @@
     </spin-knob>
 </nav>
 <h1 hidden>陀螺盒</h1>
+<db-status callback="App.fetch().then(App.load).then(App.switch)"></db-status>
+
 <main id="deck" hidden>
     <template>
         <article>
@@ -47,41 +50,42 @@
     <ul class="ratchet"></ul>
     <ul class="bit"></ul>
 </aside>
-<input type=checkbox id=popup>
-<label for=popup>
+<label id="popup">
+    <input type=checkbox>
     <p class="image" hidden>請等候數秒，圖片會自動下載<br>並不是所有設備或瀏覽器都有完美成品</p>
     <p class="text" hidden>已複製：<blockquote></blockquote></p>
 </label>
 
 <script>
 App();
-App.fetch().then(App.load).then(App.switch);
 App.events();
 onhashchange = () => App.switch();
 
 const Export = {
     image (n) {
-        Q('#popup').checked = true;
-        Q('#popup+label .image').hidden = false;
-        document.body.style.setProperty('--canvas', '0');
-        setTimeout(() => html2canvas(Q(`#deck article:nth-of-type(${n})`)).then(canvas => {
+        Q('#popup input').checked = true;
+        Q('#popup .image').hidden = false;
+        let target = Q(location.hash == '#deck' ? `#deck article:nth-of-type(${n})` : '#tier');
+        target.style.background = 'black';
+        location.hash == '#tier' && (target.style.minWidth = '35em');
+        setTimeout(() => html2canvas(target).then(canvas => {
             E('a', {
                 href: canvas.toDataURL("image/png"),
-                download: `陀螺組${n}.png`
+                download: location.hash == '#deck' ? `DECK_${n}.png` : 'TIER.png'
             }).click(); 
-            document.body.removeAttribute('style');
-            Q('#popup+label p:not([hidden])').hidden = true;
-            Q('#popup').checked = false;
-        }).catch(er => console.error(er) ?? (Q('#popup+label').textContent = er)));
+            Q('#popup p:not([hidden])').hidden = true;
+            Q('#popup input').checked = false;
+            target.removeAttribute('style');
+        }).catch(er => console.error(er) ?? (Q('#popup').textContent = er)));
         Export.reset();
     },
     text (n) {
-        Q('#popup').checked = true;
-        Q('#popup+label .text').hidden = false;
+        Q('#popup input').checked = true;
+        Q('#popup .text').hidden = false;
         let deck = Q(`article:nth-of-type(${n}) bey-x`).map(bey => bey.name).join('\n');
-        Q('#popup+label blockquote').innerText = deck;
+        Q('#popup blockquote').innerText = deck;
         navigator.clipboard.writeText(deck);
-        Q('#popup+label p:not([hidden])').hidden = true;
+        Q('#popup p:not([hidden])').hidden = true;
         Export.reset();
     },
     reset() {

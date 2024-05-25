@@ -143,13 +143,13 @@ class Cell {
         Object.assign(this.preview, this._preview);
         Object.assign(this.preview.image, this.preview._image);
         this.preview.image.td = this.preview.td = this.td;
-        Q('#popup').checked = true;
-        Cell.popup.innerHTML = '';
+        Q('#popup input').checked = true;
+        Q('#popup input~*', el => el.remove());
         this.preview[this.td.matches('td:first-child') ? 'image' : 'part']();
     }
     _preview = {
         part: async () => {
-            Cell.popup.classList.add('catalog');
+            Cell.popup.classList = 'catalog';
             Parts._meta ??= await (await Fetch('/db/part-meta.json')).json();
     
             for (let p of this.dissect()) {
@@ -160,8 +160,8 @@ class Cell {
             }
         },
         image () {
-            Cell.popup.classList.remove('catalog');
-            Cell.popup.replaceChildren(
+            Cell.popup.classList = 'images';
+            Cell.popup.append(
                 E('p', Mapping.maps.note.find(Cell.text(this.td))),
                 ...this.td.dataset.video?.split(',').map(href => E('a', {href: `//youtu.be/${href}?start=60`})) ?? [],
                 ...this.image.parse('main').juxtapose(),
@@ -195,7 +195,7 @@ class Cell {
         },
     }
     static text = td => td.childNodes[0].textContent;
-    static popup = Q('label[for=popup]');
+    static popup = Q('#popup');
 }
 Object.assign(Cell.prototype.dissect, Cell.dissect);
 Object.assign(Cell.prototype.fullname, Cell.fullname);

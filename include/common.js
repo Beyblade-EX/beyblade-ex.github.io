@@ -62,11 +62,10 @@ class Indicator extends HTMLElement {
         </style>`;
     }
     connectedCallback() {
-        window.addEventListener('DOMContentLoaded', () => DB.open().then(familiar =>
-            location.pathname == '/' ? DB.check(familiar) :
-            location.pathname == '/parts/' ? location.search && Parts.catalog() || location.hash && Parts.list() :
-            location.pathname == '/products/' ? Table() : null
-        ).catch(er => (document.body.append(er), console.error(er))));
+        window.addEventListener('DOMContentLoaded', () => 
+            DB.open().then(Function('familiar', this.getAttribute('callback')))
+            .catch(er => (document.body.append(er), console.error(er)))
+        );
     }
     attributeChangedCallback(_, __, value) {
         value == 'success' && this.style.setProperty('--p', 40 - 225 + '%');
@@ -93,16 +92,18 @@ customElements.define('db-status', Indicator);
 
 const DB = {
     db: null,
+    tr: {},
+    current: 'V2',
     get indicator() {return DB._indicator ??= Q('db-status');},
-    discard: (db, handler) => new Promise(res => {
-        db == 'V6' && DB.db?.close();
-        let deleting = indexedDB.deleteDatabase(db);
-        deleting.onsuccess = () => res(db == 'V6' && (DB.db = null));
+    discard: (ver, handler) => new Promise(res => {
+        ver == DB.current && DB.db?.close();
+        let deleting = indexedDB.deleteDatabase(ver);
+        deleting.onsuccess = () => res(ver == DB.current && (DB.db = null));
         deleting.onblocked = handler ?? (ev => console.error(ev));
     }),
     open: () => new Promise(res => {
         if (DB.db) return res(true);
-        let opening = indexedDB.open('V2', 1), familiar;
+        let opening = indexedDB.open(DB.current, 1), familiar;
         opening.onerror = DB.indicator.error;
         opening.onsuccess = () => ((DB.db = opening.result).onerror = opening.onerror) && (familiar ?? res(true));
         opening.onupgradeneeded = () => (familiar = false) || DB.init(opening).then(DB.cache).then(() => res(false)).catch(opening.onerror);
@@ -110,8 +111,8 @@ const DB = {
     init: ({result, transaction}) => new Promise(res => {
         DB.db = result;
         DB.indicator.init();
-        ['meta', 'html', 'user'].forEach(store => DB.db.createObjectStore(store));
-        DB.db.createObjectStore('parts', {keyPath: 'key'}).createIndex('group', 'group');
+        ['meta','html','user'].forEach(s => DB.db.createObjectStore(s));
+        ['blade','ratchet','bit'].forEach(c => DB.db.createObjectStore(`.${c}`, {keyPath: 'abbr'}));
         transaction.oncomplete = () => res();
     }),
     cache: async outdated => {
@@ -119,10 +120,10 @@ const DB = {
         DB.indicator.init(outdated);
         let update = (files, ...args) => DB.update(files.filter(f => outdated ? outdated.includes(f) : true), ...args);
         await Promise.all([
-            update(['beys'].map(f => `prod-${f}`), (json, file) => DB.put('html', [file, json])),
-            update(['bit', 'ratchet', 'blade'], DB.put.parts),
+            //update(['beys'].map(f => `prod-${f}`), (json, file) => DB.put('html', [file, json])),
+            update(['bit', 'ratchet', 'blade'].map(f => `part-${f}`), DB.put.parts),
             //update(['layer7', 'layer6', 'layer5'],       json => Promise.all(Object.entries(json).map(([comp, parts]) => DB.put.parts(parts, comp)))),
-            update(['meta'],                             json => Promise.all(Object.entries(json).map(info => DB.put('meta', info))))
+            //update(['part-meta'], json => Promise.all(Object.entries(json).map(info => DB.put('meta', info))))
         ]);
         Q('a.disabled', a => a.classList.remove('disabled'));
         DB.indicator.progress > (Cookie.count ?? 0) && Cookie.set('count', DB.indicator.progress);
@@ -134,22 +135,24 @@ const DB = {
         let outdated = Object.entries(updates).filter(([item, [time]]) => new Date(time) / 1000 > (Cookie.history?.[item] || 0));
         outdated.length && DB.cache(outdated).then(() => DB.indicator.update(true));
     },
-    update: (files, action, filter) => Promise.all(files.map(file => 
-        fetch(`/db/${file}.json?${Math.random()}`).then(resp => resp.json()).then(json => action(json, file, filter))
+    update: (files, action) => Promise.all(files.map(file => 
+        fetch(`/db/${file}.json?${Math.random()}`).then(resp => resp.json()).then(json => action(json, file))
         .then(() => Cookie.set('history', {[file]: Math.round(new Date() / 1000)})).catch(er => console.error(er))
     )),
     store: (...args) => DB.db.transaction(...args).objectStore(args[0]),
-    put: (store, obj) => new Promise(res => DB.store(store, 'readwrite').put(...Array.isArray(obj) ? obj.reverse() : [obj]).onsuccess = res),
-    get: (store, key) => new Promise(res => DB.store(store).get(key).onsuccess = ev => res(ev.target.result)),
+    get: (store, key) => new Promise(res => {
+        let part = ['blade', 'ratchet', 'bit'].includes(store);
+        DB.store(part ? `.${store}` : store).get(key).onsuccess = ev => res(part ? {...ev.target.result, comp: store} : ev.target.result);
+    }),
+    put: (store, items, success) => items && new Promise(res => {
+        DB.tr[store] ??= Object.assign(DB.db.transaction(store, 'readwrite'), {oncomplete: () => res(DB.tr[store] = null)});
+        Array.isArray(items) ?
+            items.forEach(c => DB.put(store, c)) :
+            DB.tr[store].objectStore(store).put(...items.abbr ? [items] : Object.entries(items)[0].reverse()).onsuccess = success;
+    }).catch(er => console.log(store, items) ?? console.error(er)),
 }
 Object.assign(DB.put, {
-    parts: (parts, group, filter = () => true) => new Promise(res => {
-        let tran = DB.db.transaction('parts', 'readwrite');
-        Object.entries(parts).forEach(([sym, part]) => 
-            filter(sym, group) && (tran.objectStore('parts').put({group, ...part, key: `${sym}.${group}`}).onsuccess = () => DB.indicator.update())
-        );
-        tran.oncomplete = res;
-    }),
+    parts: (parts, file) => DB.put(file.replace('part-', '.'), Object.entries(parts).map(([abbr, part]) => ({...part, abbr}) ), DB.indicator.update),
 });
 Object.assign(DB.get, {
     names: () => Promise.all(['blade', 'ratchet', 'bit'].map(comp => Fetch(`/db/part-${comp}.json`).then(resp => resp.json())))
@@ -173,7 +176,7 @@ Object.assign(DB.get, {
     //        ev.target.result.continue();
     //    }
     //}),
-    parts: group => new Promise(res => DB.store('parts').index('group').getAll(group).onsuccess = ev => res(ev.target.result)),
+    parts: comp => new Promise(res => DB.store(`.${comp}`).getAll().onsuccess = ev => res(ev.target.result.map(p => ({...p, comp})))),
     keys: group => new Promise(res => DB.store('parts').index('group').getAllKeys(group).onsuccess = ev => res(ev.target.result)),
 });
 

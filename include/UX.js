@@ -1,39 +1,40 @@
 class Dragging {
-    constructor (el, {what, scroll, drop, ...custom}) {
-        this.scroll = scroll, this.drop = drop, this.custom = custom;
-        el.onpointerdown = ev => (what && ev.target.matches(what) || !what) && this.press(ev, custom);
+    constructor (el, {what, scroll, drop, holdToRedispatch, ...custom}) {
+        this.scroll = scroll, this.drop = drop, this.holdToRedispatch = holdToRedispatch;
+        el.onpointerdown = ev => (what && ev.target.matches(what) || !what) && this.press(ev, custom ?? {});
     }
-    press (ev, custom) {
+    press (ev, {press, move, lift}) {
         this.mode = 
             !this.scroll && !this.drop ? 'drag' : 
             this.scroll?.when(ev) ? 'scroll' : this.drop?.when(ev) ? 'drop' : null;
-        if (!this.mode) return;
+        this.timer ??= this.holdTimer(ev, this.holdToRedispatch);
+        if (!this.mode && !this.timer) return;
         this.mode != 'scroll' && (this.dragged = ev.target);
         this._press[this.mode]?.(ev);
         [this.pressX, this.pressY] = [ev.x, ev.y];
-        (typeof custom?.press == 'object' ? custom?.press?.[this.mode] : custom?.press)?.(this, this.dragged);
-        onpointermove = ev => this.move(ev, custom?.move);
-        onpointerup = onpointercancel = () => this.lift(null, custom?.lift);
+        press && (typeof press == 'object' ? press[this.mode] : press)?.(this, this.dragged);
+        onpointermove = ev => this.move(ev, move);
+        onpointerup = onpointercancel = () => this.lift(null, lift);
     }
     _press = {
         scroll: (ev) => {
-            this.ev = ev;
             this.dragged = ev.target.closest(this.scroll.what);
             this.scrollInitX = this.dragged.scrollLeft;
         },
-        drop: (ev) => {
+        drop: () => {
             this.targets = [this.drop.targets].flat().map(el => [Q(el)].flat());
             this.dragged.origin = Dragging.getBoundingPageRect(this.dragged);
             [this.scrollY, this.scrollInitY, this.limitY] = [0, scrollY, Q('aside')?.offsetTop];
             onscroll = () => this.move();
         }
     }
-    move (ev, custom) {
+    move (ev, move) {
         ev && ([this.moveX, this.moveY] = [ev.x, ev.y]) && ev.preventDefault();
         if (!this.dragged || Math.hypot(this.moveX-this.pressX, this.moveY-this.pressY) < 2) return;
+        this.timer = clearTimeout(this.timer);
         this.dragged.classList.add('dragged');
         this._move[this.mode]?.(ev);
-        (typeof custom == 'object' ? custom?.[this.mode] : custom)?.(this, this.dragged);
+        move && (typeof move == 'object' ? move[this.mode] : move)?.(this, this.dragged);
     }
     _move = {
         scroll: () => this.dragged.scrollTo(this.scrollInitX - this.moveX + this.pressX, 0),
@@ -46,9 +47,10 @@ class Dragging {
             this.findTarget();
         }
     }
-    lift (_, custom) {
+    lift (_, lift) {
+        this.timer = clearTimeout(this.timer);
         this._lift[this.mode]?.();
-        (typeof custom == 'object' ? custom?.[this.mode] : custom)?.(this, this.dragged, this.targeted);
+        lift && (typeof lift == 'object' ? lift[this.mode] : lift)?.(this, this.dragged, this.targeted);
         this.mode != 'drop' && this.reset();
         onpointermove = onpointerup = onpointercancel = onscroll = null;
     }
@@ -58,6 +60,11 @@ class Dragging {
             setTimeout(() => this.reset(), 500);
         }
     }
+    holdTimer = (ev, action) => action && setTimeout(() => {
+        action(ev.target);
+        onpointermove = onpointerup = onpointercancel = onscroll = null;
+        ev.target.dispatchEvent(new MouseEvent('pointerdown', ev));
+    }, 500);
     autoScroll () {
         let [proportion, bottomed] = [this.clientY / innerHeight, scrollY >= document.body.offsetHeight - innerHeight];
         proportion < .05 ? scrollBy(0, -3) : 
@@ -129,13 +136,13 @@ class Knob extends HTMLElement {
         this.maxθ = 360 - this.minθ;
         this.style.setProperty('--min', `${this.minθ}deg`);  
         this.style.setProperty('--angle', `${this.minθ}deg`); 
-        this.callback = new Function('Knob', this.getAttribute('callback')).bind(this);
+        this.callback = Function('Knob', this.getAttribute('callback')).bind(this);
     }
     afterChildren() {
         this.type = this.Q('option') ? 'discrete' : 'continuous';
-        this.input = this.Q('input,select');
+        this.input = this.Q('meter,select');
         if (this.type == 'continuous')
-            this.input || this.append(this.input = E('input', {type: 'range'}));
+            this.input || this.append(this.input = E('meter'));
         else {
             this.setAttribute('discrete', this.discrete.total = this.Q('option').length);
             this.shadowRoot.Q('style').textContent += `:host([discrete]) label {background:conic-gradient(${this.discrete.ticks()})}`;
@@ -157,6 +164,7 @@ class Knob extends HTMLElement {
         },
         adjustValue: (value) => {
             value && (this.discrete.index = this.Q('option').findIndex(o => o.value == value));
+            if (this.discrete.index == null) return;
             this.Q(`option:nth-child(${this.discrete.index+1})`).selected = true;
             this.style.setProperty('--angle', `${this.discrete.θ()}deg`);
             this.input.dispatchEvent(new Event('change'));
@@ -184,7 +192,7 @@ class Knob extends HTMLElement {
         display:inline-block; width:2em; height:2em;
         touch-action:none; user-select:none;
     }
-    ::slotted(:is(input,select)) {
+    ::slotted(:is(meter,select)) {
         display:none;
     }
     label,label::before,slot[name=knob] {

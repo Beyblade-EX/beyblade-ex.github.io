@@ -16,7 +16,7 @@ Parts = {
         //});
     },
     async cataloging () {
-        Parts.all = Object.entries(await (await Fetch(`/db/part-${Parts.comp}.json`)).json()).map(([sym, part]) => ({...part, key: `${sym}.${Parts.comp}`}));
+        Parts.all = Object.entries(await (await Fetch(`/db/part-${Parts.comp}.json`)).json()).map(([abbr, part]) => ({...part, key: `${abbr}.${Parts.comp}`}));
         //await Promise.all(Parts.meta.groups.map(g => DB.get.parts(g)));
         Parts.all = await Promise.all(Parts.all.flat().map((p, _, ar) => new Part(p, ar)).map(p => p.prepare().catalog()));
     },
@@ -135,13 +135,13 @@ Object.assign(Sorter, {
     sort: {
         name: (p, q) =>
             (/^MFB|BSB$/.test(p.group) || /^MFB|BSB$/.test(q.group)) && Sorter.compare(q, p, p => p.group)
-            || Sorter.compare(p, q, p => p.sym[0] == '+')
-            || Sorter.compare(p, q, p => parseInt(p.sym))
+            || Sorter.compare(p, q, p => p.abbr[0] == '+')
+            || Sorter.compare(p, q, p => parseInt(p.abbr))
             || Sorter.compare(p, q, p => p.strip().toLowerCase())
-            || p.comp == 'bit' && Sorter.compare(p, q, p => p.sym.match(new RegExp(`^[${Parts.bit.prefix}]`))),
+            || p.comp == 'bit' && Sorter.compare(p, q, p => p.abbr.match(new RegExp(`^[${Parts.bit.prefix}]`))),
 
         weight: (p, q) => Sorter.compare(q, p, p => (w => parseInt(w) + ({'+': .2, '-': -.2}[w.at(-1)] ?? 0))(p.stat[0] || '0')),
-        time: (p, q) => Sorter.compare(p, q, p => Sorter.schedule(p.comp).lastIndexOf(p.sym)),
+        time: (p, q) => Sorter.compare(p, q, p => Sorter.schedule(p.comp).lastIndexOf(p.abbr)),
         rank: (p, q) => Sorter.compare(p, q, p => p.rank || 'Z')
     },
     schedule: comp => Sorter._schedule ?? Fetch('/db/prod-beys.json').then(resp => resp.json())

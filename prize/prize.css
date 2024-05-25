@@ -152,7 +152,7 @@ u::before {
 u::after {
     content:'》';
 }
-#popup+label img:not(:only-child) {
+#popup img:not(:only-child) {
     max-width:8em;
     margin:0;
 }

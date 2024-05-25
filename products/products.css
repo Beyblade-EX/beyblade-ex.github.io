@@ -273,10 +273,6 @@ table.bilingual .right:last-child {
 tfoot {
     visibility:hidden;
 }
-/*other*/
-.catalog {
-    flex-direction:column;
-}
 /*font-size*/
 .left.small {
     font-family:COND;
@@ -315,4 +311,27 @@ td:first-child {color:deepskyblue;}
 tbody tr:not(.H) {
     --width:.45em;
     background:repeating-linear-gradient(45deg,var(--light) 0 var(--width),var(--dark) var(--width) calc(1.5*var(--width)));
+}
+
+#popup.images {
+    gap:.5em; grid-template-columns:repeat(3,1fr);
+    justify-items:center; 
+    padding:1em calc(50% - min(15em,47.5%));
+}
+#popup.images>* {
+    grid-column:1/-1;
+}
+#popup a[href*=youtu]::before {
+    content:'';
+    display:block; width:3em; height:3em;
+    background:url(https://www.gstatic.com/alkali/e90fc2de5a0e583a01f03acda2e3e61f9577a646.svg) center / contain no-repeat;
+}
+#popup>:is(img,p) {
+    width:100%;
+}
+#popup>img:first-of-type~img:not([src*=detail]) {
+    grid-column:initial;
+}
+#popup.catalog {
+    flex-direction:column;
 }

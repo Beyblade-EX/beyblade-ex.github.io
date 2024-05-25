@@ -3,14 +3,18 @@ class Bey extends HTMLElement {
         super();
         this.attachShadow({mode: 'open'}).append(
             E('style', Bey.style), 
-            E('span', {classList: 'spin'}),
+            E('i'),
             E('ol', {classList: 'part'}, Bey.eachPart('li')),
             E('h4', Bey.eachPart('span'))
         );
+        if (options?.attr) {
+            bey.blade && (this.spin = options.attr[1]);
+            (bey.blade || bey.bit) && (this.type = options.attr[0]);
+        }
+        options?.collapse && this.setAttribute('collapse', true);
+        this.order = options?.order;
         this.init(bey);
         this.onclick = this.select;
-        this.order = options?.order;
-        options?.collapse && this.setAttribute('collapse', true);
     }
     static eachPart = el => Bey.observedAttributes.map(c => E(el, {classList: c}))
     init(bey) {
@@ -35,40 +39,56 @@ class Bey extends HTMLElement {
         this[attr] = after;
         this.sQ(`.part .${attr}`).style.backgroundImage = `url(/img/${attr}/${after}.png)`;
         this.change[attr] ? this.change[attr]() : this.sQ(`h4 .${attr}`).title = after;
-        this.change.class();
+        this.change.class(attr);
         this.dock?.tagName == 'MAIN' && this.main();
     }
     change = {
         blade: () => this.blade && this.lang(Q('#lang').value),
-        class: () => this.classList = `${Parts.blade?.[this.blade]?.attr[1] ?? ''} ${Parts.bit?.[this.bit]?.attr?.[0] ?? ''}`
+        class: async (attr) => {
+            if (attr == 'blade') {
+                let spin = this.spin || this[attr] && (this.refer.from.aside(attr)?.spin || (await this.refer.from.DB(attr)).attr?.[1]) || '';
+                this.setAttribute('spin', spin || '');
+            } 
+            if (!this.hasAttribute('expand') && attr == 'blade' || attr == 'bit') {
+                let type = this.type || this[attr] && (this.refer.from.aside(attr)?.type || (await this.refer.from.DB(attr)).attr?.[0]) || '';
+                this.setAttribute('type', type || '');
+            }
+        }
     }
-    lang(lang) {
+    refer = {
+        from: {
+            aside: (c) => Q(`aside [${c}='${this[c]}']`),
+            DB: (c) => DB.get(c, this[c]).then(p => c == 'bit' ? new Part(p).revise() : p),
+        }
+    }
+    async lang(lang) {
         this.sQ('h4').classList = lang;
         let i = ['hk', 'tw'].indexOf(lang);
-        if (i == -1) return this.sQ('h4 .blade').title = Parts.blade[this.blade].names[lang];
-        let name = Parts.blade[this.blade].names.chi.split(' ');
+        if (i == -1) return this.sQ('h4 .blade').title = (await DB.get('blade', this.blade)).names[lang];
+        let name = (await DB.get('blade', this.blade)).names.chi.split(' ');
         this.sQ('h4 .blade').title = (name[i] ?? name[0]).replace('/', '');
     }
-    static lang = (lang) => Q('bey-x[blade]', bey => bey.lang(lang)) ?? (App.DB && App.save())
+    static lang = (lang) => Q('bey-x[blade]', bey => bey.lang(lang)) ?? App.save()
     
     connectedCallback() {
         this.dock = this.closest('main,aside');
         this.dock.tagName == 'MAIN' && this.main(true);
     }
     disconnectedCallback() {
-        this.dock.tagName == 'MAIN' && this.main(true);
+        this.dock.tagName == 'MAIN' && !this.parentElement && this.main();
     }
     select() {
         if (!this.classList.contains('selected'))
             this.dock.Q('.selected')?.classList.remove('selected');
         this.classList.toggle('selected');
+        navigator.vibrate(200);
     }
 
     main(redeck) {
         this.dock.id == 'deck' && redeck && (this.deck = this.parentElement.Q('bey-x'));
         setTimeout(() => {
             this.dock.id == 'deck' && Bey.main.validate(this.deck); 
-            App.DB && App.save(location.hash);
+            App.save(location.hash);
         });
     }
     static main = {
@@ -123,11 +143,31 @@ class Bey extends HTMLElement {
     h4 [title]::after {
         content:attr(title);
     }
-    .spin {
+    i {
         grid-area:1/1/2/2; justify-self:end; align-self:start;
-        line-height:2;
-        margin-right:.3rem;
+        font-style:normal;
+        display:flex; justify-content:space-between; width:100%;
+        padding:.3em; box-sizing:border-box;
     }
+    :host([expand]) i {
+        justify-content:end; gap:.2em;
+    }
+    i::before {
+        content:'';
+        height:1.5em; width:1.5em; display:inline-block;
+        background:url() no-repeat center / contain;
+    }
+    i::after {
+        content:'';
+        font-size:1.2em; line-height:1.4;
+    }
+    :host([type=att]) i::before {background-image:url(/img/type-att.png);}
+    :host([type=bal]) i::before {background-image:url(/img/type-bal.png);}
+    :host([type=def]) i::before {background-image:url(/img/type-def.png);}
+    :host([type=sta]) i::before {background-image:url(/img/type-sta.png);}
+    :host([spin=right]) i::after {content:'\ue01e';}
+    :host([spin=left]) i::after {content:'\ue01d';}
+    :host([spin=dual]) i::after {content:'\ue01d \ue01e';}
     .part {
         overflow:hidden;
     }

@@ -32,23 +32,60 @@ spin-knob i {
 main {
     padding:5em 0 8em 0;
 }
+article {
+    text-align:left;
+    margin:auto;
+}
 #deck article {
-    display:grid; grid-template:auto/repeat(3,min-content); gap:.5rem;
+    display:grid; grid-template:auto/repeat(3,min-content); gap:0 .5rem;
     justify-content:center;
-    background:black;
-    padding:.5em 0 1em 0; margin:auto;
+    padding-bottom:1em;
     width:min(100vw,26rem);
+}
+#tier article {
+    width:min(100%,40rem);
+    padding:0 .5rem;
 }
 main h2 {
     grid-area:auto/1/auto/-1;
-    font-size:2em; text-align:left;
-    transform:translateY(var(--canvas));
+    font-size:2em;
+    position:relative;
 }
-.actioning h2::before {
+#tier h2 {
+    padding-left:.1em;
+}
+#tier h2::before {
+    content:'';
+    position:absolute; left:0; top:.9em;
+    width:110%; height:.5em;
+    background:var(--tier);
+    mix-blend-mode:exclusion;
+    transform:skew(-20deg);
+}
+h2[title='1'] {--tier: #ff7f7f;}
+h2[title='2'] {--tier: #ffbf7f;}
+h2[title='3'] {--tier: #ffdf7f;}
+h2[title='4'] {--tier: #ffff7f;}
+h2[title='5'] {--tier: #bfff7f;}
+
+#deck.actioning h2::before {
     content:'●';
 }
 h2[title]::after {
     content:attr(title);
+    font-size:2em; font-style:italic;
+    margin-left:.1em;
+}
+#tier div {
+    width:100%; min-height:min(calc((100vw - 2rem)/3),8em);
+    background:var(--overlay1);
+    font-size:.7em;
+    display:flex; flex-wrap:wrap; gap:.15em;
+    transition:background-color .5s;
+    padding:.5em; border-radius:.75em;
+}
+#tier div.targeted {
+    background:var(--overlay2);
 }
 h2+bey-x {
     grid-column-start:1;
@@ -68,7 +105,7 @@ aside {
     width:100%; height:calc(.2em + min(calc((100vw - 2rem)/3),8em));
     background:black;
     z-index:2;
-    font-size:.8em;
+    font-size:.7em;
     user-select:none; -webkit-user-select:none;
     overflow:hidden;
 }
@@ -99,7 +136,7 @@ aside label {
     margin:.1em auto .2em auto !important;
 }
 aside ul {
-    display:flex; gap:.1em;
+    display:flex; gap:.15em;
     overflow-x:scroll;
     margin:.1em 0;
     transform:translateY(calc(var(--slided,0)*-100% - var(--slided,0)*.1em));
@@ -127,15 +164,4 @@ body:has(.dragged) {
 }
 aside bey-x {
     touch-action:none;
-}
-
-#tier div {
-    width:100%; min-height:min(calc((100vw - 2rem)/3),8em);
-    background:#444;
-    font-size:.7em;
-    display:flex; flex-wrap:wrap; gap:.1em;
-    transition:background-color .5s;
-}
-#tier div.targeted {
-    background:silver;
 }
