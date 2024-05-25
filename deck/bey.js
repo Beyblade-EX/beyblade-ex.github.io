@@ -78,6 +78,7 @@ class Bey extends HTMLElement {
         this.dock.tagName == 'MAIN' && !this.parentElement && this.main();
     }
     select() {
+        if (this.classList.contains('used')) return;
         if (!this.classList.contains('selected'))
             this.dock.Q('.selected')?.classList.remove('selected');
         this.classList.toggle('selected');
@@ -122,8 +123,7 @@ class Bey extends HTMLElement {
         background:rgba(255,255,255,.3);
     }
     :host(.used) {
-        pointer-events:none;
-        opacity:.5;
+        opacity:.3;
     }
     :host(.selected) {
         outline-color:var(--theme) !important;
