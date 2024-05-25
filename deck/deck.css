@@ -1,8 +1,15 @@
 body {
     overflow-x:hidden;
+    user-select:none; -webkit-user-select:none;
 }
 nav {
     grid-template:1.7rem 1.7rem / auto auto 1fr auto auto;
+}
+nav a span {
+    writing-mode:vertical-lr;
+    line-height:1;
+    font-size:.6em;
+    margin-bottom:.2em;
 }
 nav div:first-of-type {grid-area:1/3/2/4;align-self:end;}
 nav div:last-of-type {grid-area:2/3/3/4;}
@@ -67,24 +74,35 @@ h2[title='2'] {--tier: #ffbf7f;}
 h2[title='3'] {--tier: #ffdf7f;}
 h2[title='4'] {--tier: #ffff7f;}
 h2[title='5'] {--tier: #bfff7f;}
+#tier div[style] h2::before {
+    z-index:-1;
+}
 
 #deck.actioning h2::before {
     content:'●';
+    color:var(--theme);
 }
 h2[title]::after {
     content:attr(title);
     font-size:2em; font-style:italic;
     margin-left:.1em;
 }
+
+#tier {
+    overflow-x:hidden;
+}
 #tier div {
-    width:100%; min-height:min(calc((100vw - 2rem)/3),8em);
+    margin:auto;
+}
+#tier section {
+    width:100%; min-height:calc(1em + min(calc((100vw - 2rem)/3),8em));
     background:var(--overlay1);
     font-size:.7em;
     display:flex; flex-wrap:wrap; gap:.15em;
     transition:background-color .5s;
     padding:.5em; border-radius:.75em;
 }
-#tier div.targeted {
+#tier section.targeted {
     background:var(--overlay2);
 }
 h2+bey-x {
@@ -106,7 +124,6 @@ aside {
     background:black;
     z-index:2;
     font-size:.7em;
-    user-select:none; -webkit-user-select:none;
     overflow:hidden;
 }
 aside.first::before {
@@ -124,13 +141,6 @@ aside.first::before {
 }
 aside :is(ul,li):has(bey-x[style]), aside bey-x[style] {
     z-index:1;
-}
-aside div {
-    position:absolute; left:0; bottom:0;
-    width:3em; height:100%;
-    text-align:center;
-    display:flex; flex-direction:column; justify-content:center;
-    background:black;
 }
 aside label {
     margin:.1em auto .2em auto !important;
@@ -159,9 +169,23 @@ aside li {
 aside ul::-webkit-scrollbar { 
     display:none;
 }
-body:has(.dragged) {
-    user-select:none; -webkit-user-select:none;
-}
 aside bey-x {
     touch-action:none;
+}
+
+#popup .image {
+    align-self:center;
+}
+#popup .text {
+    align-self:end;
+}
+#popup blockquote {
+    background:var(--overlay2);
+    border-radius:.5em;
+    padding:1em;
+    align-self:start; justify-self:center;
+    text-align:left;
+}
+#popup .text[hidden]+blockquote {
+    display:none;
 }

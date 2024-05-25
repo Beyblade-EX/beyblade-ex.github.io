@@ -326,6 +326,12 @@ tbody tr:not(.H) {
     display:block; width:3em; height:3em;
     background:url(https://www.gstatic.com/alkali/e90fc2de5a0e583a01f03acda2e3e61f9577a646.svg) center / contain no-repeat;
 }
+#popup>p {
+    font-size:.9em;
+    border-bottom:.15em dotted;
+    padding:.6em .5em; margin:0;
+    color:white;
+}
 #popup>:is(img,p) {
     width:100%;
 }

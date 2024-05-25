@@ -8,7 +8,7 @@ const App = () => {
         Q(where).append(deck);
     }
     [1,2,3,4,5].forEach(t => create('#deck', t));
-    [1,2,3,4,5].forEach(t => create('#tier', t));
+    [1,2,3,4,5].forEach(t => create('#tier div', t));
 };
 Object.assign(App, {
     load () {
@@ -18,7 +18,7 @@ Object.assign(App, {
                 re?.forEach((deck, i) => Q(`#deck article:nth-of-type(${i+1}) bey-x`, (bey, j) => bey.init(deck[j])))
             ),
             DB.get('user', '#tier').then(re => Object.entries(re ?? {}).forEach(([tier, beys]) =>
-                Q(`h2[title='${tier}']+div span`).before(...beys.map(([c, p]) => [new Bey({[c]: p}, {collapse: true}), ' ']).flat())
+                Q(`h2[title='${tier}']+section`).append(...beys.map(([c, p]) => [new Bey({[c]: p}, {collapse: true}), ' ']).flat())
             ))
         ]);
     },
@@ -49,8 +49,11 @@ Object.assign(App, {
     switch () {
         Q('main', main => main.hidden = true);
         Q(location.hash ||= '#deck').hidden = false;
-        Q('nav a:nth-of-type(2)').href = location.hash == '#deck' ? '#tier' : '#deck';
-        Q('.deck', el => el.hidden = location.hash != '#deck');
+        Object.assign(Q('nav a:nth-of-type(2)'), {
+            href: location.hash == '#deck' ? '#tier' : '#deck',
+            innerHTML: `<span>${location.hash == '#deck' ? 'TIER' : 'DECK'}</span>`
+        });
+        Q('.deck', el => el.style.visibility = location.hash != '#deck' ? 'hidden' : 'visible');
         if (location.hash == '#deck') {
             [Q('bey-x.used')].flat().forEach(bey => bey && (bey.used = false));
             Q('ul', ul => ul.append(...ul.Q('bey-x').sort((b, c) => b.order - c.order).map(bey => bey.parentElement)));
@@ -75,14 +78,14 @@ Object.assign(App, {
         new Dragging(Q('#tier'), {
             holdToRedispatch: pressed => pressed.select(),
             drop: {
-                targets: ['#tier bey-x', '#tier h2+div', '#tier'],
+                targets: ['#tier bey-x', '#tier section', '#tier'],
                 when: ev => ev.target.classList.contains('selected')
             },
             lift: {
                 drop (_, dragged, targeted) {
                     if (targeted?.tagName == 'BEY-X') 
                         return Swapping.swap(dragged, targeted);
-                    if (targeted?.tagName == 'DIV')
+                    if (targeted?.tagName == 'SECTION')
                         targeted?.append(dragged);
                     else if (targeted?.tagName == 'MAIN') {
                         let [c, p] = dragged.abbr[0];
@@ -94,6 +97,7 @@ Object.assign(App, {
                             .map(bey => bey.parentElement)
                         );
                     }
+                    Q('.animating')?.classList.remove('animating');
                     dragged.style.transform = null;
                 }
             }
@@ -105,7 +109,7 @@ Object.assign(App, {
                 when: ev => !ev.target.matches('.selected'),
             },
             drop: {
-                targets: '#deck bey-x,#tier div',
+                targets: '#deck bey-x,#tier section',
                 when: ev => ev.target.matches('.selected')
             },
             press: {
@@ -141,7 +145,7 @@ Object.assign(App, {
                     if (targeted.tagName == 'BEY-X')
                         return targeted?.setAttribute(...dragged.abbr[0]);
                     dragged.classList.remove('selected');
-                    targeted.Q('span').before(dragged.cloneNode(true));
+                    targeted.append(dragged.cloneNode(true));
                     dragged.used = true;
                 }
             }

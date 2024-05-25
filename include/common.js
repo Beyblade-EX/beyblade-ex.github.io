@@ -24,7 +24,7 @@ window.addEventListener('DOMContentLoaded', () => document.title += ' ■ �
 
 const nav = links => {
     let icons = {'/': '&#xe000;', '/products/': '&#xe001;', '/prize/': '&#xe002;', '/parts/' : '&#xe003;'};
-    Q('nav').innerHTML = links.map(l => l ? `<a href=${l} ${l == '/' ? '' : ''}>${icons[l] ?? 'g'}</a>` : '').join('') + `
+    Q('nav').innerHTML = links.map(l => l ? `<a href=${l} ${l == '/' ? '' : ''}>${icons[l] ?? ''}</a>` : '').join('') + `
     <!--div class=menu-scroll>
         <label onclick=window.scrollTo(0,0) data-icon=></label>
         <label onclick=window.scrollTo(0,document.body.scrollHeight) data-icon=></label>

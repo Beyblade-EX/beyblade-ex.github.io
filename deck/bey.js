@@ -30,7 +30,7 @@ class Bey extends HTMLElement {
     }
     get name() {
         let spaces = [' ', ' '];
-        return this.shadowRoot.Q('h4 span').map((span, i) => (span.title || '?') + (spaces[i] || '')).join('');
+        return this.shadowRoot.Q('h4 span').filter(span => span.title).map((span, i) => span.title + (spaces[i] || '')).join('').trim();
     }
     sQ = el => this.shadowRoot.Q(el)
 
@@ -131,9 +131,6 @@ class Bey extends HTMLElement {
     }
     :host(.targeted) {
         outline-color:var(--theme-alt) !important;
-    }
-    * {
-        user-select:none; -webkit-user-select:none;
     }
     ol {
         list-style:none; padding:0; margin:0;
