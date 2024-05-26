@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <script src=/include/common.js></script>
 <title>我的陀螺盒⬧My Decks</title>
-<link href="/deck/deck.css" rel="stylesheet">
-<script src="/deck/deck.js"></script>
-<script src="/deck/bey.js"></script>
+<link href="/customize/customize.css" rel="stylesheet">
+<script src="/customize/customize.js"></script>
+<script src="/customize/bey.js"></script>
 <script src="/parts/parts.js"></script>
 <script src="/parts/catalog.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -24,7 +24,7 @@
     </spin-knob>
 </nav>
 <h1 hidden>陀螺盒</h1>
-<db-status callback="App.fetch().then(App.load).then(App.switch)"></db-status>
+<db-status callback="App.load.parts().then(App.load.saved).then(App.switch)"></db-status>
 
 <main id="deck" hidden>
     <template>
@@ -59,7 +59,6 @@
 
 <script>
 App();
-App.events();
 onhashchange = () => App.switch();
 
 const Export = {

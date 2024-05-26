@@ -10,7 +10,7 @@ class Dragging {
         this.timer ??= this.holdTimer(ev, this.holdToRedispatch);
         if (!this.mode && !this.timer) return;
         this.mode != 'scroll' && (this.dragged = ev.target);
-        this._press[this.mode]?.(ev);
+        this._press?.[this.mode]?.(ev);
         [this.pressX, this.pressY] = [ev.x, ev.y];
         press && (typeof press == 'object' ? press[this.mode] : press)?.(this, this.dragged);
         onpointermove = ev => this.move(ev, move);
@@ -23,17 +23,17 @@ class Dragging {
         },
         drop: () => {
             this.targets = [this.drop.targets].flat().map(el => [Q(el)].flat());
-            this.dragged.origin = Dragging.getBoundingPageRect(this.dragged);
+            this.dragged.initial = Dragging.getBoundingPageRect(this.dragged);
             [this.scrollY, this.scrollInitY, this.limitY] = [0, scrollY, Q('aside')?.offsetTop];
             onscroll = () => this.move();
         }
     }
     move (ev, move) {
-        ev && ([this.moveX, this.moveY] = [ev.x, ev.y]) && ev.preventDefault();
+        ev && ([this.moveX, this.moveY] = [ev.x, ev.y]) && ev.stopPropagation();
         if (!this.dragged || Math.hypot(this.moveX-this.pressX, this.moveY-this.pressY) < 2) return;
-        this.timer = clearTimeout(this.timer);
+        this.timer &&= clearTimeout(this.timer);
         this.dragged.classList.add('dragged');
-        this._move[this.mode]?.(ev);
+        this._move?.[this.mode]?.(ev);
         move && (typeof move == 'object' ? move[this.mode] : move)?.(this, this.dragged);
     }
     _move = {
@@ -48,18 +48,17 @@ class Dragging {
         }
     }
     lift (_, lift) {
-        this.timer = clearTimeout(this.timer);
-        this._lift[this.mode]?.();
-        lift && (typeof lift == 'object' ? lift[this.mode] : lift)?.(this, this.dragged, this.targeted);
-        this.mode != 'drop' && this.reset();
+        this.timer &&= clearTimeout(this.timer);
+        let f = typeof lift == 'function' ? lift : Array.isArray(lift[this.mode]) ? 
+            lift[this.mode][this.drop.targets.findIndex(t => this.targeted?.matches(t))] :
+            lift?.[this.mode];
+        f?.(this, this.dragged, this.targeted);
+        Array.isArray(lift[this.mode]) && lift[this.mode].length > this.drop.targets.length && 
+            lift[this.mode].at(-1)?.(this, this.dragged, this.targeted);
+        this.mode == 'drop' ? !this.targeted && this.to.return() : this.reset();
         onpointermove = onpointerup = onpointercancel = onscroll = null;
     }
-    _lift = {
-        drop: () => {
-            Dragging.class.temp(document.body, 'animating');
-            setTimeout(() => this.reset(), 500);
-        }
-    }
+
     holdTimer = (ev, action) => action && setTimeout(() => {
         action(ev.target);
         onpointermove = onpointerup = onpointercancel = onscroll = null;
@@ -86,14 +85,49 @@ class Dragging {
         this.dragged = this.targeted = this.mode = null;
     }
 
-    static getBoundingPageRect = el => (({x, y, width, height}) => ({
+    static getBoundingPageRect = el => (({x, y}) => ({
         x: x + scrollX,
         y: y + scrollY,
-        width, height
     }))(el.getBoundingClientRect())
     static containsPointer = (el, moveX, moveY) => (({x, y, width, height}) => 
         moveX > x && moveY > y && moveX < x+width && moveY < y+height
     )(el.getBoundingClientRect())
+
+    to = {
+        swap: () => {
+            if (!this.targeted) return;
+            let {x, y} = Dragging.getBoundingPageRect(this.targeted);
+            this.dragged.style.transform = `translate(${x - this.dragged.initial.x}px,${y - this.dragged.initial.y}px)`;
+            this.targeted.style.transform = `translate(${this.dragged.initial.x - x}px,${this.dragged.initial.y - y}px)`;
+            Dragging.commit.swap(this.dragged, this.targeted);
+            Dragging.class.temp(document.body, 'animating');
+            setTimeout(() => this.reset(), 500);
+        },
+        transfer: () => {
+            this.to.return(false);
+            this.targeted.append(this.dragged);
+        },
+        clone: () => {
+            this.dragged.classList.remove('selected');
+            this.to.return(false);
+            this.targeted.append(this.dragged.cloneNode(true));
+        },
+        return: (animate = true) => {
+            this.dragged.style.transform = null;
+            if (!animate) return;
+            Dragging.class.temp(document.body, 'animating');
+            setTimeout(() => this.reset(), 500);
+        }
+    }
+    static commit = {
+        swap: (dragged, targeted) => setTimeout(() => {
+            targeted.nextSibling || targeted.after('');
+            let place = targeted.nextSibling;
+            dragged.before(targeted);
+            place.before(dragged);
+            dragged.style.transform = targeted.style.transform = null;    
+        }, 500)
+    }
 
     static class = {
         temp (el, cl, t)  {
@@ -108,7 +142,6 @@ class Dragging {
         }
     }
 }
-
 class Knob extends HTMLElement {
     constructor() {
         super();
@@ -236,7 +269,7 @@ class Knob extends HTMLElement {
         content:'·';
         position:absolute; left:.3em; top:.3em;
         width:calc(-.6em + 100%); height:calc(-.6em + 100%);
-        border-radius:inherit; outline:.2em solid #333;
+        border-radius:inherit; outline:.2em solid var(--bg,#333);
         background:var(--dark);
         text-align:center; line-height:.4;
         transform:rotate(var(--angle));

@@ -11,19 +11,24 @@ nav a span {
     font-size:.6em;
     margin-bottom:.2em;
 }
-nav div:first-of-type {grid-area:1/3/2/4;align-self:end;}
-nav div:last-of-type {grid-area:2/3/3/4;}
 nav div {
     justify-self:end;
     display:block;
 }
-button {
+nav div:first-of-type {
+    grid-area:1/3/2/4;
+    align-self:end;
+}
+nav div:last-of-type {
+    grid-area:2/3/3/4;
+}
+nav button {
     background:var(--theme); color:black;
     border-radius:8em;
     padding:0 .5em;
     font-size:.9em;
 }
-button.selected {
+nav button.selected {
     background:var(--theme-alt);
 }
 nav:has(.selected) button:not(.selected) {
@@ -33,6 +38,7 @@ spin-knob i {
     font-size:.6em; line-height:.8em;
     margin-top:.25em;
 }
+
 .animating :is(main,aside) {
     pointer-events:none;
 }
@@ -58,6 +64,10 @@ main h2 {
     font-size:2em;
     position:relative;
 }
+#deck.actioning h2::before {
+    content:'●';
+    color:var(--theme);
+}
 #tier h2 {
     padding-left:.1em;
 }
@@ -69,19 +79,14 @@ main h2 {
     mix-blend-mode:exclusion;
     transform:skew(-20deg);
 }
+#tier div[style] h2::before {
+    z-index:-1;
+}
 h2[title='1'] {--tier: #ff7f7f;}
 h2[title='2'] {--tier: #ffbf7f;}
 h2[title='3'] {--tier: #ffdf7f;}
 h2[title='4'] {--tier: #ffff7f;}
 h2[title='5'] {--tier: #bfff7f;}
-#tier div[style] h2::before {
-    z-index:-1;
-}
-
-#deck.actioning h2::before {
-    content:'●';
-    color:var(--theme);
-}
 h2[title]::after {
     content:attr(title);
     font-size:2em; font-style:italic;
@@ -105,7 +110,7 @@ h2[title]::after {
 #tier section.targeted {
     background:var(--overlay2);
 }
-h2+bey-x {
+#deck h2+bey-x {
     grid-column-start:1;
 }
 main bey-x {
@@ -113,9 +118,6 @@ main bey-x {
 }
 .animating bey-x {
     transition:transform .5s;
-}
-span:empty {
-    display:none;
 }
 
 aside {
@@ -142,17 +144,14 @@ aside.first::before {
 aside :is(ul,li):has(bey-x[style]), aside bey-x[style] {
     z-index:1;
 }
-aside label {
-    margin:.1em auto .2em auto !important;
-}
 aside ul {
     display:flex; gap:.15em;
     overflow-x:scroll;
     margin:.1em 0;
     transform:translateY(calc(var(--slided,0)*-100% - var(--slided,0)*.1em));
 }
-aside li {
-    display:block;
+aside ul::-webkit-scrollbar { 
+    display:none;
 }
 .sliding ul {
     transition:transform .5s;
@@ -166,8 +165,8 @@ aside li {
 .customizing ul:not(.selecting) {
     visibility:hidden;
 }
-aside ul::-webkit-scrollbar { 
-    display:none;
+aside li {
+    display:block;
 }
 aside bey-x {
     touch-action:none;

@@ -11,7 +11,7 @@ class Bey extends HTMLElement {
             bey.blade && (this.spin = options.attr[1]);
             (bey.blade || bey.bit) && (this.type = options.attr[0]);
         }
-        options?.collapse && this.setAttribute('collapse', true);
+        options?.expand && this.setAttribute('expand', true);
         this.order = options?.order;
         this.init(bey);
         this.onclick = this.select;
@@ -82,13 +82,15 @@ class Bey extends HTMLElement {
         if (!this.classList.contains('selected'))
             this.dock.Q('.selected')?.classList.remove('selected');
         this.classList.toggle('selected');
-        navigator.vibrate?.(200);
+        navigator.vibrate?.(100);
     }
 
     main(redeck) {
-        this.dock.id == 'deck' && redeck && (this.deck = this.parentElement.Q('bey-x'));
         setTimeout(() => {
-            this.dock.id == 'deck' && Bey.main.validate(this.deck); 
+            if (this.dock.id == 'deck') {
+                redeck && (this.deck = this.parentElement.Q('bey-x'));
+                Bey.main.validate(this.deck); 
+            }
             App.save(location.hash);
         });
     }
@@ -123,7 +125,7 @@ class Bey extends HTMLElement {
         background:rgba(255,255,255,.3);
     }
     :host(.used) {
-        opacity:.3;
+        opacity:.4;
     }
     :host(.selected) {
         outline-color:var(--theme) !important;
