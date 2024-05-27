@@ -93,11 +93,12 @@ Object.assign(Filter.prototype, {
     events () {
         this.dl.Q('dt').onclick = async () => {
             this.inputs.forEach(input => input.checked = true);
-            await Filter.filter(this.type == 'group' && 'all');
+            await Filter.filter(this.type == 'group');
         }
         this.dl.onchange = async ({target: input}) => {
             this.inputs.forEach(i => i.checked = i == input);
-            Parts.switch([input.id], this.type == 'group');
+            await Filter.filter(this.type == 'group');
+            this.type == 'group' && Parts.switch([input.id], true);
         };
         return this;
     }

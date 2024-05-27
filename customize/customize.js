@@ -11,15 +11,15 @@ const App = () => {
 Object.assign(App, {
     load: {
         saved () {
-            DB.get('user', 'pref').then(re => re && (Q('#lang').value = re.lang));
-            return Promise.all([
+            DB.get('user', 'pref').then(re => re && (Q('#lang').value = re.lang))
+            .then(() => Promise.all([
                 DB.get('user', '#deck').then(re => re?.forEach((deck, i) => 
                     Q(`#deck article:nth-of-type(${i+1}) bey-x`, (bey, j) => bey.init(deck[j]))
                 )),
                 DB.get('user', '#tier').then(re => Object.entries(re ?? {}).forEach(([tier, beys]) =>
                     Q(`#tier h2[title='${tier}']+section`).append(...beys.map(([c, p]) => [new Bey({[c]: p}), ' ']).flat())
                 ))
-            ]);
+            ]));
         },
         parts () {
             let bits = ['round', 'flat', 'sharp', 'multi'];

@@ -97,7 +97,7 @@ h2[title]::after {
     overflow-x:hidden;
 }
 #tier div {
-    margin:auto;
+    margin:auto; padding-bottom:1em;
 }
 #tier section {
     width:100%; min-height:calc(1em + min(calc((100vw - 2rem)/3),8em));
