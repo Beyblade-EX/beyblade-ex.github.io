@@ -135,7 +135,7 @@ Object.assign(App, {
                     clearTimeout(drag.timer);
                     drag.triggered = false;
                 },
-                drop: [
+                drop: Object.assign([
                     (drop, dragged, targeted) => {
                         drop.to.return();
                         targeted.setAttribute(...dragged.abbr[0]);
@@ -144,8 +144,7 @@ Object.assign(App, {
                         drop.to.clone();
                         dragged.used = true;
                     },
-                    () => setTimeout(() => Q('.customizing')?.classList.remove('customizing'), 500)
-                ]
+                ], {all: () => setTimeout(() => Q('.customizing')?.classList.remove('customizing'), 500)})
             }
         });
         

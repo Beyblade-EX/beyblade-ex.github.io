@@ -1,21 +1,13 @@
 {
-  "/db/prod-launchers.json":["2024/02/20 23:10:00"],
+  "/db/prod-launchers.json":["2024/05/27 13:50:00"],
   "/db/prod-others.json":   ["2024/04/26 17:15:00"],
-  "/db/prod-beys.json":     ["2024/05/15 12:15:00"],
-  "/db/part-ratchet.json":  ["2024/05/18 21:55:00"],
+  "/db/prod-beys.json":     ["2024/05/27 13:45:00"],
+  "/db/part-ratchet.json":  ["2024/05/27 14:55:00"],
   "/db/part-bit.json":      ["2024/05/18 21:55:00"],
   "/db/part-blade.json":    ["2024/05/22 00:55:00"],
   "/db/part-meta.json":     ["2024/05/22 00:55:00"],
   "/db/keihin.json":        ["2024/05/15 22:50:00"],
   "news": {
-    "2024-05-16":[
-      {"code":"BXG-08 booster","type":"bal","name":"ヘルズチェイン5-60HT<br>メタルコート：ブラック<br>HellsChain 5-60T<br>Metal Coat: Black",
-    "desc":["App 內抽中後購買"]}
-    ],
-    "2024-05-18":[
-      {"code":"UX-05 random booster select","type":"def","name":"シノビシャドウ1-80MN<br>ShinobiShadow 1-80MN","imgs":["https://takaratomymall.jp/img/goods/5/4904810914549_ae252f626aa44230a5fc66ca6f0f9183.jpg","https://takaratomymall.jp/img/goods/L/4904810914549_035e9cea364e4fbdb16e9c7e296658eb.jpg"],
-      "desc":["ShinobiShadow：圓滑形狀卸走攻擊","MN bit：尖端金屬做的 N bit","超級輕量及偏重心，直送下位"]}
-    ],
     "2024-06-01":[
       {"code":"BXG-07","name":"カスタムグリップ クリアブラックVer.<br>Custom Grip (Clear Black ver.)"}
     ],
@@ -34,6 +26,11 @@
       {"code":"BX-34 starter"},
       {"code":"BX-35 random booster vol. 4"}
     ],
+    "2024-08-03":[
+      {"code":"BXG-09 Starter","name":"ドランダガー2-80GP<br>メタルコート：ブラック<br>ジャイアンツVer.<br>DranDagger 2-80GP<br>Metal Coat: Black<br>GIANTS ver",
+      "type":"bal","desc":["以 Burst 代同樣與同一棒球隊的 collaborate 商品，日本以外不太可能發售"]
+    }
+    ],
     "2024-08":[
       {"code":"UX-06 booster"},
       {"code":"UX-07 deck set","desc":"三陀螺組合"}
@@ -41,14 +38,5 @@
     "2024-09":[
       {"code":"BX-36 random booster select"},
       {"code":"BXG-?? random booster select"}
-    ],
-    "2024-11-14":[
-      {"code":"Nintendo Switch 遊戲「BEYBLADE X XONE」","type":"att","name":"附シノビナイフ4-60LF<br>メタルコート:ブルー<br>ShinobiKnife 4-60LF<br>Metal Coat: Blue",
-      "imgs":["https://www.cs.furyu.jp/beyblade2024/assets/img/guide/special_bey.png",
-      "https://www.cs.furyu.jp/beyblade2024/assets/img/guide/performance_blade.png",
-      "https://www.cs.furyu.jp/beyblade2024/assets/img/guide/performance_ratchet.png",
-      "https://www.cs.furyu.jp/beyblade2024/assets/img/guide/performance_bit.png","https://static.wikia.nocookie.net/beyblade/images/c/cb/Knife_Shinobi_4-80HN.jpg"],
-      "desc":["<a href=https://www.cs.furyu.jp/beyblade2024/>詳情</a>","最右邊圖片是孩之寶商品版"]
-    }
     ]
   }}

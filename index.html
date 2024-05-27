@@ -92,13 +92,13 @@
     </article>
 </details>
 
-<section id=reboot>
+<!--section id=reboot>
     <div>
         <p><i id=flush>&#xe010;</i><span>更新檔案（～250 KB）</span><i></i></p>
         &#xe00d; 如在本網遇上問題 &#xe00e;
         <p><i id=reset>&#xe010;</i><span>重設儲存（～30 MB）</span><i></i></p>
     </div>
-</section>
+</section-->
 
 <script>    
     Q('#links a[href=_]').href = navigator.appVersion.includes('Mac') ? 'https://apps.apple.com/tw/app/id1670801696':'https://play.google.com/store/apps/details?id=jp.co.takaratomy.beyblade&pli=1';
@@ -153,7 +153,7 @@
             autoScroll: false
         },
         move: {
-            drop: (self, dragged) => dragged.classList.toggle('reached', self.target)
+            drop: (self, dragged, targeted) => dragged.classList.toggle('reached', targeted)
         },
         lift: {
             drop: (self, dragged, targeted) => {

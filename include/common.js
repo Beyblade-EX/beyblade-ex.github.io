@@ -99,7 +99,7 @@ const DB = {
         ver == DB.current && DB.db?.close();
         let deleting = indexedDB.deleteDatabase(ver);
         deleting.onsuccess = () => res(ver == DB.current && (DB.db = null));
-        deleting.onblocked = handler ?? (ev => console.error(ev));
+        deleting.onblocked = handler ?? console.error;
     }),
     open: () => new Promise(res => {
         if (DB.db) return res(true);
@@ -132,12 +132,12 @@ const DB = {
         let updates = await fetch(`/db/-update.json?${Math.random()}`).catch(() => DB.indicator.setAttribute('status', 'offline'))
             .then(resp => resp.json()).then(({news, ...updates}) => (typeof announce != 'undefined' && announce(news), updates));
         if (!familiar) return;
-        let outdated = Object.entries(updates).filter(([item, [time]]) => new Date(time) / 1000 > (Cookie.history?.[item] || 0));
+        let outdated = Object.entries(updates).filter(([item, [time]]) => new Date(time) / 1000 > (localStorage.getItem(item) || 0));
         outdated.length && DB.cache(outdated).then(() => DB.indicator.update(true));
     },
     update: (files, action) => Promise.all(files.map(file => 
         fetch(`/db/${file}.json?${Math.random()}`).then(resp => resp.json()).then(json => action(json, file))
-        .then(() => Cookie.set('history', {[file]: Math.round(new Date() / 1000)})).catch(er => console.error(er))
+        .then(() => localStorage.setItem(file, Math.round(new Date() / 1000))).catch(er => console.error(er))
     )),
     store: (...args) => DB.db.transaction(...args).objectStore(args[0]),
     get: (store, key) => new Promise(res => {

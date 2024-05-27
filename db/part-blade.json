@@ -18,7 +18,7 @@
             "eng": "ShinobiShadow",
             "chi": "忍者幻影 忍者闇影"
         },
-        "stat": ["28+"],
+        "stat": ["28="],
         "desc": "圓滑三枚刃專門把對手攻擊卸走。",
         "attr": ["def","right"]
     },

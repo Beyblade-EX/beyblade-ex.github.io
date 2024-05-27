@@ -40,21 +40,21 @@ class Dragging {
         scroll: () => this.dragged.scrollTo(this.scrollInitX - this.moveX + this.pressX, 0),
         drop: (ev) => {
             ev ? (this.clientY = ev.clientY) : (this.scrollY = this.dragged.closest('aside') ? 0 : scrollY - this.scrollInitY);
-            let translate = [this.moveX - this.pressX, this.moveY - this.pressY + this.scrollY];
+            let translate = [this.drop.x === false ? 0 : this.moveX-this.pressX, this.drop.y === false ? 0 : this.moveY-this.pressY+this.scrollY];
             this.drop.x == 'min' && (translate[0] = Math.max(0, translate[0]));
-            this.dragged.style.transform = `translate(${this.drop.x === false ? '0' : translate[0]}px,${this.drop.y === false ? '0' : translate[1]}px)`;
+            this.dragged.style.transform = `translate(${translate[0]}px,${translate[1]}px)`;
             (this.drop.autoScroll || this.drop.autoScroll == null) && this.autoScroll();
             this.findTarget();
         }
     }
     lift (_, lift) {
         this.timer &&= clearTimeout(this.timer);
-        let f = typeof lift == 'function' ? lift : Array.isArray(lift[this.mode]) ? 
-            lift[this.mode][this.drop.targets.findIndex(t => this.targeted?.matches(t))] :
-            lift?.[this.mode];
-        f?.(this, this.dragged, this.targeted);
-        Array.isArray(lift[this.mode]) && lift[this.mode].length > this.drop.targets.length && 
-            lift[this.mode].at(-1)?.(this, this.dragged, this.targeted);
+        if (lift) {
+            (typeof lift == 'function' ? lift : Array.isArray(lift[this.mode]) ? 
+                lift[this.mode][this.drop.targets.findIndex(t => this.targeted?.matches(t))] :
+                lift[this.mode])?.(this, this.dragged, this.targeted);
+            Array.isArray(lift[this.mode]) && lift[this.mode].all?.(this, this.dragged, this.targeted);
+        }
         this.mode == 'drop' ? !this.targeted && this.to.return() : this.reset();
         onpointermove = onpointerup = onpointercancel = onscroll = null;
     }

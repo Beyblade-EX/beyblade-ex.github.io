@@ -91,7 +91,7 @@ const Export = {
     },
     reset (ev) {
         Q('#popup p:not([hidden])')?.setAttribute('hidden', '');
-        Q('button.selected').classList.remove('selected');
+        Q('button.selected')?.classList.remove('selected');
         Q('.actioning')?.classList.remove('actioning');
     },
     events () {
@@ -100,14 +100,25 @@ const Export = {
             if (ev.target.tagName != 'BUTTON') return;
             if (ev.target.classList.contains('selected')) return Export.reset();
             ev.target.classList.add('selected');
+            ev.target.id == 'delete-deck' && Export.act();
             location.hash == '#tier' ? Export.act() : Q(location.hash).classList.toggle('actioning');
         };
         Q('h2', h2 => h2.onclick = () => Export.act(h2.title));
     },
     act: (param) => ({
         'export-image': Export.image,
-        'export-text': Export.text
+        'export-text': Export.text,
+        'delete-deck': Delete
     })[Q('button.selected')?.id]?.(param)
 }
 Export.events();
+
+const Delete = () => {
+    Q('#deck bey-x:is([blade],[ratchet],[bit])', bey => bey.classList.add('selected'));
+    Q('#deck').addEventListener('click', ev => {
+        ev.target.tagName == 'BEY-X' && ev.target.delete();
+        Q('#deck bey-x', bey => bey.classList.remove('selected'));
+        Export.reset();
+    }, {once: true})
+}
 </script>

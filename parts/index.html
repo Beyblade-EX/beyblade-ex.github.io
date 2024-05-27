@@ -11,8 +11,7 @@
     <data class=part-result></data>
 </nav>
 <!--db-status callback="location.search && Parts.catalog() || location.hash && Parts.list()"></db-status-->
-<!--magick mogrify -fuzz 5% -trim *.png-->
-<!--for %F in (*.png) do magick %F -alpha off -fuzz 7% -fill none -draw "alpha 0,0 floodfill"  ( +clone -alpha extract -blur 0x1 -level 80x80% ) -alpha off -compose copy_opacity -composite -fuzz 5% -trim -set filename:f %t o/%F -->
+<!--cmd: for %F in (*.png) do backgroundremover -i %F -o o/%F && magick mogrify -fuzz 5% -trim o/%F-->
 <main id=catalog>
     <span class=loading></span>
     <details hidden>

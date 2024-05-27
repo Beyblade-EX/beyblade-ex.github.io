@@ -66,13 +66,13 @@ ruby.below rt {
 label,button,summary,[onclick],a[href] {
     transition:filter .3s,opacity .3s,background-color .3s;
 }
-:is(label:not([for=popup]),button:not([disabled]),summary,[onclick]):hover,a[href]:not(.disabled) {
+:is(label:not(#popup),button:not([disabled]),summary,[onclick]):hover,a[href]:not(.disabled) {
     cursor:pointer;
 }
 a[href]:not(.disabled):hover {
     filter:brightness(110%);
 }
-:is(label:not([for=popup]),button:not([disabled]),summary,[onclick]):hover {
+:is(label:not(#popup),button:not([disabled]),summary,[onclick]):hover {
     filter:brightness(90%);
 }
 input[type=checkbox],input[type=radio],svg:not([viewBox]),::-webkit-details-marker {
@@ -116,8 +116,8 @@ html {
 .S  {--row-c:200;}
 .Lm  {--row-c:45;}
 .RB,.B,.S,.St,.SS,.Lm {
-    --light:hsl(var(--row-c,0),var(--row-s,60%),calc(var(--row-b,30%) + var(--b-adj,0%)));
-    --dark:hsl(var(--row-c,0),var(--row-s,50%),calc(var(--row-b,20%) + var(--b-adj,0%)));
+    --light:hsl(var(--row-c,0),var(--row-s,60%),calc(var(--row-b,35%) + var(--b-adj,0%)));
+    --dark:hsl(var(--row-c,0),var(--row-s,50%),calc(var(--row-b,25%) + var(--b-adj,0%)));
 }
 
 html::before {

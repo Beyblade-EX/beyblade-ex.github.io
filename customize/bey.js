@@ -38,12 +38,13 @@ class Bey extends HTMLElement {
     attributeChangedCallback(attr, _, after) {
         this[attr] = after;
         this.sQ(`.part .${attr}`).style.backgroundImage = `url(/img/${attr}/${after}.png)`;
-        this.change[attr] ? this.change[attr]() : this.sQ(`h4 .${attr}`).title = after;
+        after && this.change[attr] ? this.change[attr]() : this.sQ(`h4 .${attr}`).title = after || '';
         this.change.class(attr);
         this.dock?.tagName == 'MAIN' && this.main();
     }
+    delete = () => Bey.observedAttributes.forEach(c => this.removeAttribute(c))
     change = {
-        blade: () => this.blade && this.lang(Q('#lang').value),
+        blade: () => this.lang(Q('#lang').value),
         class: async (attr) => {
             if (attr == 'blade') {
                 let spin = this.spin || this[attr] && (this.refer.from.aside(attr)?.spin || (await this.refer.from.DB(attr)).attr?.[1]) || '';
@@ -191,7 +192,7 @@ class Bey extends HTMLElement {
     .duplicated {
         color:red;
     }
-    :host([expand]) h4:has(span[title]) span:not([title])::after {content:'?';}
+    :host([expand]) h4:has(span[title]:not([title=''])) span:not([title])::after {content:'?';}
     :host([expand]) h4 span:nth-child(2)::before {content:' ';}
     :host([expand]) h4 span:nth-child(3)::before {content:' ';}
 
