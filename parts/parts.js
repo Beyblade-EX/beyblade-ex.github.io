@@ -97,8 +97,7 @@ Object.assign(Filter.prototype, {
         }
         this.dl.onchange = async ({target: input}) => {
             this.inputs.forEach(i => i.checked = i == input);
-            await Filter.filter(this.type == 'group');
-            this.type == 'group' && Parts.switch([input.id], true);
+            this.type == 'group' ? Parts.switch([input.id]) : Filter.filter(this.type == 'group');
         };
         return this;
     }
