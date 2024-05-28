@@ -140,7 +140,7 @@ class Bey extends HTMLElement {
         height:100%; /*safari*/
     }
 
-    h4 [title]::after {
+    h4 [title]:not([title=''])::after {
         content:attr(title);
     }
     i {
