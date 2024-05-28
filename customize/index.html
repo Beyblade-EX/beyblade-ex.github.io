@@ -10,6 +10,10 @@
 
 <nav>
     <script>nav(['/', location.hash == '#deck' ? '#tier' : '#deck'])</script>
+    <!--spin-knob id="tier-list" class="tier" min="90">
+        <select><option value="1">表 1<option value="2">表 2<option value="3">表 3</select>
+        <i slot="knob">&#xe00d;<br>&#xe00e;</i>
+    </spin-knob-->
     <div>
         <button type="button" id="random-deck" class="deck">&#xe02f;隨機陀螺</button>
         <button type="button" id="export-image">&#xe03a; 製作圖片</button>
@@ -27,6 +31,24 @@
 <db-status callback="App.load.parts().then(App.load.saved).then(App.switch)"></db-status>
 
 <main id="deck" hidden>
+    <details>
+        <summary>提示</summary>
+        <ul>
+            <li>此工具供玩家作備忘、分享之用
+            <li>所有變更自動儲存至你正使用的網頁瀏覽器
+            <li>左上可前往 Tier 表
+            <li>&#xe00d; &#xe00e; &#xe00f; &#xe010; 圖案表示依照所示的方向拉動，即能操作
+            <li>
+                <ol>
+                    <li>先在下面的庫存上下左右滑動，直到看到想要的部件
+                    <li>點擊部件一下、或按住半秒，綠框亮起後就能拉動至主頁面的空位
+                    <li>紅字表示不符合官方規則
+                    <li>點擊主頁面的陀螺，然後拉動，就能與其它陀螺調位
+                    <li>使用右上方的製成圖片／文字分享
+                </ol>
+            </li>
+        </ul>
+    </details>
     <template>
         <article>
             <h2>DECK</h2>

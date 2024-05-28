@@ -12,15 +12,15 @@ nav a span {
     margin-bottom:.2em;
 }
 nav div {
-    justify-self:end;
-    display:block;
+    justify-self:end; align-self:center;
+    gap:.2em;
 }
 nav div:first-of-type {
-    grid-area:1/3/2/4;
+    grid-area:1/4/2/5;
     align-self:end;
 }
 nav div:last-of-type {
-    grid-area:2/3/3/4;
+    grid-area:2/4/3/5;
 }
 nav button {
     background:var(--theme); color:black;
@@ -34,6 +34,12 @@ nav button.selected {
 nav:has(.selected) button:not(.selected) {
     pointer-events:none;
 }
+#tier-list {
+    grid-area:1/3/3/4; justify-self:end;
+}
+#lang {
+    grid-area:1/5/3/6;
+}
 spin-knob i {
     font-size:.6em; line-height:.8em;
     margin-top:.25em;
@@ -44,9 +50,22 @@ spin-knob i {
 }
 main {
     padding:5em 0 8em 0;
+    text-align:left;
+}
+details {
+    margin:auto;
+    width:min(100vw,26rem);
+    font-size:.8em;
+}
+details :is(ul,ol) {
+    margin:revert; padding:revert;
+    list-style:revert;
+}
+summary {
+    text-align:center;
+    font-size:1.25em;
 }
 article {
-    text-align:left;
     margin:auto;
 }
 #deck article {
@@ -183,7 +202,6 @@ aside bey-x {
     border-radius:.5em;
     padding:1em;
     align-self:start; justify-self:center;
-    text-align:left;
 }
 #popup .text[hidden]+blockquote {
     display:none;

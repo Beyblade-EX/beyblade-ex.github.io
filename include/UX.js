@@ -30,7 +30,7 @@ class Dragging {
     }
     move (ev, move) {
         ev && ([this.moveX, this.moveY] = [ev.x, ev.y]) && ev.stopPropagation();
-        if (!this.dragged || Math.hypot(this.moveX-this.pressX, this.moveY-this.pressY) < 2) return;
+        if (!this.dragged || Math.hypot(this.moveX-this.pressX, this.moveY-this.pressY) < 5) return;
         this.timer &&= clearTimeout(this.timer);
         this.dragged.classList.add('dragged');
         this._move?.[this.mode]?.(ev);

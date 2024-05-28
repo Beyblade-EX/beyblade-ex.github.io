@@ -22,11 +22,11 @@ Object.assign(App, {
             ]));
         },
         parts () {
-            let bits = ['round', 'flat', 'sharp', 'multi'];
+            let bits = ['sta', 'bal', 'att', 'def'];
             let sorter = {
                 blade: (p, q) => Sorter.sort.weight(p, q),
                 ratchet: (p, q) => parseInt(p.abbr.split('-')[1]) - parseInt(q.abbr.split('-')[1]),
-                bit: (p, q) => bits.indexOf(p.group) - bits.indexOf(q.group)
+                bit: (p, q) => bits.indexOf(p.attr[0]) - bits.indexOf(q.attr[0])
             };
             return Parts.getMeta().then(() => Promise.all(['blade', 'ratchet', 'bit'].map(c => 
                 DB.get.parts(c)
@@ -52,7 +52,7 @@ Object.assign(App, {
             href: location.hash == '#deck' ? '#tier' : '#deck',
             innerHTML: `<span>${location.hash == '#deck' ? 'TIER' : 'DECK'}</span>`
         });
-        Q('.deck', el => el.style.visibility = location.hash != '#deck' ? 'hidden' : 'visible');
+        Q('.deck,.tier', el => el.style.display = el.classList.contains(location.hash.substring(1)) ? 'block' : 'none');
 
         if (location.hash == '#tier')
             return [Q('#tier bey-x')].flat().forEach(({abbr: [[p, c]]}) => Q(`aside bey-x[${p}='${c}']`).used = true);
