@@ -28,6 +28,26 @@
         "stat": ["2="],
         "desc": "亦能實現反擊。"
     },
+    "C": {
+        "group": "flat",
+        "names": {
+            "jap": "サイクロン",
+            "eng": "Cyclone"
+        },
+        "stat": [],
+        "desc": "渦形平坦軸端在左迴轉時提高與對戰盤的緊咬性，能高速攻擊。",
+        "attr": ["att"]
+    },
+    "D": {
+        "group": "sharp",
+        "names": {
+            "jap": "ドット",
+            "eng": "Dot"
+        },
+        "stat": [],
+        "desc": "在軸端的多數突起提高與對戰盤的摩擦，受攻擊時也不易被推走。",
+        "attr": ["def"]
+    },
     "F": {
         "group": "flat",
         "names": {

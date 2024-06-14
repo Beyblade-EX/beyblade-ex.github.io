@@ -1,10 +1,10 @@
 {
-  "/db/prod-launchers.json":["2024/05/27 13:50:00"],
+  "/db/prod-launchers.json":["2024/06/14 11:45:00"],
   "/db/prod-others.json":   ["2024/04/26 17:15:00"],
-  "/db/prod-beys.json":     ["2024/05/27 13:45:00"],
-  "/db/part-ratchet.json":  ["2024/05/27 14:55:00"],
-  "/db/part-bit.json":      ["2024/05/18 21:55:00"],
-  "/db/part-blade.json":    ["2024/05/22 00:55:00"],
+  "/db/prod-beys.json":     ["2024/06/14 11:45:00"],
+  "/db/part-ratchet.json":  ["2024/06/14 11:45:00"],
+  "/db/part-bit.json":      ["2024/06/14 11:45:00"],
+  "/db/part-blade.json":    ["2024/06/14 11:45:00"],
   "/db/part-meta.json":     ["2024/05/22 00:55:00"],
   "/db/keihin.json":        ["2024/05/15 22:50:00"],
   "news": {
@@ -19,7 +19,7 @@
     ],
     "2024-07-13":[
       {"code":"BX-32 Stadium","name":"ワイドエクストリームスタジアム<br>Wide Xtreme Stadium","imgs":["https://takaratomymall.jp/img/goods/5/4904810926719_f3a0a36d7e3d48309680198f5f481a28.jpg"],
-      "desc":["三人對戰盤"]},
+      "desc":["三人對戰盤","留意：「兩頰」旁是三分 Xtreme Zone，「貓耳」旁是兩分 Over Zone"]},
 
       {"code":"BX-34 starter","name":"コバルトドラグーン2-60C<br>CobaltDragoon 2-60C","type":"att",
     "imgs":["https://takaratomymall.jp/img/goods/5/4904810914563_0c12d5908e5043249cc375d95f45ecf5.jpg","https://takaratomymall.jp/img/goods/L/4904810914563_d4eb647c01a245c786c31648bd250f1e.jpg","https://takaratomymall.jp/img/goods/1/4904810914563_8c7dac901b9a49c19f8bd9942ef5a891.jpg"],
@@ -31,6 +31,11 @@
     "2024-08-03":[
       {"code":"BXG-09 Starter","name":"ドランダガー2-80GP<br>メタルコート：ブラック<br>ジャイアンツVer.<br>DranDagger 2-80GP<br>Metal Coat: Black<br>GIANTS ver",
       "type":"bal","desc":["以 Burst 代同樣與同一棒球隊的 collaborate 商品，日本以外不太可能發售"]
+    }
+    ],
+    "2024-08-10":[
+      {"code":"BXG-15 Booster","name":"ドランザースパイラル3-80T ブラックVer.<br>DranzerSpiral 3-80T Black Ver.",
+      "type":"bal","desc":["日本活動「Beyblade Bar」先發售，然後為 App 獎品"]
     }
     ],
     "2024-08":[

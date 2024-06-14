@@ -1,4 +1,28 @@
 {
+    "BlSh": {
+        "group": "BX",
+        "names": {
+            "jap": "ブラックシェル",
+            "eng": "BlackShell",
+            "chi": "",
+            "reverse": true
+        },
+        "stat": [],
+        "desc": "設於外周的向下傾斜八枚防禦刃，抵禦低位置而來的攻擊。",
+        "attr": ["def","right"]
+    },
+    "CbDg": {
+        "group": "BX",
+        "names": {
+            "jap": "コバルトドラグーン",
+            "eng": "CobaltDragoon",
+            "chi": "",
+            "reverse": true
+        },
+        "stat": [],
+        "desc": "有厚尖端的四枚 Upper 刃擁有高撞飛性能。",
+        "attr": ["att","left"]
+    },
     "WsTg": {
         "group": "BX",
         "names": {
