@@ -1,10 +1,10 @@
 {
   "/db/prod-launchers.json":["2024/06/14 11:45:00"],
   "/db/prod-others.json":   ["2024/04/26 17:15:00"],
-  "/db/prod-beys.json":     ["2024/06/14 11:45:00"],
   "/db/part-ratchet.json":  ["2024/06/14 11:45:00"],
-  "/db/part-bit.json":      ["2024/06/14 11:45:00"],
-  "/db/part-blade.json":    ["2024/06/14 11:45:00"],
+  "/db/prod-beys.json":     ["2024/06/15 12:55:00"],
+  "/db/part-bit.json":      ["2024/06/15 12:55:00"],
+  "/db/part-blade.json":    ["2024/06/15 12:55:00"],
   "/db/part-meta.json":     ["2024/05/22 00:55:00"],
   "/db/keihin.json":        ["2024/05/15 22:50:00"],
   "news": {
@@ -46,4 +46,5 @@
       {"code":"BX-36 random booster select"},
       {"code":"BXG-?? random booster select"}
     ]
-  }}
+  }
+}

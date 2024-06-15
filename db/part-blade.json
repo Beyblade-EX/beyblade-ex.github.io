@@ -28,10 +28,10 @@
         "names": {
             "jap": "ヴァイスタイガー",
             "eng": "WeissTiger",
-            "chi": "",
+            "chi": "純白猛虎 皓戰猛虎",
             "reverse": true
         },
-        "stat": [],
+        "stat": ["35-"],
         "desc": "一併持有 Upper 刃、Damper 刃及 Smash 刃三種性能。",
         "attr": ["bal","right"]
     },
