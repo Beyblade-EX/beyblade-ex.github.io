@@ -177,7 +177,7 @@ announce.colors = new Mapping(
 
         const reset = message => Promise.all([
             DB.discard('V2', ev => message.innerText = ev.type == 'blocked' ? '請先關閉所有本網的分頁' : ev.type),
-            caches.delete('V2'), caches.delete('parts'),
+            caches.delete('V3'), caches.delete('parts'),
             localStorage.clear(),
         ]);
         new Dragging('#reboot', {
