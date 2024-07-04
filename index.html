@@ -1,0 +1,221 @@
+<title>非官方資訊站⬧Unofficial site</title>
+<meta name=description content="最新日本陀螺情報、所有部件圖鑑、限量產品，都一應俱全。">
+<script src=include/common.js></script>
+<link rel=stylesheet href=index.css>
+<link rel=stylesheet href=/include/component.css>
+<img src="https://beyblade.takaratomy.co.jp/anime/_image/kv_chara.png" hidden>
+
+<input>
+
+<header>
+    <h1 hidden>戰鬥陀螺 X⬧爆旋陀螺 X⬧ベイブレード X⬧Beyblade X</h1>
+    <img src="https://beyblade.takaratomy.co.jp/_image/cmn_logo.svg" alt="戰鬥陀螺 X⬧爆旋陀螺 X⬧ベイブレード X⬧Beyblade X">
+    <h2>非官方資訊站</h2>
+</header>
+
+<db-status callback="Q('header,section,time,.scroller', content => observer.observe(content));"></db-status>
+
+<section id="gate" style="overflow:visible">
+    <p><i style='color:var(--theme-alt)'>&#xe00d; &#xe00e; &#xe00f; &#xe010;</i> 圖案表示依照所示的方向拉動，即能操作。立即嘗試：</p>
+    <div class="gate">
+        <span id="gate-left">&#xe010;</span>
+        <i>夾</i>
+        <span id="gate-right">&#xe00f;</span>
+    </div>
+</section>
+
+<section>
+    <a href="customize/" style="display:block;"><img src=/img/deck.png alt="我的陀螺盒"><span>我的<br>陀螺盒</span></a>
+</section>
+
+<section id=contents>
+    <h3>本站内容</h3>
+    <a href=products/ >商品</a>
+    <a href=parts/ >部件</a>
+    <a href=prize/ >景品</a>
+</section>
+
+<section id=links>
+    <h3>外部連結</h3>
+    <spin-knob title=商品陣容 alt="//www.amazon.co.jp/s?rh=n%3A2189319051%2Cp_n_date%3A2320554051"><a href="//beyblade.takaratomy.co.jp/beyblade-x/lineup/"><i>🛍️</i></a></spin-knob>
+    <spin-knob title=YouTube alt="//www.youtube.com/results?search_query=ベイブレードX&sp=EgIIAw%253D%253D"><a href="//m.youtube.com/@BEYBLADEOfficialYouTube/videos"><i>🎞️</i></a></spin-knob>
+    <spin-knob title=漫畫閲覽 alt="//drive.google.com/drive/folders/1vSOCv8UNyiJ76KCDhUbexuS7E7Hs-Isr"><a href="//www.corocoro.jp/episode/4856001361379685850"><i>🖍️</i></a></spin-knob>
+    <spin-knob title=動畫資訊 alt="//drive.google.com/drive/folders/11K6rxKid9m0_90otiRxQlJRJhRTJWRSN"><a href="//beyblade.takaratomy.co.jp/anime/character/"><i>📺</i></a></spin-knob>
+    <spin-knob title=App 下載><a href=_><i>📥</i></a></spin-knob>
+    <spin-knob title=𝕏 alt="//x.com/search?q=ベイブレードX"><a href="//x.com/tbh_pr"><i>🛠️</i></a></spin-knob>
+</section>
+
+<section id=products><h3>最新商品</h3></section>
+
+<details>
+    <summary>初心者資訊</summary>
+    <article>
+        <h4>官方比賽</h4>
+        <a href="https://www.facebook.com/tclubfanshk/"> <img src=https://www.facebook.com/favicon.ico>香港消息</a>
+        <a href="https://www.facebook.com/Beyblade2016/"><img src=https://www.facebook.com/favicon.ico>台灣消息</a>
+        <img src="https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BX12_01@1.png" style="max-width:30em;">
+        <p>參加比賽要準備三個陀螺，當中的共九個部件型號都不能重複。
+        <figure>
+            <img src="https://beyblade.takaratomy.co.jp/news/_image/newsP240321_7.png">
+            <figcaption> 齊來 GO SHOOT。</figcaption>
+        </figure>
+        <p>X 代首屆 Asia Championship 今年 12 月於日本舉行，預留名額給亞洲九地區參加者，設小學生限定的 REGULAR CLASS 及小學生以上、不限年齡的 OPEN CLASS。留意你所在地的甄選賽消息！
+
+        <h5>新增規則</h5><br>
+        <p><dfn><ruby><rb>Limited Rule</rb><rt>リミテッドルール</rt></ruby></dfn>：適用於單陀螺賽制，即以同一配置對戰直到四分。<br>
+            若你的陀螺有以下的 Limited 部件（下稱 L），對方會依你使用的數量先得分。例如你的配置有 2L，對手的配置有 1L，分數由己 1:2 彼開始對戰，直至達 4 分。
+        <img src="https://beyblade.takaratomy.co.jp/beyblade-x/event/_image/g2_tobuzoocup2024_limited.png">
+        <p><dfn><ruby><rb>Own Finish Rule</rb><rt>オウンフィニッシュルール</rt></ruby></dfn>：適用於單或三陀螺賽制。
+            若發射後雙方的陀螺未曾觸碰而發生 Over / X Finish，只會獲得一分，並使用同一陀螺再對戰。
+        <p>以上 Rules 未必在每個比賽實施，請留意大會宣告。</p>
+        
+        <!--h5>關於三人對戰用的 <ruby>Wide Xtreme Stadium<rt>ワイドエクストリームスタジアム</rt></ruby></h5>
+        <p>計分方法：只有最後生存的陀螺為勝，會依其餘兩顆陀螺如何落敗而得分。例如兩顆陀螺互相碰撞導致分別由 Xtreme Zone 及 Over Zone 離開，剩下的陀螺就能獲得五分。
+        <p>獲勝方法：視大會宣布，有五分制或二勝制。後者表示得分兩次——不論分數——的玩家為勝。</p>
+        <p>發射問題：同一 Battle 內，若有一選手發生 Shoot Miss、過早／遲發射合計兩次，其餘兩位選手皆得一分。如果兩位選手因同時得分而同時達至勝利條件，這兩位會再進行 Battle，先得分者——不論分數——為勝。<br>
+            若兩位選手同時發生這些情況、同時達兩次，其餘一位選手得一分。<br>
+            若三位選手同時發生這些情況、同時達兩次，全部選手的第二次情況不作計算，當作只有一次，再嘗試發射。<br>
+            每當有選手因這些情況獲得分數，全部選手的 Shoot Miss、過早／遲發射都會歸零，Battle 重新開始。<br-->
+    </article>
+    <article>
+        <h4 title=APP></h4>
+        <img src="https://beyblade.takaratomy.co.jp/beyblade-x/app/_image/pict11.jpg">
+        <p>每個陀螺商品的包裝盒某處或附有的卡片都有個 QR code（Beycode），使用 APP 掃瞄後能獲得 BEYPOINT 分數，Beycode 旁有「A」字才能掃進港/台版 APP，否則只能掃進日版。
+            商品公價 ¥1（日元）＝1 分。要下載的請在本頁上方下載。</p>
+        <img src="https://beyblade.takaratomy.co.jp/beyblade-x/app/_image/app_rea3.png" style="width:min(15em,32.5%);display:inline-block">
+        <img src="https://beyblade.takaratomy.co.jp/beyblade-x/app/_image/app_rea2.png" style="width:min(15em,32.5%);display:inline-block">
+        <img src="https://beyblade.takaratomy.co.jp/beyblade-x/app/_image/app_rea1.png" style="width:min(15em,32.5%);display:inline-block">
+        <p>分數的用途就是抽限定陀螺，每 1000 分抽一次。BXG-03、05 抽中後購買、BXH-01 抽中後獲贈。
+            以台灣官方公告，每件購買型陀螺有 3% 機率抽中，獲贈型的則是 0.7%。記得要在動畫「TAP」段連打螢幕，否則不會抽中陀螺。
+        <img src="https://beyblade.takaratomy.co.jp/beyblade-x/app/_image/pict12.png">
+        <p>要獲得更多分數，可購買 BX-09 Beybattle Pass。它能記錄發射力度及次數，並轉換成分數，而且能進行模擬陀螺對戰獲得分數，但這些方法得到的分數每周設上限。
+            此外，掃瞄 BX-09 的 Beycode 後，就有永久 Bonus，往後掃瞄的商品 Beycode 都有額外 100 分。
+        <img src="https://pbs.twimg.com/media/GK3ykUnbUAAGpzq?format=png">
+        <p>如何增加發射力度的數字？Beybattle Pass 測量發射器內黑白轉盤的黑白交替次數以判定發射速度，所以可以用黑紙白紙、黑筆白筆的，增加黑白交替。
+        <p>不想這樣改裝的，亦可試試只把 Blade 裝上發射器。預備發射後，使勁把兩手同時向外甩～當然你的 Blade 會飛走，要確認周遭沒有易碎物品！
+    </article>
+</details>
+
+<section id=reboot>
+    <div>
+        如在本網遇上問題<p><i id=reset>&#xe010;</i><span>重設儲存<br>（除陀螺盒外）</span><i></i></p>
+    </div>
+    <a href="https://beyblade-burst.github.io/" id=bbb><img src="/img/system-BBB.png"></a>
+</section>
+
+<footer>
+    對於本網所載資料的準確性或完整性，製作者不會作任何保證或聲明，或因提供或使用此網資料而直接或間接引致的任何損失、損壞或傷害，負上任何責任。
+    <br>Developed and Designed by V Man (MKK). 2023–.
+</footer>
+
+<script>    
+const observer = new IntersectionObserver(entries => entries.forEach(entry => entry.target.classList.toggle('seeing', entry.isIntersecting)));
+    
+const announce = news => Object.entries(news).forEach(([date, beys]) => {
+    let base = `https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/`;
+    let types = {att: 'ATTACK', bal: 'BALANCE', sta: 'STAMINA', def: 'DEFENSE'};
+    Q('#products').append(E('time', {title: date}));
+    beys.forEach(bey => {
+        let {code, name, imgs, desc, type, color, class: cl} = bey;
+        imgs ??= [];
+        if (name && /[BU]XG?-/.test(code)) {
+            let c = code.match(/[BU]XG?-\d+/)[0].replace('-','');
+            imgs = [base + `${c}@1.png`, ...imgs];
+            imgs.push(...[2,3,4,5,6,7,8].map(n => base + `${c}${color ? `_${color}` : ''}_0${n}@1.png`));
+        }
+        let div = E('div', [
+            E('h5', type? [E('ruby', {classList: `below ${type}`}, [E('img', {src: `/img/types.svg#${type}`}), E('rt', types[type])]), code] : code),
+            E('h4', name?.replaceAll('-', '‑').replaceAll('<br>', String.fromCharCode(10))), 
+            ...imgs.map(src => E('figure', [E('a', '🖼️', {href: src}), E('img', {src})])), 
+            ...([desc ?? []].flat()).map(d => E('p', {innerHTML: d.replaceAll('-', '‑')}))
+        ], {classList: `scroller ${cl || announce.colors.find(code)}`});
+
+        Q('#products').appendChild(div);
+    });
+});
+announce.colors = new Mapping(
+    /entry set/i, 'SS',
+    /組合|Set/i, 'St',
+    /Starter/i, 'S',
+    /Random/i, 'RB',
+    /Booster/i, 'B',
+    /[BU]XG?-/, 'others',
+    'Lm'
+);
+(new Date - Storage('cached'))/1000/60/60/24 > 30 && fetch('/sw/?delete=parts');
+</script>
+
+<script>
+    new Dragging('#products', {scroll: {what: '.scroller', when: () => true}});
+    let i = Q('.gate i'), narrowest = 100;
+    new Dragging('.gate', {
+        translate: {
+            x: {
+                min: dragged => dragged.id == 'gate-left' ? 0 : Q('#gate-left').offsetLeft, 
+                max: dragged => dragged.id == 'gate-left' ? dragged.offsetLeft*-1 : 0
+            }, 
+            y: false
+        },
+        move (drag, dragged) {
+            drag.other ??= Q(`#gate-${dragged.id == 'gate-left' ? 'right' : 'left'}`);
+            drag.other.style.transform = `translateX(${parseFloat(dragged.style.transform.match(/[-\d.]+/)[0])*-1}px)`;
+            let distance = Math.abs(drag.other.getBoundingClientRect().x - dragged.getBoundingClientRect().x) - dragged.getBoundingClientRect().width;
+            i.style.opacity = Math.max(0, 4-distance/100);
+            distance < narrowest && distance <= i.clientWidth && distance > 0
+            && (i.style.transform = `scaleX(${distance/i.clientWidth})`) && (narrowest = distance);
+        },
+        lift (drag) {
+            drag.other.style.transform = null;
+            drag.other = null;
+            drag.to.return(true);
+        }
+    });
+    
+    (() => {
+        let app = ['https://apps.apple.com/tw/app/id1670801696', 'https://play.google.com/store/apps/details?id=jp.co.takaratomy.beyblade&pli=1'];
+        [Q('spin-knob[title^=App] a').href, Q('spin-knob[title^=App]').alt] = navigator.appVersion.includes('Mac') ? app : app.reverse();
+
+        const reset = message => Promise.all([
+            DB.discard('V2', ev => message.innerText = ev.type == 'blocked' ? '請先關閉所有本網的分頁' : ev.type),
+            caches.delete('V2'), caches.delete('parts'),
+            localStorage.clear(),
+        ]);
+        new Dragging('#reboot', {
+            translate: {
+                x: {min: 0, max: Q('#reboot p').clientWidth - Q('#reset').clientWidth}, 
+                y: false
+            },
+            drop: {
+                when: ev => ev.target.matches('i:first-child'),
+                targets: 'i:last-child',
+                autoScroll: false
+            },
+            move: (self, dragged, targeted) => dragged.classList.toggle('reached', targeted ? true : false),
+            lift: (self, dragged, targeted) => {
+                dragged.classList.remove('reached');
+                targeted && reset(dragged.nextElementSibling).then(() => {
+                    onbeforeunload = () => scrollTo(0, 0);
+                    location.reload();
+                }).catch(er => console.error(er));
+            }
+        });
+    })();
+</script>    
+
+<script>
+Q('input').onkeypress = ev => {
+    if ((ev.keyCode || ev.which) != 13) return;
+    ev.target.value = ev.target.value.trim();
+    if (/^i#.+$/i.test(ev.target.value))
+        return location.href = `https://instagram.com/explore/tags/${/(?<=#).+/.exec(ev.target.value)}`;
+    if (/^i@.+$/i.test(ev.target.value))
+        return location.href = `https://instagram.com/${/(?<=@).+/.exec(ev.target.value)}`;
+    if (/^x\?.+$/i.test(ev.target.value))
+        return location.href = `https://x.com/search?q=${/(?<=\?).+/.exec(ev.target.value)}&f=live`;
+    if (/^x#.+$/i.test(ev.target.value))
+        return location.href = `https://x.com/hashtag/${/(?<=#).+/.exec(ev.target.value)}/?f=live`;
+    if (/^t\?.+$/i.test(ev.target.value))
+        return location.href = `https://www.threads.net/search?q=${/(?<=\?).+/.exec(ev.target.value.replace('#', '%23'))}`;
+    return location.href = `https://${ev.target.value}`;
+}
+</script>

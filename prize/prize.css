@@ -1,0 +1,176 @@
+nav div a {
+    margin:0 .5em;
+    font-size:.9em;
+}
+nav div a img {
+    width:3em;
+    vertical-align:bottom;
+}
+nav div a span {
+    width:2.5em; display:inline-block;
+    line-height:1.1em; letter-spacing:.1em;
+    vertical-align:.1em;
+}
+nav div {
+    grid-area:1/3/3/4;
+}
+label {
+    color:var(--type);
+    font-size:1.2em; line-height:1.2;
+    margin:0 .5em;
+}
+label:has(#keihin-t),.keihin-t b {--type:olive;}
+label:has(#keihin-d),.keihin-d b {--type:lightslategray;}
+label:has(#keihin-g),.keihin-g b {--type:steelblue;}
+label:has(#keihin-m),.keihin-m b {--type:indianred;}
+label:has(#keihin-t)::after,.keihin-t b::before {content:'\e031';}
+label:has(#keihin-d)::after,.keihin-d b::before {content:'\e02f';}
+label:has(#keihin-g)::after,.keihin-g b::before {content:'\e002';}
+label:has(#keihin-m)::after,.keihin-m b::before {content:'\e001';}
+
+.diamonds {
+    padding:calc(var(--size)/4 + 2em) 0;
+    display:grid; grid-template-columns:repeat(auto-fill,var(--size)); justify-content:center;
+    gap:var(--gap);
+    font-size:.8em;
+    --size:20em; --gap:.5em;
+    --shift:calc(var(--size)/4 + var(--gap)/4);
+
+    li {
+        width:var(--size); height:var(--size);
+        clip-path:polygon(50% 0%,0% 50%,50% 100%,100% 50%);
+        background:#fbfbfd; color:black;
+        display:grid; grid-template:20% 7.5% 45% 12.5% 15% / 10% 80% 7% 3%;
+        grid-template-areas:'. type . .' '. desc . .' '. img img .' '. name . .' '. date . .';
+        margin:calc(var(--shift)*-1) 0;
+        transform:translate(calc(var(--shift)*var(--factor,0)));
+        transition:transform .5s,margin .5s;
+
+        &.left {--factor:-1;}
+        &.right {--factor:1;}
+        &.center {--factor:2;}
+        &.next {grid-column:1;}
+    }
+    b {
+        grid-area:type; align-self:end;
+        color:white; font-size:.9em;
+        padding-top:2em;
+        background:var(--type);
+
+        &::before {
+            display:block;
+            font-size:1.7em;
+            line-height:.9;
+        }
+    }
+    p {
+        grid-area:desc;
+        font-size:.7em;
+        margin-top:.2em;
+
+        a {
+            color:green;
+        }
+    }
+    div {
+        grid-area:img;
+        text-align:left;
+    }
+    figure {
+        position:relative;
+        width:8em; height:8em;
+        overflow:hidden;
+        shape-outside:ellipse(50% 40%); float:left;
+        border-radius:8em;
+        margin:.5em .3em;
+    }
+    img {
+        position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+        width:100%;
+    }
+    h5 {
+        font-size:.9em; line-height:1.1;
+        display:block; 
+        margin-top:4.5em;
+        position:relative;
+
+        &:has(.code) {
+            margin-top:3.4em;
+        }
+    }
+    .code {
+        transform:translate(.3em);
+    }
+    small,.code {
+        display:block;
+        color:grey;
+        margin:.3em 0;
+    }
+    h5 small {
+        scale:.95 1;
+    }
+    h5 small,.code {
+        font-size:.8em;
+    }
+    :is(span:not(.code),h5 small) {
+        letter-spacing:-.05em;
+    }
+    i {
+        grid-area:name;
+        font-size:.7em; font-style:italic;
+    }
+    time {
+        grid-area:date;
+        font-size:.75em; font-family:inherit;
+    }
+}
+
+h3 {
+    line-height:4em;
+}
+.groups summary picture {
+    margin-right:.2em;
+    background:none;
+    border:none;
+    filter:brightness(0%);
+    border-radius:initial;
+}
+article h4 {
+    display:block;
+    text-align:right;
+    margin:1em 0 .5em 1em;
+}
+article h4:first-of-type {
+    margin-top:1.5em;
+}
+.groups ul {
+    padding:0;margin:0;
+    display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:flex-start;
+}
+.groups li {
+    border:.1em solid var(--theme);border-radius:6em;
+    padding:0 .5em;margin:.3em 0 .8em .6em;
+    white-space:nowrap;font-size:1.1em;
+    width:47%;max-width:9.5em;
+    line-height:1.4;
+    display:flex;justify-content:space-between;align-items:baseline;
+    position:relative;
+    cursor:pointer;
+}
+.tight,time {
+    font-family:COND;
+}
+time {
+    font-size:smaller;
+}
+u {
+    position:absolute;top:2.6em;right:-.3em;
+    font-size:.6em;
+
+    &::before {content:'《';}
+    &::after {content:'》';}
+}
+[popover] img:not(:only-child) {
+    max-width:8em;
+    margin:0;
+}

@@ -1,0 +1,62 @@
+[
+    {
+        "type":"m", "note":"實物版遊戲同梱", "link":"https://www.cs.furyu.jp/beyblade2024/", "date":"2024-11",
+        "bey":"ShKn 4-60LF", "ver":["メタルコート：ブルー", "Metal Coat: Blue"],
+        "img":["https://www.cs.furyu.jp/beyblade2024/assets/img/guide/special_bey.png",{"width":"100%"}]
+    },
+    {
+        "type":"g", "note":"七月號コロコロ雜誌附錄", "link":"https://corocoro.jp/news/385187/", "date":"2024-06",
+        "bey":"DrSw", "ver":["メタルコート：ブルー<br>（ブレード）", "Metal Coat: Blue (Blade)"],
+        "img":["https://corocoro.jp/wp-content/uploads/2024/05/745531bfaf43d87bc17ea9b9d5588099.jpg",{"width":"100%"}]
+    },
+    {
+        "type":"t", "note":"G3 大會獎品（集齊後）", "date":"2024-06",
+        "bey":"WzRd 5-70DB", "ver":["メタルコート：ゴールド", "Metal Coat: Gold"],
+        "img":["https://beyblade.takaratomy.co.jp/beyblade-x/event/_image/g3_gift1_2024.jpg", {"width":"120%","top":"52%"}]
+    },
+    {
+        "type":"d", "note":"コロコロ抽獎・100 名", "link":"https://corocoro.jp/news/382326/", "date":"2024-04",
+        "bey":"DrBs 1-60A", "ver":["メタルコート：レッド", "Metal Coat: Red"],
+        "img":["https://corocoro.jp/wp-content/uploads/2024/03/f701f1cdac42c7408a4ff6095be0ed1d.jpg"]
+    },
+    {
+        "type":"m", "note":"壽司郎推廣活動", "link":"https://www.facebook.com/SUSHIROHONGKONG/posts/407971458462714", "date":"2024-02",
+        "code":"BXA-01", "bey":"DrSw 3-60F", "ver":["〈スシロー〉", "〈Sushiro〉"],
+        "img":["/prize/keihin/sushiro.jpg",{"width":"90%"}]
+    },
+    {
+        "type":"m", "note":"二月號コロコロ雜誌應募", "link":"https://corocoro.jp/news/379029/", "date":"2024-01",
+        "bey":"HlSc 3-80F", "ver":["スペシャルクロスベイ<br>〈ペルソナ〉", "SPX Bey〈Persona〉"],
+        "img":["https://corocoro.jp/wp-content/uploads/2023/12/f919dd35dc468956f947d2d2ab3551d1.jpg",{"width":"115%"}]
+    },
+    {
+        "type":"g", "note":"一月號コロコロ雜誌附錄", "link":"https://corocoro.jp/news/377761/", "date":"2023-12",
+        "bey":"PhFt", "ver":["（ブレード）", "(Blade)"],
+        "img":["https://corocoro.jp/wp-content/uploads/2023/12/5698a52905518ee6e5f8a2cebee3ee9c.jpg",{"width":"140%"}]
+    },
+    {
+        "type":"t", "note":"G1 大會冠軍獎品", "date":"2023-12",
+        "bey":"DrSw 3-60F", "ver":["メタルコート：ゴールド", "Metal Coat: Gold"],
+        "img":["https://beyblade.takaratomy.co.jp/beyblade-x/event/_image/g1_4.png",{"width":"200%","left":"52%"}]
+    },
+    {
+        "type":"t", "note":"G1 大會亞軍獎品", "date":"2023-12",
+        "bey":"DrSw 3-60F", "ver":["メタルコート：シルバー", "Metal Coat: Silver"],
+        "img":["https://beyblade.takaratomy.co.jp/beyblade-x/event/_image/g1_5.png",{"width":"200%","left":"52%"}]
+    },
+    {
+        "type":"t", "note":"G1 大會季軍獎品", "date":"2023-12",
+        "bey":"DrSw 3-60F", "ver":["メタルコート：ブロンズ", "Metal Coat: Bronze"],
+        "img":["https://beyblade.takaratomy.co.jp/beyblade-x/event/_image/g1_6.png",{"width":"200%","left":"54%"}]
+    },
+    {
+        "type":"t", "note":"G3 大會獎品（集齊後）", "date":"2023-12",
+        "bey":"KnSh 3-80N", "ver":["メタルコート：ゴールド", "Metal Coat: Gold"],
+        "img":["https://beyblade.takaratomy.co.jp/beyblade-x/event/_image/gift1.jpg",{"width":"120%","top":"52%"}]
+    },
+    {
+        "type":"d", "note":"App 抽獎獎品", "date":"2023-08",
+        "code":"BXH-01", "bey":"CbDr 4-60F", "ver":["メタルコート：ブルー", "Metal Coat: Blue"],
+        "img":["https://takaratomymall.jp/img/goods/L/4904810910510_ac63b10874dd470eb52bd9e7200c55b4.jpg"]
+    }
+]

@@ -1,0 +1,78 @@
+<title>陀螺商品⬧Merchandise</title>
+<script src=/include/common.js></script>
+<script defer src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js></script>
+<script defer src=https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js></script>
+<script defer src=/parts/catalog.js></script>
+<script defer src=table.js></script>
+<script defer src=maps.js></script>
+<script defer src=row.js></script>
+<link rel=stylesheet href=products.css>
+<link rel=stylesheet href=/parts/catalog.css>
+
+<nav>
+    <menu>
+        <li><a href='/products/'>陀螺</a>
+        <li><a href='equipment.html#launchers'>發射器</a>
+        <li><a href='equipment.html#others'>其他</a>
+    </menu>
+    <a href="https://kyoganken.web.fc2.com/beyx/index.htm#parts1" target=_blank>競</a>
+    <a href="http://obakeblader.com/?s=入手法" target=_blank>お</a>
+
+    <span class=free-search>部件檢索</span>
+    <div class=prod-search>
+        <label for=free>&#xe00a;</label>
+        <input id=free placeholder=騎士/HN/low>
+    </div>
+    <data class=prod-result>結果</data>
+    <button class=prod-reset>&#xe029; 重設</button>
+</nav>
+<db-status callback="Table(); Filter(); Finder()"></db-status>
+<main>
+    <form></form>
+
+    <details id=filter>
+        <summary>&#xe027; 分類<i></i></summary>
+        <div>
+            <label class=S title=附發射器的單陀螺>Starter</label>
+            <label class=B title=單陀螺>Booster</label>
+            <label class=St title=至少包含兩陀螺>Set</label>
+            <label class=SS title=含對戰盤及陀螺>Stadium Set</label>
+            <label class=RB title=單陀螺抽包>Random Booster</label>
+        </div>
+        <span>&#xe02a; 異色版／再推出版</span>
+        <div>
+            <label class='S H'>Starter</label>
+            <label class='B H'>Booster</label>
+            <label class='St H'>Set</label>
+            <label class='SS H'>Stadium Set</label>
+            <label class='RB H'>Random Booster</label>
+        </div>
+        <span hidden>&#xe02b; 系統<button>全部</button></span>
+        <div class=system hidden>
+            <label class=blade1><img src=/img/system-blade1.png alt=single></label>
+            <label class=MFB><img src=/img/system-MFB.png alt=MFB></label>
+            <label class=BSB><img src=/img/system-BSB.png alt=BSB></label>
+        </div>
+    </details>
+
+    <table id=regular class=new>
+        <caption class=loading>
+            <!--span>&#xe028; 2021.04～</span-->
+            <button hidden>顯示全部</button>
+            <label>中<input name=lang type=radio id=chi></label>
+            <label>A<input name=lang type=radio id=eng></label>
+            <label>ア<input name=lang type=radio id=jap></label>
+        </caption>
+        <thead>
+            <tr class=comp>
+                <th>No</th>
+                <th colspan=3 id=blade class=blade>Blade</th>
+                <th colspan=1 id=ratchet class=ratchet>Ratchet</th>
+                <th colspan=2 id=bit class=bit>Bit</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot></tfoot>
+    </table>
+</main>
+<aside popover></aside>

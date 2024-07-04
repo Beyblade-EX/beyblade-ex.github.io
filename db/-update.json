@@ -1,0 +1,41 @@
+{
+  "prod-launchers":"2024/06/22 13:40:00",
+  "prod-others":   "2024/06/22 13:40:00",
+  "prod-beys":     "2024/06/22 13:40:00",
+  "part-ratchet":  "2024/06/22 13:40:00",
+  "part-bit":      "2024/06/22 13:50:00",
+  "part-blade":    "2024/06/22 13:50:00",
+  "part-meta":     "2024/05/22 00:55:00",
+  "news": {
+    "2024-07-13":[
+      {"code":"BX-32 Stadium","name":"ワイドエクストリームスタジアム<br>Wide Xtreme Stadium","imgs":["https://takaratomymall.jp/img/goods/5/4904810926719_f3a0a36d7e3d48309680198f5f481a28.jpg"],
+      "desc":["三人對戰盤","留意：「兩頰」旁是三分 Xtreme Zone，「貓耳」間是兩分 Over Zone"]},
+
+      {"code":"BX-34 starter","name":"コバルトドラグーン2-60C<br>CobaltDragoon 2-60C","type":"att",
+    "imgs":["https://takaratomymall.jp/img/goods/5/4904810914563_0c12d5908e5043249cc375d95f45ecf5.jpg","https://takaratomymall.jp/img/goods/L/4904810914563_d4eb647c01a245c786c31648bd250f1e.jpg","https://takaratomymall.jp/img/goods/1/4904810914563_8c7dac901b9a49c19f8bd9942ef5a891.jpg"],
+    "desc":["CobaltDragoon：X 代首個左迴轉 Blade，Upper 攻擊型","2-60 ratchet：左迴轉時攻擊、右迴轉時防禦","Cyclone bit：形狀同 Burst 代 Sp 軸，左迴星形","四聖獸青龍之 X 代轉生版"]},
+      {"code":"BX-35 random booster vol. 4","name":"ブラックシェル4-60D<br>BlackShell 4-60D","type":"def",
+    "imgs":["https://takaratomymall.jp/img/goods/L/4904810914570_f0cdcbda244443fe9edd1a9e13558315.jpg","https://m.media-amazon.com/images/S/aplus-media-library-service-media/8b4e2afb-f999-4323-9874-fd8831608c36.__CR0,0,970,600_PT0_SX970_V1___.jpg"],
+    "desc":["BlackShell：台形低重心","Dot bit：尖軸附有如 Burst 代 N 軸的密集凸起，增加摩擦","另一大獎：04，有 R 軸","四聖獸玄武之 X 代轉生版"]}
+    ],
+    "2024-08-03":[
+      {"code":"BXG-09 Starter","name":"ドランダガー2-80GP<br>メタルコート：ブラック<br>ジャイアンツVer.<br>DranDagger 2-80GP<br>Metal Coat: Black<br>GIANTS ver",
+      "type":"bal","desc":["以 Burst 代同樣與同一棒球隊的 collaborate 商品，日本以外不太可能發售"]
+    }
+    ],
+    "2024-08-10":[
+      {"code":"BXG-15 Booster","name":"ドランザースパイラル3-80T ブラックVer.<br>DranzerSpiral 3-80T Black Ver.",
+      "type":"bal","desc":["日本活動「Beyblade Bar」先發售，然後為 App 獎品"]
+    }
+    ],
+    "2024-08":[
+      {"code":"UX-06 booster"},
+      {"code":"UX-07 deck set","desc":"三陀螺組合"}
+    ],
+    "2024-09":[
+      {"code":"BX-36 random booster select"},
+      {"code":"BXG-?? random booster select"}
+    ]
+  }
+
+}

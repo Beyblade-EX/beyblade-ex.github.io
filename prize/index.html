@@ -1,0 +1,101 @@
+<title>陀螺景品⬧Prizes</title>
+<script src=/include/common.js></script>
+<link rel=stylesheet href=/include/component.css>
+<link rel=stylesheet href=prize.css>
+
+<nav>
+    <menu>
+        <li><a href="/products/" data-icon=""></a>
+        <li><a href="/parts/?blade=一體" data-icon=""></a>
+    </menu>
+    <div class="led">
+        <a href="https://beyblade.takaratomy.co.jp/beyblade-x/news/news_stickerlist.html">
+            <img src="https://beyblade.takaratomy.co.jp/beyblade-x/news/_image/news_stickerlist_12.png">
+            <span>各款貼紙</span>
+        </a>
+    </div>
+</nav>
+<db-status callback="display()"></db-status>
+<main>
+    <ul class=diamonds></ul>
+
+    <article class=groups hidden>
+        <details id=driver>
+            <summary><h3>Driver<picture><img src alt=Driver></picture></h3></summary>
+            <h4>抽選 &#xe02f;</h4>
+            <ul>
+                <li data-url=img/wp/20220315/BUD/0003.png><h5>MBD</h5><time>2022-08</time>
+            </ul>
+            <h4>購物贈品 &#xe02e;</h4>
+            <ul>
+            </ul>
+            <h4>大會積分兌換 &#xe030;</h4>
+            <ul>
+            </ul>
+            <h4>コロコロ雜誌應募 &#xe02e;</h4>
+            <ul>
+            </ul>
+        </details>
+    </article>
+</main>
+
+<script>
+class Keihin {
+    constructor({type, note, link, date, code, bey, ver, img}, NAMES) {
+        let [blade, ...others] = bey.split(' ');
+        this.li = E('li', {classList: `keihin-${type}`}, [
+            E('b', Keihin.type[type]), E('p', link ? [E('a', {href: link}, note)] : note),
+            E('div', [
+                E('figure', [E('img', {src: img[0], style: img[1]})]), 
+                E('h5', [
+                    code ? E('span', code, {classList: 'code'}) : '', 
+                    E('span', NAMES.blade[blade].jap), 
+                    ` ${others}`.replace('-', '‑'), 
+                    E('small', {innerHTML: ver[0]})
+                ]),
+            ]),
+            E('i', [NAMES.blade[blade].chi.replace(' ', '⬧') + ` ${NAMES.blade[blade].chi ? others : ''}`.replace('-', '‑') || '　', E('small', ver[1])]),
+            E('time', date.replace('-','‒'))
+        ]);
+    }
+    static type = {t: '比賽', d: '抽獎', m: '限定商品', g: '贈品'}
+    static all = []
+}
+Q('nav div').append(...Object.keys(Keihin.type).map(t => E('label', [E('input', {type: 'checkbox', id: `keihin-${t}`, checked: true})])));
+Q('nav input', (input, _, inputs) => input.onchange = () => {
+    let show = [...inputs].filter(i => i.checked).map(i => i.id);
+    Keihin.all.forEach(k => k.hidden = !show.includes(k.classList[0]));
+    onresize();
+})
+
+const display = () =>
+    fetch('/db/prod-keihin.json').then(resp => Promise.all([DB.get.names(['blade']), resp.json()]))
+    .then(([names, keihins]) => Q('.diamonds').append(...Keihin.all = keihins.map(k => new Keihin(k, names).li)))
+    .then(onresize);
+
+onresize = () => {
+    //nw+(n-1)g=W, n=(W+g)/(w+g)
+    //nw+(n-1)g=W-(w+g/2), n=(2W-w+g)/2(w+g)  
+    Keihin.all.forEach(li => li.classList.remove('left', 'center', 'right', 'next'));
+    let showing = Keihin.all.filter(li => !li.hidden);
+    if (!showing.length) return;
+    
+    let W = Q('.diamonds').getBoundingClientRect().width, 
+        g = parseFloat(getComputedStyle(Q('.diamonds')).gap),
+        w = showing[0].getBoundingClientRect().width;
+    let more = Math.floor((W + g) / (w + g)),
+        less = Math.floor((2*W - w + g) / 2 / (w + g));
+
+    if (more === less)
+        return showing.forEach((li, i) => li.classList.add(Math.ceil((i+1)/more)%2 === 0 ? 'right' : 'left'));
+    
+    let n = 1, k;
+    while (showing[k = (2*more-1)*n-(more-1)]) {
+        let [last, ...others] = showing.slice(k, k+less+1).reverse();
+        last.classList.add(last == showing.at(-1) && (others.length == less - 1 || !others.length) ? 'center' : 'next');
+        others.forEach(li => li.classList.add('center'));
+        n++;
+    }
+}
+location.hash && Q(location.hash)?.setAttribute('open', true);
+</script>

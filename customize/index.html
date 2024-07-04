@@ -1,0 +1,78 @@
+<title>我的陀螺盒⬧My Decks</title>
+<script src=/include/common.js></script>
+<link href="/customize/customize.css" rel=stylesheet>
+<script src="/customize/customize.js"></script>
+<script src="/customize/bey.js"></script>
+<script src="/parts/parts.js"></script>
+<script src="/parts/catalog.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin=anonymous referrerpolicy=no-referrer></script>
+
+<nav>
+    <menu>
+        <li><a href="#tier">TIER</a>
+        <li><a href="#deck">DECK</a>
+    </menu>
+    <!--spin-knob id=tier-list class=tier min=90>
+        <select><option value=1>表 1<option value=2>表 2<option value=3>表 3</select>
+        <i>&#xe00d;<br>&#xe00e;</i>
+    </spin-knob-->
+    <div>
+        <button type=button id=expand-deck class=deck>&#xe012; 展開</button>
+        <button type=button id=export-image>&#xe03a; 製作圖片</button>
+    </div>
+    <div>
+        <button type=button id=delete-deck class=deck>&#xe008; 刪除</button>
+        <button type=button id=export-text>&#xe039; 複製文字</button>
+    </div>
+    <spin-knob id=lang min=90>
+        <select><option value=tw>台<option value=hk>港<option value=jap>日<option value=eng>英</select>
+        <i>&#xe00d;<br>&#xe00e;</i>
+    </spin-knob>
+</nav>
+<h1 hidden>陀螺盒</h1>
+<db-status callback="App.load.parts().then(App.load.saved).then(App.events.observe).then(App.switch)"></db-status>
+
+<main id=deck hidden>
+    <details>
+        <summary>提示</summary>
+        <ul>
+            <li>此工具供玩家作備忘、分享 Deck（對戰組）之用
+            <li>所有變更自動儲存至你正使用的網頁瀏覽器
+            <li>把左上拉桿拉向右邊可前往 Tier（排名）表
+        </ul>
+        <ol>
+            <li>先在下面的庫存上下左右滑動，直到看到想要的部件
+            <li>點擊部件一下、或按住半秒，綠框亮起後就能拉動至主頁面的空位
+            <li>紅字表示不符合官方規則
+            <li>點擊主頁面的陀螺，然後拉動，就能與其它陀螺調位
+            <li>使用右上方的製成圖片／文字分享
+        </ol>
+    </details>
+    <template>
+        <article>
+            <h2>DECK</h2>
+            <bey-x></bey-x>
+            <bey-x></bey-x>
+            <bey-x></bey-x>
+        </article>
+    </template>
+</main>
+<main id=tier hidden>
+    <template>
+        <article>
+            <h2>TIER</h2>
+            <section></section>
+        </article>
+    </template>
+</main>
+<aside id=garage class=first>
+    <ul class="blade selecting"></ul>
+    <ul class=ratchet></ul>
+    <ul class=bit></ul>
+</aside>
+<div popover>
+    <p class=image hidden>請等候數秒，圖片會自動下載<br>並不是所有設備或瀏覽器都有完美成品</p>
+    <p class=text hidden>已複製：<blockquote></blockquote>
+</div>
+
+<script>App()</script>

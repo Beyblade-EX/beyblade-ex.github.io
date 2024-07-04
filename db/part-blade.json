@@ -1,0 +1,355 @@
+{
+    "BlSh": {
+        "group": "BX",
+        "names": {
+            "jap": "ブラックシェル",
+            "eng": "BlackShell",
+            "chi": "漆黑護殼",
+            "reverse": true
+        },
+        "stat": [],
+        "desc": "設於外周的向下傾斜八枚防禦刃，抵禦低位置而來的攻擊。",
+        "attr": ["def","right"]
+    },
+    "CbDg": {
+        "group": "BX",
+        "names": {
+            "jap": "コバルトドラグーン",
+            "eng": "CobaltDragoon",
+            "chi": "鈷藍青龍 蒼穹/龍騎士",
+            "reverse": true
+        },
+        "stat": [],
+        "desc": "有厚尖端的四枚 Upper 刃擁有高撞飛性能。",
+        "attr": ["att","left"]
+    },
+    "WsTg": {
+        "group": "BX",
+        "names": {
+            "jap": "ヴァイスタイガー",
+            "eng": "WeissTiger",
+            "chi": "純白猛虎 皓戰猛虎",
+            "reverse": true
+        },
+        "stat": ["35-"],
+        "desc": "一併持有 Upper 刃、Damper 刃及 Smash 刃三種性能。",
+        "attr": ["bal","right"]
+    },
+    "ShSh": {
+        "group": "UX",
+        "names": {
+            "jap": "シノビシャドウ",
+            "eng": "ShinobiShadow",
+            "chi": "忍者幻影 忍者闇影"
+        },
+        "stat": ["28="],
+        "desc": "圓滑三枚刃專門把對手攻擊卸走。",
+        "attr": ["def","right"]
+    },
+    "TyBt": {
+        "group": "BX",
+        "names": {
+            "jap": "ティラノビート",
+            "eng": "TyrannoBeat",
+            "chi": "暴龍節拍 暴龍霸擊"
+        },
+        "stat": ["37="],
+        "desc": "上下方向都呈鋸齒狀又突出的厚八枚刃，擅長給予不規則的打擊。",
+        "attr": ["att","right"]
+    },
+    "WzRd": {
+        "group": "UX",
+        "names": {
+            "jap": "ウィザードロッド",
+            "eng": "WizardRod",
+            "chi": "巫師幻杖 魔導神杖"
+        },
+        "stat": ["35+"],
+        "desc": "外重心又大徑幅的五枚刃形狀，專門產生離心力。",
+        "attr": ["sta","right"],
+        "limited": true
+    },
+    "HlHm": {
+        "group": "UX",
+        "names": {
+            "jap": "ヘルズハンマー",
+            "eng": "HellsHammer",
+            "chi": "煉獄惡鎚 惡魔戰鎚"
+        },
+        "stat": ["33+"],
+        "desc": "有厚度的 Smash 刃專門把對手砸向對戰盤。",
+        "attr": ["bal","right"]
+    },
+    "DrBs": {
+        "group": "UX",
+        "names": {
+            "jap": "ドランバスター",
+            "eng": "DranBuster",
+            "chi": "翔龍破壞劍 蒼龍爆刃"
+        },
+        "stat": ["37-"],
+        "desc": "突出的大型攻擊刃，專門以一擊把對手撞飛。",
+        "attr": ["att","right"]
+    },
+    "SpCw": {
+        "group": "BX",
+        "names": {
+            "jap": "スフィンクスカウル",
+            "eng": "SphinxCowl",
+            "chi": "史芬克斯/斗篷 幻神護甲"
+        },
+        "stat": ["33-"],
+        "desc": "以圓形配置的連打九枚刃把從各個方向而來的攻擊都分散及撞回。",
+        "attr": ["def","right"]
+    },
+    "UnSt": {
+        "group": "BX",
+        "names": {
+            "jap": "ユニコーンスティング",
+            "eng": "UnicornSting",
+            "chi": "獨角幻刺 獨角刺心"
+        },
+        "stat": ["33+"],
+        "desc": "左右的刃形狀有巨大差異，一併持有攻擊及防禦。",
+        "attr": ["bal","right"]
+    },
+    "WyGl": {
+        "group": "BX",
+        "names": {
+            "jap": "ワイバーンゲイル",
+            "eng": "WyvernGale",
+            "chi": "飛龍狂風 飛龍旋翼"
+        },
+        "stat": ["32="],
+        "desc": "流線形狀四枚刃減低空氣抵抗，擅長持續迴轉。",
+        "attr": ["sta","right"]
+    },
+    "PhWn": {
+        "group": "BX",
+        "names": {
+            "jap": "フェニックスウイング",
+            "eng": "PhoenixWing",
+            "chi": "鳳凰飛翼"
+        },
+        "stat": ["38="],
+        "desc": "厚重三枚刃猛烈撞向對手。金屬有塗裝令性能上升。",
+        "attr": ["att","right"],
+        "limited": true
+    },
+    "PhFt": {
+        "group": "BX",
+        "names": {
+            "jap": "フェニックスフェザー",
+            "eng": "PhoenixFeather",
+            "chi": "鳳凰翔羽"
+        },
+        "stat": ["33+"],
+        "desc": "三枚輕量 Upper 刃產生高速攻擊。",
+        "attr": ["att","right"],
+        "from": "DrSw"
+    },
+    "DrDg": {
+        "group": "BX",
+        "names": {
+            "jap": "ドランダガー",
+            "eng": "DranDagger",
+            "chi": "翔龍雙刃 蒼龍利刃"
+        },
+        "stat": ["35-"],
+        "desc": "六枚攻擊刃擅長連打對手。",
+        "attr": ["att","right"]
+    },
+    "DrSw": {
+        "group": "BX",
+        "names": {
+            "jap": "ドランソード",
+            "eng": "DranSword",
+            "chi": "翔龍神劍 蒼龍神劍"
+        },
+        "stat": ["35-"],
+        "desc": "三攻 Upper 刃擅長把對手向斜上方撞飛。",
+        "attr": ["att","right"]
+    },
+    "HlCh": {
+        "group": "BX",
+        "names": {
+            "jap": "ヘルズチェイン",
+            "eng": "HellsChain",
+            "chi": "煉獄鎖鏈 惡魔鎖鏈"
+        },
+        "stat": ["33+"],
+        "desc": "性能依高度變化。有化解性下段刃及撞擊性上段刃的二層構造設計。",
+        "attr": ["bal","right"]
+    },
+    "HlSc": {
+        "group": "BX",
+        "names": {
+            "jap": "ヘルズサイズ",
+            "eng": "HellsScythe",
+            "chi": "煉獄魔鎌 惡魔紅鎌"
+        },
+        "stat": ["33-"],
+        "desc": "四枚 Smash 刃擅長令對手體勢傾倒。",
+        "attr": ["bal","right"]
+    },
+    "WzAr": {
+        "group": "BX",
+        "names": {
+            "jap": "ウィザードアロー",
+            "eng": "WizardArrow",
+            "chi": "巫師弩箭 魔導幻箭"
+        },
+        "stat": ["32="],
+        "desc": "兩枚大型圓形刃為産生強離心力的外重心設計。",
+        "attr": ["sta","right"]
+    },
+    "KnSh": {
+        "group": "BX",
+        "names": {
+            "jap": "ナイトシールド",
+            "eng": "KnightShield",
+            "chi": "騎士護盾 騎士重盾"
+        },
+        "stat": ["32+"],
+        "desc": "採用容易以六枚防禦刃吸收衝擊的阻尼器構造。",
+        "attr": ["def","right"]
+    },
+    "KnLn": {
+        "group": "BX",
+        "names": {
+            "jap": "ナイトランス",
+            "eng": "KnightLance",
+            "chi": "騎士長槍"
+        },
+        "stat": ["33-"],
+        "desc": "刃的位置設計在高處，擅長壓制對手的攻擊。",
+        "attr": ["def","right"]
+    },
+    "RhHr": {
+        "group": "BX",
+        "names": {
+            "jap": "ライノホーン",
+            "eng": "RhinoHorn",
+            "chi": "犀牛號角 戰犀號角"
+        },
+        "stat": ["33-"],
+        "desc": "金屬凝縮在内側的内重心構造，是令體勢受強衝擊也難以傾倒的設計。",
+        "attr": ["def","right"]
+    },
+    "ShEd": {
+        "group": "BX",
+        "names": {
+            "jap": "シャークエッジ",
+            "eng": "SharkEdge",
+            "chi": "烈鯊利刃 鮫鯊鋒鰭"
+        },
+        "stat": ["35-"],
+        "desc": "急角度的 Upper 刃侵入對手身内，能從低位置向上撞。",
+        "attr": ["att","right"]
+    },
+    "LnCl": {
+        "group": "BX",
+        "names": {
+            "jap": "レオンクロー",
+            "eng": "LeonClaw",
+            "chi": "獅王鋭爪 雄獅獵爪"
+        },
+        "stat": ["31+"],
+        "desc": "一併持有攻擊刃及防禦刃，可以發射方法使用不同的性能。",
+        "attr": ["bal","right"]
+    },
+    "VpTl": {
+        "group": "BX",
+        "names": {
+            "jap": "ヴァイパーテイル",
+            "eng": "ViperTail",
+            "chi": "毒蛇靈尾 王蛇鞭尾"
+        },
+        "stat": ["35-"],
+        "desc": "向下尖鋭的六枚刃擅長從上削去對手的持久力。",
+        "attr": ["sta","right"]
+    },
+    "CbDr": {
+        "group": "BX",
+        "names": {
+            "jap": "コバルトドレイク",
+            "eng": "CobaltDrake",
+            "chi": "鈷藍魔龍 蒼穹龍神",
+            "reverse": true
+        },
+        "stat": ["38-"],
+        "desc": "四枚大型龍刃撞飛對手。金屬有塗裝令性能上升。",
+        "attr": ["att","right"],
+        "limited": true
+    },
+    "DRS": {
+        "group": "remake",
+        "names": {
+            "jap": "ドライガースラッシュ",
+            "eng": "DrigerSlash",
+            "chi": "青翼白虎 銀牙烈虎 S"
+        },
+        "stat": ["29-"],
+        "desc": "擁有圓形翼的兩枚刃兼備攻擊及防禦。（2000 年發售的陀螺之 X 代復刻版）",
+        "attr": ["bal","right"]
+    },
+    "DZS": {
+        "group": "remake",
+        "names": {
+            "jap": "ドランザースパイラル",
+            "eng": "DranzerSpiral",
+            "chi": "朱雀戰神 烈焰飛鳳 S"
+        },
+        "stat": ["28-"],
+        "desc": "兩枚水平刃産生高攻擊力及持久力，是重視平衡的設計。（2000 年發售的陀螺之 X 代復刻版）",
+        "attr": ["bal","right"]
+    },
+    "ShKn": {
+        "group": "BX",
+        "names": {
+            "jap": "シノビナイフ",
+            "eng": "ShinobiKnife",
+            "chi": ""
+        },
+        "stat": [],
+        "desc": "小徑及高剛性內重心構造，容易抵耐對手衝擊。（除與日本遊戲同梱外，目前只在孩之寶商品中收錄）",
+        "attr": ["def","right"],
+        "from": "RhHr"
+    },
+    "SmSt": {
+        "group": "BX",
+        "names": {
+            "jap": "サムライスチール",
+            "eng": "SamuraiSteel",
+            "chi": ""
+        },
+        "stat": [],
+        "desc": "（目前只在孩之寶商品中收錄）",
+        "attr": ["bal","right"],
+        "from": "LnCl"
+    },
+    "PtTl": {
+        "group": "BX",
+        "names": {
+            "jap": "プテラタロン",
+            "eng": "PteraTalon",
+            "chi": ""
+        },
+        "stat": [],
+        "desc": "（目前只在孩之寶商品中收錄）",
+        "attr": ["sta","right"],
+        "from": "VpTl"
+    },
+    "MmTs": {
+        "group": "BX",
+        "names": {
+            "jap": "マンモタスク",
+            "eng": "MammoTusk",
+            "chi": ""
+        },
+        "stat": [],
+        "desc": "（目前只在孩之寶商品中收錄）",
+        "attr": ["bal","right"],
+        "from": "HlSc"
+    }
+}

@@ -1,0 +1,38 @@
+[
+    {
+        "eng": "STRING LAUNCHER",
+        "jap": "ストリングランチャー",
+        "desc": "標準拉線型發射器",
+        "colors":[
+            ["S l","BX-34","BX34_05@1"],
+            ["B r","BX-28","BX28@1"],
+            ["S r","BX-23","BX23_05@1",120],
+            ["B r","BX-18","BX18@1"],
+            ["SS r","BX-07","BX07_06@1"],
+            ["Lm r","G2 大會","https://beyblade.takaratomy.co.jp/beyblade-x/event/_image/g2_4.png"],
+            ["Lm r","G2 大會","https://beyblade.takaratomy.co.jp/beyblade-x/event/_image/g2_5.png"],
+            ["Lm r","G2 大會","https://beyblade.takaratomy.co.jp/beyblade-x/event/_image/g2_6.png"]
+        ]
+    },
+    {
+        "eng": "WINDER LAUNCHER",
+        "jap": "ワインダーランチャー",
+        "desc": "標準拉條型發射器",
+        "colors":[
+            ["S r","BXG-09","BXG09_06@1",100],
+            ["SS r","UX-04","UX04_05@1",110],["SS r","UX-04","UX04_06@1",110],
+            ["S r","UX-02","UX02_05@1",110],["S r","UX-01","UX01_05@1",110],
+            ["SS r","BX-17","BX17_05@1"],["SS r","BX-17","BX17_06@1"],
+            ["S r","BX-15","BX15_05@1",110],
+            ["S r","BX-01 BX-02<br>BX-03 BX-04","BX01_05@1",110]
+        ]
+    },
+    {
+        "eng": "ENTRY LAUNCHER",
+        "jap": "エントリーランチャー",
+        "desc": "試玩型發射器",
+        "colors":[
+            ["S r","BX-22","BX22_05@1",110]
+        ]
+    }
+]

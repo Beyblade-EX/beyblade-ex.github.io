@@ -1,0 +1,80 @@
+
+<title>陀螺商品⬧Products</title>
+<script src=/include/common.js></script>
+<link rel=stylesheet href=products.css>
+<link rel=stylesheet href=/include/component.css>
+<style>
+    main {
+        max-width:1000px;
+        --size:150%;
+    }
+    section:not(:target),h1 {
+        display:none;
+    }
+</style>
+
+<nav>
+    <menu>
+        <li><a href='/products/'>陀螺</a>
+        <li><a href='#launchers'>發射器</a>
+        <li><a href='#others'>其他</a>
+    </menu>
+</nav>
+<!--db-status></db-status-->
+<main class=groups>
+    <section id=launchers>
+        <h1>發射器</h1>
+        <h2>拉線型</h2>
+        <h2>拉條型</h2>
+    </section>
+    <section id=others>
+        <h1>用具</h1>
+        <h2>手把及輔助</h2>
+        <h2>對戰盤</h2>
+    </section>
+</main>
+
+<script>
+const List = {
+    headers: (where, products, determinant) => {
+        for (let {eng, jap, desc, colors} of products.reverse()) {
+            let details = E('details', {name: 'panel'}, [
+                E('summary', [
+                    E('h3', {innerHTML: `${jap}<br>${eng}`}),
+                    E('small', desc),
+                    E('picture', {style: {backgroundImage: `url(${List.src(colors[1] || colors[0])})`}})
+                ]),
+                E('ol', {classList: 'boards'})
+            ]);
+            let size = (colors[1] || colors[0])[3];
+            size && details.Q('picture').style.setProperty('--size', size + '%');
+            details.Q('summary').addEventListener('click', () => List.products(details, colors), {once: true});
+            where.Q(`h2:nth-of-type(${determinant(eng)})`).after(details);
+        }
+    },
+    products: (where, colors) => {
+        where.Q('ol').append(...colors.map(([classList, no, img, size]) => {
+            let li = E('li', [
+                E('code', no.replace('<br>', String.fromCharCode(10))),
+                E('figure', [E('img', {src: List.src([, no, img]), alt: no})])
+            ], {classList})
+            size && li.Q('img').style.setProperty('--size', size + '%');
+            return li;
+        }))
+    },
+    src: ([, no, href]) => /^https|\/img/.test(href) ? href : 
+        /^[BU]/.test(href) ? `https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/${href}.png` : 
+        /^\d\//.test(href) ? `https://takaratomymall.jp/img/goods/${href}.jpg` :
+        `https://pbs.twimg.com/media/${href}?format=jpg&name=large`,
+    determinant: {
+        launchers: eng => eng.includes('STRING') ? 1 : 2,
+        others: eng => eng.includes('Stadium') ? 2 : 1
+    }
+};
+(onhashchange = async () => {
+    let target = location.hash.substring(1);
+    if (Q(`#${target} details`)) return;
+    let products = await (await fetch(`/db/prod-${target}.json`)).json();
+    List.headers(Q(`#${target}`), products, List.determinant[target]);
+})();
+</script>

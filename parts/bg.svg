@@ -1,0 +1,71 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 150 150'>
+    <script>// <![CDATA[
+    const q = Object.fromEntries([...new URLSearchParams(location.search)].map(([p, v]) => [p, v || true]));
+    const Q = el => document.querySelector(el);
+    const add = (html, where) => where.insertAdjacentHTML('beforeend', html);
+    const root = document.querySelector(':root');
+    root.style.setProperty('--c', q.hue ?? 60);
+    root.style.setProperty('--base-b', (q.hue == 245 ? 10 : 0) + '%');
+    // ]]></script>
+    <style>
+    :root {
+        --s:60%; --b:60%;
+        background:hsl(var(--c),30%,calc(10% + var(--base-b)));
+    }
+    #top-art line:nth-of-type(odd)  {stroke:hsl(var(--c),var(--s),calc(15% + .02%*var(--i)*var(--i) + var(--base-b)));}
+    #top-art line:nth-of-type(even) {stroke:transparent;}
+    #top-art line {stroke-width:5;}
+
+    #top+path {stroke-width:1.5; stroke:url(#line-art); fill:none;}
+
+    .spin use:first-of-type {transform:skew(45deg);}
+    .spin use:last-of-type {transform:skew(-45deg);}
+    </style>
+    <defs>
+        <g id='top-art'>
+            <script>// <![CDATA[
+            [s, place] = [5, Q('#top-art')];
+            for (let i = 1; i <= 20; i++)
+                add(`<line x1='${(i-1/2)*s}' x2='${(i-1/2)*s}' y2='15' style='--i:${2.5*i}'/>`, place);
+            // ]]></script>
+        </g>
+        <g>
+            <linearGradient id='line-art' gradientUnits='userSpaceOnUse'>
+                <stop offset='0%' stop-color='hsla(var(--c),70%,calc(50% + var(--base-b)),.2)'/>
+                <stop offset='40%' stop-color='hsl(var(--c),70%,calc(50% + var(--base-b)))'/>
+                <stop offset='60%' stop-color='hsl(var(--c),70%,calc(50% + var(--base-b)))'/>
+                <stop offset='90%' stop-color='hsl(var(--c),70%,calc(60% + var(--base-b)))'/>
+            </linearGradient>
+        </g>
+        
+        <filter id='glow' y='-10' x='-10' filterUnits='userSpaceOnUse'>
+            <feOffset in='SourceGraphic' dx='0' dy='0' result='offset'/>
+            <feGaussianBlur in='offset' stdDeviation='0.2' result='blur1'/>
+            <feGaussianBlur in='offset' stdDeviation='0.5' result='blur2'/>
+            <feGaussianBlur in='offset' stdDeviation='1.5' result='blur3'/>
+            <feMerge>
+                <feMergeNode in='blur1'/>
+                <feMergeNode in='blur2'/>
+                <feMergeNode in='blur3'/>
+                <feMergeNode in='SourceGraphic'/>
+            </feMerge>
+        </filter>
+
+        <filter id='shadow' width='30' height='30' y='-50%'>
+            <feDropShadow dx='0' dy='0' stdDeviation='.5' flood-color='black' flood-opacity='.8'/>
+        </filter>
+    </defs>
+
+    <g id='top'>
+        <use href='#top-art'/>
+        <use y='15' href='#top-art'/>
+    </g>
+    <!-- <path d='M 0,10 L 10,0 M 0,20 L 20,0 M 0,30 L 30,0'/> -->
+    <polygon points='65,34 85,34 116,65 116,85 85,116 65,116 34,85 34,65' fill='hsla(0,0%,100%,.2)'/>
+    <!-- <polygon points='65,34 85,34 111,60 115,60 130,75 115,90 111,90 85,116 65,116 39,90 35,90 20,75 35,60 39,60' stroke='hsla(0,0%,100%,.8)' fill='hsla(0,0%,100%,.2)'/> -->
+    <script>// <![CDATA[
+        Q('#top').setAttribute('transform', 'rotate(-45) translate(-55,30)');
+        (q.left || q.right) && (Q('#top').classList = 'spin') && Q('use:last-of-type').setAttribute('x', 30);
+        q.left && Q('#top').setAttribute('transform', 'rotate(135) translate(-65,-60)');
+    // ]]></script>
+</svg>

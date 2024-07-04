@@ -1,0 +1,180 @@
+{
+    "A": {
+        "group": "flat",
+        "names": {
+            "jap": "アクセル",
+            "eng": "Accel"
+        },
+        "stat": ["3-",16,94],
+        "desc": "由平坦軸端加上大型 Gear 組成的設計，提高 X Dash 性能。",
+        "attr": ["att"]
+    },
+    "B": {
+        "group": "round",
+        "names": {
+            "jap": "ボール",
+            "eng": "Ball"
+        },
+        "stat": ["2=",12,78],
+        "desc": "球狀軸端以適度移動來躱避攻擊及實現高持久力。",
+        "attr": ["sta"],
+        "limited": true
+    },
+    "DB": {
+        "stat": ["3+"],
+        "desc": "產生離心力及堅韌的迴轉。高度亦增加 2mm。"
+    },
+    "GB": {
+        "stat": ["2="],
+        "desc": "亦能實現反擊。"
+    },
+    "C": {
+        "group": "flat",
+        "names": {
+            "jap": "サイクロン",
+            "eng": "Cyclone"
+        },
+        "stat": [],
+        "desc": "渦形平坦軸端在左迴轉時提高與對戰盤的緊咬性，能高速攻擊。",
+        "attr": ["att"]
+    },
+    "D": {
+        "group": "sharp",
+        "names": {
+            "jap": "ドット",
+            "eng": "Dot"
+        },
+        "stat": [],
+        "desc": "在軸端的多數突起提高與對戰盤的摩擦，受攻擊時也不易被推走。",
+        "attr": ["def"]
+    },
+    "F": {
+        "group": "flat",
+        "names": {
+            "jap": "フラット",
+            "eng": "Flat"
+        },
+        "stat": ["2+",12,94],
+        "desc": "平坦軸端令陀螺跑動，提高以 X Dash 決勝的容易度。",
+        "attr": ["att"]
+    },
+    "GF": {
+        "stat": ["2+"],
+        "desc": "更容易勾住 X Line，實現更高速的 X Dash。"
+    },
+    "LF": {
+        "stat": ["2+"],
+        "desc": "軸端的凹洞亦被填滿。"
+    },
+    "H": {
+        "group": "sharp",
+        "names": {
+            "jap": "ヘキサ",
+            "eng": "Hexa"
+        },
+        "stat": ["3-",16,94],
+        "desc": "軸端側面六個平面形狀抑制陀螺的傾斜，持續保持安定姿勢。",
+        "attr": ["bal"]
+    },
+    "N": {
+        "group": "sharp",
+        "names": {
+            "jap": "ニードル",
+            "eng": "Needle"
+        },
+        "stat": ["2=",12,78],
+        "desc": "尖鋭軸端令陀螺傾斜，提高反擊性能。",
+        "attr": ["def"]
+    },
+    "HN": {
+        "stat": ["2+"],
+        "desc": "軸端尖鋭度亦減低。"
+    },
+    "GN": {
+        "stat": ["2="],
+        "desc": "同時容易穩守對戰盤中央及 X Dash。"
+    },
+    "MN": {
+        "stat": ["3-"],
+        "desc": "以重量及減低的摩擦提高安定性。"
+    },
+    "O": {
+        "group": "round",
+        "names": {
+            "jap": "オーブ",
+            "eng": "Orb"
+        },
+        "stat": ["2=",12,78],
+        "desc": "小型半球狀的軸端減低摩擦，提高持久性能。",
+        "attr": ["sta"],
+        "limited": true
+    },
+    "P": {
+        "group": "round",
+        "names": {
+            "jap": "ポイント",
+            "eng": "Point"
+        },
+        "stat": ["2+",12,94],
+        "desc": "在中心設有突起的平坦軸端，由動態的機動變化為靜態的機動。",
+        "attr": ["bal"]
+    },
+    "GP": {
+        "stat": ["2+"],
+        "desc": "實現巨大的動態變化。"
+    },
+    "Q": {
+        "group": "flat",
+        "names": {
+            "jap": "クエイク",
+            "eng": "Quake"
+        },
+        "stat": ["2+",12,94],
+        "desc": "斜向切割形狀的軸端，如跳躍地暴走，產生不規則的動態。",
+        "attr": ["att"]
+    },
+    "R": {
+        "group": "flat",
+        "names": {
+            "jap": "ラッシュ",
+            "eng": "Rush"
+        },
+        "stat": ["2=",10,94],
+        "desc": "十枚刃 Gear 以壓抑 X Dash 的速度來增加 Dash 次數。",
+        "attr": ["att"]
+    },
+    "S": {
+        "group": "sharp",
+        "names": {
+            "jap": "スパイク",
+            "eng": "Spike"
+        },
+        "stat": ["2=",12,76],
+        "desc": "細小尖鋭的軸端持續穩守對戰盤中央，提高反擊機會。",
+        "attr": ["def"]
+    },
+    "T": {
+        "group": "flat",
+        "names": {
+            "jap": "テーパー",
+            "eng": "Taper"
+        },
+        "stat": ["2+",12,94],
+        "desc": "收細的軸端兼備頭段的攻擊力及尾段的持久力。",
+        "attr": ["bal"]
+    },
+    "HT": {
+        "stat": ["2+"],
+        "desc": ""
+    },
+    "U": {
+        "group": "round",
+        "names": {
+            "jap": "ユナイト",
+            "eng": "Unite"
+        },
+        "stat": ["2+",12,94],
+        "desc": "球狀軸端的尖端磨平同時在中央設有突起，迴避、衝刺、反擊三種軌道都能夠。",
+        "attr": ["bal"]
+    }
+}

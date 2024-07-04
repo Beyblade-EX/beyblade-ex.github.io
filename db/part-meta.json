@@ -1,0 +1,50 @@
+{
+    "blade": {
+        "一體": {
+            "groups": ["UX","BX","remake"],
+            "default": ["UX","BX"],
+            "labels": ["UX","BX","復刻"],
+            "info": " 圖案代表與所示的 Blade 有相同形狀的塑膠下層。",
+            "title": {
+                "BSB": "〘復刻〙 攻擊環 結晶輪盤 Bakuten Shoot Beyblade",
+                "MFB": "〘復刻〙 鋼鐵戰魂 鋼鐵奇兵 攻擊環 結晶輪盤 Metal Fight Beyblade"
+            }
+        },
+        "_": {
+            "terms": ["重量"],
+            "filters": ["type","spin"]
+        }
+    },
+    "ratchet": {
+        "一體": {
+            "groups": ["low","mid","high"],
+            "default": ["low","mid","high"],
+            "labels": ["▃","▅","▇"],
+            "title": "Ratchet",
+            "info": "高度單位為 dmm，10 dmm＝1 mm。（<ruby>d<rt>deci</rt></ruby>＝1/10、<ruby>m<rt>milli</rt></ruby>＝1/1000）"
+        },
+        "_": {
+            "terms": ["重量", "RING刃數", "BASE高度"]
+        }
+    },
+    "bit": {
+        "軸心": {
+            "groups": ["flat","sharp","round","multi"],
+            "default": ["flat","sharp","round","multi"],
+            "labels": ["\ue019","\ue01a","\ue01b","\ue01c"],
+            "title": "Bit",
+            "filters": ["type","prefix"],
+            "info": "Gear 齒愈多，X Dash 時的速度就愈快，但迴轉速度下降也加快。Shaft 部指與 Ratchet 機關接觸部分，目前以最小直徑計算，愈粗就愈難被擊至爆裂。"
+        },
+        "_": {
+            "terms": ["重量", "GEAR齒數", "SHAFT粗度"],
+            "prefix": {
+                "D": {"eng": "Disk ",  "jap": "ディスク", "desc": "加上圓盤狀重量"},
+                "G": {"eng": "Gear ",  "jap": "ギア"    , "desc": "齒部延長"},
+                "H": {"eng": "High ",  "jap": "ハイ"    , "desc": "高度提升 10 "},
+                "L": {"eng": "Low ",   "jap": "ロー"    , "desc": "高度下降 10 "},
+                "M": {"eng": "Metal ", "jap": "メタル"  , "desc": "使用金屬軸端"}
+            }
+        }
+    }
+}

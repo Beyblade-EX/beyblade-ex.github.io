@@ -1,0 +1,28 @@
+<title>陀螺部件⬧Parts</title>
+<script src=/include/common.js></script>
+<script defer src=catalog.js></script>
+<script defer src=parts.js></script>
+<link rel=stylesheet href=catalog.css>
+<script>!location.search && !location.hash && (location.href = '?blade=一體')</script>
+
+<nav>
+    <menu>
+        <li><a href="?blade=一體"></a>
+        <li><a href="?ratchet=一體"></a>
+        <li><a href="?bit=軸心"></a>
+    </menu>
+    <data class=part-result></data>
+</nav>
+<db-status callback="location.search && Parts.catalog() || location.hash && Parts.list()"></db-status>
+<!--cmd: for %F in (*.png) do backgroundremover -i %F -o o/%F && magick mogrify -fuzz 5% -trim o/%F-->
+<main id=catalog>
+    <span class=loading></span>
+    <details hidden open>
+        <summary>&#xe026;</summary>
+        <article></article>
+    </details>
+    <section class=catalog></section>
+</main>
+<div hidden class=blade></div>
+<div hidden class=ratchet></div>
+<div hidden class=bit></div>
