@@ -203,7 +203,7 @@ announce.colors = new Mapping(
 </script>    
 
 <script>
-Q('input').onkeypress = ev => {
+Q('body>input').onkeypress = ev => {
     if ((ev.keyCode || ev.which) != 13) return;
     ev.target.value = ev.target.value.trim();
     if (/^i#.+$/i.test(ev.target.value))
