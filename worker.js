@@ -44,7 +44,11 @@ fetch.net = req => {
     return fetch(req).then(res => 
         (res.status < 400 && is.cacheable(req.url) ? fetch.cache(res) : Promise.resolve(res))
         .then(res => is.html(req.url) ? Head.add(res) : res)
-    ).catch(er => console.error(req.url) ?? console.error(er));
+    ).catch(er => {
+        console.error(req.url);
+        console.error(er);
+        new URL(req.url).pathname == '/' && self.registration.unregister();
+    });
 }
 fetch.cache = res => caches.open(is.part(res.url) ? 'parts' : 'V3')
     .then(cache => cache.put(res.url.replace(/[?#].*$/, ''), res.clone()))

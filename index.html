@@ -1,6 +1,5 @@
 <title>非官方資訊站⬧Unofficial site</title>
 <meta name=description content="最新日本陀螺情報、所有部件圖鑑、限量產品，都一應俱全。">
-<script>navigator.serviceWorker?.register('/worker.js').then(reg => reg.unregister())</script>
 <script src=include/common.js></script>
 <link rel=stylesheet href=index.css>
 <link rel=stylesheet href=/include/component.css>
@@ -180,7 +179,7 @@ announce.colors = new Mapping(
             DB.discard('V2', ev => message.innerText = ev.type == 'blocked' ? '請先關閉所有本網的分頁' : ev.type),
             caches.delete('V3'), caches.delete('parts'),
             localStorage.clear(),
-            navigator.serviceWorker?.register('/worker.js').then(reg => reg.unregister())
+            navigator.serviceWorker.getRegistrations().then(([reg]) => reg.unregister())
         ]);
         new Dragging('#reboot', {
             translate: {
