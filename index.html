@@ -179,6 +179,7 @@ announce.colors = new Mapping(
             DB.discard('V2', ev => message.innerText = ev.type == 'blocked' ? '請先關閉所有本網的分頁' : ev.type),
             caches.delete('V3'), caches.delete('parts'),
             localStorage.clear(),
+            navigator.serviceWorker?.register('/worker.js').then(reg => reg.unregister())
         ]);
         new Dragging('#reboot', {
             translate: {
