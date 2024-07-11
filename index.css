@@ -136,6 +136,9 @@ h3 {
         white-space:pre-wrap;
         padding:.5em;
     }
+    div>p {
+        display:block;
+    }
     div>:has(*) {
         flex-direction:column;
     }
