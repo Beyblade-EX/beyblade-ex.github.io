@@ -210,10 +210,12 @@ Object.assign(App, {
                     (drop, dragged, targeted) => {
                         drop.to.return();
                         targeted.setAttribute(...dragged.abbr[0]);
+                        gtag('event', 'customize', {deck: dragged.abbr[0][1]});
                     },
                     (drop, dragged) => {
                         drop.to.clone();
                         App.count(dragged);
+                        gtag('event', 'customize', {tier: dragged.abbr[0][1]});
                     },
                 ], {all: () => setTimeout(() => Q('.customizing')?.classList.remove('customizing'), 500)})
             }

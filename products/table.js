@@ -101,7 +101,10 @@ Object.assign(Finder, {
     esc: string => (string ?? '').replaceAll(' ', '').replace(/[’'ʼ´ˊ]/g, '′').replace(/([^\\])?([.*+?^${}()|[\]\\])/g, '$1\\$2'),
     find (query) {
         Finder.regexp = [], Finder.target = {more: [], parts: {}, free: ''};
-        query && Q('form').replaceChildren(...query.map(([comp, abbr]) => E('input', {name: comp, value: abbr, type: 'hidden'})));
+        if (query) {
+            Q('form').replaceChildren(...query.map(([comp, abbr]) => E('input', {name: comp, value: abbr, type: 'hidden'})));
+            gtag('event', 'search', query.reduce((obj, [comp, abbr]) => ({...obj, [comp]: abbr}), {}));
+        }
         for (let where of ['free', 'form'])
             if (Finder.read(where)) 
                 return Finder.process(where).build(where).search.beys(where);

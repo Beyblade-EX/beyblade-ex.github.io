@@ -121,7 +121,7 @@ const Sorter = () => {
     );
     dl.onchange = ({target: input}) => {
         Q('.catalog').append(...Parts.all.sort(Sorter.sort[input.id]).map(p => p.a));
-        input.checked && Storage('pref', {sort: input.id});
+        input.checked && Storage('pref', {sort: input.id}) && gtag('event', 'preference', {sort: input.id});
     };
     Sorter.release(Parts.comp);
     return dl;

@@ -177,7 +177,7 @@ class Knob extends HTMLElement {
     set alt(alt) {this.setAttribute('alt', alt);}
     θ = () => parseFloat(getComputedStyle(this).getPropertyValue('--angle'));
     auto = ev => this.style.setProperty('--angle', `${ev.type == 'pointerenter' ? this.maxθ : this.minθ}deg`)
-    hover = a => this.classList[a]('hover') ?? ['pointerenter', 'pointerout'].forEach(t => this[`${a}EventListener`](t, this.auto))
+    hover = action => this.classList[action]('hover') ?? ['pointerenter', 'pointerout'].forEach(t => this[`${action}EventListener`](t, this.auto))
     
     connectedCallback() {
         this.beforeChildren();
@@ -185,17 +185,21 @@ class Knob extends HTMLElement {
 
         new Dragging(this, {
             translate: false,
-            press: (drag) => (drag.pressθ = this.θ(), Dragging.start ??= drag.pressθ),
+            press: (drag) => (drag.pressθ = this.θ(), this.start ??= drag.pressθ),
             move: (drag) => {
                 let delta = Math.abs(drag.deltaY);
                 if (this.type == 'continuous' && delta < 2 || this.type == 'discrete' && delta < 50) return;
-                location.pathname == '/' && this.hasAttribute('alt') && Math.abs(this.θ() - Dragging.start) >= (this.maxθ - this.minθ)/2
-                    && (this.Q('a').href = this.getAttribute('alt')) && this.shadowRoot.Q('div').classList.add('dragged');
-                location.pathname == '/' && this.hover('remove');
+                if (location.pathname == '/') {
+                    if (this.hasAttribute('alt') && Math.abs(this.θ() - this.start) >= (this.maxθ - this.minθ)/2) {
+                        this.Q('a').href = this.getAttribute('alt');
+                        this.Q('a').onclick ??= () => gtag('event', 'knob', {alt: this.title});
+                        this.shadowRoot.Q('div').classList.add('dragged');
+                    }
+                    this.hover('remove');
+                }
                 this[this.type].getΔY(drag);
                 this[this.type].adjustValue();
-            },
-            lift: () => Dragging.start = null
+            }
         });
     }
     beforeChildren() {
