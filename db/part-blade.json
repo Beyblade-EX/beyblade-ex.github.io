@@ -1,4 +1,26 @@
 {
+    "LnCr": {
+        "group": "UX",
+        "names": {
+            "jap": "",
+            "eng": "LeonCrest",
+            "chi": ""
+        },
+        "stat": [],
+        "desc": "",
+        "attr": ["def","right"]
+    },
+    "PhRd": {
+        "group": "UX",
+        "names": {
+            "jap": "",
+            "eng": "PhoenixRudder",
+            "chi": ""
+        },
+        "stat": [],
+        "desc": "",
+        "attr": ["sta","right"]
+    },
     "BlSh": {
         "group": "BX",
         "names": {
@@ -19,7 +41,7 @@
             "chi": "鈷藍青龍 蒼穹/龍騎士",
             "reverse": true
         },
-        "stat": [],
+        "stat": ["38-"],
         "desc": "有厚尖端的四枚 Upper 刃擁有高撞飛性能。",
         "attr": ["att","left"]
     },
@@ -66,8 +88,7 @@
         },
         "stat": ["35+"],
         "desc": "外重心又大徑幅的五枚刃形狀，專門產生離心力。",
-        "attr": ["sta","right"],
-        "limited": true
+        "attr": ["sta","right"]
     },
     "HlHm": {
         "group": "UX",
@@ -133,8 +154,7 @@
         },
         "stat": ["38="],
         "desc": "厚重三枚刃猛烈撞向對手。金屬有塗裝令性能上升。",
-        "attr": ["att","right"],
-        "limited": true
+        "attr": ["att","right"]
     },
     "PhFt": {
         "group": "BX",
@@ -279,8 +299,7 @@
         },
         "stat": ["38-"],
         "desc": "四枚大型龍刃撞飛對手。金屬有塗裝令性能上升。",
-        "attr": ["att","right"],
-        "limited": true
+        "attr": ["att","right"]
     },
     "DRS": {
         "group": "remake",

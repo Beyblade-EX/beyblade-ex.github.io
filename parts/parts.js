@@ -133,7 +133,7 @@ Object.assign(Sorter, {
             [p.group, q.group].includes('remake') && Sorter.compare(p, q, p => p.group)
             || Sorter.compare(p, q, p => p.abbr[0] == '+')
             || Sorter.compare(p, q, p => parseInt(p.abbr))
-            || p.comp == 'bit' && Sorter.compare(p, q, p => p.strip().toLowerCase())
+            || Sorter.compare(p, q, p => p.strip().toLowerCase())
             || p.comp == 'bit' && Sorter.compare(p, q, p => p.abbr.length),
 
         weight: (p, q) => Sorter.compare(q, p, p => (w => parseInt(w) + ({'+': .2, '-': -.2}[w.at(-1)] ?? 0))(p.stat[0] || '0')),

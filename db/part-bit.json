@@ -17,8 +17,7 @@
         },
         "stat": ["2=",12,78],
         "desc": "球狀軸端以適度移動來躱避攻擊及實現高持久力。",
-        "attr": ["sta"],
-        "limited": true
+        "attr": ["sta"]
     },
     "DB": {
         "stat": ["3+"],
@@ -57,6 +56,16 @@
         "stat": ["2+",12,94],
         "desc": "平坦軸端令陀螺跑動，提高以 X Dash 決勝的容易度。",
         "attr": ["att"]
+    },
+    "G": {
+        "group": "round",
+        "names": {
+            "jap": "グライド",
+            "eng": "Glide"
+        },
+        "stat": [],
+        "desc": "",
+        "attr": ["sta"]
     },
     "GF": {
         "stat": ["2+"],
@@ -106,8 +115,7 @@
         },
         "stat": ["2=",12,78],
         "desc": "小型半球狀的軸端減低摩擦，提高持久性能。",
-        "attr": ["sta"],
-        "limited": true
+        "attr": ["sta"]
     },
     "P": {
         "group": "round",
