@@ -10,6 +10,7 @@ Mapping.maps = {
         ['BX-31'], '封入比例：01、02 各 3；03、04 各 4；05、06 各 5',
     ),
     images: new Mapping(
+        'UX-07', {detail: '${no}_(r|g|b)', more: '${no}_(r|g|b)'},
         'BX-21', {detail: '${no}_(p|y|o)', more: '${no}_(p|y|o)'},
         'BX-20', {detail: '${no}(B|G|P)', more: '${no}_(b|g|p)'},
         ['BX-17','UX-04'], {detail: '${no}(A|B)'},

@@ -115,7 +115,7 @@ const DB = {
         'prod-beys': (beys) => DB.put('product', [{beys}, {schedule: beys.map(bey => bey[2].split(' '))}]),
     },
     fetch: files => Promise.all(files.map(file => 
-            fetch(`/db/${file}.json`).then(resp => Promise.all([file, resp.json()]))
+            fetch(`/db/${file}.json`).then(resp => Promise.all([file, resp.json(), DB.clear(file.match(/[^-]+$/)[0]) ]))
         )).then(ar => ar.map(([file, json]) => 
             DB.action[file](json, file).then(() => Storage('DB', {[file]: Math.round(new Date() / 1000)} ))
         )).catch(er => (console.error(file), console.error(er))),
@@ -137,6 +137,9 @@ const DB = {
         DB.trans(store);
         Promise.all(items.map(item => DB.put(store, item, success))).then(res);
     }),
+    clear: (store) => new Promise(res => DB.store(DB.components.includes(store) ? `.${store}` : store).clear()
+            .onsuccess = () => res(Storage('DB', {[`part-${store}`]: null}))
+        ).catch(() => {})
 }
 Object.assign(DB.put, {
     parts: (parts, file) => DB.put(file.replace('part-', '.'), Object.entries(parts).map(([abbr, part]) => ({...part, abbr}) ), () => DB.indicator.update()),

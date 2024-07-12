@@ -2,23 +2,23 @@
     "LnCr": {
         "group": "UX",
         "names": {
-            "jap": "",
+            "jap": "レオンクレスト",
             "eng": "LeonCrest",
             "chi": ""
         },
         "stat": [],
-        "desc": "",
+        "desc": "垂直高聳形狀的厚七枚刃，防禦從任何方向而來的攻擊。",
         "attr": ["def","right"]
     },
     "PhRd": {
         "group": "UX",
         "names": {
-            "jap": "",
+            "jap": "フェニックスラダー",
             "eng": "PhoenixRudder",
             "chi": ""
         },
         "stat": [],
-        "desc": "",
+        "desc": "突出的逆台形六枚刃從上壓向對手並削弱持久力。金屬有塗裝令性能上升。",
         "attr": ["sta","right"]
     },
     "BlSh": {
