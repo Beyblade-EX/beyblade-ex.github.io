@@ -300,7 +300,7 @@ nav {
         grid-area:2/4/3/5; justify-self:flex-end;
 
         label {display:none;}
-        spin-knob {font-size:1.7em;}
+        spin-knob {margin-top:.15em; font-size:1.7em;}
         spin-knob i {font-size:.6em;}
     }
 }

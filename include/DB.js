@@ -112,7 +112,7 @@ const DB = {
         'part-meta': (json) => DB.put('meta', {part: json}),
         'prod-launchers': (json) => DB.put('product', {launchers: json}),
         'prod-others': (json) => DB.put('product', {others: json}),
-        'prod-beys': (beys) => DB.put('product', [{beys}, {schedule: beys.map(bey => bey[2].split(' '))}]),
+        'prod-beys': (beys) => DB.put('product', [{beys}, {schedule: beys/*.filter(bey => !bey[1].includes('H'))*/.map(bey => bey[2].split(' '))}]),
     },
     fetch: files => Promise.all(files.map(file => 
             fetch(`/db/${file}.json`).then(resp => Promise.all([file, resp.json(), DB.clear(file.match(/[^-]+$/)[0]) ]))
