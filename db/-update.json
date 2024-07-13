@@ -1,9 +1,9 @@
 {
   "prod-launchers":"2024/06/22 13:40:00",
   "prod-others":   "2024/06/22 13:40:00",
-  "prod-beys":     "2024/07/12 12:40:00",
-  "part-ratchet":  "2024/07/12 12:40:00",
-  "part-bit":      "2024/07/12 12:40:00",
+  "prod-beys":     "2024/07/13 11:50:00",
+  "part-ratchet":  "2024/07/13 11:50:00",
+  "part-bit":      "2024/07/13 11:50:00",
   "part-blade":    "2024/07/12 12:40:00",
   "part-meta":     "2024/05/22 00:55:00",
   "news": {
@@ -25,7 +25,9 @@
       "desc":["7 月 16 日起接受訂購，8 月 31 日至 9 月 1 日日本活動「東京<ruby class=below>おもちゃ<rt>玩具</ruby><ruby class=below>ショー<rt>Show</ruby>」取貨","<a href=https://corofes.jp/coroBase.php target=_blank>詳細</a>"]}
     ],
     "2024-07-30":[
-      {"code":"App 抽獎陀螺（大獎）","name":"<br>AeroPegasus 3-70A","type":"att"}
+      {"code":"App 抽獎陀螺（大獎）","name":"エアロペガサス3-70A<br>ダブルメタルコート：ブルー×グリーン<br>AeroPegasus 3-70A<br>Double Metal Coat: Blue × Green",
+      "imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/news/_image/news240712_2_1.png"],
+      "type":"att"}
     ],
     "2024-08-03":[
       {"code":"BXG-09 Starter","name":"ドランダガー2-80GP<br>メタルコート：ブラック<br>ジャイアンツVer.<br>DranDagger 2-80GP<br>Metal Coat: Black<br>GIANTS ver",
