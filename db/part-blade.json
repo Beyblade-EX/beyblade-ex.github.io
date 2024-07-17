@@ -335,10 +335,21 @@
         "desc": "兩枚水平刃産生高攻擊力及持久力，是重視平衡的設計。（2000 年發售的陀螺之 X 代復刻版）",
         "attr": ["bal","right"]
     },
+    "DGS": {
+        "group": "remake",
+        "names": {
+            "jap": "ドラグーンストーム",
+            "eng": "DragoonStorm",
+            "chi": ""
+        },
+        "stat": [""],
+        "desc": "（2000 年發售的陀螺之 X 代復刻版）",
+        "attr": ["att","left"]
+    },
     "SPg": {
         "group": "remake",
         "names": {
-            "jap": "",
+            "jap": "ストームペガシス",
             "eng": "StormPegasis",
             "chi": "烈風天馬 暴風天馬",
             "reverse": true
@@ -350,7 +361,7 @@
     "V2": {
         "group": "remake",
         "names": {
-            "jap": "",
+            "jap": "ビクトリーヴァルキリー",
             "eng": "VictoryValkyrie",
             "chi": "勝利武神 天翼戰神",
             "reverse": true
