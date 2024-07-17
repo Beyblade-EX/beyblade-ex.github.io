@@ -71,8 +71,8 @@ const DB = {
         });
     })),
     transfer: {
-        out: () => Promise.resolve(),//DB.get.all('user').then(data => sessionStorage.setItem('user', JSON.stringify(data))),
-        in: () => Promise.resolve()//DB.put('user', JSON.parse(sessionStorage.getItem('user') ?? '[]').map(item => ({[Array.isArray(item) ? '#deck' : '#tier'] : item})))
+        out: () => DB.get.all('user').then(data => sessionStorage.setItem('user', JSON.stringify(data))),
+        in: () => DB.put('user', JSON.parse(sessionStorage.getItem('user') ?? '[]').map(item => ({[Array.isArray(item) ? '#deck' : '#tier'] : item})))
     },
     open: () => DB.db ? true : 
         new Promise(res => Object.assign(indexedDB.open(DB.current, 1), {onsuccess: res, onupgradeneeded: res}))
@@ -135,7 +135,7 @@ const DB = {
         if (!Array.isArray(items))
             return DB.store(store).put(...items.abbr ? [items] : Object.entries(items)[0].reverse()).onsuccess = () => res(success?.());
         DB.trans(store);
-        Promise.all(items.map(item => DB.put(store, item, success))).then(res);
+        Promise.all(items.map(item => DB.put(store, item, success))).then(res).catch(er => (console.error(store), console.error(er)));
     }),
     clear: (store) => new Promise(res => DB.store(DB.components.includes(store) ? `.${store}` : store).clear()
             .onsuccess = () => res(Storage('DB', {[`part-${store}`]: null}))

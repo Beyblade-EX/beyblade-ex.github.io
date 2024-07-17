@@ -40,7 +40,7 @@ label:has(#keihin-m)::after,.keihin-m b::before {content:'\e001';}
         width:var(--size); height:var(--size);
         clip-path:polygon(50% 0%,0% 50%,50% 100%,100% 50%);
         background:#fbfbfd; color:black;
-        display:grid; grid-template:20% 7.5% 45% 12.5% 15% / 10% 80% 7% 3%;
+        display:grid; grid-template:20% 7.5% 44% 13.5% 15% / 10% 80% 7% 3%;
         grid-template-areas:'. type . .' '. desc . .' '. img img .' '. name . .' '. date . .';
         margin:calc(var(--shift)*-1) 0;
         transform:translate(calc(var(--shift)*var(--factor,0)));
@@ -104,7 +104,7 @@ label:has(#keihin-m)::after,.keihin-m b::before {content:'\e001';}
     small,.code {
         display:block;
         color:grey;
-        margin:.3em 0;
+        margin:.3em auto;
     }
     h5 small {
         scale:.95 1;
@@ -118,6 +118,11 @@ label:has(#keihin-m)::after,.keihin-m b::before {content:'\e001';}
     i {
         grid-area:name;
         font-size:.7em; font-style:italic;
+
+        small {
+            width:15em;
+            line-height:1.3;
+        }
     }
     time {
         grid-area:date;

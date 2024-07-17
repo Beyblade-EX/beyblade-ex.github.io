@@ -151,6 +151,12 @@ a[href],nav,form summary,caption label,:is(caption,#filter) button,#filter summa
     color:var(--theme-alt);
 }
 
+@keyframes remind {
+    0%,24% {text-shadow:0 0 0;}
+    25%,49% {text-shadow:.5em 0 0 hsla(45,90%,48%,.8);}
+    50%,74% {text-shadow:1em 0 0 hsla(45,90%,48%,.6);}
+    75%,100% {text-shadow:1.5em 0 0 hsla(45,90%,48%,.4);}
+}
 .animating menu {
     transition:transform .5s;
 }
@@ -193,6 +199,7 @@ nav {
             color:var(--theme-alt);
             margin-left:-.425em;
         }
+        &:hover::after {animation:remind .5s infinite;}
         li {
             height:100%; aspect-ratio:1/1; /*safari*/
             &:last-child {margin-left:1em;}

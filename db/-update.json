@@ -1,33 +1,23 @@
 {
-  "prod-launchers":"2024/06/22 13:40:00",
+  "prod-launchers":"2024/07/13 12:00:00",
   "prod-others":   "2024/06/22 13:40:00",
   "prod-beys":     "2024/07/13 12:00:00",
   "part-ratchet":  "2024/07/13 12:00:00",
   "part-bit":      "2024/07/13 12:00:00",
-  "part-blade":    "2024/07/13 12:00:00",
+  "part-blade":    "2024/07/17 11:10:00",
   "part-meta":     "2024/05/22 00:55:00",
   "news": {
-    "2024-07-13":[
-      {"code":"BX-32 Stadium","name":"ワイドエクストリームスタジアム<br>Wide Xtreme Stadium","imgs":["https://takaratomymall.jp/img/goods/5/4904810926719_f3a0a36d7e3d48309680198f5f481a28.jpg"],
-      "desc":["三人對戰盤","留意：「兩頰」旁是三分 Xtreme Zone，「貓耳」間是兩分 Over Zone"]},
 
-      {"code":"BX-34 starter","name":"コバルトドラグーン2-60C<br>CobaltDragoon 2-60C","type":"att",
-    "imgs":["https://takaratomymall.jp/img/goods/5/4904810914563_0c12d5908e5043249cc375d95f45ecf5.jpg","https://takaratomymall.jp/img/goods/L/4904810914563_d4eb647c01a245c786c31648bd250f1e.jpg","https://takaratomymall.jp/img/goods/1/4904810914563_8c7dac901b9a49c19f8bd9942ef5a891.jpg"],
-    "desc":["CobaltDragoon：X 代首個左迴轉 Blade，Upper 攻擊型","2-60 ratchet：左迴轉時攻擊、右迴轉時防禦","Cyclone bit：形狀同 Burst 代 Sp 軸，左迴星形","四聖獸青龍之 X 代轉生版"]},
-      {"code":"BX-35 random booster vol. 4","name":"ブラックシェル4-60D<br>BlackShell 4-60D","type":"def",
-    "imgs":["https://takaratomymall.jp/img/goods/L/4904810914570_f0cdcbda244443fe9edd1a9e13558315.jpg","https://m.media-amazon.com/images/S/aplus-media-library-service-media/8b4e2afb-f999-4323-9874-fd8831608c36.__CR0,0,970,600_PT0_SX970_V1___.jpg"],
-    "desc":["BlackShell：台形低重心","Dot bit：尖軸附有如 Burst 代 N 軸的密集凸起，增加摩擦","另一大獎：04，有 R 軸","四聖獸玄武之 X 代轉生版"]}
-    ],
-    "2024-07-16":[
-      {"code":"BXG-14 Starter（先行發售）","name":"コバルトドラグーン2-60C<br>メタルコート：ブラック<br>CobaltDragoon 2-60C<br>Metal Coat: Black",
-      "type":"att",
-      "imgs":["https://corofes.jp/img/coroBase/01.png","https://corofes.jp/img/coroBase/02.png","https://corofes.jp/img/coroBase/03.png","https://corofes.jp/img/coroBase/04.png"],
-      "desc":["7 月 16 日起接受訂購，8 月 31 日至 9 月 1 日日本活動「東京<ruby class=below>おもちゃ<rt>玩具</ruby><ruby class=below>ショー<rt>Show</ruby>」取貨","<a href=https://corofes.jp/coroBase.php target=_blank>詳細</a>"]}
-    ],
     "2024-07-30":[
-      {"code":"App 抽獎陀螺（大獎）","name":"エアロペガサス3-70A<br>ダブルメタルコート：ブルー×グリーン<br>AeroPegasus 3-70A<br>Double Metal Coat: Blue × Green",
+      {"code":"App 抽獎陀螺（大獎）","name":"エアロペガサス3-70A<br>ダブルメタルコート：ブルー×グリーン<br>AeroPegasus 3-70A<br>Double Metal Coat: Blue×Green",
       "imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/news/_image/news240712_2_1.png"],
-      "type":"att"}
+      "type":"att"},
+      {"code":"App 抽中後購買","name":"ビットセット F/T/B/N<br>ゴールド×ブラック<br>Bit Set: F/T/B/N<br>Gold×Black",
+      "imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BXG_bit01@1.png"]},
+      {"code":"App 抽中後購買","name":"ベイブレードステッカー<br>Beyblade Sticker",
+      "imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BXG_st03_list.png","https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BXG_st02_list.png","https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BXG_st01_list.png"],
+      "desc":["每套兩張，上面一張加下面隨機一張"]}
+
     ],
     "2024-08-03":[
       {"code":"BXG-09 Starter","name":"ドランダガー2-80GP<br>メタルコート：ブラック<br>ジャイアンツVer.<br>DranDagger 2-80GP<br>Metal Coat: Black<br>GIANTS ver",
@@ -43,9 +33,24 @@
       "imgs":["https://takaratomymall.jp/img/goods/5/4904810914594_07061c939fd84dca8b59c9026b1667bb.jpg","https://takaratomymall.jp/img/goods/L/4904810914594_688e9bce10ca4a57a0509b354d29cc2b.jpg","https://m.media-amazon.com/images/S/aplus-media-library-service-media/6c7449fd-6a93-4aaa-bd4d-01d7df7dfe43.__CR0,0,970,600_PT0_SX970_V1___.jpg"],
       "desc":["フェニックスラダー9-70G<br>PhoenixRudder 9-70G","PhoenixRudder：倒台形六枚刃，從高處壓抑對手持久","Glide bit：中央使用更滑溜素材","其餘：SphinxCowl 1-80GF<br>WyvernGale 2-60S"]}
     ],
+    "2024-08-31":[
+      {"code":"BXG-14 Starter（先行發售）","name":"コバルトドラグーン2-60C<br>メタルコート：ブラック<br>CobaltDragoon 2-60C<br>Metal Coat: Black",
+      "type":"att",
+      "imgs":["https://corofes.jp/img/coroBase/01.png","https://corofes.jp/img/coroBase/02.png","https://corofes.jp/img/coroBase/03.png","https://corofes.jp/img/coroBase/04.png"],
+      "desc":["7 月 16 日起接受訂購，8 月 31 日至 9 月 1 日日本活動「東京<ruby class=below>おもちゃ<rt>玩具</ruby><ruby class=below>ショー<rt>Show</ruby>」取貨","<a href=https://corofes.jp/coroBase.php target=_blank>詳細</a>"]}
+    ],
     "2024-09":[
       {"code":"BX-36 random booster select"},
       {"code":"BXG-?? random booster select"}
+    ],
+    "2025-03-21":[
+      {"code":"Set","name":"ベイブレード25周年記念セット",
+      "desc":["各代主角機體紀念組","配置：4-60RA、3-70RA、2-60RA"],
+      "imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BXG00@1.png",
+      "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BXG00_02@1.png",
+      "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BXG00_04@1.png",
+      "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BXG00_06@1.png",
+      "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BXG00_08@1.png"]}
     ]
   }
 

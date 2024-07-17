@@ -15,7 +15,7 @@ self.addEventListener('fetch', ev => ev.respondWith((() => {
     }
     return (is.internal(ev.request.url) ? caches.match(ev.request, {ignoreSearch: true}) : Promise.resolve())
         .then(cached => {
-            if (cached && is.image(ev.request.url))
+            if (cached && is.part(ev.request.url))
                 return cached;
             let fetching = fetch.net(ev.request);
             return cached ? is.html(ev.request.url) ? Head.add(cached) : cached : fetching;

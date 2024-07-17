@@ -40,6 +40,20 @@ nav {
         margin-top:.25em;
         color:var(--theme-alt);
     }
+    #sample {
+        grid-area:1/2/3/3; align-self:center;
+        padding:.75em; margin-left:1em;
+        font-size:.7em; color:black;
+        border-radius:50%;
+        background:var(--theme);
+        transform:rotate(-10deg);
+        cursor:pointer;
+        &::first-line {font-size:1.3em;}
+        &:has(br) {
+            padding:1em .75em .5em .75em;
+            line-height:1.2;
+        }
+    }
 }
 
 .animating :is(main,aside) {
@@ -94,9 +108,6 @@ h2 {
 #tier {
     padding-bottom:1em;
 
-    &[style] h2::before {
-        z-index:-1;
-    }
     article {
         width:min(100%,40rem);
         padding:0 .5rem;
@@ -111,6 +122,9 @@ h2 {
                 background:var(--tier);
                 mix-blend-mode:exclusion;
                 transform:skew(-20deg);
+            }
+            #tier[style] &::before {
+                z-index:-1;
             }
         }
         section {
@@ -147,6 +161,9 @@ main bey-x {
 }
 
 aside {
+    #tier.sample~& {
+        display:none;
+    }
     position:fixed; bottom:0; left:0;
     width:100%; height:calc(.2em + min(calc((100vw - 2rem)/3),8em));
     z-index:2;

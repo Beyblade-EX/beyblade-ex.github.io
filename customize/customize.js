@@ -104,9 +104,26 @@ Object.assign(App.act, {
             ev.target.id.includes('-deck') || location.hash == '#tier' ? 
                 App.act() : Q(location.hash).classList.toggle('actioning');
         };
+        Q('#sample').onclick = ev => {
+            if (Q('#tier.sample')) return location.reload();
+            ev.target.textContent = '重載即可回復';
+            App.events.observer.disconnect();
+            App.sample.forEach((beys, i) => Q(`#tier article:nth-of-type(${i+1}) section`).replaceChildren(...beys.map(bey => 
+                new Bey({blade: bey}, {collapse: true, onclick: function() {location.href = `/products/?${this.abbr[0].join('=')}`}})
+            )));
+            Q('#tier').classList.add('sample');
+            gtag('event', 'sample');
+        }
         Q('h2', h2 => h2.onclick = () => App.act(h2.title));
     },
 });
+App.sample = [
+    ['PhWn','WzRd'],
+    ['DrBs','TyBt','CbDr'],
+    ['ShEd','CbDg','DrSw','HlSc','KnSh'],
+    ['DrDg','UnSt','WsTg','HlCh','KnLn'],
+    ['PhFt','LnCl','HlHm','ShSh','BlSh','RhHr','SpCw','WzAr','VpTl','WyGl','DZS','DRS']
+];
 Object.assign(App, {
     save (hash) {
         if (!App.interacted) return;
@@ -119,8 +136,7 @@ Object.assign(App, {
     switch () {
         Q('main', main => main.hidden = !main.matches(location.hash ||= '#deck'));
         Q('.deck,.tier', el => el.hidden = !el.classList.contains(location.hash.substring(1)));
-
-        location.hash == '#tier' && App.count();
+        location.hash == '#tier' ? App.count() : Q('#tier.sample') && location.reload();
     },
     count (part) {
         (part ? [part] : Q('aside bey-x')).map(bey => {
@@ -136,9 +152,9 @@ Object.assign(App, {
             ev && Bey.lang(ev.target.value);
             App.save();
         }
-        this.events.observe = () => (observer => 
-            Q('article,section', el => observer.observe(el, { subtree: true, childList: true, attributeFilter: Bey.observedAttributes }))
-        )(new MutationObserver(() => App.save(location.hash)));
+        this.events.observer = new MutationObserver(() => App.save(location.hash));
+        this.events.observe = () => 
+            Q('article,section', el => this.events.observer.observe(el, { subtree: true, childList: true, attributeFilter: Bey.observedAttributes }));
 
         new Dragging('#deck', {
             hold: {to: bey => bey.abbr.length && (location.href = `/parts/#${bey.abbr.map(([comp, abbr]) => `${abbr}.${comp}`)}`)},
@@ -150,7 +166,7 @@ Object.assign(App, {
         });
         new Dragging('#tier', {
             hold: {
-                to: pressed => pressed.select(),
+                to: pressed => pressed.matches('#tier:not(.sample) bey-x') && pressed.select(),
                 redispatch: true
             },
             drop: {

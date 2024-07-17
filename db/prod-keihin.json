@@ -1,5 +1,10 @@
 [
     {
+        "type":"d", "note":"App 抽獎獎品", "date":"2024-07",
+        "bey":"ArPg 3-70A", "ver":["ダブルメタルコート：<br>ブルー×グリーン", "Double Metal Coat: Blue×Green"],
+        "img":["https://takaratomymall.jp/img/goods/L/4904810910510_ac63b10874dd470eb52bd9e7200c55b4.jpg"]
+    },
+    {
         "type":"m", "note":"實物版遊戲同梱", "link":"https://www.cs.furyu.jp/beyblade2024/", "date":"2024-11",
         "bey":"ShKn 4-60LF", "ver":["メタルコート：ブルー", "Metal Coat: Blue"],
         "img":["https://www.cs.furyu.jp/beyblade2024/assets/img/guide/special_bey.png",{"width":"100%"}]

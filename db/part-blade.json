@@ -1,4 +1,16 @@
 {
+    "ArPg": {
+        "group": "UX",
+        "names": {
+            "jap": "エアロペガサス",
+            "eng": "AeroPegasus",
+            "chi": "",
+            "reverse": true
+        },
+        "stat": [],
+        "desc": "",
+        "attr": ["att","right"]
+    },
     "LnCr": {
         "group": "UX",
         "names": {
@@ -26,10 +38,10 @@
         "names": {
             "jap": "ブラックシェル",
             "eng": "BlackShell",
-            "chi": "漆黑護殼",
+            "chi": "漆黑護殼 玄冥戰甲",
             "reverse": true
         },
-        "stat": ["32="],
+        "stat": ["32+"],
         "desc": "設於外周的向下傾斜八枚防禦刃，抵禦低位置而來的攻擊。",
         "attr": ["def","right"]
     },
@@ -322,6 +334,30 @@
         "stat": ["28-"],
         "desc": "兩枚水平刃産生高攻擊力及持久力，是重視平衡的設計。（2000 年發售的陀螺之 X 代復刻版）",
         "attr": ["bal","right"]
+    },
+    "SPg": {
+        "group": "remake",
+        "names": {
+            "jap": "",
+            "eng": "StormPegasis",
+            "chi": "烈風天馬 暴風天馬",
+            "reverse": true
+        },
+        "stat": [],
+        "desc": "（2009 年發售的陀螺之 X 代復刻版）",
+        "attr": ["att","right"]
+    },
+    "V2": {
+        "group": "remake",
+        "names": {
+            "jap": "",
+            "eng": "VictoryValkyrie",
+            "chi": "勝利武神 天翼戰神",
+            "reverse": true
+        },
+        "stat": [],
+        "desc": "（2016 年發售的陀螺之 X 代復刻版）",
+        "attr": ["att","right"]
     },
     "ShKn": {
         "group": "BX",

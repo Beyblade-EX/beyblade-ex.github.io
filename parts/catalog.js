@@ -80,14 +80,14 @@ Object.assign(Part.prototype.catalog.html, {
         ]);
     },
     names () {
-        let {abbr, group, comp, names} = this.part;
+        let {abbr, comp, names} = this.part;
         names ??= {};
         names.chi = (names.chi ?? '').split(' ');
         let children = comp != 'blade' ? 
             [E('h4', abbr.replace('-', '‒')), ...['jap','eng'].map(l => E('h5', names[l], {classList: l}))] : 
             [
-                Part.chi(group, names.chi[0], names.reverse),
-                Part.chi(group, names.chi[1] ?? '', names.reverse),
+                Part.chi(abbr, names.chi[0], names.reverse),
+                Part.chi(abbr, names.chi[1] ?? '', names.reverse),
                 E('h5', {classList: 'jap'}, names.jap),
                 Part.eng(names.eng, names.reverse)
             ];
@@ -112,8 +112,8 @@ Object.assign(Part.prototype.catalog.html, {
         return div;
     }
 });
-Part.chi = (group, chi, reverse) => E('h5', {
-    innerHTML: ['BSB','MFB','BBB'].includes(group) ? chi.replace(' ', ' ') : 
+Part.chi = (abbr, chi, reverse) => E('h5', {
+    innerHTML: /^D[ZRGC]/.test(abbr) ? chi.replace(' ', ' ') : 
         chi.replace(...chi.includes('/') ? 
             [/(.+)\/(.+)/, reverse ? '$1<span>$2</span>' : '<span>$1</span>$2'] : 
             [reverse ? /(..)$/ : /^(..)/, '<span>$1</span>']

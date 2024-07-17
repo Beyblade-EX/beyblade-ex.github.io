@@ -14,7 +14,7 @@ class Bey extends HTMLElement {
         options?.collapse && this.setAttribute('collapse', true);
         this.order = options?.order;
         this.init(bey);
-        this.onclick = this.select;
+        this.onclick = options?.onclick ?? this.select;
     }
     static eachPart = el => Bey.observedAttributes.map(c => E(el, {classList: c}, el == 'li' ? [E('img')] : null))
     init(bey) {
