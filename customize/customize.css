@@ -10,6 +10,8 @@ nav {
         margin-bottom:.2em;
     }
     div {
+        white-space:nowrap; 
+
         &:first-of-type {
             grid-area:1/4/2/5;
             align-self:end;
@@ -40,19 +42,13 @@ nav {
         margin-top:.25em;
         color:var(--theme-alt);
     }
-    #sample {
+    .sample {
         grid-area:1/2/3/3; align-self:center;
-        padding:.75em; margin-left:1em;
-        font-size:.7em; color:black;
-        border-radius:50%;
+        padding:.4em .4em .2em .4em; margin-left:.5em;
+        font-size:.8em; color:black; line-height:1.2;
         background:var(--theme);
-        transform:rotate(-10deg);
+        border-radius:.5em;
         cursor:pointer;
-        &::first-line {font-size:1.3em;}
-        &:has(br) {
-            padding:1em .75em .5em .75em;
-            line-height:1.2;
-        }
     }
 }
 
@@ -161,7 +157,7 @@ main bey-x {
 }
 
 aside {
-    #tier.sample~& {
+    .sample~& {
         display:none;
     }
     position:fixed; bottom:0; left:0;

@@ -16,7 +16,8 @@
         <select><option value=1>表 1<option value=2>表 2<option value=3>表 3</select>
         <i>&#xe00d;<br>&#xe00e;</i>
     </spin-knob-->
-    <span class=tier id=sample hidden>2024 年 7 月樣本<br>不影響已儲存内容</span>
+    <span class='deck sample' hidden>2024 年 6 月<br>日本 GP 選拔賽<br>優勝者組合</span>
+    <span class='tier sample' hidden>2024 年 7 月樣本</span>
     <div>
         <button type=button id=expand-deck class=deck>&#xe012; 展開</button>
         <button type=button id=export-image>&#xe03a; 製作圖片</button>
@@ -76,4 +77,21 @@
     <p class=text hidden>已複製：<blockquote></blockquote>
 </div>
 
-<script>App()</script>
+<script>
+    App();
+    App.sample = {
+        deck: [
+            ['PhWn 1-60 R','DrBs 5-60 LF','WzRd 3-60 B'],
+            ['CbDr 5-60 P','PhWn 9-60 B','WzRd 3-60 HN'],
+            ['TyBt 5-60 R','WzRd 3-60 B','CbDr 1-60 F'],
+            ['PhWn 3-60 HN','WzRd 9-60 B','DrBs 1-60 H']
+        ],
+        tier: [
+            ['PhWn','WzRd'],
+            ['DrBs','TyBt','CbDr'],
+            ['ShEd','CbDg','DrSw','HlSc','KnSh'],
+            ['DrDg','UnSt','WsTg','HlCh','KnLn'],
+            ['PhFt','LnCl','HlHm','ShSh','BlSh','RhHr','SpCw','WzAr','VpTl','WyGl','DZS','DRS']
+        ]
+    };
+</script>

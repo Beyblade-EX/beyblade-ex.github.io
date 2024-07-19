@@ -54,7 +54,6 @@ Object.assign(App.act, {
             App.act.popup('image');
             let target = Q(n ? `#deck article:nth-of-type(${n})` : '#tier');
             target.style.background = 'black';
-            //!n && (target.style.minWidth = '35rem') && (target.style.maxWidth = '40rem');
             setTimeout(() => html2canvas(target, {scale: 2}).then(canvas => {
                 E('a', {
                     href: canvas.toDataURL("image/png"),
@@ -104,26 +103,26 @@ Object.assign(App.act, {
             ev.target.id.includes('-deck') || location.hash == '#tier' ? 
                 App.act() : Q(location.hash).classList.toggle('actioning');
         };
-        Q('#sample').onclick = ev => {
-            if (Q('#tier.sample')) return location.reload();
+        Q('nav .sample', span => span.onclick = ev => {
+            const which = span.matches('.deck') ? 'deck' : 'tier';
+            if (Q(`#${which}.sample`)) return location.reload();
             ev.target.textContent = '重載即可回復';
             App.events.observer.disconnect();
-            App.sample.forEach((beys, i) => Q(`#tier article:nth-of-type(${i+1}) section`).replaceChildren(...beys.map(bey => 
-                new Bey({blade: bey}, {collapse: true, onclick: function() {location.href = `/products/?${this.abbr[0].join('=')}`}})
-            )));
-            Q('#tier').classList.add('sample');
+            which == 'deck' ? 
+                App.sample.deck.forEach((beys, i) => {
+                    let deck = Q(`#deck article:nth-of-type(${i+1})`);
+                    deck.replaceChildren(deck.Q('h2'), ...beys.map(bey => new Bey(bey, {onclick: function() {App.act.link(this)}} )));
+                }) : 
+                App.sample.tier.forEach((beys, i) => Q(`#tier article:nth-of-type(${i+1}) section`).replaceChildren(...beys.map(bey => 
+                    new Bey({blade: bey}, {collapse: true, onclick: function() {App.act.link(this)}})
+                )));
+            Q(`#${which}`).classList.add('sample');
             gtag('event', 'sample');
-        }
+        });
         Q('h2', h2 => h2.onclick = () => App.act(h2.title));
     },
+    link: bey => location.href = `/parts/#${bey.abbr.map(([comp, abbr]) => `${abbr}.${comp}`)}`
 });
-App.sample = [
-    ['PhWn','WzRd'],
-    ['DrBs','TyBt','CbDr'],
-    ['ShEd','CbDg','DrSw','HlSc','KnSh'],
-    ['DrDg','UnSt','WsTg','HlCh','KnLn'],
-    ['PhFt','LnCl','HlHm','ShSh','BlSh','RhHr','SpCw','WzAr','VpTl','WyGl','DZS','DRS']
-];
 Object.assign(App, {
     save (hash) {
         if (!App.interacted) return;
@@ -136,7 +135,7 @@ Object.assign(App, {
     switch () {
         Q('main', main => main.hidden = !main.matches(location.hash ||= '#deck'));
         Q('.deck,.tier', el => el.hidden = !el.classList.contains(location.hash.substring(1)));
-        location.hash == '#tier' ? App.count() : Q('#tier.sample') && location.reload();
+        Q('main.sample') ? location.reload() : location.hash == '#tier' && App.count();
     },
     count (part) {
         (part ? [part] : Q('aside bey-x')).map(bey => {
