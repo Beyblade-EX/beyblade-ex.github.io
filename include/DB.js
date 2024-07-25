@@ -164,7 +164,7 @@ Object.assign(DB.get, {
     ),
     async meta (comp, category) {
         let meta = await DB.get('meta', 'part');
-        meta = comp ? {...meta[comp][category], ...meta[comp]._} : meta.bit._;
+        meta = comp ? {...meta[comp][category], ...meta[comp]._} : {...meta.bit._, ...meta.ratchet._};
         let bit = !comp || comp == 'bit' ? {prefix: Object.keys(meta.prefix).join('')} : {};
         return {meta, bit, types: ['att', 'bal', 'def', 'sta']};
     },

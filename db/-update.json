@@ -7,54 +7,13 @@
   "part-ratchet":  "2024/11/02 23:00:00",
   "part-meta":     "2024/10/25 12:15:00",
   "news": {
-    "2024-11-02":[
-      {
-        "code": "BX-38 booster",
-        "name": "クリムゾンガルーダ4-70TP<br>CrimsonGaruda 4-70TP",
-        "type": "bal",
-        "imgs":["https://m.media-amazon.com/images/I/61GQqKJP0rL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/71+V-FD+8lL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/61gpyuKcaXL._AC_SX679_.jpg"],
-        "desc": [
-          "Blade：上段刃減輕 Stamina loss，下段刃擅長 Counter",
-          "Trans Point：裝上後，扭動可伸出／縮入 2mm",
-          "四聖獸朱雀之 X 代轉生版"
-        ]
-      },
-      {
-        "code": "UX-09 starter",
-        "name": "サムライセイバー2-70L<br>SamuraiSaber 2-70L",
-        "type": "att",
-        "imgs":["https://m.media-amazon.com/images/I/613t87XQd0L._AC_SX679_.jpg","https://m.media-amazon.com/images/I/61l0JrptkeL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/61UeeBLx+DL._AC_SX679_.jpg"],
-        "desc": [
-          "Blade：以離心力伸縮的小刃，伸出時變圓以連擊，縮入後以大刃一擊",
-          "Level Bit：三段不同闊度鋸齒狀平軸，以角度轉速",
-          "附「Hold Launcher」，與 Grip 合併的形狀，附四個可拆除的橡膠 Panel，Winder 亦較長"  
-        ]
-      },
-      {
-        "code": "UX-10 customize set 改造組合",
-        "name": "カスタマイズセットU<br>Customize Set U",
-        "imgs":["https://m.media-amazon.com/images/I/61o2EExmycL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/614ViUP658L._AC_SX679_.jpg","https://m.media-amazon.com/images/I/613hwtP85JL._AC_SX679_.jpg"],
-        "type":"def",
-        "desc": [
-          "4 Blade、3 Ratchet、6 Bit 組合",
-          "Knight<a href=https://en.wikipedia.org/wiki/Chain_mail target=_blank>Mail</a>：有三顆可動金屬球，吸收衝擊",
-          "3-85 Ratchet：新高度",
-          "Bound Spike：能上下移動的 Bit，亦是吸收衝擊",
-          "PteraSwing：鋸齒形下段刃削弱對手持久",
-          "7-70 Ratchet：新刃—高組合",
-          "其餘 Blade：TyrannoBeat（Red）、HellsHammer（Blue）",
-          "其餘 Ratchet：1-60",
-          "其餘 Bit：RA、MN、P、B、R"
-        ]
-      }
-    ],
-    "2024-11-16":[
-      {"code":"BXA-02/BXG-25 set","name":"ドランデッキスターター<br>Dran Deck Starter",
-    "imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BXA02@1.png"]}
-    ],
-    "2024-12":[
-      {"code":"UX-11 starter"},
-      {"code":"UX-12 random booster"},
+    "2024-12-28":[
+      {"code":"UX-11 starter","type":"att","name":"インパクトドレイク 9-60LR<br>ImpactDrake 9-60LR",
+      "imgs":["https://pbs.twimg.com/media/GcQ8hsIWsAACXEo?format=jpg","https://pbs.twimg.com/media/GcQ8hs_W4AA4Jhx?format=jpg","https://preview.redd.it/new-dragoon-and-random-booster-v0-28h9zeqhon0e1.jpg?width=690&format=pjpg&auto=webp&s=b87d2eecba187bba37d93a4bd975397a227a416c"],
+    "desc":["Blade 有橡膠，緊抓對手及撞走"]},
+      {"code":"UX-12 random booster vol.5","type":"sta","name":"ゴーストサークル 0-80GB<br>GhostCircle 0-80GB",
+    "imgs":["https://i.redd.it/i9hk2vsnqn0e1.jpeg","https://pbs.twimg.com/media/GcQ8hssXkAA9fFC?format=jpg"],
+  "desc":["近乎正圓，阻力減至最少","首個 0 枚刃 Ratchet"]},
       {"code":"BXG-11 booster"}
     ],
     "2025-01":[
