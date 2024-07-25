@@ -136,7 +136,7 @@ const announce = news => Object.entries(news).forEach(([date, beys]) => {
     });
 });
 announce.colors = new Mapping(
-    /entry set/i, 'SS',
+    /(stadium|entry) set/i, 'SS',
     /組合|Set/i, 'St',
     /Starter/i, 'S',
     /Random/i, 'RB',

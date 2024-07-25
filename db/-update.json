@@ -43,6 +43,23 @@
       {"code":"BX-36 random booster select"},
       {"code":"BXG-?? random booster select"}
     ],
+    "2024-10":[
+      {"code":"BX-37 stadium set 對戰盤組合"},
+      {"code":"UX-08 starter"}
+    ],
+    "2024-11":[
+      {"code":"BX-38 booster"},
+      {"code":"UX-09 入門 starter"},
+      {"code":"UX-10 customize set 改造組合"}
+    ],
+    "2024-12":[
+      {"code":"UX-11 starter"},
+      {"code":"UX-12 random booster"},
+      {"code":"BXG-?? booster"}
+    ],
+    "2025-01":[
+      {"code":"UX-13 booster"}
+    ],
     "2025-03-21":[
       {"code":"BXG-12 Set","name":"ベイブレード25周年記念セット",
       "desc":["各代主角機體紀念組","配置：4-60RA、3-70RA、2-60RA"],
