@@ -306,55 +306,6 @@ details {
 #app img {
     height:3em;
 }
-#gate {
-    margin-top:1em;
-    p {
-        padding:0 .5em; margin-bottom:0;
-    }
-    .gate {
-        display:grid; grid-template-columns:3em 1fr 3em;
-        user-select:none; -webkit-user-select:none;
-
-        i {
-            justify-self:center; align-self:center;
-        }
-        :not([style])+i {
-            opacity:0;
-        }
-        span {
-            background:linear-gradient(to right,hsla(0,80%,80%,.5),hsla(60,80%,80%,.5),hsla(120,80%,80%,.5),hsla(180,80%,80%,.5),hsla(240,80%,80%,.5));
-            width:50vw;
-            color:var(--theme-alt);
-            font-size:2em; line-height:1;
-            padding:.15em .2em 0 .2em;
-            touch-action:none;
-            position:relative;
-            z-index:1;
-
-            &::after {
-                content:'';
-                position:absolute; top:0;
-                width:1em; height:100%;
-            }
-            &:first-child {
-                justify-self:end;
-                text-align:right;
-
-                &::after {left:100%;}
-            }
-            &:last-child {
-                justify-self:start;
-                text-align:left;
-                grid-column-start:3;
-
-                &::after {right:100%;}
-            }
-            .animating & {
-                transition:transform .5s;
-            }
-        }
-    }
-}
 a[href^=customize] {
     position:relative;
     width:min(100%,20em);

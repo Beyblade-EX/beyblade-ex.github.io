@@ -37,7 +37,7 @@ let Parts = {
         await Filter.filter();
         if (keep === false) return;
         keep === true ? (location.hash = groups[0]) : location.hash && Parts.focus();
-        document.title = document.title.replace(/^.*?(?= ￨ )/, Parts.meta.title[groups] ?? Parts.meta.title);
+        document.title = document.title.replace(/^.*?(?= ￨ )/, Parts.meta.title?.[groups] ?? Parts.meta.title);
         Q('details article').innerHTML = typeof Parts.meta.info == 'string' ? Parts.meta.info : Parts.meta.info?.[groups] ?? '';
         Q('details').hidden = !Q('details article').innerHTML;
     },

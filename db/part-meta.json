@@ -1,14 +1,10 @@
 {
     "blade": {
         "一體": {
-            "groups": ["UX","BX","remake"],
+            "groups": ["UX","BX","remake","hasbro"],
             "default": ["UX","BX"],
-            "labels": ["UX","BX","復刻"],
-            "info": " 圖案代表與所示的 Blade 有相同形狀的塑膠下層。",
-            "title": {
-                "BSB": "〘復刻〙 攻擊環 結晶輪盤 Bakuten Shoot Beyblade",
-                "MFB": "〘復刻〙 鋼鐵戰魂 鋼鐵奇兵 攻擊環 結晶輪盤 Metal Fight Beyblade"
-            }
+            "labels": ["UX","BX","復刻","未出"],
+            "info": " 圖案代表與所示的 Blade 有相同形狀的塑膠下層。"
         },
         "_": {
             "terms": ["重量"],

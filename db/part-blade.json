@@ -7,7 +7,7 @@
             "chi": "",
             "reverse": true
         },
-        "stat": [],
+        "stat": ["38+"],
         "desc": "",
         "attr": ["att","right"]
     },
@@ -18,7 +18,7 @@
             "eng": "LeonCrest",
             "chi": ""
         },
-        "stat": [],
+        "stat": ["34+"],
         "desc": "垂直高聳形狀的厚七枚刃，防禦從任何方向而來的攻擊。",
         "attr": ["def","right"]
     },
@@ -29,7 +29,7 @@
             "eng": "PhoenixRudder",
             "chi": ""
         },
-        "stat": [],
+        "stat": ["35-"],
         "desc": "突出的逆台形六枚刃從上壓向對手並削弱持久力。金屬有塗裝令性能上升。",
         "attr": ["sta","right"]
     },
@@ -371,7 +371,7 @@
         "attr": ["att","right"]
     },
     "ShKn": {
-        "group": "BX",
+        "group": "hasbro",
         "names": {
             "jap": "シノビナイフ",
             "eng": "ShinobiKnife",
@@ -383,7 +383,7 @@
         "from": "RhHr"
     },
     "SmSt": {
-        "group": "BX",
+        "group": "hasbro",
         "names": {
             "jap": "サムライスチール",
             "eng": "SamuraiSteel",
@@ -395,27 +395,75 @@
         "from": "LnCl"
     },
     "PtTl": {
-        "group": "BX",
+        "group": "hasbro",
         "names": {
-            "jap": "プテラタロン",
-            "eng": "PteraTalon",
+            "jap": "プテラストローク",
+            "eng": "PteraStroke",
             "chi": ""
         },
         "stat": [],
-        "desc": "（目前只在孩之寶商品中收錄）",
+        "desc": "（目前只在孩之寶商品中收錄，稱「Talon Ptera」）",
         "attr": ["sta","right"],
         "from": "VpTl"
     },
     "MmTs": {
-        "group": "BX",
+        "group": "hasbro",
         "names": {
             "jap": "マンモタスク",
             "eng": "MammoTusk",
             "chi": ""
         },
         "stat": [],
-        "desc": "（目前只在孩之寶商品中收錄）",
+        "desc": "（目前只在孩之寶商品中收錄，稱「Tusk Mammoth」）",
         "attr": ["bal","right"],
         "from": "HlSc"
+    },
+    "BrSc": {
+        "group": "hasbro",
+        "names": {
+            "jap": "ベアスクラッチ",
+            "eng": "BearScratch",
+            "chi": ""
+        },
+        "stat": [],
+        "desc": "（目前只在孩之寶商品中收錄，稱「Savage Bear」）",
+        "attr": ["def","right"],
+        "from": "RhHr"
+    },
+    "YlKn": {
+        "group": "hasbro",
+        "names": {
+            "jap": "コングエール",
+            "eng": "KongYell",
+            "chi": ""
+        },
+        "stat": [],
+        "desc": "（目前只在孩之寶商品中收錄，稱「Kong Yell」）",
+        "attr": ["def","right"],
+        "from": "WyGl"
+    },
+    "CrCr": {
+        "group": "hasbro",
+        "names": {
+            "jap": "クロッククランチ",
+            "eng": "CrocCrunch",
+            "chi": ""
+        },
+        "stat": [],
+        "desc": "（目前只在孩之寶商品中收錄，稱「Bite Croc」）",
+        "attr": ["att","right"],
+        "from": "ShEd"
+    },
+    "TyRr": {
+        "group": "hasbro",
+        "names": {
+            "jap": "ティラノロア",
+            "eng": "TyrannoRoar",
+            "chi": ""
+        },
+        "stat": [],
+        "desc": "（目前只在孩之寶商品中收錄，稱「Roar Tyranno」）",
+        "attr": ["att","right"],
+        "from": "PhWn"
     }
 }
