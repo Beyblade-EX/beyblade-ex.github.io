@@ -52,7 +52,7 @@
       {"code":"BXG-?? booster"},
       {"code":"與實體漫畫同梱","name":"ドランバスター1-60A<br>メタルコート:レッド<br>DranBuster 1-60A<br>Metal Coat: Red","type":"att",
     "imgs":["https://lifetunes-mall.jp/img/3060/goods/3/R20240002-04.jpg"],
-    "desc":["現在預訂，<a href='https://lifetunes-mall.jp/shop/g/gR20240002/' target=_blank>詳細</a>"]}
+    "desc":["現在預訂，<a onclick>詳細</a>"]}
     ],
     "2025-01":[
       {"code":"UX-13 booster"}

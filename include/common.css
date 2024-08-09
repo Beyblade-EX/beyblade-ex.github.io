@@ -144,7 +144,7 @@ main {
 db-status:not([hidden])~main {
     margin-top:1em;
 }
-a[href],nav,form summary,caption label,:is(caption,#filter) button,#filter summary {
+a[href],a[onclick],nav,form summary,caption label,:is(caption,#filter) button,#filter summary {
     color:var(--theme);
 }
 .loading,.part-result,.prod-result,#filter.active summary {

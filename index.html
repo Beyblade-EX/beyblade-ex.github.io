@@ -124,6 +124,7 @@ const announce = news => Object.entries(news).forEach(([date, beys]) => {
         ], {classList: `scroller ${cl || announce.colors.find(code)}`});
 
         Q('#products').appendChild(div);
+        div.Q('a[onclick]', a => a.onclick = () => open('https://lifetunes-mall.jp/shop/g/gR20240002/','_blank'));
     });
 });
 announce.colors = new Mapping(
