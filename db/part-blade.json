@@ -1,4 +1,15 @@
 {
+    "WhWv": {
+        "group": "BX",
+        "names": {
+            "jap": "ホエールウェーブ",
+            "eng": "WhaleWave",
+            "chi": ""
+        },
+        "stat": ["38="],
+        "desc": "",
+        "attr": ["bal","right"]
+    },
     "ArPg": {
         "group": "UX",
         "names": {
@@ -357,6 +368,30 @@
         "stat": [],
         "desc": "（2009 年發售的陀螺之 X 代復刻版）",
         "attr": ["att","right"]
+    },
+    "LLd_u": {
+        "group": "remake",
+        "names": {
+            "jap": "ライトニングエルドラゴ_アッパー",
+            "eng": "LightningL-Drago_upper",
+            "chi": "雷霆魔龍 雷霆天龍",
+            "reverse": true
+        },
+        "stat": [],
+        "desc": "（2009 年發售的陀螺之 X 代復刻版）",
+        "attr": ["att","left"]
+    },
+    "LLd_r": {
+        "group": "remake",
+        "names": {
+            "jap": "ライトニングエルドラゴ_連打",
+            "eng": "LightningL-Drago_rush",
+            "chi": "雷霆魔龍 雷霆天龍",
+            "reverse": true
+        },
+        "stat": [],
+        "desc": "（2009 年發售的陀螺之 X 代復刻版）",
+        "attr": ["att","left"]
     },
     "V2": {
         "group": "remake",

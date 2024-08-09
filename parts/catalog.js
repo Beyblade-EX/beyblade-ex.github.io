@@ -82,13 +82,14 @@ Object.assign(Part.prototype.catalog.html, {
     names () {
         let {abbr, comp, names} = this.part;
         names ??= {};
+        Object.keys(names).forEach(k => typeof names[k] == 'string' && (names[k] = names[k].replace(/_(.+)/, '<sub>$1</sub>')));
         names.chi = (names.chi ?? '').split(' ');
         let children = comp != 'blade' ? 
             [E('h4', abbr.replace('-', '‒')), ...['jap','eng'].map(l => E('h5', names[l], {classList: l}))] : 
             [
                 Part.chi(abbr, names.chi[0], names.reverse),
                 Part.chi(abbr, names.chi[1] ?? '', names.reverse),
-                E('h5', {classList: 'jap'}, names.jap),
+                E('h5', {classList: 'jap', innerHTML: names.jap}),
                 Part.eng(names.eng, names.reverse)
             ];
         return children;
@@ -121,7 +122,7 @@ Part.chi = (abbr, chi, reverse) => E('h5', {
     classList: 'chi'
 });
 Part.eng = (eng, reverse) => E('h5', {
-    innerHTML: eng.replace(reverse ? /(?<=[a-z])[A-Z].+$/ : /^.+(?=[A-Z])/, '<span>$&</span>'),
+    innerHTML: eng.replace(reverse ? /(?<=[a-z])[A-Z][^<]+/ : /^.+(?=[A-Z])/, '<span>$&</span>'),
     classList: 'eng'  
 });
 

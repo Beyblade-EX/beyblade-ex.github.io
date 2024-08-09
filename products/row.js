@@ -122,7 +122,7 @@ class Cell {
         if (!lang) return;
         let {abbr, comp, pref, dash, core, mode} = this.dissect(true);
         let name = (comp == 'bit' && (pref || dash) ? Part.revise.name(NAMES[comp][abbr], pref[0]) : NAMES[comp]?.[abbr])?.[lang] ?? '';
-        this.td.innerHTML = this.fullname[lang](name, comp, core) + this.fullname.add(name, dash, mode);
+        this.td.innerHTML = this.fullname[lang](name, comp, core).replace(/_(.+)/, `<sub>$1</sub>`) + this.fullname.add(name, dash, mode);
     }
     static fullname = {
         eng: (name, comp, core) => (comp == 'bit' && name.length > 16 ? name.replace(' ', '<br>') : name),
@@ -157,7 +157,7 @@ class Cell {
         _image: {
             parse (type) {
                 Cell.images = [];
-                let no = Cell.text(this.td).replace('-','');
+                let no = Cell.text(this.td).replace('-', this.td.dataset.underscore ? '_' : '');
                 if (!this.td.dataset[type]) {
                     this.format(no, type, this.td.dataset.detailUpper);
                 } else {
@@ -174,7 +174,7 @@ class Cell {
                 type == 'detail' && Cell.images.push(`detail_${no.replace(/.+(?=\d)/, s => upper ? s : s.toLowerCase())}`);
             },
             juxtapose () {return [Cell.images].flat().map(src => E('img', {src: this.src(src)}))},
-            src: href => /^https|\/img\//.test(href) ? href : href.length >= 15 ? 
+            src: href => /^https|\/img\//.test(href) ? href : href.length > 15 ? 
                 `https://pbs.twimg.com/media/${href}?format=png&name=large` : 
                 `https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/${href}.png`,
         },

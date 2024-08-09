@@ -4,7 +4,7 @@
   "prod-beys":     "2024/08/08 23:30:00",
   "part-blade":    "2024/08/08 23:30:00",
   "part-ratchet":  "2024/07/13 12:00:00",
-  "part-bit":      "2024/07/13 12:00:00",
+  "part-bit":      "2024/08/09 11:40:00",
   "part-meta":     "2024/08/08 23:30:00",
   "news": {
     "2024-08-10":[
@@ -30,13 +30,14 @@
   "https://m.media-amazon.com/images/S/aplus-media-library-service-media/6ff61185-e51a-476a-b727-e8a9182663e3.__CR0,0,300,300_PT0_SX300_V1___.jpg"
   ],
 "desc":["WhaleWave：大型又有離心力的 Smash 攻擊五枚刃","Elevate Bit：X Dash 時因 X Line（齒條）抬起圓盤而浮起，更有效作 Smash 攻擊"]},
-      {"code":"BXG-?? random booster select","name":"ライトニングエルドラゴ1-60F<br>LightningL-Drago 1-60F","type":"att",
+      {"code":"BXG-07 random booster select","name":"ライトニングエルドラゴ1-60F<br>LightningL-Drago 1-60F","type":"att",
     "imgs":["https://m.media-amazon.com/images/S/aplus-media-library-service-media/f53a0a1d-0863-4699-bf03-7c53cfb9543a.__CR0,0,970,600_PT0_SX970_V1___.jpg",
-    "https://m.media-amazon.com/images/S/aplus-media-library-service-media/f53a0a1d-0863-4699-bf03-7c53cfb9543a.__CR0,0,970,600_PT0_SX970_V1___.jpg",
     "https://m.media-amazon.com/images/S/aplus-media-library-service-media/eb246f0d-b258-459d-bf5f-b3abc4d30c4f.__CR0,0,970,600_PT0_SX970_V1___.jpg"],
   "desc":["2009 年發售的陀螺復刻版","兩款的小抽包，有 Upper 型及連打型（不能轉換模式）"]}
     ],
     "2024-10":[
+      {"code":"コロコロ雜誌應募品","name":"フェニックスウイング5-80DB<br>PhoenixWing 5-80DB","type":"sta",
+      "desc":["填寫雜誌內的表格購買"]},
       {"code":"BX-37 stadium set 對戰盤組合"},
       {"code":"UX-08 starter"}
     ],
@@ -48,7 +49,10 @@
     "2024-12":[
       {"code":"UX-11 starter"},
       {"code":"UX-12 random booster"},
-      {"code":"BXG-?? booster"}
+      {"code":"BXG-?? booster"},
+      {"code":"與實體漫畫同梱","name":"ドランバスター1-60A<br>メタルコート:レッド<br>DranBuster 1-60A<br>Metal Coat: Red","type":"att",
+    "imgs":["https://lifetunes-mall.jp/img/3060/goods/3/R20240002-04.jpg"],
+    "desc":["現在預訂，<a href='https://lifetunes-mall.jp/shop/g/gR20240002/' target=_blank>詳細</a>"]}
     ],
     "2025-01":[
       {"code":"UX-13 booster"}

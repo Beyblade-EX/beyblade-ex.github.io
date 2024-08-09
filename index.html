@@ -112,7 +112,7 @@ const announce = news => Object.entries(news).forEach(([date, beys]) => {
         let {code, name, imgs, desc, type, color, class: cl} = bey;
         imgs ??= [];
         if (name && /[BU]XG?-\d+/.test(code)) {
-            let c = code.match(/[BU]XG?-\d+/)[0].replace('-','');
+            let c = code.match(/[BU]XG?-\d+/)[0].replace('-',/BXG-07/.test(code) ? '_':'');
             imgs = [base + `${c}@1.png`, ...imgs];
             imgs.push(...[2,3,4,5,6,7,8].map(n => base + `${c}${color ? `_${color}` : ''}_0${n}@1.png`));
         }

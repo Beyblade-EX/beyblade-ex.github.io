@@ -102,6 +102,11 @@ a object {
     margin-left:-.2em;
     text-transform:uppercase;
 }
+sub {
+    vertical-align:unset;
+    font-size:.7em;
+    margin-inline-start:.3em;
+}
 
 a ul {
     display:flex; gap:.2em;

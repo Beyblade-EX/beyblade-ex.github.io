@@ -47,6 +47,16 @@
         "desc": "在軸端的多數突起提高與對戰盤的摩擦，受攻擊時也不易被推走。",
         "attr": ["def"]
     },
+    "E": {
+        "group": "round",
+        "names": {
+            "jap": "エレベート",
+            "eng": "Elevate"
+        },
+        "stat": [],
+        "desc": "",
+        "attr": ["bal"]
+    },
     "F": {
         "group": "flat",
         "names": {

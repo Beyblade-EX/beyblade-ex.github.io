@@ -174,7 +174,6 @@ td[abbr]:not(:empty),td:first-child {
 tr[style] td:is(:nth-child(3),:nth-child(4)) {
     color:var(--coat,transparent);
 }
-.RB td:first-child::after {content:'\00a0';}
 /*below td*/
 td>*:not([onclick]) {
     pointer-events:none;
@@ -183,12 +182,16 @@ td>*:not([onclick]) {
 :is(td[data-more='1']:not([abbr]),td[data-more='1']+.left,td[data-more='1']+.left+.right)::after {content:'/' var(--more1);}
 td[abbr*='+'][abbr*=bit]::after {content:'\00a0';}
 
-td sub,td sup {
+td sup {
     position:absolute;
 }
+td sub {
+    margin-left:.2em;
+}
 td:first-child sub {
-    bottom:.1em; right:.1em;
+    margin:0 -.2em 0 .1em;
     scale:.9 1; letter-spacing:-.05em;
+    line-height:0; vertical-align:-.4em;
 }
 /*border*/
 tbody {--pad:.3em;}
@@ -210,6 +213,9 @@ table:has(#jap:checked) .left,
 table.bilingual .right:last-child {
     font-size:0;
     padding:0;
+}
+table.bilingual .right {
+    padding-left:0;
 }
 .bilingual:has(#jap:not(:checked)) u {
     display:none;
