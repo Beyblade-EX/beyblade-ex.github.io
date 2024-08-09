@@ -7,7 +7,7 @@
             "chi": ""
         },
         "stat": ["38="],
-        "desc": "",
+        "desc": "大徑且具離心力的 Smash 五枚刃，如籠罩對手地連打。",
         "attr": ["bal","right"]
     },
     "ArPg": {
@@ -27,9 +27,9 @@
         "names": {
             "jap": "レオンクレスト",
             "eng": "LeonCrest",
-            "chi": ""
+            "chi": "獅王徽章 雄獅巔峰"
         },
-        "stat": ["34+"],
+        "stat": ["35="],
         "desc": "垂直高聳形狀的厚七枚刃，防禦從任何方向而來的攻擊。",
         "attr": ["def","right"]
     },
@@ -38,7 +38,7 @@
         "names": {
             "jap": "フェニックスラダー",
             "eng": "PhoenixRudder",
-            "chi": ""
+            "chi": "鳳凰炎舵 鳳凰順羽"
         },
         "stat": ["35-"],
         "desc": "突出的逆台形六枚刃從上壓向對手並削弱持久力。金屬有塗裝令性能上升。",
@@ -65,7 +65,7 @@
             "reverse": true
         },
         "stat": ["38-"],
-        "desc": "有厚尖端的四枚 Upper 刃擁有高撞飛性能。",
+        "desc": "有厚尖端的四枚 Upper 刃擁有高撞飛性能。",
         "attr": ["att","left"]
     },
     "WsTg": {
@@ -77,7 +77,7 @@
             "reverse": true
         },
         "stat": ["35-"],
-        "desc": "一併持有 Upper 刃、Damper 刃及 Smash 刃三種性能。",
+        "desc": "一併持有 Upper 刃、Damper 刃及 Smash 刃三種性能。",
         "attr": ["bal","right"]
     },
     "ShSh": {
@@ -121,7 +121,7 @@
             "chi": "煉獄惡鎚 惡魔戰鎚"
         },
         "stat": ["33+"],
-        "desc": "有厚度的 Smash 刃專門把對手砸向對戰盤。",
+        "desc": "有厚度的 Smash 刃專門把對手砸向對戰盤。",
         "attr": ["bal","right"]
     },
     "DrBs": {
@@ -187,7 +187,7 @@
             "chi": "鳳凰翔羽"
         },
         "stat": ["33+"],
-        "desc": "三枚輕量 Upper 刃產生高速攻擊。",
+        "desc": "三枚輕量 Upper 刃產生高速攻擊。",
         "attr": ["att","right"],
         "from": "DrSw"
     },
@@ -210,7 +210,7 @@
             "chi": "翔龍神劍 蒼龍神劍"
         },
         "stat": ["35-"],
-        "desc": "三攻 Upper 刃擅長把對手向斜上方撞飛。",
+        "desc": "三攻 Upper 刃擅長把對手向斜上方撞飛。",
         "attr": ["att","right"]
     },
     "HlCh": {
@@ -232,7 +232,7 @@
             "chi": "煉獄魔鎌 惡魔紅鎌"
         },
         "stat": ["33-"],
-        "desc": "四枚 Smash 刃擅長令對手體勢傾倒。",
+        "desc": "四枚 Smash 刃擅長令對手體勢傾倒。",
         "attr": ["bal","right"]
     },
     "WzAr": {
@@ -287,7 +287,7 @@
             "chi": "烈鯊利刃 鮫鯊鋒鰭"
         },
         "stat": ["35-"],
-        "desc": "急角度的 Upper 刃侵入對手身内，能從低位置向上撞。",
+        "desc": "急角度的 Upper 刃侵入對手身内，能從低位置向上撞。",
         "attr": ["att","right"]
     },
     "LnCl": {
@@ -378,7 +378,7 @@
             "reverse": true
         },
         "stat": [],
-        "desc": "（2009 年發售的陀螺之 X 代復刻版）",
+        "desc": "在三處配置向左的 Upper 刃，重視 Upper 攻擊。（2009 年發售的陀螺之 X 代復刻版）",
         "attr": ["att","left"]
     },
     "LLd_r": {
@@ -390,7 +390,7 @@
             "reverse": true
         },
         "stat": [],
-        "desc": "（2009 年發售的陀螺之 X 代復刻版）",
+        "desc": "在三處配置向左的連打刃，重視連打攻擊。（2009 年發售的陀螺之 X 代復刻版）",
         "attr": ["att","left"]
     },
     "V2": {

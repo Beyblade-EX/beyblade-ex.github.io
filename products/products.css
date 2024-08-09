@@ -182,16 +182,17 @@ td>*:not([onclick]) {
 :is(td[data-more='1']:not([abbr]),td[data-more='1']+.left,td[data-more='1']+.left+.right)::after {content:'/' var(--more1);}
 td[abbr*='+'][abbr*=bit]::after {content:'\00a0';}
 
-td sup {
-    position:absolute;
+td s {
+    display:none;
 }
 td sub {
     margin-left:.2em;
+    vertical-align:-.4em;
 }
 td:first-child sub {
     margin:0 -.2em 0 .1em;
     scale:.9 1; letter-spacing:-.05em;
-    line-height:0; vertical-align:-.4em;
+    line-height:0; 
 }
 /*border*/
 tbody {--pad:.3em;}

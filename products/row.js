@@ -66,7 +66,7 @@ class Row {
             type.split(' ')[0] == 'RB' ? Row.RB++ : Row.RB = 0;
             video ??= [Q(`td[data-video]`)].flat().findLast(td => td?.custom().text == code)?.dataset.video;
             return E('td', 
-                [code.replace(/_X-(?=\d{2})/, 'X- '), Row.RB ? E('sub', `0${Row.RB}`) : ''], 
+                [code.replace(/_X-(?=\d{2})/, 'X- '), ...Row.RB ? [E('s', '-'), E('sub', `0${Row.RB}`)] : []], 
                 {dataset: {...Mapping.maps.images.find(code), ...video ? {video} : {}}}
             );
         }

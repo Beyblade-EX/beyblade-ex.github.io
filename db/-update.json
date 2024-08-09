@@ -1,43 +1,107 @@
 {
   "prod-launchers":"2024/07/13 12:00:00",
   "prod-others":   "2024/06/22 13:40:00",
-  "prod-beys":     "2024/08/08 23:30:00",
-  "part-blade":    "2024/08/08 23:30:00",
-  "part-ratchet":  "2024/07/13 12:00:00",
-  "part-bit":      "2024/08/09 11:40:00",
+  "prod-beys":     "2024/08/10 00:40:00",
+  "part-blade":    "2024/08/10 00:40:00",
+  "part-ratchet":  "2024/08/10 00:40:00",
+  "part-bit":      "2024/08/10 00:40:00",
   "part-meta":     "2024/08/08 23:30:00",
   "news": {
-    "2024-08-10":[
-      {"code":"BXG-15 Booster","name":"ドランザースパイラル3-80T ブラックVer.<br>DranzerSpiral 3-80T Black Ver.",
-      "type":"bal","desc":["日本活動「Beyblade Bar」先發售，然後為 App 獎品（購買）"]},
-      {"code":"UX-06 booster","name":"レオンクレスト7-60GN<br>LeonCrest 7-60GN","type":"def","desc":["LeonCrest：厚壁七枚刃"],
-    "imgs":["https://takaratomymall.jp/img/goods/5/4904810914600_c092a2b0efa14a18ac2954f8938739e4.jpg","https://takaratomymall.jp/img/goods/C/4904810914600_d0670b8eb6a541e3bc84c8dcd9651c7e.jpg","https://takaratomymall.jp/img/goods/5/4904810914600_c092a2b0efa14a18ac2954f8938739e4.jpg"]},
-      {"code":"UX-07 deck set","name":"フェニックスラダーデッキセット<br>PhoenixRudder Deck Set","type":"sta",
-      "imgs":["https://takaratomymall.jp/img/goods/5/4904810914594_07061c939fd84dca8b59c9026b1667bb.jpg","https://takaratomymall.jp/img/goods/L/4904810914594_688e9bce10ca4a57a0509b354d29cc2b.jpg","https://m.media-amazon.com/images/S/aplus-media-library-service-media/6c7449fd-6a93-4aaa-bd4d-01d7df7dfe43.__CR0,0,970,600_PT0_SX970_V1___.jpg"],
-      "desc":["フェニックスラダー9-70G<br>PhoenixRudder 9-70G","PhoenixRudder：倒台形六枚刃，從高處壓抑對手持久","Glide bit：中央使用更滑溜素材","其餘：SphinxCowl 1-80GF<br>WyvernGale 2-60S"]}
+    "2024-08-10": [
+      {
+        "code": "BXG-15 Booster",
+        "name": "ドランザースパイラル3-80T ブラックVer.<br>DranzerSpiral 3-80T Black Ver.",
+        "type": "bal",
+        "desc": [
+          "日本活動「Beyblade Bar」先發售，然後為 App 獎品（購買）"
+        ]
+      },
+      {
+        "code": "UX-06 booster",
+        "name": "レオンクレスト7-60GN<br>LeonCrest 7-60GN",
+        "type": "def",
+        "desc": [
+          "LeonCrest：厚壁七枚刃"
+        ],
+        "imgs": [
+          "https://takaratomymall.jp/img/goods/5/4904810914600_c092a2b0efa14a18ac2954f8938739e4.jpg",
+          "https://takaratomymall.jp/img/goods/C/4904810914600_d0670b8eb6a541e3bc84c8dcd9651c7e.jpg",
+          "https://takaratomymall.jp/img/goods/5/4904810914600_c092a2b0efa14a18ac2954f8938739e4.jpg"
+        ]
+      },
+      {
+        "code": "UX-07 deck set",
+        "name": "フェニックスラダーデッキセット<br>PhoenixRudder Deck Set",
+        "type": "sta",
+        "imgs": [
+          "https://takaratomymall.jp/img/goods/5/4904810914594_07061c939fd84dca8b59c9026b1667bb.jpg",
+          "https://takaratomymall.jp/img/goods/L/4904810914594_688e9bce10ca4a57a0509b354d29cc2b.jpg",
+          "https://m.media-amazon.com/images/S/aplus-media-library-service-media/6c7449fd-6a93-4aaa-bd4d-01d7df7dfe43.__CR0,0,970,600_PT0_SX970_V1___.jpg"
+        ],
+        "desc": [
+          "フェニックスラダー9-70G<br>PhoenixRudder 9-70G",
+          "PhoenixRudder：倒台形六枚刃，從高處壓抑對手持久",
+          "Glide bit：中央使用更滑溜素材",
+          "其餘：SphinxCowl 1-80GF<br>WyvernGale 2-60S"
+        ]
+      }
     ],
-    "2024-08-31":[
-      {"code":"BXG-14 Starter（先行發售）","name":"コバルトドラグーン2-60C<br>メタルコート：ブラック<br>CobaltDragoon 2-60C<br>Metal Coat: Black",
-      "type":"att",
-      "imgs":["https://corofes.jp/img/coroBase/01.png","https://corofes.jp/img/coroBase/02.png","https://corofes.jp/img/coroBase/03.png","https://corofes.jp/img/coroBase/04.png"],
-      "desc":["7 月 16 日起接受訂購，8 月 31 日至 9 月 1 日日本活動「東京<ruby class=below>おもちゃ<rt>玩具</ruby><ruby class=below>ショー<rt>Show</ruby>」取貨","<a href=https://corofes.jp/coroBase.php target=_blank>詳細</a>"]}
+    "2024-08-31": [
+      {
+        "code": "BXG-14 Starter（先行發售）",
+        "name": "コバルトドラグーン2-60C<br>メタルコート：ブラック<br>CobaltDragoon 2-60C<br>Metal Coat: Black",
+        "type": "att",
+        "imgs": [
+          "https://corofes.jp/img/coroBase/01.png",
+          "https://corofes.jp/img/coroBase/02.png",
+          "https://corofes.jp/img/coroBase/03.png",
+          "https://corofes.jp/img/coroBase/04.png"
+        ],
+        "desc": [
+          "7 月 16 日起接受訂購，8 月 31 日至 9 月 1 日日本活動「東京<ruby class=below>おもちゃ<rt>玩具</ruby><ruby class=below>ショー<rt>Show</ruby>」取貨",
+          "<a href=https://corofes.jp/coroBase.php target=_blank>詳細</a>"
+        ]
+      }
     ],
-    "2024-09-14":[
-      {"code":"BX-36 random booster select","name":"ホエールウェーブ5-80E<br>WhaleWave 5-80E","type":"bal",
-  "imgs":["https://m.media-amazon.com/images/S/aplus-media-library-service-media/daeea7db-dbd2-435f-8d81-28f0adbfde75.__CR0,0,970,600_PT0_SX970_V1___.jpg",
-  "https://m.media-amazon.com/images/S/aplus-media-library-service-media/1d4181f1-a146-49a3-8b72-9e4eac524b73.__CR0,0,300,300_PT0_SX300_V1___.jpg",
-  "https://m.media-amazon.com/images/S/aplus-media-library-service-media/f26eb300-4ec2-4318-a9b8-516bb8f493e8.__CR0,0,300,300_PT0_SX300_V1___.jpg",
-  "https://m.media-amazon.com/images/S/aplus-media-library-service-media/6ff61185-e51a-476a-b727-e8a9182663e3.__CR0,0,300,300_PT0_SX300_V1___.jpg"
-  ],
-"desc":["WhaleWave：大型又有離心力的 Smash 攻擊五枚刃","Elevate Bit：X Dash 時因 X Line（齒條）抬起圓盤而浮起，更有效作 Smash 攻擊"]},
-      {"code":"BXG-07 random booster select","name":"ライトニングエルドラゴ1-60F<br>LightningL-Drago 1-60F","type":"att",
-    "imgs":["https://m.media-amazon.com/images/S/aplus-media-library-service-media/f53a0a1d-0863-4699-bf03-7c53cfb9543a.__CR0,0,970,600_PT0_SX970_V1___.jpg",
-    "https://m.media-amazon.com/images/S/aplus-media-library-service-media/eb246f0d-b258-459d-bf5f-b3abc4d30c4f.__CR0,0,970,600_PT0_SX970_V1___.jpg"],
-  "desc":["2009 年發售的陀螺復刻版","兩款的小抽包，有 Upper 型及連打型（不能轉換模式）"]}
+    "2024-09-14": [
+      {
+        "code": "BX-36 random booster select",
+        "name": "ホエールウェーブ5-80E<br>WhaleWave 5-80E",
+        "type": "bal",
+        "imgs": [
+          "https://m.media-amazon.com/images/S/aplus-media-library-service-media/daeea7db-dbd2-435f-8d81-28f0adbfde75.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+          "https://m.media-amazon.com/images/S/aplus-media-library-service-media/1d4181f1-a146-49a3-8b72-9e4eac524b73.__CR0,0,300,300_PT0_SX300_V1___.jpg",
+          "https://m.media-amazon.com/images/S/aplus-media-library-service-media/f26eb300-4ec2-4318-a9b8-516bb8f493e8.__CR0,0,300,300_PT0_SX300_V1___.jpg",
+          "https://m.media-amazon.com/images/S/aplus-media-library-service-media/6ff61185-e51a-476a-b727-e8a9182663e3.__CR0,0,300,300_PT0_SX300_V1___.jpg"
+        ],
+        "desc": [
+          "WhaleWave：大型又有離心力的 Smash 攻擊五枚刃",
+          "Elevate Bit：X Dash 時因 X Line（齒條）抬起圓盤而浮起，更有效作 Smash 攻擊"
+        ]
+      },
+      {
+        "code": "BXG-07 random booster select",
+        "name": "ライトニングエルドラゴ1-60F<br>LightningL-Drago 1-60F",
+        "type": "att",
+        "imgs": [
+          "https://m.media-amazon.com/images/S/aplus-media-library-service-media/f53a0a1d-0863-4699-bf03-7c53cfb9543a.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+          "https://m.media-amazon.com/images/S/aplus-media-library-service-media/eb246f0d-b258-459d-bf5f-b3abc4d30c4f.__CR0,0,970,600_PT0_SX970_V1___.jpg"
+        ],
+        "desc": [
+          "2009 年發售的陀螺復刻版",
+          "兩款的小抽包，有 Upper 型及連打型（不能轉換模式）"
+        ]
+      },
+      {
+        "code": "コロコロ雜誌應募品",
+        "name": "フェニックスウイング5-80DB<br>PhoenixWing 5-80DB",
+        "type": "sta",
+        "desc": [
+          "填寫雜誌內的表格購買"
+        ]
+      }
     ],
     "2024-10":[
-      {"code":"コロコロ雜誌應募品","name":"フェニックスウイング5-80DB<br>PhoenixWing 5-80DB","type":"sta",
-      "desc":["填寫雜誌內的表格購買"]},
       {"code":"BX-37 stadium set 對戰盤組合"},
       {"code":"UX-08 starter"}
     ],
