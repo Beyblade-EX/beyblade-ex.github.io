@@ -94,8 +94,9 @@
       },
       {
         "code": "コロコロ雜誌應募品",
-        "name": "フェニックスウイング5-80DB<br>PhoenixWing 5-80DB",
+        "name": "フェニックスウイング9-80DB<br>メタルコート：ネイビー<br>PhoenixWing 9-80DB<br>Metal Coat: Navy",
         "type": "sta",
+        "imgs": ["https://corocoro.jp/wp-content/uploads/2024/08/7a8cdbff648686aec08ac1c37f7ea737.jpg"],
         "desc": [
           "填寫雜誌內的表格購買"
         ]
