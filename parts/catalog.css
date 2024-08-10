@@ -338,6 +338,20 @@ a div {
     }
 }
 
+nav.safari:has(.part-filter.blade) {
+    grid-template:1.7rem 1.7rem / 3em 3fr 2fr auto;
+    @media (min-width:631px) {grid-template:1.7rem 1.7rem / 3em auto 1fr auto;}
+
+    .part-sorter {
+        grid-area:1/3/1/5;
+        @media (max-width:630px) {
+            margin-right:3em !important;
+        }
+    }
+}
+.part-sorter {
+    grid-area:1/3/1/4;
+}
 .part-filter {
     &[title=group] {
         grid-area:1/2/1/3;
@@ -351,9 +365,6 @@ a div {
         max-width:100%;
     }
 }
-.part-sorter {
-    grid-area:1/3/1/4;
-}
 .part-filter[hidden]+dl[title=spin] {
     grid-area:2/2/2/3;
 }
@@ -365,6 +376,7 @@ a div {
     background:var(--overlay2);
     border-radius:9em;
     line-height:1.8rem;
+    max-width:100%;
 
     &::-webkit-scrollbar {
         display:none;
@@ -411,7 +423,7 @@ a div {
         }
     }
 }
-.part-filter.blade dd:last-child label {
+.part-filter.blade dd:nth-child(2)~dd label {
     font-size:.9em;
 }
 
