@@ -63,7 +63,8 @@ class Row {
     }
     static create = {
         code (code, type, video) {
-            type.split(' ')[0] == 'RB' ? Row.RB++ : Row.RB = 0;
+            type.split(' ')[0] == 'RB' ? code == Row.current ? Row.RB++ : Row.RB = 1 : Row.RB = 0;
+            Row.current = code;
             video ??= [Q(`td[data-video]`)].flat().findLast(td => td?.custom().text == code)?.dataset.video;
             return E('td', 
                 [code.replace(/_X-(?=\d{2})/, 'X- '), ...Row.RB ? [E('s', '-'), E('sub', `0${Row.RB}`)] : []], 

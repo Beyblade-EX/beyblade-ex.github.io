@@ -2,7 +2,7 @@
   "prod-launchers":"2024/07/13 12:00:00",
   "prod-others":   "2024/06/22 13:40:00",
   "prod-beys":     "2024/08/10 00:40:00",
-  "part-blade":    "2024/08/10 00:40:00",
+  "part-blade":    "2024/08/13 16:10:00",
   "part-ratchet":  "2024/08/10 00:40:00",
   "part-bit":      "2024/08/10 00:40:00",
   "part-meta":     "2024/08/08 23:30:00",
@@ -121,15 +121,6 @@
     ],
     "2025-01":[
       {"code":"UX-13 booster"}
-    ],
-    "2025-03-21":[
-      {"code":"BXG-12 Set","name":"ベイブレード25周年記念セット",
-      "desc":["各代主角機體紀念組","配置：4-60RA、3-70RA、2-60RA"],
-      "imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BXG00@1.png",
-      "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BXG00_02@1.png",
-      "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BXG00_04@1.png",
-      "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BXG00_06@1.png",
-      "https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BXG00_08@1.png"]}
     ]
   }
 

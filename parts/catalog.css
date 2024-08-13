@@ -423,7 +423,7 @@ nav.safari:has(.part-filter.blade) {
         }
     }
 }
-.part-filter.blade dd:nth-child(2)~dd label {
+.part-filter.blade dd:nth-of-type(2)~dd label {
     font-size:.9em;
 }
 

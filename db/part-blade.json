@@ -27,7 +27,7 @@
         "names": {
             "jap": "レオンクレスト",
             "eng": "LeonCrest",
-            "chi": "獅王徽章 雄獅巔峰"
+            "chi": "獅王徽章 雄獅巓峰"
         },
         "stat": ["35="],
         "desc": "垂直高聳形狀的厚七枚刃，防禦從任何方向而來的攻擊。",
@@ -425,7 +425,7 @@
             "chi": ""
         },
         "stat": [],
-        "desc": "（目前只在孩之寶商品中收錄）",
+        "desc": "（目前只在孩之寶商品中收錄，稱「Steel Samurai」）",
         "attr": ["bal","right"],
         "from": "LnCl"
     },
@@ -465,7 +465,7 @@
         "attr": ["def","right"],
         "from": "RhHr"
     },
-    "YlKn": {
+    "KnYl": {
         "group": "hasbro",
         "names": {
             "jap": "コングエール",
