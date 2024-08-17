@@ -4,48 +4,9 @@
   "prod-beys":     "2024/08/10 00:40:00",
   "part-blade":    "2024/08/13 16:10:00",
   "part-ratchet":  "2024/08/10 00:40:00",
-  "part-bit":      "2024/08/10 00:40:00",
+  "part-bit":      "2024/08/13 16:10:00",
   "part-meta":     "2024/08/08 23:30:00",
   "news": {
-    "2024-08-10": [
-      {
-        "code": "BXG-15 Booster",
-        "name": "ドランザースパイラル3-80T ブラックVer.<br>DranzerSpiral 3-80T Black Ver.",
-        "type": "bal",
-        "desc": [
-          "日本活動「Beyblade Bar」先發售，然後為 App 獎品（購買）"
-        ]
-      },
-      {
-        "code": "UX-06 booster",
-        "name": "レオンクレスト7-60GN<br>LeonCrest 7-60GN",
-        "type": "def",
-        "desc": [
-          "LeonCrest：厚壁七枚刃"
-        ],
-        "imgs": [
-          "https://takaratomymall.jp/img/goods/5/4904810914600_c092a2b0efa14a18ac2954f8938739e4.jpg",
-          "https://takaratomymall.jp/img/goods/C/4904810914600_d0670b8eb6a541e3bc84c8dcd9651c7e.jpg",
-          "https://takaratomymall.jp/img/goods/5/4904810914600_c092a2b0efa14a18ac2954f8938739e4.jpg"
-        ]
-      },
-      {
-        "code": "UX-07 deck set",
-        "name": "フェニックスラダーデッキセット<br>PhoenixRudder Deck Set",
-        "type": "sta",
-        "imgs": [
-          "https://takaratomymall.jp/img/goods/5/4904810914594_07061c939fd84dca8b59c9026b1667bb.jpg",
-          "https://takaratomymall.jp/img/goods/L/4904810914594_688e9bce10ca4a57a0509b354d29cc2b.jpg",
-          "https://m.media-amazon.com/images/S/aplus-media-library-service-media/6c7449fd-6a93-4aaa-bd4d-01d7df7dfe43.__CR0,0,970,600_PT0_SX970_V1___.jpg"
-        ],
-        "desc": [
-          "フェニックスラダー9-70G<br>PhoenixRudder 9-70G",
-          "PhoenixRudder：倒台形六枚刃，從高處壓抑對手持久",
-          "Glide bit：中央使用更滑溜素材",
-          "其餘：SphinxCowl 1-80GF<br>WyvernGale 2-60S"
-        ]
-      }
-    ],
     "2024-08-31": [
       {
         "code": "BXG-14 Starter（先行發售）",
@@ -89,7 +50,8 @@
         ],
         "desc": [
           "2009 年發售的陀螺復刻版",
-          "兩款的小抽包，有 Upper 型及連打型（不能轉換模式）"
+          "兩款的小抽包，有 Upper 型及連打型（不能轉換模式）",
+          "官方對戰只能擇一款使用"
         ]
       },
       {
