@@ -82,15 +82,14 @@ Object.assign(Part.prototype.catalog.html, {
     names () {
         let {abbr, comp, names} = this.part;
         names ??= {};
-        Object.keys(names).forEach(k => typeof names[k] == 'string' && (names[k] = names[k].replace(/_(.+)/, '<sub>$1</sub>')));
         names.chi = (names.chi ?? '').split(' ');
         let children = comp != 'blade' ? 
             [E('h4', abbr.replace('-', '‒')), ...['jap','eng'].map(l => E('h5', names[l], {classList: l}))] : 
             [
-                Part.chi(abbr, names.chi[0], names.reverse),
-                Part.chi(abbr, names.chi[1] ?? '', names.reverse),
-                E('h5', {classList: 'jap', innerHTML: names.jap}),
-                Part.eng(names.eng, names.reverse)
+                Part.chi(abbr, names.chi[0]),
+                Part.chi(abbr, names.chi[1] ?? ''),
+                E('h5', {classList: 'jap', innerHTML: Markup(names.jap, 'parts')}),
+                E('h5', {classList: 'eng', innerHTML: Markup(names.eng, 'parts')}),
             ];
         return children;
     },
@@ -113,17 +112,10 @@ Object.assign(Part.prototype.catalog.html, {
         return div;
     }
 });
-Part.chi = (abbr, chi, reverse) => E('h5', {
+Part.chi = (abbr, chi) => E('h5', {
     innerHTML: /^D[ZRGC]/.test(abbr) ? chi.replace(' ', ' ') : 
-        chi.replace(...chi.includes('/') ? 
-            [/(.+)\/(.+)/, reverse ? '$1<span>$2</span>' : '<span>$1</span>$2'] : 
-            [reverse ? /(..)$/ : /^(..)/, '<span>$1</span>']
-        ), 
+        Markup(chi, 'parts'), 
     classList: 'chi'
-});
-Part.eng = (eng, reverse) => E('h5', {
-    innerHTML: eng.replace(reverse ? /(?<=[a-z])[A-Z][^<]+/ : /^.+(?=[A-Z])/, '<span>$&</span>'),
-    classList: 'eng'  
 });
 
 Part.triangle = () => {

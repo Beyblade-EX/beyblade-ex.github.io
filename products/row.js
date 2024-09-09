@@ -123,12 +123,12 @@ class Cell {
         if (!lang) return;
         let {abbr, comp, pref, dash, core, mode} = this.dissect(true);
         let name = (comp == 'bit' && (pref || dash) ? Part.revise.name(NAMES[comp][abbr], pref[0]) : NAMES[comp]?.[abbr])?.[lang] ?? '';
-        this.td.innerHTML = this.fullname[lang](name, comp, core).replace(/_(.+)/, `<sub>$1</sub>`) + this.fullname.add(name, dash, mode);
+        this.td.innerHTML = this.fullname[lang](name, comp, core) + this.fullname.add(name, dash, mode);
     }
     static fullname = {
-        eng: (name, comp, core) => (comp == 'bit' && name.length > 16 ? name.replace(' ', '<br>') : name),
-        jap: (name, comp, core) => (comp == 'bit' && name.length > 8 ? name : name),
-        chi: (name, comp, core) => name.replace(' ', '⬧').replace('/', ''),
+        eng: (name, comp, core) => Markup(name, 'products'),
+        jap: (name, comp, core) => Markup(name, 'products'),
+        chi: (name, comp, core) => Markup(name, 'products'),
         add: (name, dash, mode) => (name && dash ? '<i>′</i>' : ''),
     }
 

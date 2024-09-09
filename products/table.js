@@ -136,7 +136,7 @@ Object.assign(Finder, {
         names: (comp, typed) =>
             Object.keys(NAMES[comp]).filter(abbr => 
                 new RegExp(`^${typed}$`, 'i').test(abbr) || 
-                !/^[^一-龥]{1,2}(′|\\\+)?$/.test(typed) && Object.values(NAMES[comp][abbr] ?? {}).some(n => new RegExp(typed, 'i').test(n))
+                !/^[^一-龥]{1,2}(′|\\\+)?$/.test(typed) && Object.values(NAMES[comp][abbr] ?? {}).some(n => new RegExp(typed, 'i').test(Markup.sterilize(n)))
             ),
         beys (where) {
             Q('#regular.new') && Table.show.entire();

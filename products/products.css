@@ -188,11 +188,17 @@ td s {
 td sub {
     margin-left:.2em;
     vertical-align:-.4em;
+    line-height:0;
 }
 td:first-child sub {
     margin:0 -.2em 0 .1em;
     scale:.9 1; letter-spacing:-.05em;
-    line-height:0; 
+}
+td.right sub.long {
+    max-width: 2em; display: inline-block;
+    white-space: break-spaces;
+    font-size: 0.6em; line-height: 1.1;
+    vertical-align: middle;
 }
 /*border*/
 tbody {--pad:.3em;}

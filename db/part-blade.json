@@ -4,7 +4,7 @@
         "names": {
             "jap": "ホエールウェーブ",
             "eng": "WhaleWave",
-            "chi": ""
+            "chi": "戰鯨波浪 巨鯨怒濤"
         },
         "stat": ["38="],
         "desc": "大徑且具離心力的 Smash 五枚刃，如籠罩對手地連打。",
@@ -14,9 +14,8 @@
         "group": "UX",
         "names": {
             "jap": "エアロペガサス",
-            "eng": "AeroPegasus",
-            "chi": "",
-            "reverse": true
+            "eng": "Aero\\Pegasus",
+            "chi": ""
         },
         "stat": ["38+"],
         "desc": "",
@@ -38,7 +37,7 @@
         "names": {
             "jap": "フェニックスラダー",
             "eng": "PhoenixRudder",
-            "chi": "鳳凰炎舵 鳳凰順羽"
+            "chi": "鳳凰炎舵 鳳凰尾翼"
         },
         "stat": ["35-"],
         "desc": "突出的逆台形六枚刃從上壓向對手並削弱持久力。金屬有塗裝令性能上升。",
@@ -48,9 +47,8 @@
         "group": "BX",
         "names": {
             "jap": "ブラックシェル",
-            "eng": "BlackShell",
-            "chi": "漆黑護殼 玄冥戰甲",
-            "reverse": true
+            "eng": "Black\\Shell",
+            "chi": "漆黑\\護殼 玄冥\\戰甲"
         },
         "stat": ["32+"],
         "desc": "設於外周的向下傾斜八枚防禦刃，抵禦低位置而來的攻擊。",
@@ -60,9 +58,8 @@
         "group": "BX",
         "names": {
             "jap": "コバルトドラグーン",
-            "eng": "CobaltDragoon",
-            "chi": "鈷藍青龍 蒼穹/龍騎士",
-            "reverse": true
+            "eng": "Cobalt\\Dragoon",
+            "chi": "鈷藍\\青龍 蒼穹\\龍騎士"
         },
         "stat": ["38-"],
         "desc": "有厚尖端的四枚 Upper 刃擁有高撞飛性能。",
@@ -72,9 +69,8 @@
         "group": "BX",
         "names": {
             "jap": "ヴァイスタイガー",
-            "eng": "WeissTiger",
-            "chi": "純白猛虎 皓戰猛虎",
-            "reverse": true
+            "eng": "Weiss\\Tiger",
+            "chi": "純白\\猛虎 皓戰\\猛虎"
         },
         "stat": ["35-"],
         "desc": "一併持有 Upper 刃、Damper 刃及 Smash 刃三種性能。",
@@ -316,9 +312,8 @@
         "group": "BX",
         "names": {
             "jap": "コバルトドレイク",
-            "eng": "CobaltDrake",
-            "chi": "鈷藍魔龍 蒼穹龍神",
-            "reverse": true
+            "eng": "Cobalt\\Drake",
+            "chi": "鈷藍\\魔龍 蒼穹\\龍神"
         },
         "stat": ["38-"],
         "desc": "四枚大型龍刃撞飛對手。金屬有塗裝令性能上升。",
@@ -361,9 +356,8 @@
         "group": "remake",
         "names": {
             "jap": "ストームペガシス",
-            "eng": "StormPegasis",
-            "chi": "烈風天馬 暴風天馬",
-            "reverse": true
+            "eng": "Storm \\Pegasis",
+            "chi": "烈風\\天馬 暴風\\天馬"
         },
         "stat": [],
         "desc": "（2009 年發售的陀螺之 X 代復刻版）",
@@ -373,9 +367,8 @@
         "group": "remake",
         "names": {
             "jap": "ライトニングエルドラゴ_アッパー",
-            "eng": "LightningL-Drago_upper",
-            "chi": "雷霆魔龍 雷霆天龍",
-            "reverse": true
+            "eng": "Lightning \\L-Drago_upper",
+            "chi": "雷霆\\魔龍_高空扣殺 雷霆\\天龍_強擊"
         },
         "stat": [],
         "desc": "在三處配置向左的 Upper 刃，重視 Upper 攻擊。（2009 年發售的陀螺之 X 代復刻版）",
@@ -385,9 +378,8 @@
         "group": "remake",
         "names": {
             "jap": "ライトニングエルドラゴ_連打",
-            "eng": "LightningL-Drago_rush",
-            "chi": "雷霆魔龍 雷霆天龍",
-            "reverse": true
+            "eng": "Lightning \\L-Drago_rush",
+            "chi": "雷霆\\魔龍_連環攻擊 雷霆\\天龍_連打"
         },
         "stat": [],
         "desc": "在三處配置向左的連打刃，重視連打攻擊。（2009 年發售的陀螺之 X 代復刻版）",
@@ -397,9 +389,8 @@
         "group": "remake",
         "names": {
             "jap": "ビクトリーヴァルキリー",
-            "eng": "VictoryValkyrie",
-            "chi": "勝利武神 天翼戰神",
-            "reverse": true
+            "eng": "Victory \\Valkyrie",
+            "chi": "勝利\\武神 天翼\\戰神"
         },
         "stat": [],
         "desc": "（2016 年發售的陀螺之 X 代復刻版）",

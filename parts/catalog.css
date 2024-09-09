@@ -79,6 +79,15 @@ a object {
     font-size:.75em;
     -webkit-text-stroke:var(--type) .5px;
     paint-order:stroke fill;
+
+    sub {
+        max-width: 2em; display: inline-block;
+        font-size: 0.5em;
+        line-height: 1; letter-spacing: 0;
+        vertical-align: middle;
+        -webkit-text-stroke: initial;
+        margin-left: 0.2em;
+    }
 }
 :is(.eng,.chi) span {
     color:var(--type);
@@ -93,6 +102,12 @@ a object {
     align-self:end;
     font-size:.65em;
     margin-bottom:-.1em;
+
+    sub {
+        vertical-align:unset;
+        font-size:.7em;
+        margin-inline-start:.3em;
+    }
 }
 .jap {
     margin-right:-.1em;
@@ -101,11 +116,6 @@ a object {
 .eng {
     margin-left:-.2em;
     text-transform:uppercase;
-}
-sub {
-    vertical-align:unset;
-    font-size:.7em;
-    margin-inline-start:.3em;
 }
 
 a ul {
