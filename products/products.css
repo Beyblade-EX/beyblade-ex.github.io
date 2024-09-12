@@ -195,7 +195,7 @@ td:first-child sub {
     scale:.9 1; letter-spacing:-.05em;
 }
 td.right sub.long {
-    max-width: 2em; display: inline-block;
+    max-width: 2.1em; display: inline-block;
     white-space: break-spaces;
     font-size: 0.6em; line-height: 1.1;
     vertical-align: middle;
