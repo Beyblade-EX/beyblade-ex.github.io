@@ -2,7 +2,7 @@
   "prod-launchers":"2024/08/13 12:00:00",
   "prod-others":   "2024/06/22 13:40:00",
   "prod-beys":     "2024/08/13 16:40:00",
-  "part-blade":    "2024/08/13 16:10:00",
+  "part-blade":    "2024/09/12 16:10:00",
   "part-ratchet":  "2024/08/10 00:40:00",
   "part-bit":      "2024/08/13 16:10:00",
   "part-meta":     "2024/08/08 23:30:00",
@@ -47,9 +47,21 @@
         ]
       }
     ],
-    "2024-10":[
-      {"code":"BX-37 stadium set 對戰盤組合"},
-      {"code":"UX-08 starter"}
+    "2024-10-12":[
+      {
+        "code":"BX-37 stadium set 對戰盤組合",
+        "name":"ダブルエクストリームスタジアムセット<br>Double Xtreme Stadium Set",
+        "type":"att",
+        "imgs":["https://takaratomymall.jp/img/goods/5/4904810939481_970142f0b7ba4782bb1c9fc59793aae2.jpg","https://takaratomymall.jp/img/goods/L/4904810939481_095608e4b2b1464c9aab78facbc90fd8.jpg","https://takaratomymall.jp/img/goods/C/4904810939481_6b0db86cc3464c8cbef66f220ff76114.jpg"],
+        "desc":["有兩條 Xtreme Line 的對戰盤，中間圓盤以電動上下移動","附陀螺：BearScratch 5-60F"]
+      },
+      {
+        "code":"UX-08 starter",
+        "name":"シルバーウルフ 3-80FB<br>SilverWolf 3-80FB",
+        "type":"sta",
+        "imgs":["https://takaratomymall.jp/img/goods/C/4904810939498_cd3cd8955a024810bb5c076aa0728e03.jpg","https://m.media-amazon.com/images/I/615-XlGFlNL._AC_SX425_.jpg","https://takaratomymall.jp/img/goods/1/4904810939498_bb9687cadae8454193a7be9f994959e3.jpg"],
+        "desc":["Blade 有自由迴轉組件，卸走對手攻擊","Bit 亦是自由迴轉"]
+      }
     ],
     "2024-11":[
       {"code":"BX-38 booster"},
@@ -59,10 +71,7 @@
     "2024-12":[
       {"code":"UX-11 starter"},
       {"code":"UX-12 random booster"},
-      {"code":"BXG-?? booster"},
-      {"code":"與實體漫畫同梱","name":"ドランバスター1-60A<br>メタルコート:レッド<br>DranBuster 1-60A<br>Metal Coat: Red","type":"att",
-    "imgs":["https://lifetunes-mall.jp/img/3060/goods/3/R20240002-04.jpg"],
-    "desc":["現在預訂，<a onclick>詳細</a>"]}
+      {"code":"BXG-?? booster"}
     ],
     "2025-01":[
       {"code":"UX-13 booster"}
