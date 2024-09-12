@@ -260,7 +260,7 @@ class Knob extends HTMLElement {
         }
     }
     event(ev) {
-        this.type == 'discrete' && (this.shadowRoot.Q('span').textContent = this.Q('option:checked').textContent);
+        this.type == 'discrete' && (this.shadowRoot.Q('span').textContent = this.Q('option:checked,option[selected]').textContent);
         this.onchange?.(ev);
     }
     css = `
