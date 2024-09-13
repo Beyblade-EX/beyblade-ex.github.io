@@ -36,6 +36,7 @@
             "terms": ["重量", "GEAR齒數", "SHAFT粗度"],
             "prefix": {
                 "D": {"eng": "Disk ",  "jap": "ディスク", "desc": "加上圓盤狀重量"},
+                "F": {"eng": "Free ",  "jap": "フリー",   "desc": "對於 Ratchet 能自由迴轉"},
                 "G": {"eng": "Gear ",  "jap": "ギア"    , "desc": "齒部延長"},
                 "H": {"eng": "High ",  "jap": "ハイ"    , "desc": "高度提升 10 "},
                 "L": {"eng": "Low ",   "jap": "ロー"    , "desc": "高度下降 10 "},

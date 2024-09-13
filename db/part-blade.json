@@ -1,4 +1,15 @@
 {
+    "SlWl": {
+        "group": "UX",
+        "names": {
+            "jap": "シルバーウルフ",
+            "eng": "Silver\\Wolf",
+            "chi": ""
+        },
+        "stat": [""],
+        "desc": "下部的 Free Ring 能迴轉，卸走對手攻擊，維持迴轉力。",
+        "attr": ["sta","right"]
+    },
     "WhWv": {
         "group": "BX",
         "names": {
@@ -397,14 +408,14 @@
         "attr": ["att","right"]
     },
     "ShKn": {
-        "group": "hasbro",
+        "group": "BX",
         "names": {
             "jap": "シノビナイフ",
             "eng": "ShinobiKnife",
             "chi": ""
         },
         "stat": [],
-        "desc": "小徑及高剛性內重心構造，容易抵耐對手衝擊。（除與日本遊戲同梱外，目前只在孩之寶商品中收錄）",
+        "desc": "小徑及高剛性内重心構造，容易抵耐對手衝擊。",
         "attr": ["def","right"],
         "from": "RhHr"
     },
@@ -445,14 +456,14 @@
         "from": "HlSc"
     },
     "BrSc": {
-        "group": "hasbro",
+        "group": "BX",
         "names": {
             "jap": "ベアスクラッチ",
             "eng": "BearScratch",
             "chi": ""
         },
         "stat": [],
-        "desc": "（目前只在孩之寶商品中收錄，稱「Savage Bear」）",
+        "desc": "凝縮成小徑的内重心構造，受到衝擊體勢也難以倒下。",
         "attr": ["def","right"],
         "from": "RhHr"
     },
