@@ -359,7 +359,7 @@
             "eng": "DragoonStorm",
             "chi": "暴風戰龍 龍騎士 S"
         },
-        "stat": [""],
+        "stat": [],
         "desc": "（2000 年發售的陀螺之 X 代復刻版）",
         "attr": ["att","left"]
     },
@@ -381,7 +381,7 @@
             "eng": "Lightning \\L-Drago_upper",
             "chi": "雷霆\\魔龍_高空扣殺 雷霆\\天龍_強擊"
         },
-        "stat": [],
+        "stat": ["34-"],
         "desc": "在三處配置向左的 Upper 刃，重視 Upper 攻擊。（2009 年發售的陀螺之 X 代復刻版）",
         "attr": ["att","left"]
     },
@@ -392,7 +392,7 @@
             "eng": "Lightning \\L-Drago_rush",
             "chi": "雷霆\\魔龍_連環攻擊 雷霆\\天龍_連打"
         },
-        "stat": [],
+        "stat": ["33+"],
         "desc": "在三處配置向左的連打刃，重視連打攻擊。（2009 年發售的陀螺之 X 代復刻版）",
         "attr": ["att","left"]
     },

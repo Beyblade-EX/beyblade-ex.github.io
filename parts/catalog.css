@@ -86,7 +86,7 @@ a object {
         line-height: 1; letter-spacing: 0;
         vertical-align: middle;
         -webkit-text-stroke: initial;
-        margin-left: 0.2em;
+        margin:0 0 .2em .2em;
     }
 }
 :is(.eng,.chi) span {
