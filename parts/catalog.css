@@ -47,6 +47,12 @@
     overflow:hidden;
     -webkit-user-drag:none;
 }
+a.bsb::after {
+    content:url(/img/reincarnated.svg); 
+    width:10em; z-index:-1;
+    position:absolute; right:0;
+    transform:rotate(-135deg) translate(-.1em,1.9em);
+}
 a img {filter:drop-shadow(0 0 .1rem var(--on));}
 a img[alt^=type] {filter:drop-shadow(0 0 .1rem var(--type));}
 a img[src$=BX] {filter:drop-shadow(0 0 .05rem #71bce9);}

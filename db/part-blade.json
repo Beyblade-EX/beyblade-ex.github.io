@@ -8,7 +8,7 @@
         },
         "stat": [""],
         "desc": "下部的 Free Ring 能迴轉，卸走對手攻擊，維持迴轉力。",
-        "attr": ["sta","right"]
+        "attr": ["sta","right","bsb"]
     },
     "WhWv": {
         "group": "BX",
@@ -63,7 +63,7 @@
         },
         "stat": ["32+"],
         "desc": "設於外周的向下傾斜八枚防禦刃，抵禦低位置而來的攻擊。",
-        "attr": ["def","right"]
+        "attr": ["def","right","bsb"]
     },
     "CbDg": {
         "group": "BX",
@@ -74,7 +74,7 @@
         },
         "stat": ["38-"],
         "desc": "有厚尖端的四枚 Upper 刃擁有高撞飛性能。",
-        "attr": ["att","left"]
+        "attr": ["att","left","bsb"]
     },
     "WsTg": {
         "group": "BX",
@@ -85,7 +85,7 @@
         },
         "stat": ["35-"],
         "desc": "一併持有 Upper 刃、Damper 刃及 Smash 刃三種性能。",
-        "attr": ["bal","right"]
+        "attr": ["bal","right","bsb"]
     },
     "ShSh": {
         "group": "UX",
@@ -328,7 +328,7 @@
         },
         "stat": ["38-"],
         "desc": "四枚大型龍刃撞飛對手。金屬有塗裝令性能上升。",
-        "attr": ["att","right"]
+        "attr": ["att","right","bsb"]
     },
     "DRS": {
         "group": "remake",
