@@ -14,6 +14,8 @@ Mapping.maps = {
         'BX-21', {detail: '${no}_(p|y|o)', more: '${no}_(p|y|o)'},
         'BX-20', {detail: '${no}(B|G|P)', more: '${no}_(b|g|p)'},
         ['BX-17','UX-04'], {detail: '${no}(A|B)'},
+        'BXG-14', {switch: 'BXG-09'},
+        'BXG-09', {switch: 'BXG-14'},
         'BXG-07', {underscore: true, detail: '${no}_(1|2)'},
         /^BXG-0(3|5|6)$/, {detailUpper: true},
         'BX-08', {detail: '${no}_(r|g|y)', more: '${no}_(r|g|y)'},

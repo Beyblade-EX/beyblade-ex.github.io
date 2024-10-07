@@ -1,13 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -5 120 110">
     <style>
+      g:not(:target) {display:none;}
       svg {fill:hsla(200,50%,50%,.2);}
     </style>
     <defs>
-        <clipPath id="clip">
+        <clipPath id="bsb-clip">
             <polygon points="50,-2.666666 121,100 -21,100" />
         </clipPath>
     </defs>
-    <g clip-path="url(#clip)">
+    <g clip-path="url(#bsb-clip)" id="bsb">
         <path d="M83,45 L50,80 L17,45 L26,32 L74,32 M72,45 L70,42 L30,42 L28,45 L50,68 Z"/>
         <polygon points="99,29 -99,29 50,-99"/>
         <polygon points="87,45 999,80 54,80"/>

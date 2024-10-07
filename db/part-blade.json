@@ -4,7 +4,7 @@
         "names": {
             "jap": "シルバーウルフ",
             "eng": "Silver\\Wolf",
-            "chi": ""
+            "chi": "白銀戰狼"
         },
         "stat": [""],
         "desc": "下部的 Free Ring 能迴轉，卸走對手攻擊，維持迴轉力。",
@@ -191,7 +191,7 @@
         "names": {
             "jap": "フェニックスフェザー",
             "eng": "PhoenixFeather",
-            "chi": "鳳凰翔羽"
+            "chi": "鳳凰炎羽 鳳凰翔羽"
         },
         "stat": ["33+"],
         "desc": "三枚輕量 Upper 刃產生高速攻擊。",
@@ -460,7 +460,7 @@
         "names": {
             "jap": "ベアスクラッチ",
             "eng": "BearScratch",
-            "chi": ""
+            "chi": "狂熊鋭爪"
         },
         "stat": [],
         "desc": "凝縮成小徑的内重心構造，受到衝擊體勢也難以倒下。",

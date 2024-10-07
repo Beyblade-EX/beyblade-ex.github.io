@@ -158,7 +158,7 @@ class Cell {
         _image: {
             parse (type) {
                 Cell.images = [];
-                let no = Cell.text(this.td).replace('-', this.td.dataset.underscore ? '_' : '');
+                let no = (this.td.dataset.switch || Cell.text(this.td)).replace('-', this.td.dataset.underscore ? '_' : '');
                 if (!this.td.dataset[type]) {
                     this.format(no, type, this.td.dataset.detailUpper);
                 } else {

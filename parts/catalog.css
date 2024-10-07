@@ -48,7 +48,7 @@
     -webkit-user-drag:none;
 }
 a.bsb::after {
-    content:url(/img/reincarnated.svg); 
+    content:url(/img/reincarnated.svg#bsb); 
     width:10em; z-index:-1;
     position:absolute; right:0;
     transform:rotate(-135deg) translate(-.1em,1.9em);
