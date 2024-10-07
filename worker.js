@@ -41,7 +41,7 @@ const is = {
 }
 fetch.net = req => {
     is.internal(req.url) && is.volatile(req.url) && (req = new Request(`${req.url}?${Math.random()}`, req));
-    return fetch(req).then(res => 
+    return fetch(req, req.url.includes('takaratomy') ? {mode: 'no-cors'} : null).then(res => 
         (res.status < 400 && is.cacheable(req.url) ? fetch.cache(res) : Promise.resolve(res))
         .then(res => is.html(req.url) ? Head.add(res) : res)
     ).catch(er => {

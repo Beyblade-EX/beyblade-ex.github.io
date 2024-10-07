@@ -1,0 +1,48 @@
+<title>我的陀螺盒⬧My Decks</title>
+<script src=/include/common.js></script>
+<link href="/customize/sheet.css" rel=stylesheet>
+<nav>
+    <div>
+        <button type=button id=expand-deck class=deck>&#xe012; 展開</button>
+        <button type=button id=export-image>&#xe03a; 製作圖片</button>
+    </div>
+    <div>
+        <button type=button id=delete-deck class=deck>&#xe008; 刪除</button>
+        <button type=button id=export-text>&#xe039; 複製文字</button>
+    </div>
+</nav>
+
+<main>
+    <canvas></canvas>
+    <form>
+        <button popovertarget="picker">🖼️</button>
+        <fieldset id="layer">
+            <button id="add">➕</button>
+            <button id="delete">➖</button>
+            <label>L<input type="radio" name="layer" checked></label>
+            <button id="up">🔼</button>
+            <button id="down">🔽</button>
+        </fieldset>
+        <fieldset id="control">
+            <spin-knob title="rotate" range='{"min":0,"max":360,"name":"rotate"}'></spin-knob>
+            <spin-knob title="x" range='{"min":-300,"max":300,"value":0,"name":"x"}'></spin-knob>
+            <spin-knob title="y" range='{"min":-300,"max":300,"value":0,"name":"y"}'></spin-knob>
+            <spin-knob title="scale" range='{"min":0,"max":2,"name":"scale","value":1}'></spin-knob>
+            <spin-knob title="opacity" range='{"min":0,"max":1,"name":"opacity","value":1}'></spin-knob>
+        </fieldset>
+    </form>
+</main>
+<aside id="picker" popover>
+    <label>上傳<input type="file"></label>
+</aside>
+
+<script src="/customize/sheet.js"></script>
+<script>
+    let picker = Q('[popover]');
+    ['persona','ekusu','bird','multi','meiko','manju','pan','toguro','kadovar','burn','zonamos','yuni','rex','quinn','shiguru','shieru','kuromu']
+    .forEach(char => {
+        [1,2,3,4,5,6,7].forEach(i => picker.append(E('img', {src: `https://beyblade.takaratomy.co.jp/anime/character/_image/chara_${char}_chara0${i}.png`})));
+        [1,2,3,4].forEach(i => picker.append(E('img', {src: `https://beyblade.takaratomy.co.jp/anime/character/_image/chara_${char}_bey0${i}.png`})));
+    });
+    ['zoo','b4','yggdrasil','pakunchanel','cl','pend']
+</script>

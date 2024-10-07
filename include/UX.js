@@ -168,14 +168,18 @@ class Dragging {
     }
 }
 class Knob extends HTMLElement {
+    #internals; #input
     constructor() {
         super();
-        this.attachShadow({mode: 'open'}).append(E('div', [E('slot')]), E('span'), E('style', this.css));
+        this.#internals = this.attachInternals();
+        this.attachShadow({mode: 'open'}).append(E('slot'), E('style', this.css));
     }
-    get value() {return this.input.value;}
+    get name() {return this.getAttribute('name');}
+    set name(name) {return;}
+    get value() {return this.type == 'discrete' ? this.#input.Q(':checked').value : parseFloat(this.#input.value);}
     set value(value) {this[this.type].adjustValue(value);}
-    set alt(alt) {this.setAttribute('alt', alt);}
     θ = () => parseFloat(getComputedStyle(this).getPropertyValue('--angle'));
+    
     auto = ev => this.style.setProperty('--angle', `${ev.type == 'pointerenter' ? this.maxθ : this.minθ}deg`)
     hover = action => this.classList[action]('hover') ?? ['pointerenter', 'pointerout'].forEach(t => this[`${action}EventListener`](t, this.auto))
     
@@ -217,8 +221,11 @@ class Knob extends HTMLElement {
     }
     discrete = {
         setup: () => {
+            this.append(this.#input = E('select', JSON.parse(this.getAttribute('options')).map(o => E('option', {value: o}, o))));
+            let selected = this.getAttribute('selected');
+            this.#input.Q(selected ? `[value=${selected}]` : 'option:first-child').selected = true;
             this.setAttribute('discrete', this.discrete.total = this.Q('option').length);
-            this.shadowRoot.Q('style').textContent += `:host([discrete]) div {background:conic-gradient(${this.discrete.ticks()})}`;
+            this.shadowRoot.Q('style').textContent += `:host([discrete]) slot {background:conic-gradient(${this.discrete.ticks()})}`;
         },
         ticks () {
             let css = `transparent ${this.θ(0) - 1.5}deg,`;
@@ -236,46 +243,50 @@ class Knob extends HTMLElement {
             if (this.discrete.index == null) return;
             this.Q(`option:nth-child(${this.discrete.index+1})`).selected = true;
             this.style.setProperty('--angle', `${this.discrete.θ()}deg`);
-            this.input.dispatchEvent(new Event('change'));
+            this.#input.dispatchEvent(new Event('change', {bubbles: true}));
         },
-        θ: (x = this.discrete.index) => (this.maxθ-this.minθ) / (this.discrete.total-1) * x + this.minθ
+        θ: (x = this.discrete.index) => (this.maxθ - this.minθ) / (this.discrete.total-1) * x + this.minθ
     }
     continuous = {
         setup: () => {
-            this.input || this.append(this.input = E('input', {type: 'range', min: 0, max: 100, step: 'any'}));
-            this.max = parseFloat(this.input.max), this.min = parseFloat(this.input.min);
+            this.append(
+                this.#input = E('input', {type: 'range', step: 'any', ...JSON.parse(this.getAttribute('range'))}),
+            );
+            this.max = parseFloat(this.#input.max), this.min = parseFloat(this.#input.min), this.initial = parseFloat(this.#input.value);
+            this.min < 0 && this.classList.add('symmetric');
         },
         getΔY: (drag) => {
-            this.continuous.θ = drag.moveθ = Math.max(this.minθ, Math.min(drag.pressθ - (drag.deltaY), this.maxθ));
+            this.continuous.θ = drag.moveθ = Math.max(this.minθ, Math.min(drag.pressθ - drag.deltaY, this.maxθ));
             (drag.moveθ == this.minθ || drag.moveθ == this.maxθ) && ([drag.pressY, drag.pressθ] = [drag.moveY, drag.moveθ]);
-            this.input.value = (drag.moveθ - this.minθ) / (this.maxθ - this.minθ) * (this.max - this.min) + this.min;
+            this.#input.value = (drag.moveθ - this.minθ) / (this.maxθ - this.minθ) * (this.max - this.min) + this.min;
         },
         adjustValue: (value) => {
-            if (typeof value == 'string') { //by assigning
-                this.input.value = parseFloat(value);
-                value = (parseFloat(value) - this.min) / (this.max - this.min) * (this.maxθ - this.minθ) + this.minθ;
-            } 
-            this.style.setProperty('--angle', `${value ?? this.continuous.θ}deg`);
-            this.input.dispatchEvent(new Event('change'));
+            if (value != undefined || !this.continuous.θ) {
+                this.continuous.θ = (parseFloat(value) - this.min) / (this.max - this.min) * (this.maxθ - this.minθ) + this.minθ;
+                this.#input.value = parseFloat(value);
+            }
+            this.style.setProperty('--angle', `${(this.continuous.θ)}deg`);
+            this.#input.dispatchEvent(new Event('change', {bubbles: true}));
         }
     }
     event(ev) {
-        this.type == 'discrete' && (this.shadowRoot.Q('span').textContent = this.Q('option:checked,option[selected]').textContent);
-        this.onchange?.(ev);
+        this.Q('data').value = this.type == 'continuous' ?
+            this.getAttribute('unit') == '%' ? (this.value*100).toFixed(0) : this.value.toPrecision(2) : this.value;
+        this.#internals.setFormValue(this.value);
     }
     css = `
     :host {
-        position:relative;
-        font-size:2em;
-        display:inline-block; width:2em; height:2em;
+        text-align:center;
+        display:inline-block; width:4em;
         touch-action:none; user-select:none; -webkit-user-select:none;
     }
-    div,div::before,slot {
-        width:100%; height:100%;
+    slot,slot::before {
+        width:4em; height:4em;
     }
-    div {
+    slot {
         display:block; 
         --light:var(--theme); --dark:var(--theme-dark);
+        color:var(--light);
         border-radius:9em;
         background:conic-gradient(
             transparent var(--min),
@@ -286,6 +297,15 @@ class Knob extends HTMLElement {
         transform:scale(-1);
         -webkit-user-drag:none;
 
+        :host(.symmetric) & {
+            background:conic-gradient(
+                transparent var(--min),
+                var(--dark) var(--min) min(180deg,var(--angle)),
+                var(--light) min(180deg,var(--angle)) max(180deg,var(--angle)),
+                var(--dark) max(180deg,var(--angle)) calc(360deg - var(--min)),
+                transparent calc(360deg - var(--min))
+            );
+        }
         &.dragged {
             --theme:var(--theme-alt); color:hsl(45,90%,48%); --dark:hsl(45,90%,20%);
         }
@@ -298,10 +318,17 @@ class Knob extends HTMLElement {
                 var(--light) var(--min) var(--angle),
                 transparent var(--angle)
             );
-            filter:drop-shadow(0 0 .1em var(--light));
+            filter:drop-shadow(0 0 .2em var(--light));
+        }
+        :host(.symmetric) &::before {
+            background:conic-gradient(
+                transparent min(180deg,var(--angle)),
+                var(--light) min(180deg,var(--angle)) max(180deg,var(--angle)),
+                transparent max(180deg,var(--angle))
+            );
         }
         &::after {
-            content:'·';
+            content:'·'; font-size:2em; font-family:serif;
             position:absolute; inset:.3em;
             border-radius:inherit; outline:.2em solid var(--bg,#333);
             background:var(--dark);
@@ -310,37 +337,42 @@ class Knob extends HTMLElement {
             text-shadow:0 0 .1em var(--theme); color:var(--theme);
         }
     }
-    :host([discrete]) div::before {
+    :host([discrete]) slot::before {
         background:conic-gradient(
             transparent calc(var(--angle) - 1.5deg),
             var(--light) calc(var(--angle) - 1.5deg) calc(var(--angle) + 1.5deg),
             transparent calc(var(--angle) + 1.5deg)
         );
     }
-    :host([discrete]) div::after {
+    :host([discrete]) slot::after {
         outline-width:.1em;
     }   
-    :host(.hover),:host([discrete]) div::after {
+    :host(.hover),:host([discrete]) slot::after {
         transition:--angle .5s;
         touch-action:initial;
     }
-    slot {
+    ::slotted(data) {
         z-index:1;
-        position:absolute; 
+        position:relative; 
         pointer-events:none;
-        display:flex; justify-content:center; align-items:center;
-        transform:scale(-1);
+        display:inline-block; transform:scale(-1) translateY(1em);
+        font-size:.7em;
     }
-    ::slotted(a) {
-        width:100% !important; height:100% !important;
-        pointer-events:auto !important;
+    ::slotted(data)::before {
+        content:attr(value);
+    }
+    :host([unit]) ::slotted(data)::after {
+        content:attr(data-unit);
     }
     ::slotted(:is(input,select)) {
         display:none !important;
     }
-    span {
-        position:absolute; right:-.3em; bottom:.4em;
-        font-size:.4em; color:var(--on);
+    :host([title])::before {
+        content:attr(title);
+        font-size:.9em;
+        display:block; margin-bottom:.1em;
+        white-space:nowrap;
     }`
+    static formAssociated = true
 }
 customElements.define('spin-knob', Knob);
