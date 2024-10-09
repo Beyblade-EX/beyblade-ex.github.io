@@ -208,16 +208,30 @@ class Knob extends HTMLElement {
     }
     beforeChildren() {
         location.pathname == '/' && this.hover('add');
-        this.minθ = parseFloat(this.getAttribute('min')) || 30;
+        this.minθ = parseFloat(this.getAttribute('min')) || 35;
         this.maxθ = 360 - this.minθ;
         this.style.setProperty('--min', `${this.minθ}deg`);  
         this.style.setProperty('--angle', `${this.minθ}deg`); 
     }
     afterChildren() {
-        this.type = this.Q('option') ? 'discrete' : 'continuous';
-        this.input = this.Q('input,select');
+        this.type = this.getAttribute('options') ? 'discrete' : 'continuous';
+        this.append(E('data', this.getAttribute('unit') && {dataset: {unit: this.getAttribute('unit')}}));
         this[this.type].setup();
-        (this.input.onchange = ev => this.event(ev))();
+        this[this.type].adjustValue(this.value);
+        this.name = this.id;
+        let snap = this.getAttribute('dblclick');
+        this.ontouchend = ev => {
+            const currentTime = new Date().getTime();
+            const tapLength = currentTime - this.lastTap;
+            if (tapLength < 500 && tapLength > 0) {
+                ev.preventDefault();
+                this.dispatchEvent(new Event('dblclick'));
+            }
+            this.lastTap = currentTime;
+        }
+        this.ondblclick = () => this.value = snap ? (this.value/snap>>0)*snap : this.initial;
+        (this.#input.onchange = ev => this.event(ev))();
+        this.removeAttribute('range', 'options');
     }
     discrete = {
         setup: () => {
@@ -271,7 +285,7 @@ class Knob extends HTMLElement {
     }
     event(ev) {
         this.Q('data').value = this.type == 'continuous' ?
-            this.getAttribute('unit') == '%' ? (this.value*100).toFixed(0) : this.value.toPrecision(2) : this.value;
+            this.getAttribute('unit') == '%' ? (this.value*100).toFixed(0) : parseFloat(this.value.toPrecision(2)) : this.value;
         this.#internals.setFormValue(this.value);
     }
     css = `
@@ -369,8 +383,7 @@ class Knob extends HTMLElement {
     }
     :host([title])::before {
         content:attr(title);
-        font-size:.9em;
-        display:block; margin-bottom:.1em;
+        display:block;
         white-space:nowrap;
     }`
     static formAssociated = true

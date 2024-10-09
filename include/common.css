@@ -59,7 +59,7 @@ a.disabled {
     filter:saturate(0%);
     pointer-events:none;
 }
-label:has(input:not(:checked):not([name=mag])) {
+label:has(input:is([type=radio],[type=checkbox]):not(:checked):not([name=mag])) {
     filter:saturate(0%);
 
     &::before {
@@ -67,7 +67,7 @@ label:has(input:not(:checked):not([name=mag])) {
         color:dimgray;
     }
 }
-:where(main,.led) label:has(input)::before {
+:where(main,.led) label:has(input:is([type=radio],[type=checkbox]))::before {
     content:'·';
     display:block;
     position:relative;

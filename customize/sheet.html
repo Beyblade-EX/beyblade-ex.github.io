@@ -1,48 +1,67 @@
 <title>我的陀螺盒⬧My Decks</title>
 <script src=/include/common.js></script>
+<script defer src=https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js></script>
 <link href="/customize/sheet.css" rel=stylesheet>
 <nav>
-    <div>
-        <button type=button id=expand-deck class=deck>&#xe012; 展開</button>
-        <button type=button id=export-image>&#xe03a; 製作圖片</button>
-    </div>
-    <div>
-        <button type=button id=delete-deck class=deck>&#xe008; 刪除</button>
-        <button type=button id=export-text>&#xe039; 複製文字</button>
-    </div>
+    <div><button id="output">DL</button></div>
 </nav>
 
 <main>
     <canvas></canvas>
     <form>
-        <button popovertarget="picker">🖼️</button>
+        <p class="message" hidden>按住兩秒以刪除此層<small>無法回復！</small></p>
+        <fieldset id="type">
+            <button class="type" id="image">🖼️</button>
+            <button class="type" id="color">🎨</button>
+            <button class="type" id="text">🔤</button>
+        </fieldset>
         <fieldset id="layer">
             <button id="add">➕</button>
             <button id="delete">➖</button>
-            <label>L<input type="radio" name="layer" checked></label>
+            <label><span></span><input type="radio" name="layer"></label>
             <button id="up">🔼</button>
             <button id="down">🔽</button>
         </fieldset>
+        <fieldset id="control-image">
+            <label>上載<input type="file"></label>
+            <button popovertarget="picker">圖片庫</button>
+        </fieldset>
+        <fieldset id="control-color">
+            <div>
+                <label>線性<input type="radio" name="gradient" value="Linear" checked></label>
+                <label>放射<input type="radio" name="gradient" value="Radial"></label>
+                <label>錐性<input type="radio" name="gradient" value="Conic"></label>
+            </div>
+            <label>顏色 1<input type="color" name="color1"></label>
+            <label>顏色 2<input type="color" name="color2"></label>
+            <label>顏色 3<input type="color" name="color3"></label>
+            <spin-knob title="不透明度" range='{"min":0,"max":1,"name":"opacity1","value":1}'></spin-knob>
+            <spin-knob title="不透明度" range='{"min":0,"max":1,"name":"opacity2","value":1}'></spin-knob>
+            <spin-knob title="不透明度" range='{"min":0,"max":1,"name":"opacity3","value":1}'></spin-knob>
+        </fieldset>
         <fieldset id="control">
-            <spin-knob title="rotate" range='{"min":0,"max":360,"name":"rotate"}'></spin-knob>
-            <spin-knob title="x" range='{"min":-300,"max":300,"value":0,"name":"x"}'></spin-knob>
-            <spin-knob title="y" range='{"min":-300,"max":300,"value":0,"name":"y"}'></spin-knob>
-            <spin-knob title="scale" range='{"min":0,"max":2,"name":"scale","value":1}'></spin-knob>
-            <spin-knob title="opacity" range='{"min":0,"max":1,"name":"opacity","value":1}'></spin-knob>
+            <spin-knob title="角度" unit="π" range='{"min":-1,"max":1,"value":0,"name":"angle"}' dblclick="0.5"></spin-knob>
+            <spin-knob title="左右" unit="%" range='{"min":-1,"max":1,"value":0,"name":"y"}'></spin-knob>
+            <spin-knob title="上下" unit="%" range='{"min":-1,"max":1,"value":0,"name":"x"}'></spin-knob>
+            <spin-knob title="縮放" range='{"min":0.1,"max":5,"name":"scale","value":1}'></spin-knob>
+            <spin-knob title="拉扯" range='{"min":0.01,"max":2,"name":"pull","value":1}'></spin-knob>
+            <spin-knob title="不透明度" range='{"min":0,"max":1,"name":"opacity","value":1}'></spin-knob>
         </fieldset>
     </form>
 </main>
 <aside id="picker" popover>
-    <label>上傳<input type="file"></label>
+    <p>若想使用以下圖片，請長按／按右鍵下載，然後重新上載<small>因 CORS 限制，只能手動</small>
 </aside>
 
 <script src="/customize/sheet.js"></script>
-<script>
-    let picker = Q('[popover]');
-    ['persona','ekusu','bird','multi','meiko','manju','pan','toguro','kadovar','burn','zonamos','yuni','rex','quinn','shiguru','shieru','kuromu']
-    .forEach(char => {
-        [1,2,3,4,5,6,7].forEach(i => picker.append(E('img', {src: `https://beyblade.takaratomy.co.jp/anime/character/_image/chara_${char}_chara0${i}.png`})));
-        [1,2,3,4].forEach(i => picker.append(E('img', {src: `https://beyblade.takaratomy.co.jp/anime/character/_image/chara_${char}_bey0${i}.png`})));
-    });
-    ['zoo','b4','yggdrasil','pakunchanel','cl','pend']
-</script>
+<!--script>
+    let show = image => picker.append(E('img', {src: `https://beyblade.takaratomy.co.jp/anime/character/_image/chara${image}`}));
+    let picker = Q('[popover]'), main = ['ekusu','bird','multi'], mobu = ['meiko','manju','pan','toguro','kadovar','burn','zonamos','yuni','rex','quinn','shiguru','shieru','kuromu'];
+    main.forEach(char => [1,2,3,4,5,6,7].forEach(i => show(`_${char}_chara0${i}.png`)));
+    mobu.forEach(char => show(`_${char}_chara01.png`));
+    [...Array(20)].forEach((_, i) => show(`Nav${`${i}`.padStart(2, 0)}.png`));
+    ['persona','zoo','b4','yggdrasil','pakunchanel','cl','pend'].forEach(team => show(`_team_${team}.png`));
+    [...main, ...mobu].forEach(char => show(`_${char}_bgPC.png`))
+    main.forEach(char => [1,2,3,4].forEach(i => show(`_${char}_bey0${i}.png`)));
+    mobu.forEach(char => [1,2].forEach(i => show(`_${char}_bey0${i}.png`)));
+</script-->
