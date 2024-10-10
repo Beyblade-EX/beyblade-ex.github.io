@@ -1,12 +1,20 @@
-const canvas = Q('canvas');
-const ctx = canvas.getContext('2d');
+const MAIN = {}
+MAIN.can = Q('canvas');
+MAIN.con = MAIN.can.getContext('2d', { alpha: false });
 
 const App = () => {
     Controls.show(null);
     Q('form button', button => button.type = 'button');
     App.events();
     //App.picker();
-    Q('#layer label:only-of-type')?.click();
+    Layers.frame = Images.load('./frame.png').then(img => {
+        MAIN.W = MAIN.can.width = img.naturalWidth, MAIN.H = MAIN.can.height = img.naturalHeight;
+        MAIN.hW = MAIN.W/2, MAIN.hH = MAIN.H/2;
+        Layers.frame = img;
+        Draw();
+        Q('#layer div').append(Layers.label());
+        Layers.labels.length === 1 && Layers.labels[0].click();
+    });
 }
 App.events = () => {
     Object.assign(Q('#layer'), {
@@ -27,25 +35,26 @@ App.events = () => {
     
     Q('#export').onclick = Layers.export;
     Q('#import').onchange = Layers.import;
-    Q('#download').onclick = () => {
-        let document, page;
-        PDFLib.PDFDocument.create().then(doc => {
-            document = doc;
-            page = doc.addPage(PDFLib.PageSizes.A4.sort((a, b) => b - a));
-            return doc.embedPng(canvas.toDataURL("image/png", 1.0));
-        }).then(image => {
-            let scaled = image.scale(.2427);
-            for (let i = 0; i <= 11; i++)
-                page.drawImage(image, {
-                    x: 84.5 + i % 2 * (20 + scaled.width),
-                    y: 488 - Math.floor(i / 2) * (12.5 + scaled.height),
-                    width: scaled.width,
-                    height: scaled.height,
-                });
-            return document.save();
-        }).then(doc => window.open(URL.createObjectURL(new Blob([doc], { type: 'application/pdf' }))))
-        .catch(er => console.error(er));
-    }    
+    Q('#download').onclick = App.download;
+}
+App.download = () => {
+    let document, page;
+    PDFLib.PDFDocument.create().then(doc => {
+        document = doc;
+        page = doc.addPage(PDFLib.PageSizes.A4.sort((a, b) => b - a));
+        return doc.embedPng(MAIN.can.toDataURL("image/png", 1.0));
+    }).then(image => {
+        let scaled = image.scale(.2427);
+        for (let i = 0; i < Q('input[type=number]').value; i++)
+            page.drawImage(image, {
+                x: 84.5 + i % 2 * (20 + scaled.width),
+                y: 488 - Math.floor(i / 2) * (12.5 + scaled.height),
+                width: scaled.width,
+                height: scaled.height,
+            });
+        return document.save();
+    }).then(doc => window.open(URL.createObjectURL(new Blob([doc], { type: 'application/pdf' }))))
+    .catch(er => console.error(er));
 }
 const Controls = {
     show (what) {
@@ -54,15 +63,14 @@ const Controls = {
     },
     reset () {
         Q('input[type=color]', input => input.value = '#000000');
+        Q('input[value=Linear]').checked = true;
         Q('spin-knob', knob => knob.init());
     },
     put () {
         let {type, ...controls} = Layers.selected.dataset;
+        Controls.reset();
         Controls.show(type);
-        Object.entries(controls).forEach(([n, v]) => {
-            let control = Q(`input[name=${n}]`);
-            control && ((control.type == 'range' ? control.parentElement : control).value = v);
-        });
+        Object.entries(controls).forEach(([n, v]) => Q(`spin-knob:has(input[name=${n}]),input[name=${n}]:not([type=range])`).value = v);
     },
     get (ev) {
         if (!Layers.selected) return;
@@ -74,8 +82,7 @@ const Controls = {
         const reader = new FileReader();
         reader.readAsDataURL(ev.target.files[0]);
         reader.onload = () => Images.load(reader.result).then(img => {
-            Layers.selected.dataset.image = img.id;
-            delete Images[Layers.selected.Q('img')?.id];
+            Layers.selected.img = img;
             Layers.selected.Q('span,img').replaceWith(img);
             Q('#layer').disabled = false;
             Draw();
@@ -87,24 +94,26 @@ const Controls = {
         Controls.show(ev.target.id);
     }
 }
+const Images = new Map();
+Images.load = src => new Promise(res => E('img', {src, onload: function() {res(this);}}));
+
 const Layers = {
-    label: (dataset, img) => E('label', {dataset}, [img ?? E('span'), E('input', {type: 'radio', name: 'layer'})]),
-    frame: E('img', {
-        src: './frame.png',
-        onload: function() {
-            canvas.width = this.naturalWidth;
-            canvas.height = this.naturalHeight;
-            Draw.frame();
-        }
-    }),
+    labels: Q('#layer div').children,
+    label: (dataset, img) => {
+        let label = E('label', {dataset}, [img ?? E('span'), E('input', {type: 'radio', name: 'layer'})]);
+        label.can = MAIN.can.cloneNode();
+        label.con = label.can.getContext('2d');
+        img && (label.img = img);
+        return label;
+    },
     change (ev) {
-        Q('#delete').disabled = Q('#layer label:only-of-type');
-        Layers.selected = Q('#layer label:has(:checked)');
+        Q('#delete').disabled = Layers.labels.length === 1;
+        Layers.selected = ev.target.parentElement;
         Layers.selected.dataset.type ? Controls.put() : Controls.show(0);
     },
     create (ev) {
         let label = Layers.label();
-        Q('#layer label:first-of-type').before(label);
+        Layers.labels[0].before(label);
         label.click();
         Q('#delete').disabled = false;
         Controls.reset();
@@ -115,7 +124,7 @@ const Layers = {
         setTimeout(() => Q('form .message').hidden = true, 2000);
         let timer = setTimeout(() => {
             Layers.selected.remove();
-            Q('#layer label:first-of-type').click();
+            Layers.labels[0].click();
         }, 2000);
         ev.target.onpointerup = () => clearTimeout(timer);
     },
@@ -126,89 +135,86 @@ const Layers = {
         Draw();
     },
     export () {
-        let layers = [Q('#layer label')].flat().map(label => {
-            let data = {...label.dataset};
-            data.image &&= Images[data.image].src;
-            return data;
-        }).filter(obj => Object.keys(obj).length);
+        let layers = [...Layers.labels]
+            .map(label => ({...label.dataset, ...label.img ? {image: label.img.src} : {}}))
+            .filter(obj => Object.keys(obj).length);
         E('a', {
             href: `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(layers))}`,
             download: 'sheet.json'
         }).click();
     },
     import (ev) {
-        const reader = new FileReader();
+        let reader = new FileReader();
         reader.readAsText(ev.target.files[0]);
-        reader.onload = () => {
-            Q('#layer label', label => label.remove());
-            Promise.all(JSON.parse(reader.result).map(dataset => dataset.image ? 
-                Images.load(dataset.image).then(img => Layers.label({...dataset, image: img.id}, img)) : 
-                Layers.label(dataset)
+        reader.onload = () =>
+            Promise.all(JSON.parse(reader.result).map(ds => ds.image ? 
+                Images.load(ds.image).then(img => Layers.label((({image, ...others}) => others)(ds), img)) : 
+                Layers.label(ds)
             )).then(labels => {
-                Q('#delete').after(...labels);
-                Q('#layer label:first-of-type').click();
+                Q('#layer div').replaceChildren(...labels);
+                labels[0].click();
+                Draw(true);
             });
-        }
     }
 };
-const Images = {
-    load: src => new Promise(res => E('img', {
-        id: Math.random().toString(36).substring(2), src, 
-        onload: function() {res(Images[this.id] = this);}
-    }))
-};
-const Draw = () => {
-    ctx.fillStyle = 'white';
-    ctx.fillRect(0, 0, Layers.frame.width, Layers.frame.height);
-
-    [Q('#layer label')].flat().reverse().forEach(label => {
-        ctx.save();
-        label.dataset.type == 'image' && Draw.image(label);
-        label.dataset.type == 'color' && Draw.color(label);
-        ctx.restore();
+const Draw = (all) => {
+    Draw.clear();
+    [...Layers.labels].reverse().forEach(label => {
+        if (all || Layers.selected === label) {
+            label.img && Draw.image(label);
+            label.dataset.type == 'color' && Draw.color(label);
+        }
+        MAIN.con.drawImage(label.can, 0, 0);
     });
     Draw.frame();
 }
 Object.assign(Draw, {
-    frame: () => ctx.drawImage(Layers.frame, 0, 0, canvas.width, Layers.frame.height / Layers.frame.width * canvas.width),
-    transform (s, p, angle, x, y, image) {
+    clear: context => context ? context.clearRect(0, 0, MAIN.W, MAIN.H) : (MAIN.con.fillStyle = 'white') && MAIN.con.fillRect(0, 0, MAIN.W, MAIN.H),
+    frame: () => MAIN.con.drawImage(Layers.frame, 0, 0, MAIN.W, MAIN.H),
+    transform (con, s, p, angle, x, y, image) {
         s ??= 1, p ??= 1, angle ??= 0, x ??= 0, y ??= 0;
-        let drawing = {width: image?.naturalWidth ?? canvas.width, height: image?.naturalHeight ?? canvas.width};
+        let drawing = {W: image?.naturalWidth ?? MAIN.W, H: image?.naturalHeight ?? MAIN.W};
+        drawing.hW = drawing.W/2, drawing.hH = drawing.H/2;
 
         let cos = Math.cos(angle*Math.PI), sin = Math.sin(angle*Math.PI);
-        x = -x * (canvas.width / 2 + drawing.width / 2) + canvas.width / -2;
-        y = y * (canvas.height / 2 + drawing.height / 2) + canvas.height / -2;
-        ctx.setTransform(s*cos, s*p*sin, -s*sin, s*p*cos, x*s*cos-y*s*sin-x, x*s*p*sin+y*s*p*cos-y);
-        return {x: -x-drawing.width/2, y: -y-drawing.height/2};
+        x = -x * (MAIN.hW + drawing.hW) - MAIN.hW;
+        y = y * (MAIN.hH + drawing.hH) - MAIN.hH;
+        con.setTransform(s*cos, s*p*sin, -s*sin, s*p*cos, x*s*cos-y*s*sin-x, x*s*p*sin+y*s*p*cos-y);
+        return { x: -x - drawing.hW, y: -y - drawing.hH };
     },
     image (label) {
-        let {image, angle, x, y, scale: s, pull: p, opacity} = label.dataset;
-        image = Images[image];
-        ({x, y} = Draw.transform(s, p, angle, x, y, image));
-        ctx.globalAlpha = opacity ?? 1;
-		ctx.drawImage(image, x, y, image.naturalWidth, image.naturalHeight);
+        let {img, con, dataset: {angle, x, y, scale: s, pull: p, opacity}} = label;
+        con.save();
+        Draw.clear(con);
+        ({x, y} = Draw.transform(con, s, p, angle, x, y, img));
+        con.globalAlpha = opacity ?? 1;
+		con.drawImage(img, Math.round(x), Math.round(y));
+        con.restore();
     },
     color (label) {
-        let {gradient: type, angle, x, y, scale: s, pull: p, opacity} = label.dataset;
-        ({x, y} = Draw.transform(s, p, angle, x, y));
+        let {con, dataset: {gradient: type, angle, x, y, scale: s, pull: p, opacity}} = label;
+        con.save();
+        Draw.clear(con);
+        ({x, y} = Draw.transform(con, s, p, angle, x, y));
 
         type ??= 'Linear';
         let gradient = 
             type == 'Linear' ?
-                ctx.createLinearGradient(x, 0, x + canvas.width, 0) :
+                con.createLinearGradient(x, 0, x + MAIN.W, 0) :
             type == 'Radial' ?
-                ctx.createRadialGradient(x + canvas.width/2, y + canvas.width/2, 0, x + canvas.width/2, y + canvas.width/2, canvas.width/2) :
+                con.createRadialGradient(x + MAIN.hW, y + MAIN.hW, 0, x + MAIN.hW, y + MAIN.hW, MAIN.hW) :
             type == 'Conic' ?
-                ctx.createConicGradient(-Math.PI/2, x + canvas.width/2, y + canvas.width/2) : null;
+                con.createConicGradient(-Math.PI/2, x + MAIN.hW, y + MAIN.hW) : null;
 
         let colors = [1,2,3].map(i => Draw.color.format(label.dataset[`color${i}`], label.dataset[`opacity${i}`])).filter(c => c);
         (colors.length === 1 || type == 'Conic') && colors.push(colors[0]);
         colors.forEach((c, i, ar) => gradient.addColorStop(i / (ar.length - 1), c));
         label.style.background = `${type}-gradient(${colors.join(',')}),white`;
 
-        ctx.globalAlpha = opacity ?? 1;
-        ctx.fillStyle = gradient;
-        ctx.fillRect(x, y, canvas.width, canvas.width);
+        con.globalAlpha = opacity ?? 1;
+        con.fillStyle = gradient;
+        con.fillRect(Math.round(x), Math.round(y), MAIN.W, MAIN.W);
+        con.restore();
 
         label.Q('span').textContent = '';
     }

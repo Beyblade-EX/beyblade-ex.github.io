@@ -219,7 +219,7 @@ class Knob extends HTMLElement {
         this.type = this.getAttribute('options') ? 'discrete' : 'continuous';
         this.append(E('data', this.getAttribute('unit') && {dataset: {unit: this.getAttribute('unit')}}));
         this[this.type].setup();
-        this[this.type].adjustValue(this.value);
+        this[this.type].adjustValue(this.value, false);
         this.name = this.id;
         this.dblclick();
         (this.#input.onchange = ev => this.event(ev))();
@@ -227,12 +227,12 @@ class Knob extends HTMLElement {
     }
     dblclick() {
         let snap = this.getAttribute('dblclick');
-        this.ontouchend = ev => {
+        this.addEventListener('touchend', ev => {
             let current = new Date().getTime();
             let interval = current - this.lastTap;
             interval < 500 && interval > 0 && (ev.preventDefault(), this.dispatchEvent(new Event('dblclick')));
             this.lastTap = current;
-        }
+        });
         this.ondblclick = ev => {
             ev.preventDefault();
             this.value = snap ? Math.round(this.value/snap)*snap : this.initial;
