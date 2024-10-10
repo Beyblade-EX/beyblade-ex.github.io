@@ -3,12 +3,14 @@
 <script defer src=https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js></script>
 <link href="/customize/sheet.css" rel=stylesheet>
 <nav>
+    <menu><li><a></a></li></menu>
     <div>
-        <button id="download">輸出 PDF</button>
+        <button id="sample">&#xe040; 範例（3 抽 1）</button>
+        <label><input id="import" type="file" accept="application/json">&#xe03f; 匯入 JSON</label>
     </div>
     <div>
-        <label><input id="import" type="file" accept="application/json">匯入 JSON</label>
-        <button id="export">輸出 JSON</button>
+        <button id="download">&#xe03d; 輸出 PDF</button>
+        <button id="export">&#xe03e; 輸出 JSON</button>
     </div>
 </nav>
 
@@ -16,13 +18,23 @@
 <main>
     <canvas></canvas>
     <form>
+        <details>
+            <summary>提示</summary>
+            <ul class="default">
+                <li>右邊是圖層操作，每一圖層只可加入一張圖片</li>
+                <li>把旋鈕向上或下拉動以操作</li>
+                <li>雙點擊旋鈕以重設／調節至特殊値</li>
+                <li>輸出 JSON 後可作自己的儲存或與他人分享</li>
+            </ul>
+        </details>
         <p class="message" hidden>按住兩秒以刪除此層<small>無法回復！</small></p>
         <fieldset id="type">
             <button class="type" id="image">&#xe03a;</button>
-            <button class="type" id="color">&#xe02a;</button>
+            <span>&#xe041; 選擇 &#xe042;</span>
+            <button class="type" id="color">&#xe043;</button>
         </fieldset>
         <fieldset id="layer">
-            <button id="add">&#xe013;</button>
+            <button id="create">&#xe013;</button>
             <button id="delete">&#xe008;</button>
             <label><span></span><input type="radio" name="layer"></label>
             <button id="up">&#xe011;</button>
@@ -60,14 +72,20 @@
 </aside>
 
 <script src="/customize/sheet.js"></script>
-<!--script>
-    let show = image => picker.append(E('img', {src: `https://beyblade.takaratomy.co.jp/anime/character/_image/chara${image}`}));
-    let picker = Q('[popover]'), main = ['ekusu','bird','multi'], mobu = ['meiko','manju','pan','toguro','kadovar','burn','zonamos','yuni','rex','quinn','shiguru','shieru','kuromu'];
-    main.forEach(char => [1,2,3,4,5,6,7].forEach(i => show(`_${char}_chara0${i}.png`)));
-    mobu.forEach(char => show(`_${char}_chara01.png`));
-    [...Array(20)].forEach((_, i) => show(`Nav${`${i}`.padStart(2, 0)}.png`));
-    ['persona','zoo','b4','yggdrasil','pakunchanel','cl','pend'].forEach(team => show(`_team_${team}.png`));
-    [...main, ...mobu].forEach(char => show(`_${char}_bgPC.png`))
-    main.forEach(char => [1,2,3,4].forEach(i => show(`_${char}_bey0${i}.png`)));
-    mobu.forEach(char => [1,2].forEach(i => show(`_${char}_bey0${i}.png`)));
-</script-->
+<script>
+    App.picker = () => {
+        let show = image => picker.append(E('img', {src: `https://beyblade.takaratomy.co.jp/anime/character/_image/chara${image}`}));
+        let picker = Q('[popover]'), 
+            main = ['ekusu','bird','multi'], 
+            mobu = ['meiko','manju','pan','toguro','kadovar','burn','zonamos','yuni','rex','quinn','shiguru','shieru','kuromu'],
+            team = ['persona','zoo','b4','yggdrasil','pakunchanel','cl','pend'];
+        main.forEach(c => [1,2,3,4,5,6,7].forEach(i => show(`_${c}_chara0${i}.png`)));
+        mobu.forEach(c => show(`_${c}_chara01.png`));
+        [...Array(20)].forEach((_, i) => show(`Nav${`${i}`.padStart(2, 0)}.png`));
+        team.forEach(t => show(`_team_${t}.png`));
+        [...main, ...mobu].forEach(c => show(`_${c}_bgPC.png`))
+        main.forEach(c => [1,2,3,4].forEach(i => show(`_${c}_bey0${i}.png`)));
+        mobu.forEach(c => [1,2].forEach(i => show(`_${c}_bey0${i}.png`)));
+    }
+    App();
+</script>

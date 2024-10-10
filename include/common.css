@@ -31,7 +31,7 @@ a:target,a.target {
     animation:highlight 1s ease 3;animation-delay:0.5s;
     scroll-margin-top:5rem;
 }
-menu,ol,ul,dl,dt,dd,summary,figure {
+menu,ol:not(.default),ul:not(.default),dl,dt,dd,summary,figure {
     list-style:none;margin:0;padding:0;
 }
 article p {
@@ -80,7 +80,7 @@ label:has(input:is([type=radio],[type=checkbox]):not(:checked):not([name=mag])) 
 .led label::before {
     line-height:.7rem;
 }
-input[type=checkbox],input[type=radio],svg:not([viewBox]),::-webkit-details-marker {
+input:is([type=checkbox],[type=radio],[type=file]),svg:not([viewBox]),::-webkit-details-marker {
     display:none;
 }
 [hidden] {
