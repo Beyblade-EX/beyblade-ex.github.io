@@ -178,6 +178,8 @@ class Knob extends HTMLElement {
     set name(name) {return;}
     get value() {return this.type == 'discrete' ? this.#input.Q(':checked').value : parseFloat(this.#input.value);}
     set value(value) {this[this.type].adjustValue(value);}
+
+    init = () => this[this.type].adjustValue(this.initial, false);
     θ = () => parseFloat(getComputedStyle(this).getPropertyValue('--angle'));
     
     auto = ev => this.style.setProperty('--angle', `${ev.type == 'pointerenter' ? this.maxθ : this.minθ}deg`)
@@ -219,19 +221,22 @@ class Knob extends HTMLElement {
         this[this.type].setup();
         this[this.type].adjustValue(this.value);
         this.name = this.id;
-        let snap = this.getAttribute('dblclick');
-        this.ontouchend = ev => {
-            const currentTime = new Date().getTime();
-            const tapLength = currentTime - this.lastTap;
-            if (tapLength < 500 && tapLength > 0) {
-                ev.preventDefault();
-                this.dispatchEvent(new Event('dblclick'));
-            }
-            this.lastTap = currentTime;
-        }
-        this.ondblclick = () => this.value = snap ? (this.value/snap>>0)*snap : this.initial;
+        this.dblclick();
         (this.#input.onchange = ev => this.event(ev))();
         this.removeAttribute('range', 'options');
+    }
+    dblclick() {
+        let snap = this.getAttribute('dblclick');
+        this.ontouchend = ev => {
+            let current = new Date().getTime();
+            let interval = current - this.lastTap;
+            interval < 500 && interval > 0 && (ev.preventDefault(), this.dispatchEvent(new Event('dblclick')));
+            this.lastTap = current;
+        }
+        this.ondblclick = ev => {
+            ev.preventDefault();
+            this.value = snap ? Math.round(this.value/snap)*snap : this.initial;
+        }
     }
     discrete = {
         setup: () => {
@@ -252,12 +257,14 @@ class Knob extends HTMLElement {
             this.index = Math.max(0, Math.min((this.index ?? 0) - Math.sign(drag.deltaY), this.total - 1));
             drag.pressY = drag.moveY;
         },
-        adjustValue: (value) => {
+        adjustValue: (value, event = true) => {
             this.discrete.index ??= this.Q('option').findIndex(o => o.value == value); //by assigning
             if (this.discrete.index == null) return;
             this.Q(`option:nth-child(${this.discrete.index+1})`).selected = true;
             this.style.setProperty('--angle', `${this.discrete.θ()}deg`);
-            this.#input.dispatchEvent(new Event('change', {bubbles: true}));
+            this.Q('data').value = this.value;
+            this.#internals.setFormValue(this.value);
+            event && this.#input.dispatchEvent(new Event('change', {bubbles: true}));
         },
         θ: (x = this.discrete.index) => (this.maxθ - this.minθ) / (this.discrete.total-1) * x + this.minθ
     }
@@ -274,19 +281,18 @@ class Knob extends HTMLElement {
             (drag.moveθ == this.minθ || drag.moveθ == this.maxθ) && ([drag.pressY, drag.pressθ] = [drag.moveY, drag.moveθ]);
             this.#input.value = (drag.moveθ - this.minθ) / (this.maxθ - this.minθ) * (this.max - this.min) + this.min;
         },
-        adjustValue: (value) => {
+        adjustValue: (value, event = true) => {
             if (value != undefined || !this.continuous.θ) {
                 this.continuous.θ = (parseFloat(value) - this.min) / (this.max - this.min) * (this.maxθ - this.minθ) + this.minθ;
                 this.#input.value = parseFloat(value);
             }
             this.style.setProperty('--angle', `${(this.continuous.θ)}deg`);
-            this.#input.dispatchEvent(new Event('change', {bubbles: true}));
+            this.Q('data').value = this.getAttribute('unit') == '%' ? (this.value*100).toFixed(0) : parseFloat(this.value.toPrecision(2));
+            this.#internals.setFormValue(this.value);
+            event && this.#input.dispatchEvent(new Event('change', {bubbles: true}));
         }
     }
     event(ev) {
-        this.Q('data').value = this.type == 'continuous' ?
-            this.getAttribute('unit') == '%' ? (this.value*100).toFixed(0) : parseFloat(this.value.toPrecision(2)) : this.value;
-        this.#internals.setFormValue(this.value);
     }
     css = `
     :host {

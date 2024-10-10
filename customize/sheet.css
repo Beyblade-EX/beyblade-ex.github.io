@@ -12,7 +12,7 @@ main {
     position:relative;
 }
 form {
-    margin-left:calc(min(50em,100vh - 6rem)/4);
+    margin-left:calc(min(50em,100vh - 6rem)/4); margin-right:.25em;
     display:grid; grid-template-columns:1fr 1fr 1fr auto;
     position:relative;
 
@@ -25,6 +25,7 @@ form {
     #type {
         grid-area:1/1/2/4;
         justify-content:space-evenly;
+        color:var(--theme);
 
         button {font-size:2em;}
     }
@@ -43,23 +44,32 @@ form {
     }
     #layer {
         grid-area:1/4/9/5;
-        display:flex; flex-direction:column; gap:.2em;
+        display:flex; flex-direction:column;
         font-size:1em;
+        margin-right:.1em;
 
-        button,label {
-            border:.1em solid var(--theme); border-radius:.3em;
-            width:2em; height:2em;
-            line-height:2em;
+        label {
+            border:.1em solid gray; border-radius:.3em;
+            width:1.8em; height:1.8em; line-height:1.8em;
+            margin:.2em 0;
+            filter:none;
 
             &:has(input:checked) {
                 background:var(--theme); color:black;
+                border-color:var(--theme);
             }
         }
         label::before {
             all:unset;
         }
         button {
-            border-radius:8em;
+            font-size:1.5em; color:var(--theme);
+            height:1.3333333em;
+
+            &[disabled] {
+                filter:saturate(0);
+                pointer-events:none;
+            }
         }
         label img {
             width:100%; height:100%; object-fit:contain;

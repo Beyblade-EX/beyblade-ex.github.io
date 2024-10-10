@@ -3,27 +3,33 @@
 <script defer src=https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js></script>
 <link href="/customize/sheet.css" rel=stylesheet>
 <nav>
-    <div><button id="output">DL</button></div>
+    <div>
+        <button id="download">輸出 PDF</button>
+    </div>
+    <div>
+        <label><input id="import" type="file" accept="application/json">匯入 JSON</label>
+        <button id="export">輸出 JSON</button>
+    </div>
 </nav>
 
+<db-status></db-status>
 <main>
     <canvas></canvas>
     <form>
         <p class="message" hidden>按住兩秒以刪除此層<small>無法回復！</small></p>
         <fieldset id="type">
-            <button class="type" id="image">🖼️</button>
-            <button class="type" id="color">🎨</button>
-            <button class="type" id="text">🔤</button>
+            <button class="type" id="image">&#xe03a;</button>
+            <button class="type" id="color">&#xe02a;</button>
         </fieldset>
         <fieldset id="layer">
-            <button id="add">➕</button>
-            <button id="delete">➖</button>
+            <button id="add">&#xe013;</button>
+            <button id="delete">&#xe008;</button>
             <label><span></span><input type="radio" name="layer"></label>
-            <button id="up">🔼</button>
-            <button id="down">🔽</button>
+            <button id="up">&#xe011;</button>
+            <button id="down">&#xe012;</button>
         </fieldset>
         <fieldset id="control-image">
-            <label>上載<input type="file"></label>
+            <label>上載<input type="file" accept="image/*" ></label>
             <button popovertarget="picker">圖片庫</button>
         </fieldset>
         <fieldset id="control-color">
