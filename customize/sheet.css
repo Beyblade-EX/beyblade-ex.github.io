@@ -12,7 +12,7 @@ nav {
         }
     }
     input[type=number] {
-        width:3em; height:2em;
+        max-width:3em; max-height:2em;
         margin:0 .2em 0 .3em;
         vertical-align:middle;
     }

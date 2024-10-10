@@ -199,12 +199,9 @@ Object.assign(Draw, {
 
         type ??= 'Linear';
         let gradient = 
-            type == 'Linear' ?
-                con.createLinearGradient(x, 0, x + MAIN.W, 0) :
-            type == 'Radial' ?
-                con.createRadialGradient(x + MAIN.hW, y + MAIN.hW, 0, x + MAIN.hW, y + MAIN.hW, MAIN.hW) :
-            type == 'Conic' ?
-                con.createConicGradient(-Math.PI/2, x + MAIN.hW, y + MAIN.hW) : null;
+            type == 'Linear' ? con.createLinearGradient(x, 0, x + MAIN.W, 0) :
+            type == 'Radial' ? con.createRadialGradient(x + MAIN.hW, y + MAIN.hW, 0, x + MAIN.hW, y + MAIN.hW, MAIN.hW) :
+            type == 'Conic' ? con.createConicGradient(-Math.PI/2, x + MAIN.hW, y + MAIN.hW) : null;
 
         let colors = [1,2,3].map(i => Draw.color.format(label.dataset[`color${i}`], label.dataset[`opacity${i}`])).filter(c => c);
         (colors.length === 1 || type == 'Conic') && colors.push(colors[0]);
