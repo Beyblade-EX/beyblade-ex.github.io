@@ -199,16 +199,17 @@ class Knob extends HTMLElement {
                     if (this.hasAttribute('alt') && Math.abs(this.θ() - this.start) >= (this.maxθ - this.minθ)/2) {
                         this.Q('a').href = this.getAttribute('alt');
                         this.Q('a').onclick ??= () => gtag('event', 'knob', {alt: this.title});
-                        this.shadowRoot.Q('div').classList.add('dragged');
+                        this.shadowRoot.Q('slot').classList.add('dragged');
                     }
                     this.hover('remove');
                 }
-                this[this.type].getΔY(drag);
+                this[this.type].useΔY(drag);
                 this[this.type].adjustValue();
             }
         });
     }
     beforeChildren() {
+        Q('#spin-knob') || document.head.append(E('style', this.overrideUnset));
         location.pathname == '/' && this.hover('add');
         this.minθ = parseFloat(this.getAttribute('min')) || 35;
         this.maxθ = 360 - this.minθ;
@@ -253,7 +254,7 @@ class Knob extends HTMLElement {
                         transparent ${this.θ(i) + 1.5}deg ${this.θ(i+1) - 1.5}deg,`;
             return css.replace(/,$/, '');
         },
-        getΔY (drag) {
+        useΔY (drag) {
             this.index = Math.max(0, Math.min((this.index ?? 0) - Math.sign(drag.deltaY), this.total - 1));
             drag.pressY = drag.moveY;
         },
@@ -270,13 +271,13 @@ class Knob extends HTMLElement {
     }
     continuous = {
         setup: () => {
-            this.append(
-                this.#input = E('input', {type: 'range', step: 'any', ...JSON.parse(this.getAttribute('range'))}),
-            );
+            this.#input = this.Q('input[type=range]') ?? 
+                this.appendChild(E('input', {type: 'range', step: 0.01, ...JSON.parse(this.getAttribute('range'))}));
             this.max = parseFloat(this.#input.max), this.min = parseFloat(this.#input.min), this.initial = parseFloat(this.#input.value);
             this.min < 0 && this.classList.add('symmetric');
         },
-        getΔY: (drag) => {
+        useΔY: (drag) => {
+            this.classList.contains('fine') && (drag.deltaY /= 10);
             this.continuous.θ = drag.moveθ = Math.max(this.minθ, Math.min(drag.pressθ - drag.deltaY, this.maxθ));
             (drag.moveθ == this.minθ || drag.moveθ == this.maxθ) && ([drag.pressY, drag.pressθ] = [drag.moveY, drag.moveθ]);
             this.#input.value = (drag.moveθ - this.minθ) / (this.maxθ - this.minθ) * (this.max - this.min) + this.min;
@@ -287,7 +288,7 @@ class Knob extends HTMLElement {
                 this.#input.value = parseFloat(value);
             }
             this.style.setProperty('--angle', `${(this.continuous.θ)}deg`);
-            this.Q('data').value = this.getAttribute('unit') == '%' ? (this.value*100).toFixed(0) : parseFloat(this.value.toPrecision(2));
+            this.Q('data').value = this.getAttribute('unit') == '%' ? (this.value*100).toFixed(0) : this.value;
             this.#internals.setFormValue(this.value);
             event && this.#input.dispatchEvent(new Event('change', {bubbles: true}));
         }
@@ -371,10 +372,12 @@ class Knob extends HTMLElement {
         transition:--angle .5s;
         touch-action:initial;
     }
-    ::slotted(data) {
+    ::slotted(:is(i,data)) {
         z-index:1;
-        position:relative; 
         pointer-events:none;
+    }
+    ::slotted(data) {
+        position:relative; 
         display:inline-block; transform:scale(-1) translateY(1em);
         font-size:.7em;
     }
@@ -391,6 +394,13 @@ class Knob extends HTMLElement {
         content:attr(title);
         display:block;
         white-space:nowrap;
+    }`;
+    overrideUnset = `
+    spin-knob :is(a,i) {
+        font-size:1.25em; z-index:1;
+        display:flex; height:100%; align-items:center; justify-content:center;
+        transform:scale(-1);
+        position:relative;
     }`
     static formAssociated = true
 }

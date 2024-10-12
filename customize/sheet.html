@@ -23,6 +23,7 @@
             <ul class="default">
                 <li>右邊是圖層操作，每一圖層只可加入一張圖片</li>
                 <li>把旋鈕向上或下拉動以操作</li>
+                <li>開啟微調後，旋鈕轉速會變慢。亦可用鍵盤 Ctrl 鍵開關</li>
                 <li>雙點擊旋鈕以重設／調節至特殊値</li>
                 <li>輸出 JSON 後可作自己的儲存或與他人分享</li>
             </ul>
@@ -59,11 +60,12 @@
         </fieldset>
         <fieldset id="control">
             <spin-knob title="角度" unit="π" range='{"min":-1,"max":1,"value":0,"name":"angle"}' dblclick="0.5"></spin-knob>
-            <spin-knob title="左右" unit="%" range='{"min":-1,"max":1,"value":0,"name":"y"}'></spin-knob>
-            <spin-knob title="上下" unit="%" range='{"min":-1,"max":1,"value":0,"name":"x"}'></spin-knob>
+            <spin-knob title="左右" unit="%" range='{"min":-1,"max":1,"value":0,"name":"x"}'></spin-knob>
+            <spin-knob title="上下" unit="%" range='{"min":-1,"max":1,"value":0,"name":"y"}'></spin-knob>
             <spin-knob title="縮放" range='{"min":0.1,"max":5,"name":"scale","value":1}'></spin-knob>
             <spin-knob title="伸縮" range='{"min":0.01,"max":2,"name":"pull","value":1}'></spin-knob>
             <spin-knob title="不透明度" range='{"min":0,"max":1,"name":"opacity","value":1}'></spin-knob>
+            <label><input type="checkbox" id="fine">微調</label>
         </fieldset>
     </form>
 </main>

@@ -28,12 +28,12 @@
 
 <section id=links>
     <h3>外部連結</h3>
-    <spin-knob title=商品陣容 alt="//www.amazon.co.jp/s?rh=n%3A2189319051%2Cp_n_date%3A2320554051"><a href="//beyblade.takaratomy.co.jp/beyblade-x/lineup/"><i>🛍️</i></a></spin-knob>
-    <spin-knob title=YouTube alt="//www.youtube.com/results?search_query=ベイブレードX&sp=EgIIAw%253D%253D"><a href="//m.youtube.com/@BEYBLADEOfficialYouTube/videos"><i>🎞️</i></a></spin-knob>
-    <spin-knob title=漫畫閲覽 alt="//drive.google.com/drive/folders/1vSOCv8UNyiJ76KCDhUbexuS7E7Hs-Isr"><a href="//www.corocoro.jp/episode/4856001361379685850"><i>🖍️</i></a></spin-knob>
-    <spin-knob title=動畫資訊 alt="//drive.google.com/drive/folders/11K6rxKid9m0_90otiRxQlJRJhRTJWRSN"><a href="//beyblade.takaratomy.co.jp/anime/character/"><i>📺</i></a></spin-knob>
-    <spin-knob title=App 下載><a href=_><i>📥</i></a></spin-knob>
-    <spin-knob title=𝕏 alt="//x.com/search?q=ベイブレードX"><a href="//x.com/tbh_pr"><i>🛠️</i></a></spin-knob>
+    <spin-knob title=商品陣容 alt="//www.amazon.co.jp/s?rh=n%3A2189319051%2Cp_n_date%3A2320554051"><a href="//beyblade.takaratomy.co.jp/beyblade-x/lineup/">🛍️</a></spin-knob>
+    <spin-knob title=YouTube alt="//www.youtube.com/results?search_query=ベイブレードX&sp=EgIIAw%253D%253D"><a href="//m.youtube.com/@BEYBLADEOfficialYouTube/videos">🎞️</a></spin-knob>
+    <spin-knob title=漫畫閲覽 alt="//drive.google.com/drive/folders/1vSOCv8UNyiJ76KCDhUbexuS7E7Hs-Isr"><a href="//www.corocoro.jp/episode/4856001361379685850">🖍️</a></spin-knob>
+    <spin-knob title=動畫資訊 alt="//drive.google.com/drive/folders/11K6rxKid9m0_90otiRxQlJRJhRTJWRSN"><a href="//beyblade.takaratomy.co.jp/anime/character/">📺</a></spin-knob>
+    <spin-knob title=App 下載><a href=_>📥</a></spin-knob>
+    <spin-knob title=𝕏 alt="//x.com/search?q=ベイブレードX"><a href="//x.com/tbh_pr">🛠️</a></spin-knob>
 </section>
 
 <section id=products><h3>最新商品</h3></section>
@@ -83,7 +83,7 @@
 
 <section id=reboot>
     <div>
-        如在本網遇上問題<p><i id=reset>&#xe010;</i><span>重設儲存<br>（除陀螺盒外）></span><i></i></p>
+        如在本網遇上問題<p><i id=reset>&#xe010;</i><span>重設儲存<br>（除陀螺盒外）</span><i></i></p>
     </div>
     <a href="https://beyblade-burst.github.io/" id=bbb><img src="/img/system-BBB.png"></a>
 </section>
@@ -131,31 +131,7 @@ announce.colors = new Mapping(
 </script>
 
 <script>
-    new Dragging('#products', {scroll: {what: '.scroller', when: () => true}});
-    let i = Q('.gate i'), narrowest = 100;
-    new Dragging('.gate', {
-        translate: {
-            x: {
-                min: dragged => dragged.id == 'gate-left' ? 0 : Q('#gate-left').offsetLeft, 
-                max: dragged => dragged.id == 'gate-left' ? dragged.offsetLeft*-1 : 0
-            }, 
-            y: false
-        },
-        move (drag, dragged) {
-            drag.other ??= Q(`#gate-${dragged.id == 'gate-left' ? 'right' : 'left'}`);
-            drag.other.style.transform = `translateX(${parseFloat(dragged.style.transform.match(/[-\d.]+/)[0])*-1}px)`;
-            let distance = Math.abs(drag.other.getBoundingClientRect().x - dragged.getBoundingClientRect().x) - dragged.getBoundingClientRect().width;
-            i.style.opacity = Math.max(0, 4-distance/100);
-            distance < narrowest && distance <= i.clientWidth && distance > 0
-            && (i.style.transform = `scaleX(${distance/i.clientWidth})`) && (narrowest = distance);
-        },
-        lift (drag) {
-            drag.other.style.transform = null;
-            drag.other = null;
-            drag.to.return(true);
-        }
-    });
-    
+    new Dragging('#products', {scroll: {what: '.scroller', when: () => true}});    
     (() => {
         let app = ['https://apps.apple.com/tw/app/id1670801696', 'https://play.google.com/store/apps/details?id=jp.co.takaratomy.beyblade&pli=1'];
         [Q('spin-knob[title^=App] a').href, Q('spin-knob[title^=App]').alt] = navigator.appVersion.includes('Mac') ? app : app.reverse();

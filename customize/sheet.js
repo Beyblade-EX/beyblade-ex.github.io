@@ -36,19 +36,23 @@ App.events = () => {
     Q('#export').onclick = Layers.export;
     Q('#import').onchange = Layers.import;
     Q('#download').onclick = App.download;
+
+    onkeydown = ev => ev.key == 'Control' && Q('#fine').click();
+    (onresize = () => [Q('#control :nth-child(2)').title, Q('#control :nth-child(3)').title] = innerWidth > innerHeight ? 
+        ['上下', '左右'] : ['左右', '上下'])();
 }
 App.download = () => {
     let document, page;
     PDFLib.PDFDocument.create().then(doc => {
         document = doc;
-        page = doc.addPage(PDFLib.PageSizes.A4.sort((a, b) => b - a));
+        page = doc.addPage(PDFLib.PageSizes.A4.sort((a, b) => a - b));
         return doc.embedPng(MAIN.can.toDataURL("image/png", 1.0));
     }).then(image => {
         let scaled = image.scale(.2427);
         for (let i = 0; i < Q('input[type=number]').value; i++)
             page.drawImage(image, {
-                x: 84.5 + i % 2 * (20 + scaled.width),
-                y: 488 - Math.floor(i / 2) * (12.5 + scaled.height),
+                x: 20 + Math.floor(i / 2) * (12.5 + scaled.width),
+                y: 84.5 + i % 2 * (20 + scaled.height),
                 width: scaled.width,
                 height: scaled.height,
             });
@@ -73,14 +77,16 @@ const Controls = {
         Object.entries(controls).forEach(([n, v]) => Q(`spin-knob:has(input[name=${n}]),input[name=${n}]:not([type=range])`).value = v);
     },
     get (ev) {
-        if (!Layers.selected) return;
+        if (ev.target.id == 'fine') 
+            return Q('spin-knob', knob => knob.classList.toggle('fine', ev.target.checked));
+        if (!Layers.selected || !ev.target.name) return;
         Layers.selected.dataset[ev.target.name] = ev.target.value;
         Draw();
     },
     image (ev) {
         Q('#layer').disabled = true;
         const reader = new FileReader();
-        reader.readAsDataURL(ev.target.files[0]);
+        try {reader.readAsDataURL(ev.target.files[0]);} catch(er) {console.error(er)}
         reader.onload = () => Images.load(reader.result).then(img => {
             Layers.selected.img = img;
             Layers.selected.Q('span,img').replaceWith(img);
@@ -101,7 +107,7 @@ const Layers = {
     labels: Q('#layer div').children,
     label: (dataset, img) => {
         let label = E('label', {dataset}, [img ?? E('span'), E('input', {type: 'radio', name: 'layer'})]);
-        label.can = MAIN.can.cloneNode();
+        label.can = new OffscreenCanvas(MAIN.W, MAIN.H);
         label.con = label.can.getContext('2d');
         img && (label.img = img);
         return label;
@@ -131,7 +137,7 @@ const Layers = {
     move (ev) {
         let current = Layers.selected;
         let sibling = current[`${ev.target.id == 'up' ? 'previous' : 'next'}ElementSibling`];
-        sibling.tagName == 'LABEL' && sibling[ev.target.id == 'up' ? 'before' : 'after'](current);
+        sibling?.tagName == 'LABEL' && sibling[ev.target.id == 'up' ? 'before' : 'after'](current);
         Draw();
     },
     export () {
@@ -173,7 +179,7 @@ Object.assign(Draw, {
     frame: () => MAIN.con.drawImage(Layers.frame, 0, 0, MAIN.W, MAIN.H),
     transform (con, s, p, angle, x, y, image) {
         s ??= 1, p ??= 1, angle ??= 0, x ??= 0, y ??= 0;
-        let drawing = {W: image?.naturalWidth ?? MAIN.W, H: image?.naturalHeight ?? MAIN.W};
+        let drawing = {W: image?.naturalWidth ?? MAIN.H, H: image?.naturalHeight ?? MAIN.H};
         drawing.hW = drawing.W/2, drawing.hH = drawing.H/2;
 
         let cos = Math.cos(angle*Math.PI), sin = Math.sin(angle*Math.PI);
@@ -199,9 +205,9 @@ Object.assign(Draw, {
 
         type ??= 'Linear';
         let gradient = 
-            type == 'Linear' ? con.createLinearGradient(x, 0, x + MAIN.W, 0) :
-            type == 'Radial' ? con.createRadialGradient(x + MAIN.hW, y + MAIN.hW, 0, x + MAIN.hW, y + MAIN.hW, MAIN.hW) :
-            type == 'Conic' ? con.createConicGradient(-Math.PI/2, x + MAIN.hW, y + MAIN.hW) : null;
+            type == 'Linear' ? con.createLinearGradient(0, y, 0, y + MAIN.H) :
+            type == 'Radial' ? con.createRadialGradient(x + MAIN.hH, y + MAIN.hH, 0, x + MAIN.hH, y + MAIN.hH, MAIN.hH) :
+            type == 'Conic' ? con.createConicGradient(-Math.PI/2, x + MAIN.hH, y + MAIN.hH) : null;
 
         let colors = [1,2,3].map(i => Draw.color.format(label.dataset[`color${i}`], label.dataset[`opacity${i}`])).filter(c => c);
         (colors.length === 1 || type == 'Conic') && colors.push(colors[0]);
@@ -210,7 +216,7 @@ Object.assign(Draw, {
 
         con.globalAlpha = opacity ?? 1;
         con.fillStyle = gradient;
-        con.fillRect(Math.round(x), Math.round(y), MAIN.W, MAIN.W);
+        con.fillRect(Math.round(x), Math.round(y), MAIN.H, MAIN.H);
         con.restore();
 
         label.Q('span').textContent = '';

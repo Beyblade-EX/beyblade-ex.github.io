@@ -4,9 +4,9 @@
         "names": {
             "jap": "シルバーウルフ",
             "eng": "Silver\\Wolf",
-            "chi": "白銀戰狼"
+            "chi": "白銀戰狼 霜輝銀狼"
         },
-        "stat": [""],
+        "stat": ["37-"],
         "desc": "下部的 Free Ring 能迴轉，卸走對手攻擊，維持迴轉力。",
         "attr": ["sta","right","bsb"]
     },
@@ -462,7 +462,7 @@
             "eng": "BearScratch",
             "chi": "狂熊鋭爪"
         },
-        "stat": [],
+        "stat": ["30-"],
         "desc": "凝縮成小徑的内重心構造，受到衝擊體勢也難以倒下。",
         "attr": ["def","right"],
         "from": "RhHr"

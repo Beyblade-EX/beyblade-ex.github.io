@@ -1,5 +1,8 @@
-h1,h2,h3,h4,h5,h6,code,a,u,b,i,em,button {
+h1,h2,h3,h4,h5,h6,code,a,u,b,em,button {
     all:unset;
+}
+i {
+    font-style:initial;
 }
 *,*::before,*::after {
     box-sizing:border-box !important;
@@ -52,7 +55,7 @@ button:not([disabled]),label:has(input:not([disabled])),a[href]:not(.disabled),s
 a[href]:not(.disabled):hover {
     filter:brightness(110%);
 }
-:is(button:not([disabled]),summary,[onclick]):hover {
+:is(button:not([disabled]),summary,[onclick],label:has(input)):hover {
     filter:brightness(90%);
 }
 a.disabled {
@@ -307,8 +310,12 @@ nav {
         grid-area:2/4/3/5; justify-self:flex-end;
 
         label {display:none;}
-        spin-knob {margin-top:.15em; font-size:1.7em;}
-        spin-knob i {font-size:.6em;}
+        spin-knob {
+            margin-top:.15em; 
+            font-size:.9em;
+
+            data {display:none;}
+        }
     }
 }
 @media (min-width:631px) {
