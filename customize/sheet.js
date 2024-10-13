@@ -4,7 +4,7 @@ const App = () => {
     Controls.show(null);
     Q('form button', button => button.type = 'button');
     App.events();
-    //App.picker();
+    App.picker();
     Images.load('./frame.png').then(img => {
         MAIN.W = MAIN.con.canvas.width = img.naturalWidth, MAIN.H = MAIN.con.canvas.height = img.naturalHeight;
         MAIN.hW = MAIN.W/2, MAIN.hH = MAIN.H/2;
@@ -223,7 +223,7 @@ Object.assign(Draw, {
         con.fillRect(x, y, MAIN.H, MAIN.H);
         con.restore();
 
-        label.Q('span').textContent = '';
+        colors[0] && (label.Q('span').textContent = '');
     }
 }); 
 Draw.color.format = (color, opacity) => color ? `rgba(${color.replaceAll(/[^#]{2}/g, c => parseInt(c, 16) + ',').substring(1)}${opacity ?? 1})` : null;
