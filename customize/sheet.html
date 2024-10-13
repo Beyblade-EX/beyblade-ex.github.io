@@ -23,9 +23,10 @@
             <ul class="default">
                 <li>右邊是圖層操作，每一圖層只可加入一張圖片</li>
                 <li>把旋鈕向上或下拉動以操作</li>
-                <li>開啓微調後，旋鈕轉速會變慢。亦可用鍵盤 Ctrl 鍵開關</li>
+                <li>開啓微調後，旋鈕轉速會變慢</li>
                 <li>雙點擊旋鈕以重設／調節至特殊値</li>
                 <li>輸出 JSON 後可作自己的儲存或與他人分享</li>
+                <li>如發現不能上載已使用過的圖片，可先上載一張未使用過的，再換成原先想用的</li>
                 <li>官方比賽 Regulation 中，有説明「侵害第三者知識財產權、名譽、信用、肖像、Privacy 等權利」或「違反公序良俗」的 Pass Sheet 禁止使用，請自行斟酌
             </ul>
         </details>
@@ -68,7 +69,7 @@
             <spin-knob class="image" title="不透明度" range='{"min":0,"max":1,"value":1,"name":"opacity"}'></spin-knob>
             <spin-knob class="color" title="剪裁" unit="%" range='{"min":0,"max":1,"step":0.001,"value":1,"name":"crop"}'></spin-knob>
             <spin-knob class="color" title="旋轉" unit="π" range='{"min":-1,"max":1,"value":0,"name":"rotate"}' dblclick="0.5"></spin-knob>
-            <label><input type="checkbox" id="fine">微調</label>
+            <label><input type="checkbox" id="fine">微調<small>（Ctrl）</small></label>
         </fieldset>
     </form>
 </main>

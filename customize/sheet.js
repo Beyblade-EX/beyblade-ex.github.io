@@ -17,7 +17,7 @@ const App = () => {
 App.events = () => {
     Object.assign(Q('#layer'), {
         onchange: Layers.change,
-        onclick: ev => console.log(0) || ev.target.id == 'create' ? Layers.create(ev) : ['up', 'down'].includes(ev.target.id) ? Layers.move(ev) : null,
+        onclick: ev => ev.target.id == 'create' ? Layers.create(ev) : ['up', 'down'].includes(ev.target.id) ? Layers.move(ev) : null,
         onpointerdown: ev => ev.target.id == 'delete' && Layers.delete(ev)
     });
     Object.assign(Q('#control-image'), {
@@ -130,6 +130,7 @@ const Layers = {
         let timer = setTimeout(() => {
             Layers.selected.remove();
             Layers.labels[0].click();
+            Draw();
         }, 2000);
         ev.target.onpointerup = () => clearTimeout(timer);
     },
