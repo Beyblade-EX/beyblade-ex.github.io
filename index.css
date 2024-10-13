@@ -171,7 +171,10 @@ h3 {
     p:nth-of-type(3) {order:7;}
     figure:nth-of-type(5) {order:8;}
     p:nth-of-type(4) {order:9;}
-    figure:nth-of-type(n+6) {order:10;}
+    figure:nth-of-type(6) {order:10;}
+    p:nth-of-type(5) {order:11;}
+    figure:nth-of-type(7) {order:12;}
+    p:nth-of-type(n+6) {order:13;}
 }
 
 #reboot {
