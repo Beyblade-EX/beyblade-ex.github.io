@@ -1,14 +1,12 @@
-const MAIN = {}
-MAIN.can = Q('canvas');
-MAIN.con = MAIN.can.getContext('2d', { alpha: false });
+const MAIN = {con: Q('canvas').getContext('2d', { alpha: false })};
 
 const App = () => {
     Controls.show(null);
     Q('form button', button => button.type = 'button');
     App.events();
     //App.picker();
-    Layers.frame = Images.load('./frame.png').then(img => {
-        MAIN.W = MAIN.can.width = img.naturalWidth, MAIN.H = MAIN.can.height = img.naturalHeight;
+    Images.load('./frame.png').then(img => {
+        MAIN.W = MAIN.con.canvas.width = img.naturalWidth, MAIN.H = MAIN.con.canvas.height = img.naturalHeight;
         MAIN.hW = MAIN.W/2, MAIN.hH = MAIN.H/2;
         Layers.frame = img;
         Draw();
@@ -38,15 +36,15 @@ App.events = () => {
     Q('#download').onclick = App.download;
 
     onkeydown = ev => ev.key == 'Control' && Q('#fine').click();
-    (onresize = () => [Q('#control :nth-child(2)').title, Q('#control :nth-child(3)').title] = innerWidth > innerHeight ? 
-        ['上下', '左右'] : ['左右', '上下'])();
+    //(onresize = () => [Q('#control :nth-child(2)').title, Q('#control :nth-child(3)').title] = innerWidth > innerHeight ? 
+    //    ['上下', '左右'] : ['左右', '上下'])();
 }
 App.download = () => {
     let document, page;
     PDFLib.PDFDocument.create().then(doc => {
         document = doc;
         page = doc.addPage(PDFLib.PageSizes.A4.sort((a, b) => a - b));
-        return doc.embedPng(MAIN.can.toDataURL("image/png", 1.0));
+        return doc.embedPng(MAIN.con.canvas.toDataURL("image/png", 1.0));
     }).then(image => {
         let scaled = image.scale(.2427);
         for (let i = 0; i < Q('input[type=number]').value; i++)
@@ -186,22 +184,29 @@ Object.assign(Draw, {
         x = -x * (MAIN.hW + drawing.hW) - MAIN.hW;
         y = y * (MAIN.hH + drawing.hH) - MAIN.hH;
         con.setTransform(s*cos, s*p*sin, -s*sin, s*p*cos, x*s*cos-y*s*sin-x, x*s*p*sin+y*s*p*cos-y);
-        return { x: -x - drawing.hW, y: -y - drawing.hH };
+        return { x: Math.round(-x - drawing.hW), y: Math.round(-y - drawing.hH) };
     },
     image (label) {
         let {img, con, dataset: {angle, x, y, scale: s, pull: p, opacity}} = label;
-        con.save();
         Draw.clear(con);
+        con.save();
         ({x, y} = Draw.transform(con, s, p, angle, x, y, img));
         con.globalAlpha = opacity ?? 1;
-		con.drawImage(img, Math.round(x), Math.round(y));
+		con.drawImage(img, x, y);
         con.restore();
     },
     color (label) {
-        let {con, dataset: {gradient: type, angle, x, y, scale: s, pull: p, opacity}} = label;
-        con.save();
+        let {con, dataset: {gradient: type, angle, x, y, scale: s, crop, rotate}} = label;
         Draw.clear(con);
-        ({x, y} = Draw.transform(con, s, p, angle, x, y));
+        con.save();
+        
+        con.beginPath();
+        angle ??= 0, rotate ??= 0, crop ??= 1;
+        let { x: x0, y: y0 } = Draw.transform(con, s, 1, angle*1 + rotate*1, x, y), adj = MAIN.hH * (Math.SQRT2 - 1);
+        con.rect(x0 - adj, y0 - adj + MAIN.hH * Math.SQRT2* (1 - crop), MAIN.H * Math.SQRT2, MAIN.H * Math.SQRT2 * crop);
+        con.clip();
+
+        ({x, y} = Draw.transform(con, s, 1, angle, x, y));
 
         type ??= 'Linear';
         let gradient = 
@@ -214,9 +219,8 @@ Object.assign(Draw, {
         colors.forEach((c, i, ar) => gradient.addColorStop(i / (ar.length - 1), c));
         label.style.background = `${type}-gradient(${colors.join(',')}),white`;
 
-        con.globalAlpha = opacity ?? 1;
         con.fillStyle = gradient;
-        con.fillRect(Math.round(x), Math.round(y), MAIN.H, MAIN.H);
+        con.fillRect(x, y, MAIN.H, MAIN.H);
         con.restore();
 
         label.Q('span').textContent = '';
