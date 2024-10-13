@@ -35,6 +35,7 @@ App.events = () => {
     Q('#import').onchange = Layers.import;
     Q('#download').onclick = App.download;
 
+    Q('form').oncontextmenu = () => false;
     onkeydown = ev => ev.key == 'Control' && Q('#fine').click();
     //(onresize = () => [Q('#control :nth-child(2)').title, Q('#control :nth-child(3)').title] = innerWidth > innerHeight ? 
     //    ['上下', '左右'] : ['左右', '上下'])();

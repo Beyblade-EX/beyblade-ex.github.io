@@ -30,7 +30,7 @@ main {
     user-select:none; -webkit-user-select:none;
 }
 main>canvas {
-    height:min(50em,100vh - 6rem);
+    height:min(40em,100vh - 6rem);
 }
 spin-knob {
     --bg:black;
@@ -41,7 +41,7 @@ form {
     margin-right:.1em;
 
     >* {
-        margin-top:1em;
+        margin-top:.5rem;
     }
     .message {
         position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
@@ -114,7 +114,7 @@ form {
         padding:1em 0;
 
         :not(input) {
-            width:6.5em; line-height:4em;
+            width:6.4em; line-height:4em;
             font-size:1em !important;
         }
         label {border-right:.05em solid;}
@@ -159,6 +159,14 @@ form {
         label {
             grid-area:3/1/4/4;
             margin-top:.5em;
+            line-height:4em;
+            border:.15rem solid var(--theme); border-radius:.5rem;
+            filter:initial;
+
+            &:has(input:checked) {
+                background:var(--theme); color:black;
+            }
+            &::before {content:initial;}
         }
     }
     #control-image[hidden]~#control .image {display:none;}
