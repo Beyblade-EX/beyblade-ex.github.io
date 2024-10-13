@@ -272,7 +272,7 @@ class Knob extends HTMLElement {
     continuous = {
         setup: () => {
             this.#input = this.Q('input[type=range]') ?? 
-                this.appendChild(E('input', {type: 'range', step: 0.01, ...JSON.parse(this.getAttribute('range'))}));
+                this.appendChild(E('input', {type: 'range', step: 0.01, min: 0, max: 1, value:0, ...JSON.parse(this.getAttribute('range'))}));
             this.max = parseFloat(this.#input.max), this.min = parseFloat(this.#input.min), this.initial = parseFloat(this.#input.value);
             this.min < 0 && this.classList.add('symmetric');
         },

@@ -119,6 +119,10 @@ h3 {
         &::before {--stop:100%;}
     }
 }
+a[data-icon]::before {
+    content:attr(data-icon);
+    pointer-events:none
+}
 @property --stop {
     syntax:'<percentage>'; inherits:false;
     initial-value:0%;
