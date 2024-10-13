@@ -17,7 +17,7 @@ const App = () => {
 App.events = () => {
     Object.assign(Q('#layer'), {
         onchange: Layers.change,
-        onclick: ev => ev.target.id == 'create' ? Layers.create(ev) : ['up', 'down'].includes(ev.target.id) ? Layers.move(ev) : null,
+        onclick: ev => console.log(0) || ev.target.id == 'create' ? Layers.create(ev) : ['up', 'down'].includes(ev.target.id) ? Layers.move(ev) : null,
         onpointerdown: ev => ev.target.id == 'delete' && Layers.delete(ev)
     });
     Object.assign(Q('#control-image'), {
@@ -84,14 +84,14 @@ const Controls = {
     },
     image (ev) {
         Q('#layer').disabled = true;
-        const reader = new FileReader();
-        try {reader.readAsDataURL(ev.target.files[0]);} catch(er) {console.error(er)}
+        const reader = new FileReader(); try {
+        reader.readAsDataURL(ev.target.files[0]);
         reader.onload = () => Images.load(reader.result).then(img => {
             Layers.selected.img = img;
             Layers.selected.Q('span,img').replaceWith(img);
             Q('#layer').disabled = false;
             Draw();
-        });  
+        });} catch(er) {console.error(er);}
     },
     chooseType (ev) {
         Layers.selected.dataset.type = ev.target.id;
