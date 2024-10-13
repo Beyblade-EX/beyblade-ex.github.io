@@ -7,7 +7,7 @@ class AbsPart {
         abbr: this.sym, 
         headers: this.constructor.name.toLowerCase()
     });
-    none = hidden => [E('td', [E('s', hidden ? this.sym : 'ꕕ')]), E('td'), E('td', {classList: 'right'})];
+    none = hidden => [E('td'), E('td'), E('td', {classList: 'right'})];
     static number = (no, sub) => [E('td', {innerHTML: no.replace(/_X-(?=\d{2})/, 'X-&nbsp;')}), sub ? E('sub', sub) : ''];
 }
 class Blade extends AbsPart {
@@ -25,7 +25,7 @@ class Ratchet extends AbsPart {
         super(sym);
     }
     cells() {
-        if (this.sym == '/') return [E('td', [E('s', hidden ? this.sym : 'ꕕ')])];
+        if (this.sym == '/') return [E('td')];
         let tds = [this.abbr()];
         return tds;
     }
@@ -35,7 +35,7 @@ class Bit extends AbsPart {
         super(sym, lowerFusion);
     }
     cells(fusion = this.fusion) {
-        if (this.sym == '/') return [E('td', [E('s', hidden ? this.sym : 'ꕕ')])];
+        if (this.sym == '/') return [E('td'), E('td')];
         let tds = [this.abbr(), E('td', fusion ? {classList: fusion} : null)];
         return tds;
     }

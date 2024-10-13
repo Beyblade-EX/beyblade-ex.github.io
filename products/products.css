@@ -208,10 +208,10 @@ tbody tr:last-child td {
 tbody td {
     border-top:solid .5px var(--on);
 }
-td[abbr] {
+td:is([abbr],.right:not(:empty)+td,:nth-child(2)) {
     border-left:solid .5px var(--on);
 }
-td:last-child {
+td:last-child:not(:empty) {
     border-left:solid .5px hsl(0,0%,55%);
 }
 table:not(.bilingual):has(#eng:not(:checked)) .left,
