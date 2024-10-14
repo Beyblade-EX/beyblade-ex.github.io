@@ -14,7 +14,7 @@
         "type": "bal",
         "imgs":["https://m.media-amazon.com/images/I/61GQqKJP0rL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/71+V-FD+8lL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/61gpyuKcaXL._AC_SX679_.jpg"],
         "desc": [
-          "Blade：上段刃及下段刃有不同性能",
+          "Blade：上段刃減輕 Stamina loss，下段刃擅長 Counter",
           "Trans Point：扭動可增高／降低 2mm"
         ]
       },
@@ -26,13 +26,13 @@
         "desc": [
           "Blade：以離心力伸縮的小刃，伸出時變圓以連擊，縮入後以大刃一擊",
           "Level Bit：三段不同闊度鋸齒狀平軸，以角度轉速",
-          "附「Hold Launcher」，與 Grip 合併的形狀，Winder 亦較長"  
+          "附「Hold Launcher」，與 Grip 合併的形狀，附四個可拆除的橡膠 Panel，Winder 亦較長"  
         ]
       },
       {
         "code": "UX-10 customize set 改造組合",
         "name": "カスタマイズセットU<br>Customize Set U",
-        "imgs":["https://m.media-amazon.com/images/I/614ViUP658L._AC_SX679_.jpg","https://m.media-amazon.com/images/I/613hwtP85JL._AC_SX679_.jpg"],
+        "imgs":["https://m.media-amazon.com/images/I/61o2EExmycL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/614ViUP658L._AC_SX679_.jpg","https://m.media-amazon.com/images/I/613hwtP85JL._AC_SX679_.jpg"],
         "type":"def",
         "desc": [
           "4 Blade、3 Ratchet、6 Bit 組合",
