@@ -92,12 +92,6 @@ caption:not(:empty) {
     margin:.5em auto;
     text-align:right;
 }
-caption.loading::after {
-    content:'\e005';
-    font-size:2em;
-    display:inline-block;
-    animation:spin 1s infinite;
-}
 #filter button,caption button {
     padding:0 .5em;
     background:none;

@@ -1,6 +1,7 @@
 const CAN = {con: Q('canvas').getContext('2d', { alpha: false })};
 const loadIMG = src => new Promise(res => E('img', {src, onload: function() {res(this);}}));
 const App = () => {
+    App.loading(true);
     Controls.show(null);
     Q('form button', button => button.type = 'button');
     App.events();
@@ -11,6 +12,7 @@ const App = () => {
         Q('nav menu a', a => a.canvas = CAN.con.canvas.cloneNode(true));
         Layers.frame = img;
         App.load((location.hash ||= '#1').substring(1));
+        App.loading(false);
     });
 }
 Object.assign(App, {
@@ -20,11 +22,12 @@ Object.assign(App, {
         Layers.labels[0].click();
         Draw();
     },
+    loading: loading => Q('.message').classList[loading ? 'add' : 'remove']('loading'),
     save: ev => (ev.target.disabled = true) && DB.put('user', {[`sheet-${location.hash.substring(1)}`]: Layers.get()}),
     load: no => DB.get('user', `sheet-${no}`).then(layers => layers ? Layers.put(layers) : App.reset()),
     stage: hash => Q(`a[href='${hash || location.hash}']`).canvas.getContext('2d').drawImage(CAN.con.canvas, 0, 0),
     switch: ev => {
-        App.stage(new URL(ev.oldURL).hash);
+        (Layers.labels.length > 1 || Layers.labels[0].dataset.type) && App.stage(new URL(ev.oldURL).hash);
         /^#[1-6]$/.test(location.hash) ? App.load(location.hash.substring(1)) : location.href = '#1';
     },
     export () {
@@ -38,7 +41,15 @@ Object.assign(App, {
         reader.readAsText(ev.target.files[0]);
         reader.onload = () => Layers.put(JSON.parse(reader.result));
     },
+    sample () {
+        App.loading(true);
+        fetch('./sample.json').then(resp => resp.json()).then(layers => {
+            Layers.put(layers);
+            App.loading(false);
+        });    
+    },
     download () {
+        App.loading(true);
         App.stage();
         let pdf, page;
         PDFLib.PDFDocument.create().then(doc => {
@@ -46,9 +57,9 @@ Object.assign(App, {
             page = doc.addPage(PDFLib.PageSizes.A4.sort((a, b) => a - b));
             return Promise.all(Q('nav li:not(:last-child) a').map(a => doc.embedPng(a.canvas.toDataURL("image/png", 1.0))));
         }).then(images => {
-            images.flatMap(i => [i, i]).forEach((image, i) => {
+            let amount = Q('#download+input').value;
+            images.reverse().flatMap((im, i) => Array(parseInt(amount[i])).fill(im)).forEach((image, i) => {
                 let scaled = image.scale(.2427);
-            //for (let i = 0; i < Q('input[type=number]').value; i++)
                 page.drawImage(image, {
                     x: 20 + i % 6 * (12.5 + scaled.width),
                     y: 84.5 + (1 - Math.floor(i/6)) * (20 + scaled.height),
@@ -56,8 +67,10 @@ Object.assign(App, {
                 });
             });
             return pdf.save();
-        }).then(doc => window.open(URL.createObjectURL(new Blob([doc], { type: 'application/pdf' }))))
-        .catch(er => console.error(er));
+        }).then(doc => {
+            window.open(URL.createObjectURL(new Blob([doc], { type: 'application/pdf' })))
+            App.loading(false);
+        }).catch(er => console.error(er));
     },
     events () {
         Object.assign(Q('#layer'), {
@@ -76,12 +89,11 @@ Object.assign(App, {
         Q('#type').onclick = ev => ev.target.tagName == 'BUTTON' && Controls.chooseType(ev);
         Q('#control').onchange = Controls.get;
         
-        Q('#export').onclick = App.export;
+        Q('#export,#download,#sample', button => button.onclick = App[button.id]);
         Q('#import').onchange = App.import;
-        Q('#download').onclick = App.download;
 
         Q('form').oncontextmenu = () => false;
-        onkeydown = ev => ev.key == 'Control' && Q('#fine').click();
+        onkeydown = ev => ev.key == 'Control' ? Q('#fine').click() : null;
 
         Q('#save').onclick = App.save;
         onhashchange = App.switch;
@@ -117,15 +129,23 @@ const Controls = {
         Draw();
     },
     image (ev) {
-        Layer.fieldset.disabled = true;
-        const reader = new FileReader(); try {
-        reader.readAsDataURL(ev.target.files[0]);
-        reader.onload = () => loadIMG(reader.result).then(img => {
-            Layers.selected.img = img;
-            Layers.selected.Q('span,img').replaceWith(img);
-            Layer.fieldset.disabled = false;
-            Draw();
-        });} catch(er) {console.error(er);}
+        Layers.fieldset.disabled = true;
+        App.loading(true);
+        const reader = new FileReader();
+        try {
+            reader.readAsDataURL(ev.target.files[0]);
+            reader.onload = () => loadIMG(reader.result).then(img => {
+                Layers.selected.img = img;
+                Layers.selected.Q('span,img').replaceWith(img);
+                Layers.fieldset.disabled = false;
+                App.loading(false);
+                Draw();
+            });
+        } catch(er) {
+            console.error(er);
+            Layers.fieldset.disabled = false;
+            App.loading(false);
+        }
     },
     chooseType (ev) {
         Layers.selected.dataset.type = ev.target.id;
@@ -157,8 +177,8 @@ const Layers = {
         Controls.show(0);
     },
     delete (ev) {
-        Q('form .message').hidden = false;
-        setTimeout(() => Q('form .message').hidden = true, 2000);
+        Q('.message').classList.add('active')
+        setTimeout(() => Q('.active').classList.remove('active'), 2000);
         let timer = setTimeout(() => {
             Layers.selected.remove();
             Layers.labels[0].click();
@@ -167,13 +187,14 @@ const Layers = {
         ev.target.onpointerup = () => clearTimeout(timer);
     },
     move (ev) {
-        let current = Layers.selected, scrollTop = Layer.fieldset.scrollTop;
+        let current = Layers.selected, scrollTop = Layers.fieldset.scrollTop;
         let sibling = current[`${ev.target.id == 'up' ? 'previous' : 'next'}ElementSibling`];
         sibling?.tagName == 'LABEL' && sibling[ev.target.id == 'up' ? 'before' : 'after'](current);
-        Layer.fieldset.scrollTop = scrollTop;
+        Layers.fieldset.scrollTop = scrollTop;
         Draw();
     },
     put (layers) {
+        App.loading(true);
         Promise.all(layers.map(ds => ds.image ? 
             loadIMG(ds.image).then(img => Layers.label((({image, ...others}) => others)(ds), img)) : 
             Layers.label(ds)
@@ -181,6 +202,7 @@ const Layers = {
             Q('#layer div').replaceChildren(...labels);
             labels[0].click();
             Draw(true);
+            App.loading(false);
         });
     },
     get: () => [...Layers.labels]

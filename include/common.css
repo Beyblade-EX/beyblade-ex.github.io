@@ -332,6 +332,11 @@ nav {
     &:popover-open {display:grid;}
     &:not(popover-open),>p:empty {display:none;}
 }
+.loading::after {
+    content:'\e005';font-size:2em;
+    display:inline-block;
+    animation:spin 1s infinite;
+}
 @keyframes spin {to {transform:rotate(360deg);}}
 @property --angle {
     syntax:'<angle>';

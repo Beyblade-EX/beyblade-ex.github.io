@@ -11,8 +11,8 @@ nav {
             grid-area:2/4/3/5;
         }
     }
-    input[type=number] {
-        max-width:3em; max-height:2em;
+    input {
+        width:5em; max-height:2em;
         margin:0 .2em 0 .3em;
         vertical-align:middle;
     }
@@ -28,20 +28,10 @@ main {
     margin-top:4.15rem;
     display:grid; grid-template-columns:auto 1fr;
     user-select:none; -webkit-user-select:none;
-}
-main>canvas {
-    height:min(40em,100vh - 6rem);
-}
-spin-knob {
-    --bg:black;
-}
-form {
-    display:grid; grid-template:repeat(3,auto) / 1fr auto;
     position:relative;
-    margin-right:.1em;
 
-    >* {
-        margin-top:.5rem;
+    canvas {
+        height:min(40em,100vh - 6rem);
     }
     .message {
         position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
@@ -49,8 +39,21 @@ form {
         width:100%; 
         background:rgba(255,255,255,.8); color:black;
         padding:1em;
-
+    
+        &.loading span {display:none;}
+        &:not(.loading,.active) {display:none;}
         small {display:block;}
+    }
+}
+spin-knob {
+    --bg:black;
+}
+form {
+    display:grid; grid-template:repeat(3,auto) / 1fr auto;
+    margin-right:.1em;
+
+    >* {
+        margin-top:.5rem;
     }
     details ul {
         text-align:left; font-size:.8em;

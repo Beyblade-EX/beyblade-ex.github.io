@@ -17,28 +17,30 @@
         <label><input id="import" type="file" accept="application/json">&#xe03f; 匯入 JSON</label>
     </div>
     <div>
-        <button id="download">&#xe03d; 輸出 PDF</button><input type="number" min="1" max="12" value="2">
+        <button id="download">&#xe03d; 輸出 PDF</button><input type=text value="200000">
         <button id="export">&#xe03e; 輸出 JSON</button>
     </div>
 </nav>
 
 <db-status callback="App()"></db-status>
 <main>
+    <p class="message"><span>按住兩秒以刪除此層<small>無法回復！</span></small></p>
     <canvas></canvas>
     <form>
         <details>
             <summary>提示</summary>
             <ul class="default">
+                <li>以左上的拉桿跳至不同專案（上限 6）</li>
                 <li>右邊是圖層操作，每一圖層只可加入一張圖片</li>
                 <li>把旋鈕向上或下拉動以操作</li>
                 <li>開啓微調後，旋鈕轉速會變慢</li>
                 <li>雙點擊旋鈕以重設／調節至特殊値</li>
                 <li>輸出 JSON 後可作自己的儲存或與他人分享</li>
+                <li>在輸出 PDF 旁的欄填入每個專案想列印的張數，321030 表示專案 1 三張、專案 2 兩張等（只限 0 到 9）
                 <li>如發現不能上載已使用過的圖片，可先上載一張未使用過的，再換成原先想用的</li>
                 <li>官方比賽 Regulation 中，有説明「侵害第三者知識財產權、名譽、信用、肖像、Privacy 等權利」或「違反公序良俗」的 Pass Sheet 禁止使用，請自行斟酌
             </ul>
         </details>
-        <p class="message" hidden>按住兩秒以刪除此層<small>無法回復！</small></p>
         <fieldset id="type">
             <button class="type" id="image">&#xe03a;</button>
             <span>&#xe041; 選擇 &#xe042;</span>
