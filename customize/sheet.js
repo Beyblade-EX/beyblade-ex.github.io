@@ -18,7 +18,7 @@ const App = () => {
 Object.assign(App, {
     reset () {
         Controls.reset();
-        Q('#layer div').replaceChildren(Layers.label());
+        Q('#layers').replaceChildren(Layers.label());
         Layers.labels[0].click();
         Draw();
     },
@@ -118,7 +118,7 @@ const Controls = {
         Controls.show(type);
         Object.entries(controls).forEach(([n, v]) => {
             Q(`spin-knob:has(input[name=${n}])`)?.set(v);
-            Q(`input[name=${n}]:not([type=range])`) && (Q(`input[name=${n}]:not([type=range])`).value = v);
+            Q('form')[n] && (Q('form')[n].value = v);
         });
     },
     get (ev) {
@@ -155,7 +155,7 @@ const Controls = {
 }
 const Layers = {
     fieldset: Q('#layer'),
-    labels: Q('#layer div').children,
+    labels: Q('#layers').children,
     label: (dataset, img) => {
         let label = E('label', {dataset}, [img ?? E('span'), E('input', {type: 'radio', name: 'layer'})]);
         label.can = new OffscreenCanvas(CAN.W, CAN.H);
@@ -199,7 +199,7 @@ const Layers = {
             loadIMG(ds.image).then(img => Layers.label((({image, ...others}) => others)(ds), img)) : 
             Layers.label(ds)
         )).then(labels => {
-            Q('#layer div').replaceChildren(...labels);
+            Q('#layers').replaceChildren(...labels);
             labels[0].click();
             Draw(true);
             App.loading(false);

@@ -12,7 +12,7 @@
         "code": "BX-38 booster",
         "name": "クリムゾンガルーダ4-70TP<br>CrimsonGaruda 4-70TP",
         "type": "bal",
-        "imgs":["https://pbs.twimg.com/media/GZu92E1aAAIOiA2?format=jpg"],
+        "imgs":["https://m.media-amazon.com/images/I/61GQqKJP0rL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/71+V-FD+8lL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/61gpyuKcaXL._AC_SX679_.jpg"],
         "desc": [
           "Blade：上段刃及下段刃有不同性能",
           "Trans Point：扭動可增高／降低 2mm"
@@ -22,7 +22,7 @@
         "code": "UX-09 starter",
         "name": "サムライセイバー2-70L<br>SamuraiSaber 2-70L",
         "type": "att",
-        "imgs":["https://pbs.twimg.com/media/GZu95gBaAAAv1l0?format=jpg","https://pbs.twimg.com/media/GZu95gBbEAAHgim?format=jpg"],
+        "imgs":["https://m.media-amazon.com/images/I/613t87XQd0L._AC_SX679_.jpg","https://m.media-amazon.com/images/I/61l0JrptkeL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/61UeeBLx+DL._AC_SX679_.jpg"],
         "desc": [
           "Blade：以離心力伸縮的小刃，伸出時變圓以連擊，縮入後以大刃一擊",
           "Level Bit：三段不同闊度鋸齒狀平軸，以角度轉速",
@@ -32,7 +32,8 @@
       {
         "code": "UX-10 customize set 改造組合",
         "name": "カスタマイズセットU<br>Customize Set U",
-        "imgs":["https://pbs.twimg.com/media/GZu92E1aAAQT2cT?format=jpg","https://pbs.twimg.com/media/GZu92E0aAAQ17jo?format=jpg"],
+        "imgs":["https://m.media-amazon.com/images/I/614ViUP658L._AC_SX679_.jpg","https://m.media-amazon.com/images/I/613hwtP85JL._AC_SX679_.jpg"],
+        "type":"def",
         "desc": [
           "4 Blade、3 Ratchet、6 Bit 組合",
           "Knight<a href=https://en.wikipedia.org/wiki/Chain_mail target=_blank>Mail</a>：有三顆可動金屬球，吸收衝擊",
