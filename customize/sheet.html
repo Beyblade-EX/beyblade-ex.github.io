@@ -3,9 +3,17 @@
 <script defer src=https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js></script>
 <link href="/customize/sheet.css" rel=stylesheet>
 <nav>
-    <menu><li><a></a></li></menu>
+    <menu>
+        <li><a href="#6">#6</a></li>
+        <li><a href="#5">#5</a></li>
+        <li><a href="#4">#4</a></li>
+        <li><a href="#3">#3</a></li>
+        <li><a href="#2">#2</a></li>
+        <li><a href="#1">#1</a></li>
+    </menu>
     <div>
-        <button id="sample">&#xe040; 範例（3 抽 1）</button>
+        <button id="save" disabled>&#xe044; 儲存</button>
+        <button id="sample">&#xe040; 範例</button>
         <label><input id="import" type="file" accept="application/json">&#xe03f; 匯入 JSON</label>
     </div>
     <div>
@@ -14,7 +22,7 @@
     </div>
 </nav>
 
-<db-status></db-status>
+<db-status callback="App()"></db-status>
 <main>
     <canvas></canvas>
     <form>
@@ -64,10 +72,10 @@
             <spin-knob title="角度" unit="π" range='{"min":-1,"max":1,"value":0,"name":"angle"}' dblclick="0.5"></spin-knob>
             <spin-knob title="左右" unit="%" range='{"min":-1,"max":1,"value":0,"name":"x"}'></spin-knob>
             <spin-knob title="上下" unit="%" range='{"min":-1,"max":1,"value":0,"name":"y"}'></spin-knob>
-            <spin-knob title="縮放" range='{"min":0.1,"max":5,"value":1,"name":"scale"}'></spin-knob>
-            <spin-knob class="image" title="伸縮" range='{"min":0.01,"max":2,"value":1,"name":"pull"}'></spin-knob>
+            <spin-knob title="縮放" range='{"min":0.01,"max":5,"value":1,"step":0.01,"name":"scale"}'></spin-knob>
+            <spin-knob class="image" title="伸縮" range='{"min":0.01,"max":2,"step":0.01,"value":1,"name":"pull"}'></spin-knob>
             <spin-knob class="image" title="不透明度" range='{"min":0,"max":1,"value":1,"name":"opacity"}'></spin-knob>
-            <spin-knob class="color" title="剪裁" unit="%" range='{"min":0,"max":1,"step":0.001,"value":1,"name":"crop"}'></spin-knob>
+            <spin-knob class="color" title="剪裁" unit="%" range='{"min":0,"max":1,"value":1,"name":"crop"}'></spin-knob>
             <spin-knob class="color" title="旋轉" unit="π" range='{"min":-1,"max":1,"value":0,"name":"rotate"}' dblclick="0.5"></spin-knob>
             <label><input type="checkbox" id="fine">微調<small>（Ctrl）</small></label>
         </fieldset>
@@ -93,5 +101,4 @@
         main.forEach(c => [1,2,3,4].forEach(i => show(`_${c}_bey0${i}.png`)));
         mobu.forEach(c => [1,2].forEach(i => show(`_${c}_bey0${i}.png`)));
     }
-    App();
 </script>

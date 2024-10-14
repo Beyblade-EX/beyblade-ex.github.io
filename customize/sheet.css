@@ -36,7 +36,7 @@ spin-knob {
     --bg:black;
 }
 form {
-    display:grid; grid-template:repeat(3,min-content) / 1fr auto;
+    display:grid; grid-template:repeat(3,auto) / 1fr auto;
     position:relative;
     margin-right:.1em;
 

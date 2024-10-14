@@ -178,8 +178,8 @@ class Knob extends HTMLElement {
     set name(name) {return;}
     get value() {return this.type == 'discrete' ? this.#input.Q(':checked').value : parseFloat(this.#input.value);}
     set value(value) {this[this.type].adjustValue(value);}
+    set = value => this[this.type].adjustValue(value ?? this.initial, false);
 
-    init = () => this[this.type].adjustValue(this.initial, false);
     θ = () => parseFloat(getComputedStyle(this).getPropertyValue('--angle'));
     
     auto = ev => this.style.setProperty('--angle', `${ev.type == 'pointerenter' ? this.maxθ : this.minθ}deg`)
@@ -194,7 +194,7 @@ class Knob extends HTMLElement {
             press: (drag) => (drag.pressθ = this.θ(), this.start ??= drag.pressθ),
             move: (drag) => {
                 let delta = Math.abs(drag.deltaY);
-                if (this.type == 'continuous' && delta < 2 || this.type == 'discrete' && delta < 50) return;
+                if (this.type == 'continuous' && delta < 1 || this.type == 'discrete' && delta < 50) return;
                 if (location.pathname == '/') {
                     if (this.hasAttribute('alt') && Math.abs(this.θ() - this.start) >= (this.maxθ - this.minθ)/2) {
                         this.Q('a').href = this.getAttribute('alt');
@@ -272,7 +272,7 @@ class Knob extends HTMLElement {
     continuous = {
         setup: () => {
             this.#input = this.Q('input[type=range]') ?? 
-                this.appendChild(E('input', {type: 'range', step: 0.01, min: 0, max: 1, value:0, ...JSON.parse(this.getAttribute('range'))}));
+                this.appendChild(E('input', {type: 'range', step: 0.001, min: 0, max: 1, value:0, ...JSON.parse(this.getAttribute('range'))}));
             this.max = parseFloat(this.#input.max), this.min = parseFloat(this.#input.min), this.initial = parseFloat(this.#input.value);
             this.min < 0 && this.classList.add('symmetric');
         },
@@ -288,7 +288,7 @@ class Knob extends HTMLElement {
                 this.#input.value = parseFloat(value);
             }
             this.style.setProperty('--angle', `${(this.continuous.θ)}deg`);
-            this.Q('data').value = this.getAttribute('unit') == '%' ? (this.value*100).toFixed(0) : this.value;
+            this.Q('data').value = this.getAttribute('unit') == '%' ? (this.value*100).toFixed(1) : this.value;
             this.#internals.setFormValue(this.value);
             event && this.#input.dispatchEvent(new Event('change', {bubbles: true}));
         }
@@ -378,8 +378,8 @@ class Knob extends HTMLElement {
     }
     ::slotted(data) {
         position:relative; 
-        display:inline-block; transform:scale(-1) translateY(1em);
-        font-size:.7em;
+        display:inline-block; transform:scale(-1) translateY(1.4em);
+        font-size:.6em;
     }
     ::slotted(data)::before {
         content:attr(value);

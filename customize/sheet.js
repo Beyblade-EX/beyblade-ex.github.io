@@ -1,64 +1,95 @@
-const MAIN = {con: Q('canvas').getContext('2d', { alpha: false })};
-
+const CAN = {con: Q('canvas').getContext('2d', { alpha: false })};
+const loadIMG = src => new Promise(res => E('img', {src, onload: function() {res(this);}}));
 const App = () => {
     Controls.show(null);
     Q('form button', button => button.type = 'button');
     App.events();
     App.picker();
-    Images.load('./frame.png').then(img => {
-        MAIN.W = MAIN.con.canvas.width = img.naturalWidth, MAIN.H = MAIN.con.canvas.height = img.naturalHeight;
-        MAIN.hW = MAIN.W/2, MAIN.hH = MAIN.H/2;
+    loadIMG('./frame.png').then(img => {
+        CAN.W = CAN.con.canvas.width = img.naturalWidth, CAN.H = CAN.con.canvas.height = img.naturalHeight;
+        CAN.hW = CAN.W/2, CAN.hH = CAN.H/2;
+        Q('nav menu a', a => a.canvas = CAN.con.canvas.cloneNode(true));
         Layers.frame = img;
+        App.load((location.hash ||= '#1').substring(1));
+    });
+}
+Object.assign(App, {
+    reset () {
+        Controls.reset();
+        Q('#layer div').replaceChildren(Layers.label());
+        Layers.labels[0].click();
         Draw();
-        Q('#layer div').append(Layers.label());
-        Layers.labels.length === 1 && Layers.labels[0].click();
-    });
-}
-App.events = () => {
-    Object.assign(Q('#layer'), {
-        onchange: Layers.change,
-        onclick: ev => ev.target.id == 'create' ? Layers.create(ev) : ['up', 'down'].includes(ev.target.id) ? Layers.move(ev) : null,
-        onpointerdown: ev => ev.target.id == 'delete' && Layers.delete(ev)
-    });
-    Object.assign(Q('#control-image'), {
-        onchange: Controls.image,
-        onclick: ev => ev.target.popoverTargetElement && (ev.preventDefault(), Q('aside').showPopover())
-    });
-    Object.assign(Q('#control-color'), {
-        oninput: ev => ev.target.type == 'color' && Controls.get(ev),
-        onchange: Controls.get
-    });
-    Q('#type').onclick = ev => ev.target.tagName == 'BUTTON' && Controls.chooseType(ev);
-    Q('#control').onchange = Controls.get;
-    
-    Q('#export').onclick = Layers.export;
-    Q('#import').onchange = Layers.import;
-    Q('#download').onclick = App.download;
-
-    Q('form').oncontextmenu = () => false;
-    onkeydown = ev => ev.key == 'Control' && Q('#fine').click();
-    //(onresize = () => [Q('#control :nth-child(2)').title, Q('#control :nth-child(3)').title] = innerWidth > innerHeight ? 
-    //    ['上下', '左右'] : ['左右', '上下'])();
-}
-App.download = () => {
-    let document, page;
-    PDFLib.PDFDocument.create().then(doc => {
-        document = doc;
-        page = doc.addPage(PDFLib.PageSizes.A4.sort((a, b) => a - b));
-        return doc.embedPng(MAIN.con.canvas.toDataURL("image/png", 1.0));
-    }).then(image => {
-        let scaled = image.scale(.2427);
-        for (let i = 0; i < Q('input[type=number]').value; i++)
-            page.drawImage(image, {
-                x: 20 + Math.floor(i / 2) * (12.5 + scaled.width),
-                y: 84.5 + i % 2 * (20 + scaled.height),
-                width: scaled.width,
-                height: scaled.height,
+    },
+    save: ev => (ev.target.disabled = true) && DB.put('user', {[`sheet-${location.hash.substring(1)}`]: Layers.get()}),
+    load: no => DB.get('user', `sheet-${no}`).then(layers => layers ? Layers.put(layers) : App.reset()),
+    stage: hash => Q(`a[href='${hash || location.hash}']`).canvas.getContext('2d').drawImage(CAN.con.canvas, 0, 0),
+    switch: ev => {
+        App.stage(new URL(ev.oldURL).hash);
+        /^#[1-6]$/.test(location.hash) ? App.load(location.hash.substring(1)) : location.href = '#1';
+    },
+    export () {
+        E('a', {
+            href: `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(Layers.get()))}`,
+            download: 'sheet.json'
+        }).click();
+    },
+    import (ev) {
+        let reader = new FileReader();
+        reader.readAsText(ev.target.files[0]);
+        reader.onload = () => Layers.put(JSON.parse(reader.result));
+    },
+    download () {
+        App.stage();
+        let pdf, page;
+        PDFLib.PDFDocument.create().then(doc => {
+            pdf = doc;
+            page = doc.addPage(PDFLib.PageSizes.A4.sort((a, b) => a - b));
+            return Promise.all(Q('nav li:not(:last-child) a').map(a => doc.embedPng(a.canvas.toDataURL("image/png", 1.0))));
+        }).then(images => {
+            images.flatMap(i => [i, i]).forEach((image, i) => {
+                let scaled = image.scale(.2427);
+            //for (let i = 0; i < Q('input[type=number]').value; i++)
+                page.drawImage(image, {
+                    x: 20 + i % 6 * (12.5 + scaled.width),
+                    y: 84.5 + (1 - Math.floor(i/6)) * (20 + scaled.height),
+                    width: scaled.width, height: scaled.height,
+                });
             });
-        return document.save();
-    }).then(doc => window.open(URL.createObjectURL(new Blob([doc], { type: 'application/pdf' }))))
-    .catch(er => console.error(er));
-}
+            return pdf.save();
+        }).then(doc => window.open(URL.createObjectURL(new Blob([doc], { type: 'application/pdf' }))))
+        .catch(er => console.error(er));
+    },
+    events () {
+        Object.assign(Q('#layer'), {
+            onchange: Layers.change,
+            onclick: ev => ev.target.id == 'create' ? Layers.create(ev) : ['up', 'down'].includes(ev.target.id) ? Layers.move(ev) : null,
+            onpointerdown: ev => ev.target.id == 'delete' && Layers.delete(ev)
+        });
+        Object.assign(Q('#control-image'), {
+            onchange: Controls.image,
+            onclick: ev => ev.target.popoverTargetElement && (ev.preventDefault(), Q('aside').showPopover())
+        });
+        Object.assign(Q('#control-color'), {
+            oninput: ev => ev.target.type == 'color' && Controls.get(ev),
+            onchange: Controls.get
+        });
+        Q('#type').onclick = ev => ev.target.tagName == 'BUTTON' && Controls.chooseType(ev);
+        Q('#control').onchange = Controls.get;
+        
+        Q('#export').onclick = App.export;
+        Q('#import').onchange = App.import;
+        Q('#download').onclick = App.download;
+
+        Q('form').oncontextmenu = () => false;
+        onkeydown = ev => ev.key == 'Control' && Q('#fine').click();
+
+        Q('#save').onclick = App.save;
+        onhashchange = App.switch;
+        onbeforeunload = ev => Q('#save').disabled ? null : ev.preventDefault();
+        //(onresize = () => [Q('#control :nth-child(2)').title, Q('#control :nth-child(3)').title] = innerWidth > innerHeight ? 
+        //    ['上下', '左右'] : ['左右', '上下'])();
+    }
+});
 const Controls = {
     show (what) {
         Q('#type,[id|=control]', fieldset => fieldset.hidden = true);
@@ -67,13 +98,16 @@ const Controls = {
     reset () {
         Q('input[type=color]', input => input.value = '#000000');
         Q('input[value=Linear]').checked = true;
-        Q('spin-knob', knob => knob.init());
+        Q('spin-knob', knob => knob.set());
     },
     put () {
         let {type, ...controls} = Layers.selected.dataset;
         Controls.reset();
         Controls.show(type);
-        Object.entries(controls).forEach(([n, v]) => Q(`spin-knob:has(input[name=${n}]),input[name=${n}]:not([type=range])`).value = v);
+        Object.entries(controls).forEach(([n, v]) => {
+            Q(`spin-knob:has(input[name=${n}])`)?.set(v);
+            Q(`input[name=${n}]:not([type=range])`) && (Q(`input[name=${n}]:not([type=range])`).value = v);
+        });
     },
     get (ev) {
         if (ev.target.id == 'fine') 
@@ -83,13 +117,13 @@ const Controls = {
         Draw();
     },
     image (ev) {
-        Q('#layer').disabled = true;
+        Layer.fieldset.disabled = true;
         const reader = new FileReader(); try {
         reader.readAsDataURL(ev.target.files[0]);
-        reader.onload = () => Images.load(reader.result).then(img => {
+        reader.onload = () => loadIMG(reader.result).then(img => {
             Layers.selected.img = img;
             Layers.selected.Q('span,img').replaceWith(img);
-            Q('#layer').disabled = false;
+            Layer.fieldset.disabled = false;
             Draw();
         });} catch(er) {console.error(er);}
     },
@@ -99,14 +133,12 @@ const Controls = {
         Controls.show(ev.target.id);
     }
 }
-const Images = new Map();
-Images.load = src => new Promise(res => E('img', {src, onload: function() {res(this);}}));
-
 const Layers = {
+    fieldset: Q('#layer'),
     labels: Q('#layer div').children,
     label: (dataset, img) => {
         let label = E('label', {dataset}, [img ?? E('span'), E('input', {type: 'radio', name: 'layer'})]);
-        label.can = new OffscreenCanvas(MAIN.W, MAIN.H);
+        label.can = new OffscreenCanvas(CAN.W, CAN.H);
         label.con = label.can.getContext('2d');
         img && (label.img = img);
         return label;
@@ -135,33 +167,25 @@ const Layers = {
         ev.target.onpointerup = () => clearTimeout(timer);
     },
     move (ev) {
-        let current = Layers.selected;
+        let current = Layers.selected, scrollTop = Layer.fieldset.scrollTop;
         let sibling = current[`${ev.target.id == 'up' ? 'previous' : 'next'}ElementSibling`];
         sibling?.tagName == 'LABEL' && sibling[ev.target.id == 'up' ? 'before' : 'after'](current);
+        Layer.fieldset.scrollTop = scrollTop;
         Draw();
     },
-    export () {
-        let layers = [...Layers.labels]
-            .map(label => ({...label.dataset, ...label.img ? {image: label.img.src} : {}}))
-            .filter(obj => Object.keys(obj).length);
-        E('a', {
-            href: `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(layers))}`,
-            download: 'sheet.json'
-        }).click();
+    put (layers) {
+        Promise.all(layers.map(ds => ds.image ? 
+            loadIMG(ds.image).then(img => Layers.label((({image, ...others}) => others)(ds), img)) : 
+            Layers.label(ds)
+        )).then(labels => {
+            Q('#layer div').replaceChildren(...labels);
+            labels[0].click();
+            Draw(true);
+        });
     },
-    import (ev) {
-        let reader = new FileReader();
-        reader.readAsText(ev.target.files[0]);
-        reader.onload = () =>
-            Promise.all(JSON.parse(reader.result).map(ds => ds.image ? 
-                Images.load(ds.image).then(img => Layers.label((({image, ...others}) => others)(ds), img)) : 
-                Layers.label(ds)
-            )).then(labels => {
-                Q('#layer div').replaceChildren(...labels);
-                labels[0].click();
-                Draw(true);
-            });
-    }
+    get: () => [...Layers.labels]
+        .map(label => ({...label.dataset, ...label.img ? {image: label.img.src} : {}}))
+        .filter(obj => Object.keys(obj).length)
 };
 const Draw = (all) => {
     Draw.clear();
@@ -170,21 +194,22 @@ const Draw = (all) => {
             label.img && Draw.image(label);
             label.dataset.type == 'color' && Draw.color(label);
         }
-        MAIN.con.drawImage(label.can, 0, 0);
+        CAN.con.drawImage(label.can, 0, 0);
     });
     Draw.frame();
+    Q('#save').disabled = all || Layers.labels.length <= 1 && !Layers.labels[0]?.dataset.type;
 }
 Object.assign(Draw, {
-    clear: context => context ? context.clearRect(0, 0, MAIN.W, MAIN.H) : (MAIN.con.fillStyle = 'white') && MAIN.con.fillRect(0, 0, MAIN.W, MAIN.H),
-    frame: () => MAIN.con.drawImage(Layers.frame, 0, 0, MAIN.W, MAIN.H),
+    clear: context => context ? context.clearRect(0, 0, CAN.W, CAN.H) : (CAN.con.fillStyle = 'white') && CAN.con.fillRect(0, 0, CAN.W, CAN.H),
+    frame: () => CAN.con.drawImage(Layers.frame, 0, 0, CAN.W, CAN.H),
     transform (con, s, p, angle, x, y, image) {
         s ??= 1, p ??= 1, angle ??= 0, x ??= 0, y ??= 0;
-        let drawing = {W: image?.naturalWidth ?? MAIN.H, H: image?.naturalHeight ?? MAIN.H};
+        let drawing = {W: image?.naturalWidth ?? CAN.H, H: image?.naturalHeight ?? CAN.H};
         drawing.hW = drawing.W/2, drawing.hH = drawing.H/2;
 
         let cos = Math.cos(angle*Math.PI), sin = Math.sin(angle*Math.PI);
-        x = -x * (MAIN.hW + drawing.hW) - MAIN.hW;
-        y = y * (MAIN.hH + drawing.hH) - MAIN.hH;
+        x = -x * (CAN.hW + drawing.hW) - CAN.hW;
+        y = y * (CAN.hH + drawing.hH) - CAN.hH;
         con.setTransform(s*cos, s*p*sin, -s*sin, s*p*cos, x*s*cos-y*s*sin-x, x*s*p*sin+y*s*p*cos-y);
         return { x: Math.round(-x - drawing.hW), y: Math.round(-y - drawing.hH) };
     },
@@ -204,17 +229,17 @@ Object.assign(Draw, {
         
         con.beginPath();
         angle ??= 0, rotate ??= 0, crop ??= 1;
-        let { x: x0, y: y0 } = Draw.transform(con, s, 1, angle*1 + rotate*1, x, y), adj = MAIN.hH * (Math.SQRT2 - 1);
-        con.rect(x0 - adj, y0 - adj + MAIN.hH * Math.SQRT2* (1 - crop), MAIN.H * Math.SQRT2, MAIN.H * Math.SQRT2 * crop);
+        let { x: x0, y: y0 } = Draw.transform(con, s, 1, angle*1 + rotate*1, x, y), adj = CAN.hH * (Math.SQRT2 - 1);
+        con.rect(x0 - adj, y0 - adj + CAN.hH * Math.SQRT2* (1 - crop), CAN.H * Math.SQRT2, CAN.H * Math.SQRT2 * crop);
         con.clip();
 
         ({x, y} = Draw.transform(con, s, 1, angle, x, y));
 
         type ??= 'Linear';
         let gradient = 
-            type == 'Linear' ? con.createLinearGradient(0, y, 0, y + MAIN.H) :
-            type == 'Radial' ? con.createRadialGradient(x + MAIN.hH, y + MAIN.hH, 0, x + MAIN.hH, y + MAIN.hH, MAIN.hH) :
-            type == 'Conic' ? con.createConicGradient(-Math.PI/2, x + MAIN.hH, y + MAIN.hH) : null;
+            type == 'Linear' ? con.createLinearGradient(0, y, 0, y + CAN.H) :
+            type == 'Radial' ? con.createRadialGradient(x + CAN.hH, y + CAN.hH, 0, x + CAN.hH, y + CAN.hH, CAN.hH) :
+            type == 'Conic' ? con.createConicGradient(-Math.PI/2, x + CAN.hH, y + CAN.hH) : null;
 
         let colors = [1,2,3].map(i => Draw.color.format(label.dataset[`color${i}`], label.dataset[`opacity${i}`])).filter(c => c);
         (colors.length === 1 || type == 'Conic') && colors.push(colors[0]);
@@ -222,7 +247,7 @@ Object.assign(Draw, {
         label.style.background = `${type}-gradient(${colors.join(',')}),white`;
 
         con.fillStyle = gradient;
-        con.fillRect(x, y, MAIN.H, MAIN.H);
+        con.fillRect(x, y, CAN.H, CAN.H);
         con.restore();
 
         colors[0] && (label.Q('span').textContent = '');
