@@ -31,7 +31,7 @@ main {
     position:relative;
 
     canvas {
-        height:min(40em,100vh - 6rem);
+        height:min(40em,100vh - 7rem);
     }
     .message {
         position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
@@ -50,7 +50,7 @@ spin-knob {
 }
 form {
     display:grid; grid-template:repeat(3,auto) / 1fr auto;
-    margin-right:.1em;
+    margin:0 .1em;
 
     >* {
         margin-top:.5rem;
@@ -132,7 +132,7 @@ form {
         padding:1em 0;
 
         :not(input) {
-            width:6.4em; line-height:4em;
+            width:6em; line-height:4em;
             font-size:1rem !important;
         }
         label {border-right:.05em solid;}
