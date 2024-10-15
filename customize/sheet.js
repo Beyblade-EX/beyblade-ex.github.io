@@ -5,7 +5,6 @@ const App = () => {
     Controls.show(null);
     Q('form button', button => button.type = 'button');
     App.events();
-    App.picker();
     loadIMG('./frame.png').then(img => {
         CAN.W = CAN.con.canvas.width = img.naturalWidth, CAN.H = CAN.con.canvas.height = img.naturalHeight;
         CAN.hW = CAN.W/2, CAN.hH = CAN.H/2;
@@ -87,7 +86,11 @@ Object.assign(App, {
         });
         Object.assign(Q('#control-image'), {
             onchange: Controls.image,
-            onclick: ev => ev.target.popoverTargetElement && (ev.preventDefault(), Q('aside').showPopover())
+            onclick: ev => {
+		if (!ev.target.popoverTargetElement) return;
+		Q('aside img') || App.picker();
+		Q('aside').showPopover();
+	    }
         });
         Object.assign(Q('#control-color'), {
             oninput: ev => ev.target.type == 'color' && Controls.get(ev),
