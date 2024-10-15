@@ -133,7 +133,7 @@ form {
 
         :not(input) {
             width:6.4em; line-height:4em;
-            font-size:1em !important;
+            font-size:1rem !important;
         }
         label {border-right:.05em solid;}
         button {border-left:.05em solid;}
