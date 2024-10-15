@@ -32,7 +32,7 @@
         padding:.5em .5em .5em 2em;
         border-top-right-radius:5em;border-bottom-right-radius:5em;
         z-index:1;
-        white-space:nowrap;
+        max-width:calc(100% - 5em);
         text-align:left;
 
         &::before,&::after {
