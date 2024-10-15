@@ -61,7 +61,8 @@ Object.assign(App, {
         PDFLib.PDFDocument.create().then(doc => {
             pdf = doc;
             page = doc.addPage(PDFLib.PageSizes.A4.sort((a, b) => a - b));
-            return Promise.all(Q('nav li:not(:last-child) a').map(a => doc.embedPng(a.canvas?.toDataURL("image/png", 1.0))));
+            return Promise.all(Q('nav li:not(:last-child) a')
+		.map(a => a.canvas ? doc.embedPng(a.canvas.toDataURL("image/png", 1.0))) : null);
         }).then(images => {
             let amount = Q('#download+input').value;
             images.reverse().flatMap((im, i) => Array(parseInt(amount[i])).fill(im)).filter(im => im).forEach((image, i) => {
