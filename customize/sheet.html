@@ -12,8 +12,7 @@
         <li><a href="#1">#1</a></li>
     </menu>
     <div>
-        <button id="save" disabled>&#xe044; 儲存</button>
-        <button id="sample">&#xe040; 範例</button>
+        <button id="sample">&#xe040; 例子</button>
         <label><input id="import" type="file" accept="application/json">&#xe03f; 匯入 JSON</label>
     </div>
     <div>
@@ -94,14 +93,14 @@
     App.picker = () => {
         let show = image => picker.append(E('img', {src: `https://beyblade.takaratomy.co.jp/anime/character/_image/chara${image}`}));
         let picker = Q('[popover]'), 
-            main = ['ekusu','bird','multi'], 
-            mobu = ['meiko','manju','pan','toguro','kadovar','burn','zonamos','yuni','rex','quinn','shiguru','shieru','kuromu'],
-            team = ['persona','zoo','b4','yggdrasil','pakunchanel','cl','pend'];
+            main = ["tenka","multi","bird","ekusu"], 
+            mobu = ["kuromu","shieru","shiguru","quinn","rex","yuni","zonamos","burn","kadovar","toguro","pan","manju","meiko"],
+            team = ["pend","cl","pakunchanel","yggdrasil","b4","zoo","persona"];
         main.forEach(c => [1,2,3,4,5,6,7].forEach(i => show(`_${c}_chara0${i}.png`)));
         mobu.forEach(c => show(`_${c}_chara01.png`));
-        [...Array(20)].forEach((_, i) => show(`Nav${`${i}`.padStart(2, 0)}.png`));
         team.forEach(t => show(`_team_${t}.png`));
-        [...main, ...mobu].forEach(c => show(`_${c}_bgPC.png`))
+        [...Array(25)].forEach((_, i) => show(`Nav${`${i}`.padStart(2, 0)}.png`));
+        [...main, ...mobu].forEach(c => show(`_${c}_bgPC.png`));
         main.forEach(c => [1,2,3,4].forEach(i => show(`_${c}_bey0${i}.png`)));
         mobu.forEach(c => [1,2].forEach(i => show(`_${c}_bey0${i}.png`)));
     }

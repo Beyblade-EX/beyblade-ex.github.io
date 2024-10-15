@@ -1,4 +1,4 @@
-const CAN = {con: Q('canvas').getContext('2d', { alpha: false })};
+const MAIN = {con: Q('canvas').getContext('2d', { alpha: false })};
 const loadIMG = src => new Promise(res => E('img', {src, onload: function() {res(this);}}));
 const App = () => {
     App.loading(true);
@@ -6,8 +6,8 @@ const App = () => {
     Q('form button', button => button.type = 'button');
     App.events();
     loadIMG('./frame.png').then(img => {
-        CAN.W = CAN.con.canvas.width = img.naturalWidth, CAN.H = CAN.con.canvas.height = img.naturalHeight;
-        CAN.hW = CAN.W/2, CAN.hH = CAN.H/2;
+        MAIN.W = MAIN.con.canvas.width = img.naturalWidth, MAIN.H = MAIN.con.canvas.height = img.naturalHeight;
+        MAIN.hW = MAIN.W/2, MAIN.hH = MAIN.H/2;
         Layers.frame = img;
         App.load((location.hash ||= '#1').substring(1));
         App.loading(false);
@@ -21,18 +21,13 @@ Object.assign(App, {
         Draw();
     },
     loading: loading => Q('.message').classList[loading ? 'add' : 'remove']('loading'),
-    save: ev => (ev.target.disabled = true) && DB.put('user', {[`sheet-${location.hash.substring(1)}`]: Layers.get()}),
-    load: no => {
-	let staged = Q(`a[href='#${no}']`).canvas;
-	staged ? 
-	    CAN.con.drawImage(staged, 0, 0) : 
-	    DB.get('user', `sheet-${no}`).then(layers => layers ? Layers.put(layers) : App.reset());
+    save: () => DB.put('user', {[`sheet-${location.hash.substring(1)}`]: Layers.get()}),
+    load: no => DB.get('user', `sheet-${no}`).then(layers => layers ? Layers.put(layers) : App.reset()),
+    stage (hash) {
+        let canvas = Q(`a[href='${hash || location.hash}']`).canvas ??= MAIN.con.canvas.cloneNode(true);
+        canvas.getContext('2d').drawImage(MAIN.con.canvas, 0, 0);
     },
-    stage: hash => {
-	let staged = Q(`a[href='${hash || location.hash}']`).canvas;
-	(staged ??= CAN.con.canvas.cloneNode(true)).getContext('2d').drawImage(CAN.con.canvas, 0, 0);
-    },
-    switch: ev => {
+    switch (ev)  {
         (Layers.labels.length > 1 || Layers.labels[0].dataset.type) && App.stage(new URL(ev.oldURL).hash);
         /^#[1-6]$/.test(location.hash) ? App.load(location.hash.substring(1)) : location.href = '#1';
     },
@@ -65,7 +60,7 @@ Object.assign(App, {
 		.map(a => a.canvas ? doc.embedPng(a.canvas.toDataURL("image/png", 1.0)) : null));
         }).then(images => {
             let amount = Q('#download+input').value;
-            images.reverse().flatMap((im, i) => Array(parseInt(amount[i])).fill(im)).filter(im => im).forEach((image, i) => {
+            images.reverse().flatMap((im, i) => im ? Array(parseInt(amount[i])).fill(im) : []).forEach((image, i) => {
                 let scaled = image.scale(.2427);
                 page.drawImage(image, {
                     x: 20 + i % 6 * (12.5 + scaled.width),
@@ -75,11 +70,15 @@ Object.assign(App, {
             });
             return pdf.save();
         }).then(doc => {
-            window.open(URL.createObjectURL(new Blob([doc], { type: 'application/pdf' })))
+            open(URL.createObjectURL(new Blob([doc], { type: 'application/pdf' })))
             App.loading(false);
-        }).catch(er => [Q('body').append(er), console.error(er)]);
+        }).catch(er => console.error(er));
     },
     events () {
+        Object.assign(Q('form'), {
+            oncontextmenu: () => false,
+            onpointerup: App.save
+        });
         Object.assign(Q('#layer'), {
             onchange: Layers.change,
             onclick: ev => ev.target.id == 'create' ? Layers.create(ev) : ['up', 'down'].includes(ev.target.id) ? Layers.move(ev) : null,
@@ -88,10 +87,11 @@ Object.assign(App, {
         Object.assign(Q('#control-image'), {
             onchange: Controls.image,
             onclick: ev => {
-		if (!ev.target.popoverTargetElement) return;
-		Q('aside img') || App.picker();
-		Q('aside').showPopover();
-	    }
+                if (!ev.target.popoverTargetElement) return;
+                ev.preventDefault();
+                Q('aside img') || App.picker();
+                Q('aside').showPopover();
+            }
         });
         Object.assign(Q('#control-color'), {
             oninput: ev => ev.target.type == 'color' && Controls.get(ev),
@@ -103,12 +103,8 @@ Object.assign(App, {
         Q('#export,#download,#sample', button => button.onclick = App[button.id]);
         Q('#import').onchange = App.import;
 
-        Q('form').oncontextmenu = () => false;
         onkeydown = ev => ev.key == 'Control' ? Q('#fine').click() : null;
-
-        Q('#save').onclick = App.save;
         onhashchange = App.switch;
-        onbeforeunload = ev => Q('#save').disabled ? null : ev.preventDefault();
         //(onresize = () => [Q('#control :nth-child(2)').title, Q('#control :nth-child(3)').title] = innerWidth > innerHeight ? 
         //    ['上下', '左右'] : ['左右', '上下'])();
     }
@@ -169,7 +165,7 @@ const Layers = {
     labels: Q('#layers').children,
     label: (dataset, img) => {
         let label = E('label', {dataset}, [img ?? E('span'), E('input', {type: 'radio', name: 'layer'})]);
-        label.can = new OffscreenCanvas(CAN.W, CAN.H);
+        label.can = new OffscreenCanvas(MAIN.W, MAIN.H);
         label.con = label.can.getContext('2d');
         img && (label.img = img);
         return label;
@@ -227,22 +223,21 @@ const Draw = (all) => {
             label.img && Draw.image(label);
             label.dataset.type == 'color' && Draw.color(label);
         }
-        CAN.con.drawImage(label.can, 0, 0);
+        MAIN.con.drawImage(label.can, 0, 0);
     });
     Draw.frame();
-    Q('#save').disabled = all || Layers.labels.length <= 1 && !Layers.labels[0]?.dataset.type;
 }
 Object.assign(Draw, {
-    clear: context => context ? context.clearRect(0, 0, CAN.W, CAN.H) : (CAN.con.fillStyle = 'white') && CAN.con.fillRect(0, 0, CAN.W, CAN.H),
-    frame: () => CAN.con.drawImage(Layers.frame, 0, 0, CAN.W, CAN.H),
+    clear: context => context ? context.clearRect(0, 0, MAIN.W, MAIN.H) : (MAIN.con.fillStyle = 'white') && MAIN.con.fillRect(0, 0, MAIN.W, MAIN.H),
+    frame: () => MAIN.con.drawImage(Layers.frame, 0, 0, MAIN.W, MAIN.H),
     transform (con, s, p, angle, x, y, image) {
         s ??= 1, p ??= 1, angle ??= 0, x ??= 0, y ??= 0;
-        let drawing = {W: image?.naturalWidth ?? CAN.H, H: image?.naturalHeight ?? CAN.H};
+        let drawing = {W: image?.naturalWidth ?? MAIN.H, H: image?.naturalHeight ?? MAIN.H};
         drawing.hW = drawing.W/2, drawing.hH = drawing.H/2;
 
         let cos = Math.cos(angle*Math.PI), sin = Math.sin(angle*Math.PI);
-        x = -x * (CAN.hW + drawing.hW) - CAN.hW;
-        y = y * (CAN.hH + drawing.hH) - CAN.hH;
+        x = -x * (MAIN.hW + drawing.hW) - MAIN.hW;
+        y = y * (MAIN.hH + drawing.hH) - MAIN.hH;
         con.setTransform(s*cos, s*p*sin, -s*sin, s*p*cos, x*s*cos-y*s*sin-x, x*s*p*sin+y*s*p*cos-y);
         return { x: Math.round(-x - drawing.hW), y: Math.round(-y - drawing.hH) };
     },
@@ -262,17 +257,17 @@ Object.assign(Draw, {
         
         con.beginPath();
         angle ??= 0, rotate ??= 0, crop ??= 1;
-        let { x: x0, y: y0 } = Draw.transform(con, s, 1, angle*1 + rotate*1, x, y), adj = CAN.hH * (Math.SQRT2 - 1);
-        con.rect(x0 - adj, y0 - adj + CAN.hH * Math.SQRT2* (1 - crop), CAN.H * Math.SQRT2, CAN.H * Math.SQRT2 * crop);
+        let { x: x0, y: y0 } = Draw.transform(con, s, 1, angle*1 + rotate*1, x, y), adj = MAIN.hH * (Math.SQRT2 - 1);
+        con.rect(x0 - adj, y0 - adj + MAIN.hH * Math.SQRT2* (1 - crop), MAIN.H * Math.SQRT2, MAIN.H * Math.SQRT2 * crop);
         con.clip();
 
         ({x, y} = Draw.transform(con, s, 1, angle, x, y));
 
         type ??= 'Linear';
         let gradient = 
-            type == 'Linear' ? con.createLinearGradient(0, y, 0, y + CAN.H) :
-            type == 'Radial' ? con.createRadialGradient(x + CAN.hH, y + CAN.hH, 0, x + CAN.hH, y + CAN.hH, CAN.hH) :
-            type == 'Conic' ? con.createConicGradient(-Math.PI/2, x + CAN.hH, y + CAN.hH) : null;
+            type == 'Linear' ? con.createLinearGradient(0, y, 0, y + MAIN.H) :
+            type == 'Radial' ? con.createRadialGradient(x + MAIN.hH, y + MAIN.hH, 0, x + MAIN.hH, y + MAIN.hH, MAIN.hH) :
+            type == 'Conic' ? con.createConicGradient(-Math.PI/2, x + MAIN.hH, y + MAIN.hH) : null;
 
         let colors = [1,2,3].map(i => Draw.color.format(label.dataset[`color${i}`], label.dataset[`opacity${i}`])).filter(c => c);
         (colors.length === 1 || type == 'Conic') && colors.push(colors[0]);
@@ -280,7 +275,7 @@ Object.assign(Draw, {
         label.style.background = `${type}-gradient(${colors.join(',')}),white`;
 
         con.fillStyle = gradient;
-        con.fillRect(x, y, CAN.H, CAN.H);
+        con.fillRect(x, y, MAIN.H, MAIN.H);
         con.restore();
 
         colors[0] && (label.Q('span').textContent = '');
