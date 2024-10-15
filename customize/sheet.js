@@ -9,7 +9,6 @@ const App = () => {
     loadIMG('./frame.png').then(img => {
         CAN.W = CAN.con.canvas.width = img.naturalWidth, CAN.H = CAN.con.canvas.height = img.naturalHeight;
         CAN.hW = CAN.W/2, CAN.hH = CAN.H/2;
-        Q('nav menu a', a => a.canvas = CAN.con.canvas.cloneNode(true));
         Layers.frame = img;
         App.load((location.hash ||= '#1').substring(1));
         App.loading(false);
@@ -24,8 +23,16 @@ Object.assign(App, {
     },
     loading: loading => Q('.message').classList[loading ? 'add' : 'remove']('loading'),
     save: ev => (ev.target.disabled = true) && DB.put('user', {[`sheet-${location.hash.substring(1)}`]: Layers.get()}),
-    load: no => DB.get('user', `sheet-${no}`).then(layers => layers ? Layers.put(layers) : App.reset()),
-    stage: hash => Q(`a[href='${hash || location.hash}']`).canvas.getContext('2d').drawImage(CAN.con.canvas, 0, 0),
+    load: no => {
+	let staged = Q(`a[href='#${no}']`).canvas;
+	staged ? 
+	    CAN.con.drawImage(staged, 0, 0) : 
+	    DB.get('user', `sheet-${no}`).then(layers => layers ? Layers.put(layers) : App.reset());
+    },
+    stage: hash => {
+	let staged = Q(`a[href='${hash || location.hash}']`).canvas;
+	(staged ??= CAN.con.canvas.cloneNode(true)).getContext('2d').drawImage(CAN.con.canvas, 0, 0);
+    },
     switch: ev => {
         (Layers.labels.length > 1 || Layers.labels[0].dataset.type) && App.stage(new URL(ev.oldURL).hash);
         /^#[1-6]$/.test(location.hash) ? App.load(location.hash.substring(1)) : location.href = '#1';
