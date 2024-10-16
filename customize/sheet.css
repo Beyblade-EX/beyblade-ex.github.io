@@ -40,8 +40,7 @@ main {
         background:rgba(255,255,255,.8); color:black;
         padding:1em;
     
-        &.loading span {display:none;}
-        &:not(.loading,.active) {display:none;}
+        &:not(.active) {display:none;}
         small {display:block;}
     }
 }
@@ -59,6 +58,7 @@ form {
         summary {
             &::before {content:'▶';}
             &::after  {content:'◀';}
+            &.loading span,&.loading::before {display:none;}
         }
         &[open] summary::before,&[open] summary::after {content:'▼';}
 
@@ -133,8 +133,9 @@ form {
         padding:1em 0;
 
         :not(input) {
-            width:6em; line-height:4em;
+            width:6em; height:4em;
             font-size:1rem !important;
+            display:flex; align-items:center; justify-content:center;
         }
         label {border-right:.05em solid;}
         button {border-left:.05em solid;}

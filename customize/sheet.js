@@ -10,7 +10,6 @@ const App = () => {
         MAIN.hW = MAIN.W/2, MAIN.hH = MAIN.H/2;
         Layers.frame = img;
         App.load((location.hash ||= '#1').substring(1));
-        App.loading(false);
     });
 }
 Object.assign(App, {
@@ -19,8 +18,9 @@ Object.assign(App, {
         Q('#layers').replaceChildren(Layers.label());
         Layers.labels[0].click();
         Draw();
+        App.loading(false);
     },
-    loading: loading => Q('.message').classList[loading ? 'add' : 'remove']('loading'),
+    loading: loading => Q('summary').classList[loading ? 'add' : 'remove']('loading'),
     save: () => DB.put('user', {[`sheet-${location.hash.substring(1)}`]: Layers.get()}),
     load: no => DB.get('user', `sheet-${no}`).then(layers => layers ? Layers.put(layers) : App.reset()),
     stage (hash) {
@@ -38,16 +38,14 @@ Object.assign(App, {
         }).click();
     },
     import (ev) {
+        App.loading(true);
         let reader = new FileReader();
         reader.readAsText(ev.target.files[0]);
         reader.onload = () => Layers.put(JSON.parse(reader.result));
     },
     sample () {
         App.loading(true);
-        fetch('./sample.json').then(resp => resp.json()).then(layers => {
-            Layers.put(layers);
-            App.loading(false);
-        });    
+        fetch('./sample.json').then(resp => resp.json()).then(Layers.put);    
     },
     download () {
         App.loading(true);
@@ -200,7 +198,6 @@ const Layers = {
         Draw();
     },
     put (layers) {
-        App.loading(true);
         Promise.all(layers.map(ds => ds.image ? 
             loadIMG(ds.image).then(img => Layers.label((({image, ...others}) => others)(ds), img)) : 
             Layers.label(ds)
