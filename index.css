@@ -319,7 +319,7 @@ details {
     a {
         display:block; width:min(100%,18em); aspect-ratio:.73;
         margin:auto;
-        background:url(/customize/sample.png) center 0 / cover no-repeat;
+        background:url(/img/sample.png) center 0 / cover no-repeat;
         position:relative;
 
         &::before {
@@ -341,7 +341,7 @@ details {
         }
     }
     a:nth-child(2) {
-        background:url('/img/deck.png') center / contain no-repeat;
+        background:url(/img/deck.png) center / contain no-repeat;
         aspect-ratio:1;
 
         &::before {
