@@ -25,13 +25,13 @@ nav {
 }
 main {
     max-width:30em;
-    margin-top:4.15rem;
+    margin:4.15rem auto 0 auto;
     display:grid; grid-template-columns:auto 1fr;
     user-select:none; -webkit-user-select:none;
     position:relative;
 
     canvas {
-        height:min(40em,100vh - 7rem);
+        height:min(35em,100svh - 4.15rem);
     }
     .message {
         position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
