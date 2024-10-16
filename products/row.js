@@ -179,7 +179,7 @@ class Cell {
                 `https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/${href}.png`,
         },
     }
-    static text = td => td.childNodes[0].textContent;
+    static text = td => td.childNodes[0].textContent.trim();
     static popup = Q('[popover]');
 }
 Object.assign(Cell.prototype.dissect, Cell.dissect);
