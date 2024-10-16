@@ -8,7 +8,6 @@ class AbsPart {
         headers: this.constructor.name.toLowerCase()
     });
     none = hidden => [E('td'), E('td'), E('td', {classList: 'right'})];
-    static number = (no, sub) => [E('td', {innerHTML: no.replace(/_X-(?=\d{2})/, 'X-&nbsp;')}), sub ? E('sub', sub) : ''];
 }
 class Blade extends AbsPart {
     constructor(sym, upperFusion) {
@@ -67,7 +66,7 @@ class Row {
             Row.current = code;
             video ??= [Q(`td[data-video]`)].flat().findLast(td => td?.custom().text == code)?.dataset.video;
             return E('td', 
-                [code.replace(/_X-(?=\d{2})/, 'X- '), ...Row.RB ? [E('s', '-'), E('sub', `0${Row.RB}`)] : []], 
+                [code.replace(/^(?=.X-)/, ' '), ...Row.RB ? [E('s', '-'), E('sub', `0${Row.RB}`)] : []], 
                 {dataset: {...Mapping.maps.images.find(code), ...video ? {video} : {}}}
             );
         }

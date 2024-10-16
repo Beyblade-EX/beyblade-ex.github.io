@@ -29,7 +29,7 @@ label:has(#keihin-g)::after,.keihin-g b::before {content:'\e002';}
 label:has(#keihin-m)::after,.keihin-m b::before {content:'\e001';}
 
 .diamonds {
-    padding:calc(var(--size)/4 + 2em) 0;
+    padding:calc(var(--size)/4 + 2em) 0 !important;
     display:grid; grid-template-columns:repeat(auto-fill,var(--size)); justify-content:center;
     gap:var(--gap);
     font-size:.8em;

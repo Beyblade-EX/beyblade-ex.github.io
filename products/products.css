@@ -184,6 +184,9 @@ td sub {
     vertical-align:-.4em;
     line-height:0;
 }
+td:first-child {
+    white-space:pre;
+}
 td:first-child sub {
     margin:0 -.2em 0 .1em;
     scale:.9 1; letter-spacing:-.05em;
@@ -254,12 +257,8 @@ tbody {font-size:min(2.75vw,.7em);}
 #eng:checked~main tbody {font-size:min(2.5vw,.9em);}
 #jap:checked~main tbody {font-size:min(2.5vw,.9em);}*/
 /*color*/
-tbody tr,.boards li {
-    background:var(--light);
-}
-tr.H {
-    background:var(--dark) !important;
-}
+tbody tr,.boards li {background:var(--light);}
+tr.H {background:var(--dark) !important;}
 td:first-child {color:deepskyblue;}
 
 tbody tr:not(.H) {
