@@ -315,24 +315,38 @@ details {
 #app img {
     height:3em;
 }
-a[href^=customize] {
-    position:relative;
-    width:min(100%,20em);
-    margin:auto;
+#tools {
+    a {
+        display:block; width:min(100%,18em); aspect-ratio:.73;
+        margin:auto;
+        background:url(/customize/sample.png) center 0 / cover no-repeat;
+        position:relative;
 
-    img {
-        width:100%;
-        display:block;
-    }
-    span {
-        position:absolute; left:0; bottom:0;
-        font-size:3em; font-family:'Yusei Magic',COND,sans-serif;
-        line-height:1.1; text-align:left;
-        width:4em;
-        letter-spacing:.1em;
-
-        &::first-line {
-            font-size:.6em; font-family:'IBM Plex Sans JP',COND,sans-serif;
+        &::before {
+            content:attr(title); font-size:1.5em;
+            line-height:1.1;
+            text-align:left; text-transform:uppercase;
+            position:absolute; left:.2em; top:0;
         }
+        &.disabled {
+            filter:saturate(0);
+            pointer-events:none;
+        }
+        &.disabled::after {
+            content:'準備中';
+            position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+            width:100%;
+            padding:1em;
+            background:linear-gradient(to right,transparent,rgba(0,0,0,.7) 20% 80%,transparent);
+        }
+    }
+    a:nth-child(2) {
+        background:url('/img/deck.png') center / contain no-repeat;
+        aspect-ratio:1;
+
+        &::before {
+            bottom:0; top:initial;
+        }
+        &.disabled::after {content:'暫停';}
     }
 }
