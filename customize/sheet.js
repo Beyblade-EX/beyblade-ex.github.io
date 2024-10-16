@@ -56,8 +56,7 @@ Object.assign(App, {
         PDFLib.PDFDocument.create().then(doc => {
             pdf = doc;
             page = doc.addPage(PDFLib.PageSizes.A4.sort((a, b) => a - b));
-            return Promise.all(Q('nav li:not(:last-child) a')
-		.map(a => a.canvas ? doc.embedPng(a.canvas.toDataURL("image/png", 1.0)) : null));
+            return Promise.all(Q('nav li:not(:last-child) a').map(a => a.canvas ? doc.embedPng(a.canvas.toDataURL("image/png", 1.0)) : null));
         }).then(images => {
             let amount = Q('#download+input').value;
             images.reverse().flatMap((im, i) => im ? Array(parseInt(amount[i])).fill(im) : []).forEach((image, i) => {
@@ -230,24 +229,27 @@ const Draw = (all) => {
 Object.assign(Draw, {
     clear: context => context ? context.clearRect(0, 0, MAIN.W, MAIN.H) : (MAIN.con.fillStyle = 'white') && MAIN.con.fillRect(0, 0, MAIN.W, MAIN.H),
     frame: () => MAIN.con.drawImage(Layers.frame, 0, 0, MAIN.W, MAIN.H),
-    transform (con, s, p, angle, x, y, image) {
+    transform (con, s, p, angle, x, y, img) {
         s ??= 1, p ??= 1, angle ??= 0, x ??= 0, y ??= 0;
-        let drawing = {W: image?.naturalWidth ?? MAIN.H, H: image?.naturalHeight ?? MAIN.H};
+        let drawing = img ? {W: img.naturalWidth, H: img.naturalHeight} : {W: MAIN.H, H: MAIN.H};
+        if (img) {
+            img.fit ??= Draw.transform.fit(drawing, {xW: drawing.W - MAIN.W, xH: drawing.H - MAIN.H});
+            drawing.W *= img.fit, drawing.H *= img.fit;
+        }
         drawing.hW = drawing.W/2, drawing.hH = drawing.H/2;
 
         let cos = Math.cos(angle*Math.PI), sin = Math.sin(angle*Math.PI);
-        x = -x * (MAIN.hW + drawing.hW) - MAIN.hW;
-        y = y * (MAIN.hH + drawing.hH) - MAIN.hH;
+        x = -x * (MAIN.hW + drawing.hW) - MAIN.hW, y = y * (MAIN.hH + drawing.hH) - MAIN.hH;
         con.setTransform(s*cos, s*p*sin, -s*sin, s*p*cos, x*s*cos-y*s*sin-x, x*s*p*sin+y*s*p*cos-y);
-        return { x: Math.round(-x - drawing.hW), y: Math.round(-y - drawing.hH) };
+        return { x: Math.round(-x - drawing.hW), y: Math.round(-y - drawing.hH), W: drawing.W, H: drawing.H };
     },
     image (label) {
-        let {img, con, dataset: {angle, x, y, scale: s, pull: p, opacity}} = label;
+        let {img, con, dataset: {angle, x, y, scale: s, pull: p, opacity}} = label, W, H;
         Draw.clear(con);
         con.save();
-        ({x, y} = Draw.transform(con, s, p, angle, x, y, img));
+        ({x, y, W, H} = Draw.transform(con, s, p, angle, x, y, img));
         con.globalAlpha = opacity ?? 1;
-		con.drawImage(img, x, y);
+		con.drawImage(img, x, y, W, H);
         con.restore();
     },
     color (label) {
@@ -280,5 +282,6 @@ Object.assign(Draw, {
 
         colors[0] && (label.Q('span').textContent = '');
     }
-}); 
+});
+Draw.transform.fit = (drawing, { xH, xW }) => xW > 0 && xH > 0 ? xW < xH ? MAIN.W / drawing.W : MAIN.H / drawing.H : 1;
 Draw.color.format = (color, opacity) => color ? `rgba(${color.replaceAll(/[^#]{2}/g, c => parseInt(c, 16) + ',').substring(1)}${opacity ?? 1})` : null;
