@@ -50,8 +50,8 @@ caption>* {
     }
     div {
         margin:0 0 .5em 1em; padding-right:.5em;
-        display:flex;justify-content:space-between;flex-wrap:wrap;
-        gap:.5em;
+        display:flex;flex-wrap:wrap;
+        gap:1em;
     }
     span {
         text-align:left;text-indent:1em;
@@ -60,19 +60,21 @@ caption>* {
     }
     label {
         position:relative;
+
+        &:not(:has(img))::before {line-height:.4rem;}
     }
-    div:not(.system) label::after {
-        content:'';
-        position:absolute; inset:.7em -.5em .2em -.5em;;
-        background:var(--light);
-        transform:skew(-20deg);
-        z-index:-1;
-    }
-    .system label {
-        width:5em;
+    div:not(.system) {
+        gap:2em;
+        label::after {
+            content:'';
+            position:absolute; inset:.7em -.5em .2em -.5em;;
+            background:var(--light);
+            transform:skew(-20deg);
+            z-index:-1;
+        }
     }
     .system img {
-        height:3em;
+        height:2em;
     }
     button {
         margin-left:.5em;

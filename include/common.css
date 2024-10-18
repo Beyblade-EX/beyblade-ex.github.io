@@ -74,7 +74,7 @@ label:has(input:is([type=radio],[type=checkbox]):not(:checked):not([name=mag])) 
     content:'·';
     display:block;
     position:relative;
-    font-size:2rem; line-height:.4rem;
+    font-size:2rem; line-height:.6rem;
     color:var(--theme); text-shadow:0 0 .1em var(--theme);
 }
 .led {

@@ -12,12 +12,14 @@ class AbsPart {
 class Blade extends AbsPart {
     constructor(sym, upperFusion) {
         super(sym, upperFusion);
+        if (this.sym != '/') this.system = Blade._UX.includes(sym) ? 'UX' : 'BX';
     }
     cells(fusion = this.fusion) {
         if (this.sym == '/') return this.none();
         let tds = [this.abbr(''), E('td', {classList: 'left'}), E('td', {classList: `right${fusion ? ' fusion' : ''}`})];
         return tds;
     }
+    static UX = async () => Blade._UX = (await DB.get.parts('blade')).filter(p => p.group == 'UX').map(p => p.abbr);
 }
 class Ratchet extends AbsPart {
     constructor(sym) {

@@ -7,7 +7,8 @@ Object.assign(Table, {
         Table.table.Q('caption').classList.add('loading');
         Q('input:not([type])', input => input.disabled = input.value = 'Loading');
         Table.events();
-        return Promise.all([DB.get.names(), DB.get.meta()]).then(([names, meta]) => (NAMES = names, Parts = meta))
+        return Promise.all([DB.get.names(), DB.get.meta(), Blade.UX()])
+            .then(([names, meta]) => (NAMES = names, Parts = meta))
             .then(() => Cell.prototype.dissect.regex.pref = new RegExp(`^[${Parts.bit.prefix}]+(?=[^a-z].*)`));
     },
     async tabulate () {
@@ -82,7 +83,7 @@ Object.assign(Filter, {
         let hide = this.inputs.filter(i => !i.checked).map(i => `.${i.id.replace('-', '.')}`);
         this.el.classList.toggle('active', hide.length);
         Q('tbody tr', tr => tr.classList.toggle('hidden', 
-            hide.length && tr.matches(hide) || this.systems.some(i => !i.checked) && tr.matches('[abbr^="/"]')));
+            hide.length && tr.matches(hide) || this.systems.some(i => !i.checked) && tr.matches('[data-abbr^="/"]')));
         Table.show.count();
     },
     events () {

@@ -32,6 +32,7 @@ main {
 
     canvas {
         height:min(35em,100svh - 4.15rem);
+        position:sticky; top:4.15rem;
     }
     .message {
         position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
@@ -49,7 +50,7 @@ spin-knob {
 }
 form {
     display:grid; grid-template:repeat(3,auto) / 1fr auto;
-    margin:0 .1em;
+    margin:0 .1em 1em .1em;
 
     >* {
         margin-top:.5rem;
