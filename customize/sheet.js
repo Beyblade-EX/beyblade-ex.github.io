@@ -35,7 +35,7 @@ Object.assign(App, {
         (design.canvas ??= MAIN.con.canvas.cloneNode(true)).getContext('2d').drawImage(MAIN.con.canvas, 0, 0);
     },
     switch (ev) {
-        Layers.soloing?.dispatchEvent(new Event('dblclick', {bubbles: true}));
+        Layers.solo(false);
         typeof ev == 'object' && App.stage(Q(`a[href='${new URL(ev.oldURL).hash}']`));
         /^#[1-6]$/.test(location.hash) ? App.load(location.hash.substring(1)) : location.href = '#1'
     },
@@ -56,7 +56,7 @@ Object.assign(App, {
         fetch('./sample.json').then(resp => resp.json()).then(Layers.put);    
     },
     download () {
-        Layers.soloing?.dispatchEvent(new Event('dblclick', {bubbles: true}));
+        Layers.solo(false);
         App.loading(true);
         let pdf, pages = [];
         let amount = [...Q('#download+input').value];    
@@ -218,9 +218,11 @@ const Layers = {
         Draw();
     },
     solo (ev) {
-        if (ev.target.tagName != 'LABEL') return;
+        if (ev !== false && ev.target.tagName != 'LABEL') return;
         Layers.soloing?.classList.remove('solo');
-        Layers.soloing != ev.target ? (Layers.soloing = ev.target).classList.add('solo') : Layers.soloing = null;
+        ev !== false && Layers.soloing != ev.target ? 
+            (Layers.soloing = ev.target).classList.add('solo') : 
+            Layers.soloing = null;
         Draw();
     },
     async put (layers) {
