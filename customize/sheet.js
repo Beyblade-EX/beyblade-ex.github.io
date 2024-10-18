@@ -11,6 +11,7 @@ const App = () => {
         Layers.frame = img;
         App.load((location.hash ||= '#1').substring(1));
     });
+    PDFLib.A4 = PDFLib.PageSizes.A4.sort((a, b) => a - b);
 }
 Object.assign(App, {
     get designs () {return Q('nav menu a[href^="#"]').reverse()},
@@ -18,25 +19,24 @@ Object.assign(App, {
         Controls.reset();
         Q('#layers').replaceChildren(Layers.label());
         Layers.labels[0].click();
+        Layers.soloing = null;
         Draw();
         App.loading(false);
     },
-    loading: loading => Q('summary').classList[loading ? 'add' : 'remove']('loading'),
+    loading: loading => (Layers.soloing = null) || Q('summary').classList[loading ? 'add' : 'remove']('loading'),
     save: () => Layers.modified && DB.put('user', {[`sheet-${location.hash.substring(1)}`]: Layers.get()}),
     load: no => DB.get('user', `sheet-${no}`).then(layers => layers ? Layers.put(layers) : App.reset()),
     stage (design) {
         if (design === true)
             return App.designs.reduce((prom, a) => prom.then(() => a.canvas ? 
-                Promise.resolve() :
+                Promise.resolve(a.href == location.href && App.stage(a)) :
                 App.load(a.getAttribute('href').substring(1)).then(() => App.stage(a))
             ), Promise.resolve());
-        if (Layers.modified) {
-            Layers.soloing && (Layers.soloing = null, Draw());
-            (design.canvas ??= MAIN.con.canvas.cloneNode(true)).getContext('2d').drawImage(MAIN.con.canvas, 0, 0);
-        }
+        (design.canvas ??= MAIN.con.canvas.cloneNode(true)).getContext('2d').drawImage(MAIN.con.canvas, 0, 0);
     },
-    switch () {
-        Layers.soloing = null;
+    switch (ev) {
+        Layers.soloing?.dispatchEvent(new Event('dblclick', {bubbles: true}));
+        typeof ev == 'object' && App.stage(Q(`a[href='${new URL(ev.oldURL).hash}']`));
         /^#[1-6]$/.test(location.hash) ? App.load(location.hash.substring(1)) : location.href = '#1'
     },
     export () {
@@ -56,15 +56,16 @@ Object.assign(App, {
         fetch('./sample.json').then(resp => resp.json()).then(Layers.put);    
     },
     download () {
+        Layers.soloing?.dispatchEvent(new Event('dblclick', {bubbles: true}));
         App.loading(true);
-        let pdf, pages = [], A4 = PDFLib.PageSizes.A4.sort((a, b) => a - b);
+        let pdf, pages = [];
         let amount = [...Q('#download+input').value];    
         App.stage(true).then(() => PDFLib.PDFDocument.create()).then(doc => {
             pdf = doc;
             let canvases = App.designs.map(a => a.canvas);
             amount = amount.map((n, i) => canvases[i] ? parseInt(n) : 0);
             for (let i = 0; i < Math.ceil(amount.reduce((sum, n) => sum += n, 0)/12); i++)
-                pages[i] = doc.addPage(A4);
+                pages[i] = doc.addPage(PDFLib.A4);
             return Promise.all(canvases.map(can => can ? doc.embedPng(can.toDataURL("image/png", 1.0)) : null));
         }).then(images => {
             images.flatMap((im, i) => im ? Array(amount[i]).fill(im) : []).forEach((image, i) => {
@@ -79,7 +80,7 @@ Object.assign(App, {
         }).then(doc => {
             open(URL.createObjectURL(new Blob([doc], { type: 'application/pdf' })))
             App.loading(false);
-            location.reload();
+            App.switch(location.hash);
         }).catch(er => console.error(er));
     },
     events () {
