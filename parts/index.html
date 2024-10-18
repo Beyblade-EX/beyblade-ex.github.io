@@ -20,6 +20,7 @@
     $outputFile = "o$($_.Name)"
     backgroundremover -i $inputFile -o $outputFile
     magick mogrify -fuzz 5% -trim $outputFile
+    pngquant --quality=65-80 $outputFile -o "op/$($outputFile)"
 }-->
 <main id=catalog>
     <span class=loading></span>

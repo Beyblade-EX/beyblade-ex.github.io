@@ -288,7 +288,7 @@ class Knob extends HTMLElement {
                 this.#input.value = parseFloat(value);
             }
             this.style.setProperty('--angle', `${(this.continuous.θ)}deg`);
-            this.Q('data').value = this.getAttribute('unit') == '%' ? (this.value*100).toFixed(1) : this.value;
+            this.Q('data').value = this.getAttribute('unit') == '%' ? (this.value*100).toFixed(this.value === 1 ? 0 : 1) : this.value;
             this.#internals.setFormValue(this.value);
             event && this.#input.dispatchEvent(new Event('change', {bubbles: true}));
         }

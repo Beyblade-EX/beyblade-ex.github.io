@@ -128,6 +128,7 @@ const DB = {
     get: (store, key) => {
         !key && ([store, key] = store.split('.').reverse());
         let part = DB.components.includes(store);
+        store == 'user' && (DB.tr = null);
         return new Promise(res => DB.store(part ? `.${store}` : store).get(key)
             .onsuccess = ev => res(part ? {...ev.target.result, comp: store} : ev.target.result));
     },

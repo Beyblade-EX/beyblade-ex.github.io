@@ -13,6 +13,7 @@ const App = () => {
     });
 }
 Object.assign(App, {
+    get designs () {return Q('nav menu a[href^="#"]').reverse()},
     reset () {
         Controls.reset();
         Q('#layers').replaceChildren(Layers.label());
@@ -23,14 +24,17 @@ Object.assign(App, {
     loading: loading => Q('summary').classList[loading ? 'add' : 'remove']('loading'),
     save: () => DB.put('user', {[`sheet-${location.hash.substring(1)}`]: Layers.get()}),
     load: no => DB.get('user', `sheet-${no}`).then(layers => layers ? Layers.put(layers) : App.reset()),
-    stage (hash) {
-        let canvas = Q(`a[href='${hash || location.hash}']`).canvas ??= MAIN.con.canvas.cloneNode(true);
-        canvas.getContext('2d').drawImage(MAIN.con.canvas, 0, 0);
+    stage (design) {
+        if (design === true)
+            return App.designs.reduce((prom, a) => prom.then(() => a.canvas ? 
+                Promise.resolve() :
+                App.load(a.getAttribute('href').substring(1)).then(() => App.stage(a))
+            ), Promise.resolve());
+
+        if (Layers.labels.length > 1 || Layers.labels[0]?.dataset.type)
+            (design.canvas ??= MAIN.con.canvas.cloneNode(true)).getContext('2d').drawImage(MAIN.con.canvas, 0, 0);
     },
-    switch (ev)  {
-        (Layers.labels.length > 1 || Layers.labels[0].dataset.type) && App.stage(new URL(ev.oldURL).hash);
-        /^#[1-6]$/.test(location.hash) ? App.load(location.hash.substring(1)) : location.href = '#1';
-    },
+    switch: () => /^#[1-6]$/.test(location.hash) ? App.load(location.hash.substring(1)) : location.href = '#1',
     export () {
         E('a', {
             href: `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(Layers.get()))}`,
@@ -49,19 +53,21 @@ Object.assign(App, {
     },
     download () {
         App.loading(true);
-        App.stage();
-        let pdf, page;
-        PDFLib.PDFDocument.create().then(doc => {
+        let pdf, pages = [], A4 = PDFLib.PageSizes.A4.sort((a, b) => a - b);
+        let amount = [...Q('#download+input').value];    
+        App.stage(true).then(() => PDFLib.PDFDocument.create()).then(doc => {
             pdf = doc;
-            page = doc.addPage(PDFLib.PageSizes.A4.sort((a, b) => a - b));
-            return Promise.all(Q('nav li:not(:last-child) a').map(a => a.canvas ? doc.embedPng(a.canvas.toDataURL("image/png", 1.0)) : null));
+            let canvases = App.designs.map(a => a.canvas);
+            amount = amount.map((n, i) => canvases[i] ? parseInt(n) : 0);
+            for (let i = 0; i < Math.ceil(amount.reduce((sum, n) => sum += n, 0)/12); i++)
+                pages[i] = doc.addPage(A4);
+            return Promise.all(canvases.map(can => can ? doc.embedPng(can.toDataURL("image/png", 1.0)) : null));
         }).then(images => {
-            let amount = Q('#download+input').value;
-            images.reverse().flatMap((im, i) => im ? Array(parseInt(amount[i])).fill(im) : []).forEach((image, i) => {
-                let scaled = image.scale(.2427);
-                page.drawImage(image, {
+            images.flatMap((im, i) => im ? Array(amount[i]).fill(im) : []).forEach((image, i) => {
+                let scaled = image.scale(.292);
+                pages[Math.floor(i/12)].drawImage(image, {
                     x: 20 + i % 6 * (12.5 + scaled.width),
-                    y: 84.5 + (1 - Math.floor(i/6)) * (20 + scaled.height),
+                    y: 84.5 + (1 - Math.floor(i/6) % 2) * (20 + scaled.height),
                     width: scaled.width, height: scaled.height,
                 });
             });
@@ -69,6 +75,7 @@ Object.assign(App, {
         }).then(doc => {
             open(URL.createObjectURL(new Blob([doc], { type: 'application/pdf' })))
             App.loading(false);
+            location.reload();
         }).catch(er => console.error(er));
     },
     events () {
@@ -197,22 +204,22 @@ const Layers = {
         Layers.fieldset.scrollTop = scrollTop;
         Draw();
     },
-    put (layers) {
-        Promise.all(layers.map(ds => ds.image ? 
-            loadIMG(ds.image).then(img => Layers.label((({image, ...others}) => others)(ds), img)) : 
+    async put (layers) {
+        const labels = await Promise.all(layers.map(ds => ds.image ?
+            loadIMG(ds.image).then(img => Layers.label((({ image, ...others }) => others)(ds), img)) :
             Layers.label(ds)
-        )).then(labels => {
-            Q('#layers').replaceChildren(...labels);
-            labels[0].click();
-            Draw(true);
-            App.loading(false);
-        });
+        ));
+        Q('#layers').replaceChildren(...labels);
+        labels[0]?.click();
+        Draw(true);
+        App.loading(false);
     },
     get: () => [...Layers.labels]
         .map(label => ({...label.dataset, ...label.img ? {image: label.img.src} : {}}))
         .filter(obj => Object.keys(obj).length)
 };
-const Draw = (all) => {
+const Draw = all => {
+    clearTimeout(App.timer);
     Draw.clear();
     [...Layers.labels].reverse().forEach(label => {
         if (all || Layers.selected === label) {
@@ -222,12 +229,13 @@ const Draw = (all) => {
         MAIN.con.drawImage(label.can, 0, 0);
     });
     Draw.frame();
+    App.timer = setTimeout(App.save, 1000);
 }
 Object.assign(Draw, {
-    clear: context => context ? context.clearRect(0, 0, MAIN.W, MAIN.H) : (MAIN.con.fillStyle = 'white') && MAIN.con.fillRect(0, 0, MAIN.W, MAIN.H),
+    clear: context => context ? context.clearRect(0, 0, MAIN.W, MAIN.H) : (MAIN.con.fillStyle = 'silver') && MAIN.con.fillRect(0, 0, MAIN.W, MAIN.H),
     frame: () => MAIN.con.drawImage(Layers.frame, 0, 0, MAIN.W, MAIN.H),
-    transform (con, s, p, angle, x, y, img) {
-        s ??= 1, p ??= 1, angle ??= 0, x ??= 0, y ??= 0;
+    transform (con, {sk, sc, ro, st, x, y}, img) { //translate -> skew -> scale -> rotate -> stretch
+        sk ??= 0, sc ??= 1, ro ??= 0, st ??= 1, x ??= 0, y ??= 0;
         let drawing = img ? {W: img.naturalWidth, H: img.naturalHeight} : {W: MAIN.H, H: MAIN.H};
         if (img) {
             img.fit ??= Draw.transform.fit(drawing, {xW: drawing.W - MAIN.W, xH: drawing.H - MAIN.H});
@@ -235,38 +243,33 @@ Object.assign(Draw, {
         }
         drawing.hW = drawing.W/2, drawing.hH = drawing.H/2;
 
-        let cos = Math.cos(angle*Math.PI), sin = Math.sin(angle*Math.PI);
-        x = -x * (MAIN.hW + drawing.hW) - MAIN.hW, y = y * (MAIN.hH + drawing.hH) - MAIN.hH;
-        con.setTransform(s*cos, s*p*sin, -s*sin, s*p*cos, x*s*cos-y*s*sin-x, x*s*p*sin+y*s*p*cos-y);
-        return { x: Math.round(-x - drawing.hW), y: Math.round(-y - drawing.hH), W: drawing.W, H: drawing.H };
+        let cos = Math.cos(ro*Math.PI), sin = Math.sin(ro*Math.PI), tan = Math.tan(sk*Math.PI);
+        x = -x*(MAIN.hW+drawing.hW)-MAIN.hW, y = y*(MAIN.hH+drawing.hH)-MAIN.hH;
+        con.setTransform(sc*cos, sc*st*sin, sc*(cos*tan-sin), sc*st*(sin*tan+cos), x*sc*cos+y*sc*(cos*tan-sin)-x, x*sc*st*sin+y*sc*st*(sin*tan+cos)-y);
+        return {x: Math.round(-x-drawing.hW), y: Math.round(-y-drawing.hH), W: drawing.W, H: drawing.H};
     },
     image (label) {
-        let {img, con, dataset: {angle, x, y, scale: s, pull: p, opacity}} = label, W, H;
+        let {img, con, dataset: {sc, ro, st, x, y, opacity}} = label, W, H;
         Draw.clear(con);
         con.save();
-        ({x, y, W, H} = Draw.transform(con, s, p, angle, x, y, img));
+        ({x, y, W, H} = Draw.transform(con, {sc, ro, st, x, y}, img));
         con.globalAlpha = opacity ?? 1;
 		con.drawImage(img, x, y, W, H);
         con.restore();
     },
     color (label) {
-        let {con, dataset: {gradient: type, angle, x, y, scale: s, crop, rotate}} = label;
+        let {con, dataset: {gradient: type, sk, sc, ro, x, y, angle}} = label;
         Draw.clear(con);
         con.save();
-        
-        con.beginPath();
-        angle ??= 0, rotate ??= 0, crop ??= 1;
-        let { x: x0, y: y0 } = Draw.transform(con, s, 1, angle*1 + rotate*1, x, y), adj = MAIN.hH * (Math.SQRT2 - 1);
-        con.rect(x0 - adj, y0 - adj + MAIN.hH * Math.SQRT2* (1 - crop), MAIN.H * Math.SQRT2, MAIN.H * Math.SQRT2 * crop);
-        con.clip();
+        ({x, y} = Draw.transform(con, {sk, sc, ro, x, y}));
 
-        ({x, y} = Draw.transform(con, s, 1, angle, x, y));
-
+        angle = (angle ??= 0) * Math.PI - Math.PI / 2;
+        let from = Draw.color.rotated(angle), to = Draw.color.rotated(angle + Math.PI);
         type ??= 'Linear';
         let gradient = 
-            type == 'Linear' ? con.createLinearGradient(0, y, 0, y + MAIN.H) :
+            type == 'Linear' ? con.createLinearGradient(from.x + MAIN.hW - MAIN.hH, from.y, to.x + MAIN.hW - MAIN.hH, to.y) :
             type == 'Radial' ? con.createRadialGradient(x + MAIN.hH, y + MAIN.hH, 0, x + MAIN.hH, y + MAIN.hH, MAIN.hH) :
-            type == 'Conic' ? con.createConicGradient(-Math.PI/2, x + MAIN.hH, y + MAIN.hH) : null;
+            type == 'Conic' ? con.createConicGradient(angle, x + MAIN.hH, y + MAIN.hH) : null;
 
         let colors = [1,2,3].map(i => Draw.color.format(label.dataset[`color${i}`], label.dataset[`opacity${i}`])).filter(c => c);
         (colors.length === 1 || type == 'Conic') && colors.push(colors[0]);
@@ -282,3 +285,8 @@ Object.assign(Draw, {
 });
 Draw.transform.fit = (drawing, { xH, xW }) => xW > 0 && xH > 0 ? xW < xH ? MAIN.W / drawing.W : MAIN.H / drawing.H : 1;
 Draw.color.format = (color, opacity) => color ? `rgba(${color.replaceAll(/[^#]{2}/g, c => parseInt(c, 16) + ',').substring(1)}${opacity ?? 1})` : null;
+Draw.color.rotated = angle => {
+    let ratio = {cos: Math.cos(angle), sin: Math.sin(angle)};
+    let coor = ['cos', 'sin'].map(r => MAIN.H*Math.max(0, Math.min(.5*Math.SQRT2*ratio[r] + .5, 1)));
+    return {x: coor[0],y: coor[1]};
+}
