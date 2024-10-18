@@ -11,6 +11,7 @@ nav {
             grid-area:2/4/3/5;
         }
     }
+    small {color:var(--on);}
     input {
         width:5em; max-height:2em;
         margin:0 .2em 0 .3em;
@@ -97,8 +98,10 @@ form {
             &:has(button) {
                 position:sticky; top:0;
                 background:black;
+                z-index:1;
             }
         }
+        #layers:has(.solo) label:not(.solo) {filter:saturate(0) brightness(.7);}
         label {
             border:.1em solid gray; border-radius:.3em;
             width:1.8em; min-height:1.8em; max-height:1.8em;
@@ -114,6 +117,7 @@ form {
             &::before {all:unset;}
             img {
                 width:100%; max-height:100%; object-fit:contain;
+                pointer-events:none;
             }
         }
         button {

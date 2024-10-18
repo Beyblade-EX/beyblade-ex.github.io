@@ -22,7 +22,7 @@ Object.assign(App, {
         App.loading(false);
     },
     loading: loading => Q('summary').classList[loading ? 'add' : 'remove']('loading'),
-    save: () => DB.put('user', {[`sheet-${location.hash.substring(1)}`]: Layers.get()}),
+    save: () => Layers.modified && DB.put('user', {[`sheet-${location.hash.substring(1)}`]: Layers.get()}),
     load: no => DB.get('user', `sheet-${no}`).then(layers => layers ? Layers.put(layers) : App.reset()),
     stage (design) {
         if (design === true)
@@ -30,11 +30,15 @@ Object.assign(App, {
                 Promise.resolve() :
                 App.load(a.getAttribute('href').substring(1)).then(() => App.stage(a))
             ), Promise.resolve());
-
-        if (Layers.labels.length > 1 || Layers.labels[0]?.dataset.type)
+        if (Layers.modified) {
+            Layers.soloing && (Layers.soloing = null, Draw());
             (design.canvas ??= MAIN.con.canvas.cloneNode(true)).getContext('2d').drawImage(MAIN.con.canvas, 0, 0);
+        }
     },
-    switch: () => /^#[1-6]$/.test(location.hash) ? App.load(location.hash.substring(1)) : location.href = '#1',
+    switch () {
+        Layers.soloing = null;
+        /^#[1-6]$/.test(location.hash) ? App.load(location.hash.substring(1)) : location.href = '#1'
+    },
     export () {
         E('a', {
             href: `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(Layers.get()))}`,
@@ -85,6 +89,13 @@ Object.assign(App, {
         });
         Object.assign(Q('#layer'), {
             onchange: Layers.change,
+            ondblclick: Layers.solo,
+            ontouchend: ev => {
+                let current = new Date().getTime();
+                let interval = current - App.lastTap;
+                interval < 500 && interval > 0 && (ev.preventDefault(), ev.target.dispatchEvent(new Event('dblclick', {bubbles: true})));
+                App.lastTap = current;
+            },
             onclick: ev => ev.target.id == 'create' ? Layers.create(ev) : ['up', 'down'].includes(ev.target.id) ? Layers.move(ev) : null,
             onpointerdown: ev => ev.target.id == 'delete' && Layers.delete(ev)
         });
@@ -167,6 +178,7 @@ const Controls = {
 const Layers = {
     fieldset: Q('#layer'),
     labels: Q('#layers').children,
+    get modified () {return Layers.labels.length > 1 || Layers.labels[0]?.dataset.type},
     label: (dataset, img) => {
         let label = E('label', {dataset}, [img ?? E('span'), E('input', {type: 'radio', name: 'layer'})]);
         label.can = new OffscreenCanvas(MAIN.W, MAIN.H);
@@ -204,6 +216,12 @@ const Layers = {
         Layers.fieldset.scrollTop = scrollTop;
         Draw();
     },
+    solo (ev) {
+        if (ev.target.tagName != 'LABEL') return;
+        Layers.soloing?.classList.remove('solo');
+        Layers.soloing != ev.target ? (Layers.soloing = ev.target).classList.add('solo') : Layers.soloing = null;
+        Draw();
+    },
     async put (layers) {
         const labels = await Promise.all(layers.map(ds => ds.image ?
             loadIMG(ds.image).then(img => Layers.label((({ image, ...others }) => others)(ds), img)) :
@@ -226,7 +244,7 @@ const Draw = all => {
             label.img && Draw.image(label);
             label.dataset.type == 'color' && Draw.color(label);
         }
-        MAIN.con.drawImage(label.can, 0, 0);
+        (!Layers.soloing || Layers.soloing == label) && MAIN.con.drawImage(label.can, 0, 0);
     });
     Draw.frame();
     App.timer = setTimeout(App.save, 1000);

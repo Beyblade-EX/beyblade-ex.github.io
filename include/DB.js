@@ -18,7 +18,7 @@ customElements.define('db-status', class extends HTMLElement {
         :host([title])::after {
             content:attr(title) ' ' attr(progress);
             position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-            color:white;font-size:.9em;
+            color:var(--on);font-size:.9em;
             width:4.7rem;
         }
         :host::before {

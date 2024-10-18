@@ -169,7 +169,7 @@ class Bey extends HTMLElement {
         margin:0;
         text-align:center; font-weight:normal; /*safari*/
         white-space:nowrap;
-        color:white;
+        color:var(--on);
     }
     .duplicated {
         color:red;
