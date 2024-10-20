@@ -54,7 +54,7 @@ class Keihin {
                     E('small', {innerHTML: ver[0]})
                 ]),
             ]),
-            E('i', [NAMES.blade[blade].chi.replace(' ', '⬧') + ` ${NAMES.blade[blade].chi ? others : ''}`.replace('-', '‑') || '　', E('small', ver[1])]),
+            E('i', [NAMES.blade[blade].chi.replace(' ', '⬧').replaceAll('\\', '') + ` ${NAMES.blade[blade].chi ? others : ''}`.replace('-', '‑') || '　', E('small', ver[1])]),
             E('time', date.replace('-','‒'))
         ]);
     }

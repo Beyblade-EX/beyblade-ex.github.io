@@ -7,25 +7,26 @@ class AbsPart {
         abbr: this.sym, 
         headers: this.constructor.name.toLowerCase()
     });
-    none = hidden => [E('td', [E('s', hidden ? this.sym : 'ꕕ')]), E('td'), E('td', {classList: 'right'})];
-    static number = (no, sub) => [E('td', {innerHTML: no.replace(/_X-(?=\d{2})/, 'X-&nbsp;')}), sub ? E('sub', sub) : ''];
+    none = hidden => [E('td'), E('td'), E('td', {classList: 'right'})];
 }
 class Blade extends AbsPart {
     constructor(sym, upperFusion) {
         super(sym, upperFusion);
+        if (this.sym != '/') this.system = Blade._UX.includes(sym) ? 'UX' : 'BX';
     }
     cells(fusion = this.fusion) {
         if (this.sym == '/') return this.none();
         let tds = [this.abbr(''), E('td', {classList: 'left'}), E('td', {classList: `right${fusion ? ' fusion' : ''}`})];
         return tds;
     }
+    static UX = async () => Blade._UX = (await DB.get.parts('blade')).filter(p => p.group == 'UX').map(p => p.abbr);
 }
 class Ratchet extends AbsPart {
     constructor(sym) {
         super(sym);
     }
     cells() {
-        if (this.sym == '/') return [E('td', [E('s', hidden ? this.sym : 'ꕕ')])];
+        if (this.sym == '/') return [E('td')];
         let tds = [this.abbr()];
         return tds;
     }
@@ -35,7 +36,7 @@ class Bit extends AbsPart {
         super(sym, lowerFusion);
     }
     cells(fusion = this.fusion) {
-        if (this.sym == '/') return [E('td', [E('s', hidden ? this.sym : 'ꕕ')])];
+        if (this.sym == '/') return [E('td'), E('td')];
         let tds = [this.abbr(), E('td', fusion ? {classList: fusion} : null)];
         return tds;
     }
@@ -67,7 +68,7 @@ class Row {
             Row.current = code;
             video ??= [Q(`td[data-video]`)].flat().findLast(td => td?.custom().text == code)?.dataset.video;
             return E('td', 
-                [code.replace(/_X-(?=\d{2})/, 'X- '), ...Row.RB ? [E('s', '-'), E('sub', `0${Row.RB}`)] : []], 
+                [code.replace(/^(?=.X-)/, ' '), ...Row.RB ? [E('s', '-'), E('sub', `0${Row.RB}`)] : []], 
                 {dataset: {...Mapping.maps.images.find(code), ...video ? {video} : {}}}
             );
         }
@@ -180,7 +181,7 @@ class Cell {
                 `https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/${href}.png`,
         },
     }
-    static text = td => td.childNodes[0].textContent;
+    static text = td => td.childNodes[0].textContent.trim();
     static popup = Q('[popover]');
 }
 Object.assign(Cell.prototype.dissect, Cell.dissect);

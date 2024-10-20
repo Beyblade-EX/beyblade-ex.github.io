@@ -18,7 +18,7 @@ customElements.define('db-status', class extends HTMLElement {
         :host([title])::after {
             content:attr(title) ' ' attr(progress);
             position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-            color:white;font-size:.9em;
+            color:var(--on);font-size:.9em;
             width:4.7rem;
         }
         :host::before {
@@ -128,6 +128,7 @@ const DB = {
     get: (store, key) => {
         !key && ([store, key] = store.split('.').reverse());
         let part = DB.components.includes(store);
+        store == 'user' && (DB.tr = null);
         return new Promise(res => DB.store(part ? `.${store}` : store).get(key)
             .onsuccess = ev => res(part ? {...ev.target.result, comp: store} : ev.target.result));
     },

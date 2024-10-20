@@ -1,12 +1,45 @@
 {
+    "KnMl": {
+        "group": "UX",
+        "names": {
+            "jap": "ナイトメイル",
+            "eng": "KnightMail",
+            "chi": "騎士護甲"
+        },
+        "stat": [],
+        "desc": "圓形十二枚刃中内藏的三顆金屬球能上下移動，緩和衝擊。",
+        "attr": ["def","right"]
+    },
+    "SmSb": {
+        "group": "UX",
+        "names": {
+            "jap": "サムライセイバー",
+            "eng": "SamuraiSaber",
+            "chi": "武士之刃"
+        },
+        "stat": [],
+        "desc": "小型金屬能開關，依撞中對手的方式而改變攻擊力。",
+        "attr": ["att","right"]
+    },
+    "CrGr": {
+        "group": "BX",
+        "names": {
+            "jap": "クリムゾンガルーダ",
+            "eng": "Crimson\\Garuda",
+            "chi": "緋紅\\迦樓羅"
+        },
+        "stat": [],
+        "desc": "上下擁有不同的性能：上面擅長少持久損失的攻擊，下面擅長反擊。",
+        "attr": ["bal","right","bsb"]
+    },
     "SlWl": {
         "group": "UX",
         "names": {
             "jap": "シルバーウルフ",
             "eng": "Silver\\Wolf",
-            "chi": "白銀戰狼"
+            "chi": "白銀戰狼 霜輝銀狼"
         },
-        "stat": [""],
+        "stat": ["37-"],
         "desc": "下部的 Free Ring 能迴轉，卸走對手攻擊，維持迴轉力。",
         "attr": ["sta","right","bsb"]
     },
@@ -117,7 +150,7 @@
             "chi": "巫師幻杖 魔導神杖"
         },
         "stat": ["35+"],
-        "desc": "外重心又大徑幅的五枚刃形狀，專門產生離心力。",
+        "desc": "外重心又大徑幅的五枚刃形狀，專門産生離心力。",
         "attr": ["sta","right"]
     },
     "HlHm": {
@@ -194,7 +227,7 @@
             "chi": "鳳凰炎羽 鳳凰翔羽"
         },
         "stat": ["33+"],
-        "desc": "三枚輕量 Upper 刃產生高速攻擊。",
+        "desc": "三枚輕量 Upper 刃産生高速攻擊。",
         "attr": ["att","right"],
         "from": "DrSw"
     },
@@ -431,15 +464,15 @@
         "attr": ["bal","right"],
         "from": "LnCl"
     },
-    "PtTl": {
-        "group": "hasbro",
+    "PtSw": {
+        "group": "BX",
         "names": {
-            "jap": "プテラストローク",
-            "eng": "PteraStroke",
+            "jap": "プテラスイング",
+            "eng": "PteraSwing",
             "chi": ""
         },
         "stat": [],
-        "desc": "（目前只在孩之寶商品中收錄，稱「Talon Ptera」）",
+        "desc": "向下方的鋸齒狀六枚刃，擅長消耗對手迴轉力。",
         "attr": ["sta","right"],
         "from": "VpTl"
     },
@@ -462,7 +495,7 @@
             "eng": "BearScratch",
             "chi": "狂熊鋭爪"
         },
-        "stat": [],
+        "stat": ["30-"],
         "desc": "凝縮成小徑的内重心構造，受到衝擊體勢也難以倒下。",
         "attr": ["def","right"],
         "from": "RhHr"

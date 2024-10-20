@@ -15,6 +15,13 @@
 </nav>
 <db-status callback="location.search && Parts.catalog() || location.hash && Parts.list()"></db-status>
 <!--cmd: for %F in (*.png) do backgroundremover -i %F -o o%F && magick mogrify -fuzz 5% -trim o%F-->
+<!--ps: Get-ChildItem -Filter *.png | ForEach-Object {
+    $inputFile = $_.FullName
+    $outputFile = "o$($_.Name)"
+    backgroundremover -i $inputFile -o $outputFile
+    magick mogrify -fuzz 5% -trim $outputFile
+    pngquant --quality=65-80 $outputFile -o "op/$($outputFile)"
+}-->
 <main id=catalog>
     <span class=loading></span>
     <details hidden open>

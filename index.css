@@ -15,7 +15,7 @@ body {
 input {
     all:unset;
     width:100%; height:1em;
-    background:transparent; color:white;
+    background:transparent; color:var(--on);
     text-align:center;
 }
 header {
@@ -75,11 +75,14 @@ h3 {
         font-size:.65em; line-height:3;
         pointer-events:none;
     }
-    spin-knob::after {
-        content:attr(title);
-        display:block; margin-top:.5em;
-        font-size:.4em;
+    spin-knob {
+        align-self:end;
     }
+    spin-knob::before {
+        font-size:.8em;
+        margin-bottom:.2em;
+    }
+    spin-knob data {display:none;}
 }
 #contents {
     grid-template:repeat(3,1fr)/repeat(2,min-content);
@@ -112,10 +115,14 @@ h3 {
         &:nth-of-type(3)::before {content:'\e002';}
     }
     a:hover {
-        color:white;
+        color:var(--on);
         background-position:bottom right;
         &::before {--stop:100%;}
     }
+}
+a[data-icon]::before {
+    content:attr(data-icon);
+    pointer-events:none
 }
 @property --stop {
     syntax:'<percentage>'; inherits:false;
@@ -169,7 +176,10 @@ h3 {
     p:nth-of-type(3) {order:7;}
     figure:nth-of-type(5) {order:8;}
     p:nth-of-type(4) {order:9;}
-    figure:nth-of-type(n+6) {order:10;}
+    figure:nth-of-type(6) {order:10;}
+    p:nth-of-type(5) {order:11;}
+    figure:nth-of-type(7) {order:12;}
+    p:nth-of-type(n+6) {order:13;}
 }
 
 #reboot {
@@ -306,24 +316,38 @@ details {
 #app img {
     height:3em;
 }
-a[href^=customize] {
-    position:relative;
-    width:min(100%,20em);
-    margin:auto;
+#tools {
+    a {
+        display:block; width:min(100%,18em); aspect-ratio:.73;
+        margin:auto;
+        background:url(/img/sample.png) center 0 / cover no-repeat;
+        position:relative;
 
-    img {
-        width:100%;
-        display:block;
-    }
-    span {
-        position:absolute; left:0; bottom:0;
-        font-size:3em; font-family:'Yusei Magic',COND,sans-serif;
-        line-height:1.1; text-align:left;
-        width:4em;
-        letter-spacing:.1em;
-
-        &::first-line {
-            font-size:.6em; font-family:'IBM Plex Sans JP',COND,sans-serif;
+        &::before {
+            content:attr(title); font-size:1.5em;
+            line-height:1.1;
+            text-align:left; text-transform:uppercase;
+            position:absolute; left:.2em; top:0;
         }
+        &.disabled {
+            filter:saturate(0);
+            pointer-events:none;
+        }
+        &.disabled::after {
+            content:'準備中';
+            position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+            width:100%;
+            padding:1em;
+            background:linear-gradient(to right,transparent,rgba(0,0,0,.7) 20% 80%,transparent);
+        }
+    }
+    a:nth-child(2) {
+        background:url(/img/deck.png) center / contain no-repeat;
+        aspect-ratio:1;
+
+        &::before {
+            bottom:0; top:initial;
+        }
+        &.disabled::after {content:'暫停';}
     }
 }

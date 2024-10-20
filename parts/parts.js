@@ -58,7 +58,7 @@ const Magnifier = () => {
 };
 Object.assign(Magnifier, {
     create: () => E('div', {classList: 'part-mag'}, [
-        E('spin-knob', [E('input', {type: 'range', min: .75, max: 2, step: 'any'}), E('i', '')]),
+        E('spin-knob', {classList: 'no-data'}, [E('input', {type: 'range', min: .75, max: 2, step: 'any'}), E('i', '')]),
         ...[1,2,3].map(n => E('label', [E('input', {id: `mag${n}`, type: 'radio', name: 'mag'})]))
     ]),
     events () {

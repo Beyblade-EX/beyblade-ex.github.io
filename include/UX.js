@@ -178,6 +178,8 @@ class Knob extends HTMLElement {
     set name(name) {return;}
     get value() {return this.type == 'discrete' ? this.#input.Q(':checked').value : parseFloat(this.#input.value);}
     set value(value) {this[this.type].adjustValue(value);}
+    set = value => this[this.type].adjustValue(value ?? this.initial, false);
+
     θ = () => parseFloat(getComputedStyle(this).getPropertyValue('--angle'));
     
     auto = ev => this.style.setProperty('--angle', `${ev.type == 'pointerenter' ? this.maxθ : this.minθ}deg`)
@@ -192,32 +194,44 @@ class Knob extends HTMLElement {
             press: (drag) => (drag.pressθ = this.θ(), this.start ??= drag.pressθ),
             move: (drag) => {
                 let delta = Math.abs(drag.deltaY);
-                if (this.type == 'continuous' && delta < 2 || this.type == 'discrete' && delta < 50) return;
+                if (this.type == 'continuous' && delta < 1 || this.type == 'discrete' && delta < 50) return;
                 if (location.pathname == '/') {
                     if (this.hasAttribute('alt') && Math.abs(this.θ() - this.start) >= (this.maxθ - this.minθ)/2) {
                         this.Q('a').href = this.getAttribute('alt');
                         this.Q('a').onclick ??= () => gtag('event', 'knob', {alt: this.title});
-                        this.shadowRoot.Q('div').classList.add('dragged');
+                        this.shadowRoot.Q('slot').classList.add('dragged');
                     }
                     this.hover('remove');
                 }
-                this[this.type].getΔY(drag);
+                this[this.type].useΔY(drag);
                 this[this.type].adjustValue();
             }
         });
     }
     beforeChildren() {
+        Q('#spin-knob') || document.head.append(E('style', this.overrideUnset));
         location.pathname == '/' && this.hover('add');
-        this.minθ = parseFloat(this.getAttribute('min')) || 30;
+        this.minθ = parseFloat(this.getAttribute('min')) || 35;
         this.maxθ = 360 - this.minθ;
         this.style.setProperty('--min', `${this.minθ}deg`);  
         this.style.setProperty('--angle', `${this.minθ}deg`); 
     }
     afterChildren() {
-        this.type = this.Q('option') ? 'discrete' : 'continuous';
-        this.input = this.Q('input,select');
+        this.type = this.getAttribute('options') ? 'discrete' : 'continuous';
+        this.append(E('data', this.getAttribute('unit') && {dataset: {unit: this.getAttribute('unit')}}));
         this[this.type].setup();
-        (this.input.onchange = ev => this.event(ev))();
+        this[this.type].adjustValue(this.value, false);
+        this.name = this.id;
+        this.dblclick();
+        (this.#input.onchange = ev => this.event(ev))();
+        this.removeAttribute('range', 'options');
+    }
+    dblclick() {
+        let snap = this.getAttribute('dblclick');
+        this.ondblclick = ev => {
+            ev.preventDefault();
+            this.value = snap ? Math.round(this.value/snap)*snap : this.initial;
+        }
     }
     discrete = {
         setup: () => {
@@ -234,129 +248,127 @@ class Knob extends HTMLElement {
                         transparent ${this.θ(i) + 1.5}deg ${this.θ(i+1) - 1.5}deg,`;
             return css.replace(/,$/, '');
         },
-        getΔY (drag) {
+        useΔY (drag) {
             this.index = Math.max(0, Math.min((this.index ?? 0) - Math.sign(drag.deltaY), this.total - 1));
             drag.pressY = drag.moveY;
         },
-        adjustValue: (value) => {
+        adjustValue: (value, event = true) => {
             this.discrete.index ??= this.Q('option').findIndex(o => o.value == value); //by assigning
             if (this.discrete.index == null) return;
             this.Q(`option:nth-child(${this.discrete.index+1})`).selected = true;
             this.style.setProperty('--angle', `${this.discrete.θ()}deg`);
-            this.#input.dispatchEvent(new Event('change', {bubbles: true}));
+            this.Q('data').value = this.value;
+            this.#internals.setFormValue(this.value);
+            event && this.#input.dispatchEvent(new Event('change', {bubbles: true}));
         },
         θ: (x = this.discrete.index) => (this.maxθ - this.minθ) / (this.discrete.total-1) * x + this.minθ
     }
     continuous = {
         setup: () => {
-            this.append(
-                this.#input = E('input', {type: 'range', step: 'any', ...JSON.parse(this.getAttribute('range'))}),
-            );
+            this.#input = this.Q('input[type=range]') ?? 
+                this.appendChild(E('input', {type: 'range', step: 0.001, min: 0, max: 1, value:0, ...JSON.parse(this.getAttribute('range'))}));
             this.max = parseFloat(this.#input.max), this.min = parseFloat(this.#input.min), this.initial = parseFloat(this.#input.value);
             this.min < 0 && this.classList.add('symmetric');
         },
-        getΔY: (drag) => {
+        useΔY: (drag) => {
+            this.classList.contains('fine') && (drag.deltaY /= 10);
             this.continuous.θ = drag.moveθ = Math.max(this.minθ, Math.min(drag.pressθ - drag.deltaY, this.maxθ));
             (drag.moveθ == this.minθ || drag.moveθ == this.maxθ) && ([drag.pressY, drag.pressθ] = [drag.moveY, drag.moveθ]);
             this.#input.value = (drag.moveθ - this.minθ) / (this.maxθ - this.minθ) * (this.max - this.min) + this.min;
         },
-        adjustValue: (value) => {
+        adjustValue: (value, event = true) => {
             if (value != undefined || !this.continuous.θ) {
                 this.continuous.θ = (parseFloat(value) - this.min) / (this.max - this.min) * (this.maxθ - this.minθ) + this.minθ;
                 this.#input.value = parseFloat(value);
             }
             this.style.setProperty('--angle', `${(this.continuous.θ)}deg`);
-            this.#input.dispatchEvent(new Event('change', {bubbles: true}));
+            this.Q('data').value = this.getAttribute('unit') == '%' ? (this.value*100).toFixed(this.value === 1 ? 0 : 1) : this.value;
+            this.#internals.setFormValue(this.value);
+            event && this.#input.dispatchEvent(new Event('change', {bubbles: true}));
         }
     }
-    event(ev) {
-        this.Q('data').value = this.type == 'continuous' ?
-            this.getAttribute('unit') == '%' ? (this.value*100).toFixed(0) : this.value.toPrecision(2) : this.value;
-        this.#internals.setFormValue(this.value);
-    }
+    event(ev) {}
     css = `
     :host {
         text-align:center;
         display:inline-block; width:4em;
         touch-action:none; user-select:none; -webkit-user-select:none;
+        position:relative;
+        --light:var(--theme); --dark:var(--theme-dark);        
     }
-    slot,slot::before {
-        width:4em; height:4em;
+    .dragged,.dragged+style {
+        --light:var(--theme-alt);--dark:hsl(45,90%,20%);
     }
-    slot {
-        display:block; 
-        --light:var(--theme); --dark:var(--theme-dark);
-        color:var(--light);
+    style,style::before,slot,slot::before {
+        display:block; width:4em; height:4em;
+        pointer-events:none;
+    }
+    :where(style,slot)::before {
+        content:'';
         border-radius:9em;
-        background:conic-gradient(
-            transparent var(--min),
-            var(--light) var(--min) var(--angle),
-            var(--dark) var(--angle) calc(360deg - var(--min)),
-            transparent calc(360deg - var(--min))
-        );
+        mask:radial-gradient(transparent 60%,black 61%);
+    }
+    style {
+        position:absolute; bottom:0;
+        color:transparent;
         transform:scale(-1);
-        -webkit-user-drag:none;
+        filter:drop-shadow(0 0 .15em var(--light));
 
-        :host(.symmetric) & {
-            background:conic-gradient(
-                transparent var(--min),
-                var(--dark) var(--min) min(180deg,var(--angle)),
-                var(--light) min(180deg,var(--angle)) max(180deg,var(--angle)),
-                var(--dark) max(180deg,var(--angle)) calc(360deg - var(--min)),
-                transparent calc(360deg - var(--min))
-            );
-        }
-        &.dragged {
-            --theme:var(--theme-alt); color:hsl(45,90%,48%); --dark:hsl(45,90%,20%);
-        }
         &::before {
-            content:'';
-            position:absolute; left:0;
-            border-radius:inherit; 
             background:conic-gradient(
                 transparent var(--min),
                 var(--light) var(--min) var(--angle),
-                transparent var(--angle)
+                transparent var(--angle) calc(360deg - var(--min))
             );
-            filter:drop-shadow(0 0 .2em var(--light));
         }
         :host(.symmetric) &::before {
             background:conic-gradient(
                 transparent min(180deg,var(--angle)),
                 var(--light) min(180deg,var(--angle)) max(180deg,var(--angle)),
-                transparent max(180deg,var(--angle))
+                transparent max(180deg,var(--angle)) calc(360deg - var(--min))
             );
         }
         &::after {
-            content:'·'; font-size:2em; font-family:serif;
+            content:'·'; 
+            font-size:2em; font-family:serif;
+            color:var(--light); line-height:.4;
             position:absolute; inset:.3em;
-            border-radius:inherit; outline:.2em solid var(--bg,#333);
-            background:var(--dark);
-            text-align:center; line-height:.4;
             transform:rotate(var(--angle));
-            text-shadow:0 0 .1em var(--theme); color:var(--theme);
         }
     }
-    :host([discrete]) slot::before {
-        background:conic-gradient(
-            transparent calc(var(--angle) - 1.5deg),
-            var(--light) calc(var(--angle) - 1.5deg) calc(var(--angle) + 1.5deg),
-            transparent calc(var(--angle) + 1.5deg)
-        );
+    slot {
+        -webkit-user-drag:none;
+        position:relative;
+
+        &::before {
+            transform:scale(-1);
+            background:conic-gradient(
+                transparent var(--min),
+                var(--dark) var(--min) calc(360deg - var(--min)),
+                transparent calc(360deg - var(--min))
+            );
+        }
+        &::after {
+            content:''; 
+            background:var(--dark); border-radius:9em;
+            position:absolute; inset:.65em;
+        }
     }
-    :host([discrete]) slot::after {
-        outline-width:.1em;
-    }   
-    :host(.hover),:host([discrete]) slot::after {
+    :host(.hover) {
         transition:--angle .5s;
         touch-action:initial;
     }
-    ::slotted(data) {
+    ::slotted(:is(i,data)) {
         z-index:1;
-        position:relative; 
         pointer-events:none;
-        display:inline-block; transform:scale(-1) translateY(1em);
-        font-size:.7em;
+    }
+    ::slotted(a) {
+        position:absolute; inset:.7em;
+    }
+    ::slotted(data) {
+        position:relative; 
+        display:inline-block; transform:translateY(-1.4em);
+        font-size:.6em;
     }
     ::slotted(data)::before {
         content:attr(value);
@@ -369,9 +381,15 @@ class Knob extends HTMLElement {
     }
     :host([title])::before {
         content:attr(title);
-        font-size:.9em;
-        display:block; margin-bottom:.1em;
+        display:block;
         white-space:nowrap;
+    }`;
+    overrideUnset = `
+    spin-knob :is(a,i) {
+        font-size:1.25em; 
+        pointer-events:auto;
+        border-radius:9em;
+        position:absolute; inset:.9em; z-index:1;
     }`
     static formAssociated = true
 }

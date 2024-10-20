@@ -1,5 +1,10 @@
 [
-  ["UX-08","S","SlWl 3-80 FB"],
+  ["BXG-25","St H","DrBs 3-70 N",{"coat":"white"}],["BXG-25","St H","DrDg 9-60 LF",{"coat":"white"}],["BXG-25","St H","DrSw 4-80 DB",{"coat":"white"}],
+  ["UX-10","St","KnMl 3-85 BS"],["UX-10","St","PtSw 7-70 B"],["UX-10","St H","TyBt 1-60 RA",{"coat":"red"}],
+  ["UX-10","St H","HlHm / P",{"coat":"dodgerblue"}],["UX-10","St H","/ / MN"],["UX-10","St H","/ / R"],
+  ["UX-09","S","SmSb 2-70 L"],
+  ["BX-38","B","CrGr 4-70 TP"],
+  ["UX-08","S","SlWl 3-80 FB","0Ne5qyjH3RE"],
   ["BX-37","SS","BrSc 5-60 F","RYbfmKKYmkM"],
   ["BXG-07","RB","LLd_u 1-60 F","yTZLV18XcL8"],["BXG-07","RB","LLd_r 1-60 F"],
   ["BX-36","RB","WhWv 5-80 E","Ihhz4b_B36M"],["BX-36","RB H","WhWv 4-70 HN"],["BX-36","RB H","WhWv 3-80 GB"],

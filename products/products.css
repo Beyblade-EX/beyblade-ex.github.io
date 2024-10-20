@@ -15,7 +15,7 @@ nav {
         align-self:center;
         width:2em; height:2em;
         outline:.15em solid var(--theme); border-radius:8em;
-        font-size:1.25em; line-height:2.15em; color:white !important;
+        font-size:1.25em; line-height:2.15em; color:var(--on) !important;
         position: relative;
         margin-left:.3em;
 
@@ -50,8 +50,8 @@ caption>* {
     }
     div {
         margin:0 0 .5em 1em; padding-right:.5em;
-        display:flex;justify-content:space-between;flex-wrap:wrap;
-        gap:.5em;
+        display:flex;flex-wrap:wrap;
+        gap:1em;
     }
     span {
         text-align:left;text-indent:1em;
@@ -60,19 +60,21 @@ caption>* {
     }
     label {
         position:relative;
+
+        &:not(:has(img))::before {line-height:.4rem;}
     }
-    div:not(.system) label::after {
-        content:'';
-        position:absolute; inset:.7em -.5em .2em -.5em;;
-        background:var(--light);
-        transform:skew(-20deg);
-        z-index:-1;
-    }
-    .system label {
-        width:5em;
+    div:not(.system) {
+        gap:2em;
+        label::after {
+            content:'';
+            position:absolute; inset:.7em -.5em .2em -.5em;;
+            background:var(--light);
+            transform:skew(-20deg);
+            z-index:-1;
+        }
     }
     .system img {
-        height:3em;
+        height:2em;
     }
     button {
         margin-left:.5em;
@@ -91,12 +93,6 @@ table {
 caption:not(:empty) {
     margin:.5em auto;
     text-align:right;
-}
-caption.loading::after {
-    content:'\e005';
-    font-size:2em;
-    display:inline-block;
-    animation:spin 1s infinite;
 }
 #filter button,caption button {
     padding:0 .5em;
@@ -190,6 +186,9 @@ td sub {
     vertical-align:-.4em;
     line-height:0;
 }
+td:first-child {
+    white-space:pre;
+}
 td:first-child sub {
     margin:0 -.2em 0 .1em;
     scale:.9 1; letter-spacing:-.05em;
@@ -208,10 +207,10 @@ tbody tr:last-child td {
 tbody td {
     border-top:solid .5px var(--on);
 }
-td[abbr] {
+td:is([abbr],.right:not(:empty)+td,:nth-child(2)) {
     border-left:solid .5px var(--on);
 }
-td:last-child {
+td:last-child:not(:empty) {
     border-left:solid .5px hsl(0,0%,55%);
 }
 table:not(.bilingual):has(#eng:not(:checked)) .left,
@@ -260,12 +259,8 @@ tbody {font-size:min(2.75vw,.7em);}
 #eng:checked~main tbody {font-size:min(2.5vw,.9em);}
 #jap:checked~main tbody {font-size:min(2.5vw,.9em);}*/
 /*color*/
-tbody tr,.boards li {
-    background:var(--light);
-}
-tr.H {
-    background:var(--dark) !important;
-}
+tbody tr,.boards li {background:var(--light);}
+tr.H {background:var(--dark) !important;}
 td:first-child {color:deepskyblue;}
 
 tbody tr:not(.H) {
@@ -291,7 +286,7 @@ tbody tr:not(.H) {
         font-size:.9em;
         border-bottom:.15em dotted;
         padding:.6em .5em; margin:0;
-        color:white;
+        color:var(--on);
     }
     >:is(img,p) {
         width:100%;

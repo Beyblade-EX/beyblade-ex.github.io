@@ -1,32 +1,52 @@
 {
-  "prod-launchers":"2024/09/13 12:00:00",
   "prod-others":   "2024/09/13 18:30:00",
-  "prod-beys":     "2024/10/07 13:13:00",
-  "part-blade":    "2024/10/07 13:13:00",
-  "part-bit":      "2024/09/14 11:30:00",
-  "part-ratchet":  "2024/09/15 22:40:00",
-  "part-meta":     "2024/09/13 18:30:00",
+  "prod-launchers":"2024/10/15 12:15:00",
+  "prod-beys":     "2024/10/18 15:00:00",
+  "part-blade":    "2024/10/18 15:00:00",
+  "part-bit":      "2024/10/15 12:15:00",
+  "part-ratchet":  "2024/10/15 12:15:00",
+  "part-meta":     "2024/10/15 12:15:00",
   "news": {
-    "2024-10-12":[
+    "2024-11-02":[
       {
-        "code":"BX-37 stadium set 對戰盤組合",
-        "name":"ダブルエクストリームスタジアムセット<br>Double Xtreme Stadium Set",
-        "type":"att",
-        "imgs":["https://takaratomymall.jp/img/goods/5/4904810939481_970142f0b7ba4782bb1c9fc59793aae2.jpg","https://takaratomymall.jp/img/goods/L/4904810939481_095608e4b2b1464c9aab78facbc90fd8.jpg","https://takaratomymall.jp/img/goods/C/4904810939481_6b0db86cc3464c8cbef66f220ff76114.jpg"],
-        "desc":["有兩條 Xtreme Line 的對戰盤，中間圓盤以電動上下移動，週期性把中央 Xtreme Line 隱藏、露出","附陀螺：BearScratch 5-60F（在 Hasbro 產品中已登場）"]
+        "code": "BX-38 booster",
+        "name": "クリムゾンガルーダ4-70TP<br>CrimsonGaruda 4-70TP",
+        "type": "bal",
+        "imgs":["https://m.media-amazon.com/images/I/61GQqKJP0rL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/71+V-FD+8lL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/61gpyuKcaXL._AC_SX679_.jpg"],
+        "desc": [
+          "Blade：上段刃減輕 Stamina loss，下段刃擅長 Counter",
+          "Trans Point：扭動可增高／降低 2mm",
+          "四聖獸朱雀之 X 代轉生版"
+        ]
       },
       {
-        "code":"UX-08 starter",
-        "name":"シルバーウルフ 3-80FB<br>SilverWolf 3-80FB",
-        "type":"sta",
-        "imgs":["https://takaratomymall.jp/img/goods/C/4904810939498_cd3cd8955a024810bb5c076aa0728e03.jpg","https://m.media-amazon.com/images/I/615-XlGFlNL._AC_SX425_.jpg","https://takaratomymall.jp/img/goods/1/4904810939498_bb9687cadae8454193a7be9f994959e3.jpg"],
-        "desc":["Blade 有自由迴轉組件，卸走對手攻擊","Bit 沒有自由迴轉，但不與 Ratchet 卡緊，能獨立迴轉","爆轉世代之銀狼 X 代轉生版"]
+        "code": "UX-09 starter",
+        "name": "サムライセイバー2-70L<br>SamuraiSaber 2-70L",
+        "type": "att",
+        "imgs":["https://m.media-amazon.com/images/I/613t87XQd0L._AC_SX679_.jpg","https://m.media-amazon.com/images/I/61l0JrptkeL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/61UeeBLx+DL._AC_SX679_.jpg"],
+        "desc": [
+          "Blade：以離心力伸縮的小刃，伸出時變圓以連擊，縮入後以大刃一擊",
+          "Level Bit：三段不同闊度鋸齒狀平軸，以角度轉速",
+          "附「Hold Launcher」，與 Grip 合併的形狀，附四個可拆除的橡膠 Panel，Winder 亦較長"  
+        ]
+      },
+      {
+        "code": "UX-10 customize set 改造組合",
+        "name": "カスタマイズセットU<br>Customize Set U",
+        "imgs":["https://m.media-amazon.com/images/I/61o2EExmycL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/614ViUP658L._AC_SX679_.jpg","https://m.media-amazon.com/images/I/613hwtP85JL._AC_SX679_.jpg"],
+        "type":"def",
+        "desc": [
+          "4 Blade、3 Ratchet、6 Bit 組合",
+          "Knight<a href=https://en.wikipedia.org/wiki/Chain_mail target=_blank>Mail</a>：有三顆可動金屬球，吸收衝擊",
+          "3-85 Ratchet：新高度",
+          "Bound Spike：能上下移動的 Bit，亦是吸收衝擊",
+          "PteraSwing：鋸齒形下段刃削弱對手持久",
+          "7-70 Ratchet：新刃—高組合",
+          "其餘 Blade：TyrannoBeat（Red）、HellsHammer（Blue）",
+          "其餘 Ratchet：1-60",
+          "其餘 Bit：RA、MN、P、B、R"
+        ]
       }
-    ],
-    "2024-11":[
-      {"code":"BX-38 booster"},
-      {"code":"UX-09 入門 starter"},
-      {"code":"UX-10 customize set 改造組合"}
     ],
     "2024-12":[
       {"code":"UX-11 starter"},

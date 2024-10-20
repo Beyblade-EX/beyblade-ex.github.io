@@ -7,7 +7,7 @@
     {
         "type":"m", "note":"十月號コロコロ雜誌應募", "link":"https://corocoro.jp/news/388872/", "date":"2024-09",
         "bey":"PhWn 9-80DB", "ver":["メタルコート：ネイビー", "Metal Coat: Navy"],
-        "img":["https://corocoro.jp/wp-content/uploads/2024/08/7a8cdbff648686aec08ac1c37f7ea737.jpg",{"width":"100%"}]
+        "img":["https://corocoro.jp/wp-content/uploads/2024/08/7a8cdbff648686aec08ac1c37f7ea737.jpg",{"width":"92%"}]
     },
     {
         "type":"d", "note":"App 抽獎獎品", "date":"2024-07",
@@ -17,7 +17,7 @@
     {
         "type":"m", "note":"實物版遊戲同梱", "link":"https://www.cs.furyu.jp/beyblade2024/", "date":"2024-11",
         "bey":"ShKn 4-60LF", "ver":["メタルコート：ブルー", "Metal Coat: Blue"],
-        "img":["https://www.cs.furyu.jp/beyblade2024/assets/img/guide/special_bey.png",{"width":"100%"}]
+        "img":["https://www.cs.furyu.jp/beyblade2024/assets/img/guide/special_bey.png",{"width":"90%"}]
     },
     {
         "type":"g", "note":"七月號コロコロ雜誌附錄", "link":"https://corocoro.jp/news/385187/", "date":"2024-06",
@@ -36,13 +36,13 @@
     },
     {
         "type":"m", "note":"二月號コロコロ雜誌應募", "link":"https://corocoro.jp/news/379029/", "date":"2024-01",
-        "bey":"HlSc 3-80F", "ver":["スペシャルクロスベイ<br>〈ペルソナ〉", "SPX Bey〈Persona〉"],
+        "code":"BXC-02", "bey":"HlSc 3-80F", "ver":["スペシャルクロスベイ<br>〈ペルソナ〉", "SPX Bey〈Persona〉"],
         "img":["https://corocoro.jp/wp-content/uploads/2023/12/f919dd35dc468956f947d2d2ab3551d1.jpg",{"width":"115%"}]
     },
     {
         "type":"g", "note":"一月號コロコロ雜誌附錄", "link":"https://corocoro.jp/news/377761/", "date":"2023-12",
-        "bey":"PhFt", "ver":["（ブレード）", "(Blade)"],
-        "img":["https://corocoro.jp/wp-content/uploads/2023/12/5698a52905518ee6e5f8a2cebee3ee9c.jpg",{"width":"140%"}]
+        "code":"BXC-01", "bey":"PhFt", "ver":["（ブレード）", "(Blade)"],
+        "img":["/img/blade/PhFt.png",{"width":"95%"}]
     },
     {
         "type":"t", "note":"G1 大會冠軍獎品", "date":"2023-12",
@@ -61,7 +61,7 @@
     },
     {
         "type":"t", "note":"G3 大會獎品（集齊後）", "date":"2023-12",
-        "bey":"KnSh 3-80N", "ver":["メタルコート：ゴールド", "Metal Coat: Gold"],
+        "code":"BXH-02", "bey":"KnSh 3-80N", "ver":["メタルコート：ゴールド", "Metal Coat: Gold"],
         "img":["https://beyblade.takaratomy.co.jp/beyblade-x/event/_image/gift1.jpg",{"width":"120%","top":"52%"}]
     },
     {

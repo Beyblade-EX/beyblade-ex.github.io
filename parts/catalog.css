@@ -289,11 +289,6 @@ a div {
     .def {transform:translate(-50%,-50%) rotate(090deg) translateY(4.8em);}
 }
 
-.loading::after {
-    content:'\e005';font-size:2em;
-    display:inline-block;
-    animation:spin 1s infinite;
-}
 #catalog details {
     position:relative;
     user-select:none; -webkit-user-select:none;
