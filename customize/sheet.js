@@ -9,9 +9,8 @@ const App = () => {
         MAIN.W = MAIN.con.canvas.width = img.naturalWidth, MAIN.H = MAIN.con.canvas.height = img.naturalHeight;
         MAIN.hW = MAIN.W/2, MAIN.hH = MAIN.H/2;
         Layers.frame = img;
-        App.load(location.hash ||= '#1');
-        Draw();
-    });
+        return App.load(location.hash ||= '#1');
+    }).then(App.loading);
     PDFLib.A4 = PDFLib.PageSizes.A4.sort((a, b) => a - b);
 }
 Object.assign(App, {
@@ -20,8 +19,9 @@ Object.assign(App, {
         Controls.reset();
         Layers.reset();
         App.loading(false);
+        Draw();
     },
-    loading: loading => Layers.solo(false) || Q('summary').classList[loading ? 'add' : 'remove']('loading'),
+    loading: loading => Q('summary').classList[loading ? 'add' : 'remove']('loading'),
     save: () => Layers.modified && DB.put('user', {[`sheet-${location.hash.substring(1)}`]: Layers.get()}),
     load: hash => DB.get('user', `sheet-${hash.substring(1)}`).then(layers => layers ? Layers.put(layers) : App.reset()),
     stage (design) {
@@ -33,9 +33,10 @@ Object.assign(App, {
         (design.canvas ??= MAIN.con.canvas.cloneNode(true)).getContext('2d').drawImage(MAIN.con.canvas, 0, 0);
     },
     switch (ev) {
-        Layers.solo(true);
+        App.loading(true);
+        Layers.solo(false);
         typeof ev == 'object' && App.stage(Q(`a[href='${new URL(ev.oldURL).hash}']`));
-        /^#[1-6]$/.test(location.hash) ? App.load(location.hash) : location.href = '#1'
+        /^#[1-6]$/.test(location.hash) ? App.load(location.hash).then(App.loading) : location.href = '#1'
     },
     export () {
         E('a', {
@@ -45,17 +46,19 @@ Object.assign(App, {
     },
     import (ev) {
         App.loading(true);
+        Layers.solo(false);
         let reader = new FileReader();
         reader.readAsText(ev.target.files[0]);
-        reader.onload = () => Layers.put(JSON.parse(reader.result));
+        reader.onload = () => Layers.put(JSON.parse(reader.result)).then(App.loading);
     },
     sample () {
         App.loading(true);
-        fetch('./sample.json').then(resp => resp.json()).then(Layers.put);    
+        Layers.solo(false);
+        fetch('./sample.json').then(resp => resp.json()).then(Layers.put).then(App.loading);    
     },
     download () {
-        Layers.solo(false);
         App.loading(true);
+        Layers.solo(false);
         let pdf, pages = [];
         let amount = [...Q('#download+input').value];    
         Promise.all([PDFLib.PDFDocument.create(), App.stage(true)]).then(([doc]) => {
@@ -67,7 +70,7 @@ Object.assign(App, {
             return Promise.all(canvases.map(can => can ? doc.embedPng(can.toDataURL("image/png", 1.0)) : null));
         }).then(images => {
             images.flatMap((im, i) => im ? Array(amount[i]).fill(im) : []).forEach((image, i) => {
-                let scaled = image.scale(.292);
+                let scaled = image.scale(.291);
                 pages[Math.floor(i/12)].drawImage(image, {
                     x: 20 + i % 6 * (12.5 + scaled.width),
                     y: 84.5 + (1 - Math.floor(i/6) % 2) * (20 + scaled.height),
@@ -77,9 +80,8 @@ Object.assign(App, {
             return pdf.save();
         }).then(doc => {
             open(URL.createObjectURL(new Blob([doc], { type: 'application/pdf' })))
-            App.loading(false);
             App.switch(location.hash);
-        }).catch(er => console.error(er));
+        }).catch(document.body.append);
     },
     events () {
         Object.assign(Q('form'), {
@@ -89,6 +91,7 @@ Object.assign(App, {
         Object.assign(Q('#layer'), {
             onchange: Layers.switch,
             ondblclick: Layers.solo,
+            ontouchend: ev => !/iPad|iPhone/.test(navigator.userAgent) ? doubleclick(ev, Layers, Layers.solo) : null,
             onclick: ev => ev.target.id == 'create' ? Layers.create(ev) : ['up', 'down'].includes(ev.target.id) ? Layers.move(ev) : null,
             onpointerdown: ev => ev.target.id == 'delete' && Layers.delete(ev)
         });
@@ -111,10 +114,10 @@ Object.assign(App, {
         Q('#export,#download,#sample', button => button.onclick = App[button.id]);
         Q('#import').onchange = App.import;
 
-        onkeydown = ev => ev.key == 'Control' ? Q('#fine').click() : null;
+        onkeydown = ev => ev.key == 'Control' ? Q('#fine').click() : 
+            ev.key == 'ArrowUp' ?   Layers.selected.previousSibling?.click() :
+            ev.key == 'ArrowDown' ? Layers.selected.nextSibling?.click() : null;
         onhashchange = App.switch;
-        //(onresize = () => [Q('#control :nth-child(2)').title, Q('#control :nth-child(3)').title] = innerWidth > innerHeight ? 
-        //    ['上下', '左右'] : ['左右', '上下'])();
     }
 });
 const Controls = {
@@ -211,9 +214,8 @@ const Layers = {
         Draw();
     },
     solo (ev) {
-        let redraw = ev || Q('.solo');
-        Layers.fieldset.classList.toggle('solo', ev === false ? false : undefined);
-        redraw && Draw();
+        Layers.fieldset.classList.toggle('solo', typeof ev == 'object' ? undefined : false);
+        (ev || !Q('.solo')) && Draw();
     },
     async put (layers) {
         const labels = await Promise.all(layers.map(({image, ...others}) => image ?
@@ -222,7 +224,6 @@ const Layers = {
         Q('#layers').replaceChildren(...labels);
         labels[0]?.click();
         Draw(true);
-        App.loading(false);
     },
     get: () => [...Layers.labels]
         .map(label => ({...label.dataset, ...label.img ? {image: label.img.src} : {}}))

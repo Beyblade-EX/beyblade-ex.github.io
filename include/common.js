@@ -56,11 +56,18 @@ const E = (el, ...stuff) => {
     Object.assign(el.dataset, attr?.dataset ?? {});
     return Object.assign(el, (({style, dataset, ...attr}) => attr)(attr ?? {}));
 }
-
 const Storage = (key, obj) => !obj ? 
     JSON.parse(localStorage[key] ?? 'null') : 
     localStorage[key] = typeof obj == 'object' ? JSON.stringify({...Storage(key), ...obj}) : obj;
 
+const doubleclick = (ev, timestore, actionORtarget) => {
+    let now = new Date().getTime();
+    if (now - timestore.lastTap < 500) {
+        ev.preventDefault();
+        typeof actionORtarget == 'function' ? actionORtarget(ev) : (actionORtarget || timestore).dispatchEvent(new Event('dblclick'));
+    } 
+    timestore.lastTap = now;
+}
 class Mapping {
     constructor(...map) {
         this.default = map.length % 2 ? map.pop() : null;

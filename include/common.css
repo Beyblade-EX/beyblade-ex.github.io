@@ -333,7 +333,7 @@ nav {
     &:not(popover-open),>p:empty {display:none;}
 }
 .loading::after {
-    content:'\e005';font-size:2em;
+    content:'\e005' !important; font-size:2em;
     display:inline-block;
     animation:spin 1s infinite;
 }

@@ -176,6 +176,7 @@ class Knob extends HTMLElement {
     }
     get name() {return this.getAttribute('name');}
     set name(name) {return;}
+    set alt(alt) {return this.setAttribute('alt', alt);}
     get value() {return this.type == 'discrete' ? this.#input.Q(':checked').value : parseFloat(this.#input.value);}
     set value(value) {this[this.type].adjustValue(value);}
     set = value => this[this.type].adjustValue(value ?? this.initial, false);
@@ -232,6 +233,7 @@ class Knob extends HTMLElement {
             ev.preventDefault();
             this.value = snap ? Math.round(this.value/snap)*snap : this.initial;
         }
+        /iPad|iPhone/.test(navigator.userAgent) && (this.ontouchend = ev => doubleclick(ev, Knob, this));
     }
     discrete = {
         setup: () => {
