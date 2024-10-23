@@ -17,6 +17,7 @@ input {
     width:100%; height:1em;
     background:transparent; color:var(--on);
     text-align:center;
+    z-index:2;
 }
 header {
     padding:4em 0 1em 0;
