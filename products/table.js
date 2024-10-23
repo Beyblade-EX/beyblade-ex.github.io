@@ -156,7 +156,7 @@ Object.assign(Finder, {
         if (s.ratchet?.length)
             Finder.regexp.push(new RegExp('^.+? (' + s.ratchet.join('|') + ') .+$'));
         if (s.bit?.length || s.bit?.prefix?.length) {
-            let prefix = where == 'form' ? '' : s.bit.prefix?.length ? `[${s.bit.prefix.join('')}]` : `[${Parts.bit.prefix}]?`;
+            let prefix = where == 'form' ? '' : s.bit.prefix?.length ? `[${s.bit.prefix.join('')}]` : ``;
             let bit = s.bit?.length ? `(${s.bit.join('|')})` : '[^a-z].*';
             Finder.regexp.push(new RegExp(`^.+? ${prefix}${bit}$`, 'u'));
         }
