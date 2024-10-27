@@ -172,13 +172,11 @@ class Cell {
             },
             format (no, type, upper) {
                 type == 'main' && Cell.images.push(`${no}@1`);
-                type == 'more' && Cell.images.push(...[1,2,3,4,5,6,7,8,9].map(n => `${no}_0${n}@1`));
+                type == 'more' && Cell.images.push(...[...Array(10)].map((_, i) => `${no}_0${i+1}@1`));
                 type == 'detail' && Cell.images.push(`detail_${no.replace(/.+(?=\d)/, s => upper ? s : s.toLowerCase())}`);
             },
             juxtapose () {return [Cell.images].flat().map(src => E('img', {src: this.src(src)}))},
-            src: href => /^https|\/img\//.test(href) ? href : href.length > 15 ? 
-                `https://pbs.twimg.com/media/${href}?format=png&name=large` : 
-                `https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/${href}.png`,
+            src: href => /^https|\/img\//.test(href) ? href : `https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/${href}.png`,
         },
     }
     static text = td => td.childNodes[0].textContent.trim();
