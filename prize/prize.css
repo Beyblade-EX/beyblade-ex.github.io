@@ -53,7 +53,7 @@ label:has(#keihin-m)::after,.keihin-m b::before {content:'\e001';}
     }
     b {
         grid-area:type; align-self:end;
-        color:var(--on); font-size:.9em;
+        color:white; font-size:.9em;
         padding-top:2em;
         background:var(--type);
 

@@ -91,7 +91,7 @@ Object.assign(App, {
         Object.assign(Q('#layer'), {
             onchange: Layers.switch,
             ondblclick: Layers.solo,
-            ontouchend: ev => !/iPad|iPhone/.test(navigator.userAgent) ? doubleclick(ev, Layers, Layers.solo) : null,
+            ontouchend: ev => !/iPad|iPhone/.test(navigator.userAgent) ? doubletap(ev, Layers, Layers.solo) : null,
             onclick: ev => ev.target.id == 'create' ? Layers.create(ev) : ['up', 'down'].includes(ev.target.id) ? Layers.move(ev) : null,
             onpointerdown: ev => ev.target.id == 'delete' && Layers.delete(ev)
         });

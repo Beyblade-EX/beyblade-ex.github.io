@@ -233,7 +233,7 @@ class Knob extends HTMLElement {
             ev.preventDefault();
             this.value = snap ? Math.round(this.value/snap)*snap : this.initial;
         }
-        /iPad|iPhone/.test(navigator.userAgent) && (this.ontouchend = ev => doubleclick(ev, Knob, this));
+        /iPad|iPhone/.test(navigator.userAgent) && (this.ontouchend = ev => doubletap(ev, Knob, this));
     }
     discrete = {
         setup: () => {

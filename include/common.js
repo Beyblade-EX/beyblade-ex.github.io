@@ -60,7 +60,7 @@ const Storage = (key, obj) => !obj ?
     JSON.parse(localStorage[key] ?? 'null') : 
     localStorage[key] = typeof obj == 'object' ? JSON.stringify({...Storage(key), ...obj}) : obj;
 
-const doubleclick = (ev, timestore, actionORtarget) => {
+const doubletap = (ev, timestore, actionORtarget) => {
     let now = new Date().getTime();
     if (now - timestore.lastTap < 500) {
         ev.preventDefault();

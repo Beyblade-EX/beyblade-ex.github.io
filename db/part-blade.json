@@ -4,7 +4,7 @@
         "names": {
             "jap": "ナイトメイル",
             "eng": "KnightMail",
-            "chi": "騎士護甲"
+            "chi": "騎士護甲 騎士圓甲"
         },
         "stat": [],
         "desc": "圓形十二枚刃中内藏的三顆金屬球能上下移動，緩和衝擊。",
@@ -15,7 +15,7 @@
         "names": {
             "jap": "サムライセイバー",
             "eng": "SamuraiSaber",
-            "chi": "武士之刃"
+            "chi": "武士之刃 武士星劍"
         },
         "stat": [],
         "desc": "小型金屬能開關，依撞中對手的方式而改變攻擊力。",
@@ -26,7 +26,7 @@
         "names": {
             "jap": "クリムゾンガルーダ",
             "eng": "Crimson\\Garuda",
-            "chi": "緋紅\\迦樓羅"
+            "chi": "緋紅\\迦樓羅 赫燃\\天鳳"
         },
         "stat": [],
         "desc": "上下擁有不同的性能：上面擅長少持久損失的攻擊，下面擅長反擊。",
@@ -447,7 +447,7 @@
             "eng": "ShinobiKnife",
             "chi": ""
         },
-        "stat": [],
+        "stat": ["31="],
         "desc": "小徑及高剛性内重心構造，容易抵耐對手衝擊。",
         "attr": ["def","right"],
         "from": "RhHr"
@@ -459,7 +459,7 @@
             "eng": "SamuraiSteel",
             "chi": ""
         },
-        "stat": [],
+        "stat": ["31+"],
         "desc": "（目前只在孩之寶商品中收錄，稱「Steel Samurai」）",
         "attr": ["bal","right"],
         "from": "LnCl"
@@ -471,7 +471,7 @@
             "eng": "PteraSwing",
             "chi": ""
         },
-        "stat": [],
+        "stat": ["34+"],
         "desc": "向下方的鋸齒狀六枚刃，擅長消耗對手迴轉力。",
         "attr": ["sta","right"],
         "from": "VpTl"
@@ -483,7 +483,7 @@
             "eng": "MammoTusk",
             "chi": ""
         },
-        "stat": [],
+        "stat": ["32+"],
         "desc": "（目前只在孩之寶商品中收錄，稱「Tusk Mammoth」）",
         "attr": ["bal","right"],
         "from": "HlSc"
@@ -507,7 +507,7 @@
             "eng": "KongYell",
             "chi": ""
         },
-        "stat": [],
+        "stat": ["31+"],
         "desc": "（目前只在孩之寶商品中收錄，稱「Kong Yell」）",
         "attr": ["def","right"],
         "from": "WyGl"
@@ -519,7 +519,7 @@
             "eng": "CrocCrunch",
             "chi": ""
         },
-        "stat": [],
+        "stat": ["34="],
         "desc": "（目前只在孩之寶商品中收錄，稱「Bite Croc」）",
         "attr": ["att","right"],
         "from": "ShEd"
@@ -531,7 +531,7 @@
             "eng": "TyrannoRoar",
             "chi": ""
         },
-        "stat": [],
+        "stat": ["36-"],
         "desc": "（目前只在孩之寶商品中收錄，稱「Roar Tyranno」）",
         "attr": ["att","right"],
         "from": "PhWn"
