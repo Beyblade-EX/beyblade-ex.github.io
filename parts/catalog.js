@@ -5,6 +5,10 @@ class Part {
         Object.assign(this, dict);
     }
     async revise(bits) {
+        if (this.comp == 'ratchet') {
+            this._revise.group();
+            return this;
+        }
         if (this.comp != 'bit' || this.names)
             return this;
         Parts.bit?.prefix ?? Object.assign(Parts, await DB.get.meta());
@@ -20,7 +24,8 @@ class Part {
         name: (ref, pref) => this.names = Part.revise.name(ref, pref),
         attr: (ref, pref) => [this.group, this.attr] = [ref.group, [...this.attr ?? [], ...ref.attr, ...pref]],
         stat: ref => this.stat.length === 1 && this.stat.push(...ref.stat.slice(1)),
-        desc: (ref, pref) => this.desc = [...pref].map(p => Parts.meta.prefix[p].desc).join('、') + `的【${ref.abbr}】bit${this.desc ? `，${this.desc}` : '。'}`
+        desc: (ref, pref) => this.desc = [...pref].map(p => Parts.meta.prefix[p].desc).join('、') + `的【${ref.abbr}】bit${this.desc ? `，${this.desc}` : '。'}`,
+        group: () => this.group = Object.entries(Parts.meta.height).find(([_, dmm]) => this.abbr.split('-')[1] >= dmm)[0]
     }
     static revise = {
         name: (ref, pref) => [...pref].reverse().reduce((names, p) => concat(Parts.meta.prefix[p], names), ref?.names ?? ref),

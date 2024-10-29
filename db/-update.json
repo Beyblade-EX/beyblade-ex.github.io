@@ -4,8 +4,8 @@
   "prod-beys":     "2024/10/27 17:00:00",
   "part-blade":    "2024/10/25 17:00:00",
   "part-bit":      "2024/10/22 17:00:00",
-  "part-ratchet":  "2024/10/22 17:00:00",
-  "part-meta":     "2024/10/15 12:15:00",
+  "part-ratchet":  "2024/10/25 17:00:00",
+  "part-meta":     "2024/10/25 12:15:00",
   "news": {
     "2024-11-02":[
       {
@@ -47,6 +47,10 @@
           "其餘 Bit：RA、MN、P、B、R"
         ]
       }
+    ],
+    "2024-11-16":[
+      {"code":"BXA-02 set","name":"ドランデッキスターター<br>Dran Deck Starter",
+    "imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BXA02@1.png"]}
     ],
     "2024-12":[
       {"code":"UX-11 starter"},

@@ -132,11 +132,12 @@ const DB = {
         return new Promise(res => DB.store(part ? `.${store}` : store).get(key)
             .onsuccess = ev => res(part ? {...ev.target.result, comp: store} : ev.target.result));
     },
-    put: (store, items, success) => items && new Promise(res => {
+    put: (store, items, callback) => items && new Promise(res => {
+        store == 'meta' && (DB.tr = null);
         if (!Array.isArray(items))
-            return DB.store(store).put(...items.abbr ? [items] : Object.entries(items)[0].reverse()).onsuccess = () => res(success?.());
+            return DB.store(store).put(...items.abbr ? [items] : Object.entries(items)[0].reverse()).onsuccess = () => res(callback?.());
         DB.trans(store);
-        Promise.all(items.map(item => DB.put(store, item, success))).then(res).catch(er => (console.error(store), console.error(er)));
+        Promise.all(items.map(item => DB.put(store, item, callback))).then(res).catch(er => (console.error(store), console.error(er)));
     }),
     clear: (store) => new Promise(res => DB.store(DB.components.includes(store) ? `.${store}` : store).clear()
             .onsuccess = () => res(Storage('DB', {[`part-${store}`]: null}))

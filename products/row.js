@@ -3,7 +3,7 @@ class AbsPart {
         [this.sym, this.fusion] = [sym, fusion];
     }
     abbr = html => E('td', {
-        innerHTML: html ?? this.sym.replace(/^[A-Z]$/, '&nbsp;$&'), 
+        innerHTML: html ?? this.sym.replace(/^[A-Z]$/, ' $&'), 
         abbr: this.sym, 
         headers: this.constructor.name.toLowerCase()
     });
@@ -172,7 +172,7 @@ class Cell {
             },
             format (no, type, upper) {
                 type == 'main' && Cell.images.push(`${no}@1`);
-                type == 'more' && Cell.images.push(...[...Array(10)].map((_, i) => `${no}_0${i+1}@1`));
+                type == 'more' && Cell.images.push(...[...Array(9)].map((_, i) => `${no}_${`${i+1}`.padStart(2, 0)}@1`));
                 type == 'detail' && Cell.images.push(`detail_${no.replace(/.+(?=\d)/, s => upper ? s : s.toLowerCase())}`);
             },
             juxtapose () {return [Cell.images].flat().map(src => E('img', {src: this.src(src)}))},

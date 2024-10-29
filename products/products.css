@@ -186,7 +186,7 @@ td sub {
     vertical-align:-.4em;
     line-height:0;
 }
-td:first-child {
+td:first-child,td[headers=bit] {
     white-space:pre;
 }
 td:first-child sub {
