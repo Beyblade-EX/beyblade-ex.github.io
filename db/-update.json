@@ -49,16 +49,32 @@
       }
     ],
     "2024-11-16":[
-      {"code":"BXA-02 set","name":"ドランデッキスターター<br>Dran Deck Starter",
+      {"code":"BXA-02/BXG-25 set","name":"ドランデッキスターター<br>Dran Deck Starter",
     "imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BXA02@1.png"]}
     ],
     "2024-12":[
       {"code":"UX-11 starter"},
       {"code":"UX-12 random booster"},
-      {"code":"BXG-?? booster"}
+      {"code":"BXG-11 booster"}
     ],
     "2025-01":[
       {"code":"UX-13 booster"}
+    ],
+    "2025-02":[
+      {"code":"BX-30 random booster select","desc":["小抽包"]}
+    ],
+    "2025-03":[
+      {"code":"CX-01 starter"},{"code":"CX-02 starter"},{"code":"CX-03 booster"},{"code":"CX-04 entry set","desc":["對戰盤組合"]},
+      {"code":"BXG-12 set","name":"ベイブレード25周年記念セット<br>Beyblade 25th Anniversary Set","imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BXG00@1.png"]},
+      {"code":"BXG-13 starter"},{"code":"BX-40 launcher","desc":["發射器"]},
+      {"code":"BX-41 rubber grip","desc":["有橡膠的手把"]},{"code":"BX-42 rubber grip","desc":["有橡膠的手把"]},
+      {"code":"BX-43 gear case","desc":["儲存盒"]}
+    ],
+    "2025-04":[
+      {"code":"UX-14 starter"},{"code":"CX-05 random booster"}
+    ],
+    "2025-05":[
+      {"code":"CX-06 random booster select"}
     ]
   }
 
