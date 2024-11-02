@@ -1,9 +1,9 @@
 Mapping.brochure = (no, upper) => `detail_${no.replace('-', '')[`to${upper ? 'Upper' : 'Lower'}Case`]()}`;
 Mapping.maps = {
     ...Mapping.maps,
-    rare: new Mapping(
-    ),
+    rare: new Mapping(),
     note: new Mapping(
+        ['BXG-14'], '日本以外未有發售',
         ['BXG-17','BXG-08','BXG-05','BXG-03'], 'App 内抽中後購買',
         ['BXG-07','BX-36','UX-05','BX-16','BX-27'], '各款封入比例均等',
         ['BX-35','BX-24','BX-14'], '封入比例：01、02 各 3；04、05 各 4；03、06 各 5',
