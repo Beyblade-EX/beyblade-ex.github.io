@@ -183,6 +183,10 @@
         "desc": "十枚刃 Gear 以壓抑 X Dash 的速度來增加 Dash 次數。",
         "attr": ["att"]
     },
+    "LR": {
+        "stat": [""],
+        "desc": ""
+    },
     "S": {
         "group": "sharp",
         "names": {

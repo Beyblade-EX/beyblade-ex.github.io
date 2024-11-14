@@ -1,4 +1,26 @@
 {
+    "GhCr": {
+        "group": "UX",
+        "names": {
+            "jap": "",
+            "eng": "GhostCircle",
+            "chi": ""
+        },
+        "stat": [],
+        "desc": "",
+        "attr": ["sta","right"]
+    },
+    "ImDr": {
+        "group": "UX",
+        "names": {
+            "jap": "",
+            "eng": "ImpactDrake",
+            "chi": ""
+        },
+        "stat": [""],
+        "desc": "",
+        "attr": ["att","right"]
+    },
     "KnMl": {
         "group": "UX",
         "names": {

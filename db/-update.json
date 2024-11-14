@@ -1,7 +1,7 @@
 {
   "prod-others":   "2024/09/13 18:30:00",
-  "prod-launchers":"2024/10/25 12:15:00",
-  "prod-beys":     "2024/10/31 11:00:00",
+  "prod-launchers":"2024/11/14 23:00:00",
+  "prod-beys":     "2024/11/14 23:00:00",
   "part-blade":    "2024/11/02 23:00:00",
   "part-bit":      "2024/11/02 23:00:00",
   "part-ratchet":  "2024/11/02 23:00:00",
@@ -9,10 +9,10 @@
   "news": {
     "2024-12-28":[
       {"code":"UX-11 starter","type":"att","name":"インパクトドレイク 9-60LR<br>ImpactDrake 9-60LR",
-      "imgs":["https://pbs.twimg.com/media/GcQ8hsIWsAACXEo?format=jpg","https://pbs.twimg.com/media/GcQ8hs_W4AA4Jhx?format=jpg","https://preview.redd.it/new-dragoon-and-random-booster-v0-28h9zeqhon0e1.jpg?width=690&format=pjpg&auto=webp&s=b87d2eecba187bba37d93a4bd975397a227a416c"],
+      "imgs":["https://m.media-amazon.com/images/I/61HlVm5EuiL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/6134DX67z5L._AC_SX679_.jpg","https://m.media-amazon.com/images/I/61h5eVs6nBL._AC_SX679_.jpg","https://m.media-amazon.com/images/S/aplus-media-library-service-media/b7b14edd-67a4-4955-83fb-396f05d5020e.__CR0,0,970,600_PT0_SX970_V1___.jpg"],
     "desc":["Blade 有橡膠，緊抓對手及撞走"]},
       {"code":"UX-12 random booster vol.5","type":"sta","name":"ゴーストサークル 0-80GB<br>GhostCircle 0-80GB",
-    "imgs":["https://i.redd.it/i9hk2vsnqn0e1.jpeg","https://pbs.twimg.com/media/GcQ8hssXkAA9fFC?format=jpg"],
+    "imgs":["https://m.media-amazon.com/images/S/aplus-media-library-service-media/059d4948-eb85-4c13-8066-e5196794d9b2.__CR0,0,970,600_PT0_SX970_V1___.jpg","https://m.media-amazon.com/images/I/61VaWKWf-VL._AC_SX679_.jpg"],
   "desc":["近乎正圓，阻力減至最少","首個 0 枚刃 Ratchet"]},
       {"code":"BXG-11 booster"}
     ],
