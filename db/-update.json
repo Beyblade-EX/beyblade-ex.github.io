@@ -7,6 +7,16 @@
   "part-ratchet":  "2024/11/02 23:00:00",
   "part-meta":     "2024/10/25 12:15:00",
   "news": {
+    "2024-11-28（日本）":[{
+      "code":"BXG-23 booster","type":"att","name":"コバルトドレイク4-60F<br>クリアVer.<br>CobaltDrake 4-60F<br>Clear ver.",
+      "desc":["App 抽獎新購買品"]
+    }],
+    "2024-12-27（日本）":[
+      {"code":"BXG-31 color choice booster","type":"att","name":"ドランバスター1-60A<br>DranBuster 1-60A",
+      "desc":["每項部件自選一色"]},
+    {"code":"BXG-32 booster","type":"bal","name":"マンモスタスク2-80E<br>メタルコート：ブラック<br>MammothTusk 2-80E<br>Metal Coat: Black",
+  "desc":["App 抽獎新購買品"]}
+    ],
     "2024-12-28":[
       {"code":"UX-11 starter","type":"att","name":"インパクトドレイク 9-60LR<br>ImpactDrake 9-60LR",
       "imgs":["https://m.media-amazon.com/images/I/61HlVm5EuiL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/6134DX67z5L._AC_SX679_.jpg","https://m.media-amazon.com/images/I/61h5eVs6nBL._AC_SX679_.jpg","https://m.media-amazon.com/images/S/aplus-media-library-service-media/b7b14edd-67a4-4955-83fb-396f05d5020e.__CR0,0,970,600_PT0_SX970_V1___.jpg"],
@@ -15,6 +25,12 @@
     "imgs":["https://m.media-amazon.com/images/S/aplus-media-library-service-media/059d4948-eb85-4c13-8066-e5196794d9b2.__CR0,0,970,600_PT0_SX970_V1___.jpg","https://m.media-amazon.com/images/I/61VaWKWf-VL._AC_SX679_.jpg"],
   "desc":["近乎正圓，阻力減至最少","首個 0 枚刃 Ratchet"]},
       {"code":"BXG-11 booster"}
+    ],
+    "2025-01-25":[
+      {"code":"BXG-18 starter","type":"att","name":"ドランバスター1-60A<br>メタルコート：ブルー<br>FCバルセロナVer.<br>DranBuster 1-60A<br>Metal Coat: Blue<br>FC Barcelona Ver.",
+      "desc":["與西班牙足球隊的 Collaboration"]},
+      {"code":"BXG-19 stadium set","type":"bal","name":"ベイキックオフセット<br>FCバルセロナVer.<br>Bey Kick-off Set<br>FC Barcelona Ver.",
+    "desc":["與西班牙足球隊的 Collaboration","陀螺為 HellsHammer 3-70H"]}
     ],
     "2025-01":[
       {"code":"UX-13 booster"}
