@@ -19,10 +19,10 @@
     ],
     "2024-12-28":[
       {"code":"UX-11 starter","type":"att","name":"インパクトドレイク 9-60LR<br>ImpactDrake 9-60LR",
-      "imgs":["https://m.media-amazon.com/images/I/61HlVm5EuiL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/6134DX67z5L._AC_SX679_.jpg","https://m.media-amazon.com/images/I/61h5eVs6nBL._AC_SX679_.jpg","https://m.media-amazon.com/images/S/aplus-media-library-service-media/b7b14edd-67a4-4955-83fb-396f05d5020e.__CR0,0,970,600_PT0_SX970_V1___.jpg"],
+      "imgs":["https://m.media-amazon.com/images/I/61h5eVs6nBL._AC_SX679_.jpg","https://m.media-amazon.com/images/S/aplus-media-library-service-media/b7b14edd-67a4-4955-83fb-396f05d5020e.__CR0,0,970,600_PT0_SX970_V1___.jpg"],
     "desc":["Blade 有橡膠，緊抓對手及撞走"]},
       {"code":"UX-12 random booster vol.5","type":"sta","name":"ゴーストサークル 0-80GB<br>GhostCircle 0-80GB",
-    "imgs":["https://m.media-amazon.com/images/S/aplus-media-library-service-media/059d4948-eb85-4c13-8066-e5196794d9b2.__CR0,0,970,600_PT0_SX970_V1___.jpg","https://m.media-amazon.com/images/I/61VaWKWf-VL._AC_SX679_.jpg"],
+    "imgs":[],
   "desc":["近乎正圓，阻力減至最少","首個 0 枚刃 Ratchet","其餘五顆配置未知"]},
       {"code":"BXG-11 booster"}
     ],
