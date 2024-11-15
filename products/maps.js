@@ -3,7 +3,7 @@ Mapping.maps = {
     ...Mapping.maps,
     rare: new Mapping(),
     note: new Mapping(
-        /^BXG-1[489]$/, '日本以外未有發售',
+        /^BXG-1[4]$/, '日本以外未有發售',
         /^BXG-(03|05|08|17|23|32)$/, 'App 内抽中後購買',
         'BXG-31', '各部件自選一色',
         ['BXG-07','BX-36','UX-05','BX-16','BX-27'], '各款封入比例均等',
