@@ -2,23 +2,23 @@
     "GhCr": {
         "group": "UX",
         "names": {
-            "jap": "",
+            "jap": "ゴーストサークル",
             "eng": "GhostCircle",
             "chi": ""
         },
         "stat": [],
-        "desc": "",
+        "desc": "小徑零枚刃受對手攻擊時減輕持久損失。",
         "attr": ["sta","right"]
     },
     "ImDr": {
         "group": "UX",
         "names": {
-            "jap": "",
+            "jap": "インパクトドレイク",
             "eng": "ImpactDrake",
             "chi": ""
         },
         "stat": [""],
-        "desc": "",
+        "desc": "在厚四枚刀添加的橡膠帶來的摩擦力及反發力，專門把對手撞飛。",
         "attr": ["att","right"]
     },
     "KnMl": {
@@ -499,14 +499,14 @@
         "from": "VpTl"
     },
     "MmTs": {
-        "group": "hasbro",
+        "group": "BX",
         "names": {
-            "jap": "マンモタスク",
-            "eng": "MammoTusk",
+            "jap": "マンモスタスク",
+            "eng": "MammothTusk",
             "chi": ""
         },
         "stat": ["32+"],
-        "desc": "（目前只在孩之寶商品中收錄，稱「Tusk Mammoth」）",
+        "desc": "Smash 形狀四枚刃容易令對手傾側。金屬有塗裝令性能上升。",
         "attr": ["bal","right"],
         "from": "HlSc"
     },

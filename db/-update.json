@@ -1,10 +1,10 @@
 {
-  "prod-others":   "2024/09/13 18:30:00",
-  "prod-launchers":"2024/11/14 23:00:00",
-  "prod-beys":     "2024/11/14 23:00:00",
-  "part-blade":    "2024/11/02 23:00:00",
-  "part-bit":      "2024/11/02 23:00:00",
-  "part-ratchet":  "2024/11/02 23:00:00",
+  "prod-others":   "2024/11/15 11:50:00",
+  "prod-launchers":"2024/11/15 11:50:00",
+  "prod-beys":     "2024/11/15 11:50:00",
+  "part-blade":    "2024/11/15 11:50:00",
+  "part-bit":      "2024/11/15 11:50:00",
+  "part-ratchet":  "2024/11/15 11:50:00",
   "part-meta":     "2024/10/25 12:15:00",
   "news": {
     "2024-11-28（日本）":[{
@@ -13,9 +13,9 @@
     }],
     "2024-12-27（日本）":[
       {"code":"BXG-31 color choice booster","type":"att","name":"ドランバスター1-60A<br>DranBuster 1-60A",
-      "desc":["活動場地發售，每項部件自選一色"]},
+      "desc":["活動場地發售，每項部件自選一色","Metal Coat 有 Cyan、Violet、Black 色"]},
     {"code":"BXG-32 booster","type":"bal","name":"マンモスタスク2-80E<br>メタルコート：ブラック<br>MammothTusk 2-80E<br>Metal Coat: Black",
-  "desc":["活動場地發售"]}
+  "desc":["活動場地先發售"]}
     ],
     "2024-12-28":[
       {"code":"UX-11 starter","type":"att","name":"インパクトドレイク 9-60LR<br>ImpactDrake 9-60LR",
