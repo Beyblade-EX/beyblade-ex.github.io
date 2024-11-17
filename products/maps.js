@@ -15,7 +15,7 @@ Mapping.maps = {
         'BX-21', {detail: '${no}_(p|y|o)', more: '${no}_(p|y|o)'},
         'BX-20', {detail: '${no}(B|G|P)', more: '${no}_(b|g|p)'},
         ['BX-17','UX-04'], {detail: '${no}(A|B)'},
-        'BXG-25', {detail: 'bxa_02_d(b2|d|s)'},
+        'BXG-25', {switch: 'BXA-02', detail: 'bxa_02_d(b2|d|s)'},
         'BXG-17', {switch: 'BXG_bit01'},
         'BXG-14', {switch: 'BXG-09'},
         'BXG-09', {switch: 'BXG-14'},

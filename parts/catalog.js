@@ -39,6 +39,7 @@ class Part {
         return this;
     }
     async catalog(show) {
+        location.pathname == '/products/' && (Parts = await DB.get.meta(this.comp));
         let {abbr, comp, group, attr, for: For} = await this.revise();
         this.catalog.part = this.catalog.html.part = this;
 
@@ -50,8 +51,8 @@ class Part {
             hidden: !show,
             for: For,
         });
-        location.pathname == '/parts/' ? this.a.href = `/products/?${comp}=${encodeURIComponent(abbr)}` : null;
-        location.pathname == '/products/' ? this.a.onclick = () => Finder?.find([[comp, abbr]]) : null;
+        location.pathname == '/parts/' && (this.a.href = `/products/?${comp}=${encodeURIComponent(abbr)}`);
+        location.pathname == '/products/' && (this.a.onclick = () => Finder?.find([[comp, abbr]]));
         return this;
     }
 }

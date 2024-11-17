@@ -165,7 +165,7 @@ class Cell {
                 } else {
                     let values = {no};
                     let expression = this.td.dataset[type].replaceAll(/\$\{.+\}/g, whole => values[whole.match(/[a-z]+/)]);
-                    let group = expression.match(/(?<=\().+(?=\))/)[0];
+                    let group = expression.match(/(?<=\().+(?=\))/)?.[0];
                     group.split('|').forEach(s => this.format(expression.replace(`(${group})`, s), type));
                 }
                 return this;
