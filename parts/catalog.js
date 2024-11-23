@@ -6,7 +6,7 @@ class Part {
     }
     async revise(bits) {
         if (this.comp == 'ratchet') {
-            this._revise.group();
+            this.#revise.group();
             return this;
         }
         if (this.comp != 'bit' || this.names)
@@ -14,13 +14,13 @@ class Part {
         Parts.bit?.prefix ?? Object.assign(Parts, await DB.get.meta());
         let [, pref, ref] = new RegExp(`^([${Parts.bit.prefix}]+)([^a-z].*)$`).exec(this.abbr);
         ref = bits ? bits.find(p => p.abbr == ref) : await DB.get('bit', this.strip());
-        this._revise.name(ref, pref);
-        this._revise.attr(ref, pref);
-        this._revise.stat(ref);
-        this._revise.desc(ref, pref);
+        this.#revise.name(ref, pref);
+        this.#revise.attr(ref, pref);
+        this.#revise.stat(ref);
+        this.#revise.desc(ref, pref);
         return this;
     }
-    _revise = {
+    #revise = {
         name: (ref, pref) => this.names = Part.revise.name(ref, pref),
         attr: (ref, pref) => [this.group, this.attr] = [ref.group, [...this.attr ?? [], ...ref.attr, ...pref]],
         stat: ref => this.stat.length === 1 && this.stat.push(...ref.stat.slice(1)),

@@ -26,6 +26,7 @@ Object.assign(Table, {
     finally () {
         Q('#chi').checked = true;
         $(Table.table).tablesorter();
+        Table.flush();
         Table.table.Q('caption').classList.remove('loading');
         Q('input:not([type])', input => input.disabled = input.value = '');
         if (new URLSearchParams(location.search).size)
@@ -37,7 +38,7 @@ Object.assign(Table, {
         Q('.prod-reset').onclick = Table.reset;
         Q('table button').onclick = Table.entire;
         Q('tbody').onclick = ev => ev.target.custom().preview();
-        (onresize = () => Table.flush())();
+        onresize = () => Table.flush();
     },
     flush () {
         document.body.scrollWidth > 550 ?
@@ -54,8 +55,11 @@ Object.assign(Table, {
     },
     set: {
         colspan (lang) {
-            let colspan = {eng: [1, 1], cjk: [1, 1]}[lang] ?? [1, 1];
-            //Q('td[abbr$=blade],tbody td:not([abbr]):nth-child(2)', td => new Cell(td).next2(({td}, i) => td.colSpan = colspan[i]));
+            if (Q('td:nth-child(10)')) {
+                let colspan = {eng: [2, 3], cjk: [2, 3]}[lang] ?? [2, 3];
+                Q('#blade').colSpan = 6;
+                Q('td[headers=blade],td:nth-child(2):not([headers])', td => new Cell(td).next2((td, i) => td.colSpan = colspan[i]));     
+            }
             Table.table.classList.toggle('bilingual', lang == 'both');
             Q('label:has(#eng)').hidden = lang == 'both';
         },    

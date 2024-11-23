@@ -24,13 +24,13 @@ class Dragging {
         this.timer ??= this.holdTimer(ev, this.hold);
         if (!this.mode && !this.timer) return;
         this.dragged = ev.target.closest(this[this.mode]?.what || this.what || '*');
-        this._press?.[this.mode]?.();
+        this.#press?.[this.mode]?.();
         [this.pressX, this.pressY] = [ev.x, ev.y];
         press && (typeof press == 'object' ? press[this.mode] : press)?.(this, this.dragged);
         this.events.pointermove = ev => this.move(ev, move);
         this.events.pointerup = this.events.pointercancel = () => this.lift(null, lift);
     }
-    _press = {
+    #press = {
         scroll: () => this.scrollInitX = this.dragged.scrollLeft,
         drop: () => {
             this.targets = [this.drop.targets].flat().map(el => [Q(el)].flat());
@@ -45,11 +45,11 @@ class Dragging {
         this.timer &&= clearTimeout(this.timer);
         if (!this.mode) return;
         this.dragged.classList.add('dragged');
-        this.translate !== false && this.mode != 'scroll' && this._move.move(ev);
-        this._move?.[this.mode]?.(ev);
+        this.translate !== false && this.mode != 'scroll' && this.#move.move(ev);
+        this.#move?.[this.mode]?.(ev);
         move && (typeof move == 'object' ? move[this.mode] : move)?.(this, this.dragged, this.targeted);
     }
-    _move = {
+    #move = {
         scroll: (ev) => ev.pointerType == 'mouse' && this.dragged.scrollTo(this.scrollInitX - this.deltaX, 0),
         move: (ev) => {
             ev || this.fixedPostioned?.contains(this.dragged) || (this.scrollY = scrollY - this.scrollInitY); //update value only when

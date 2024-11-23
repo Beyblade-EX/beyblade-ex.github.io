@@ -1,25 +1,30 @@
 class AbsPart {
-    constructor(sym, fusion = false) {
-        [this.sym, this.fusion] = [sym, fusion];
+    constructor(sym, fusionORsub = false) {
+        this.sym = sym;
+        typeof fusionORsub == 'string' ? this.sub = fusionORsub : this.fusion = fusionORsub;
     }
     abbr = html => E('td', {
         innerHTML: html ?? this.sym.replace(/^[A-Z]$/, ' $&'), 
         abbr: this.sym, 
-        headers: this.constructor.name.toLowerCase()
+        headers: this.sub ?? this.constructor.name.toLowerCase()
     });
     none = hidden => [E('td'), E('td'), E('td', {classList: 'right'})];
 }
 class Blade extends AbsPart {
-    constructor(sym, upperFusion) {
-        super(sym, upperFusion);
-        if (this.sym != '/') this.system = Blade._UX.includes(sym) ? 'UX' : 'BX';
+    constructor(sym, upperFusionORsubBlade) {
+        super(sym, upperFusionORsubBlade);
+        if (this.sym == '/') return;
+        this.system = this.sym.includes('-') ? 'CX' : Blade.#UX.includes(sym) ? 'UX' : 'BX';
     }
     cells(fusion = this.fusion) {
         if (this.sym == '/') return this.none();
-        let tds = [this.abbr(''), E('td', {classList: 'left'}), E('td', {classList: `right${fusion ? ' fusion' : ''}`})];
-        return tds;
+        return this.sym.includes('-') ? 
+            this.sym.split('-').flatMap((p, i) => new Blade(p, Blade.#sub[i]).cells()) :
+            [this.abbr(''), E('td', {classList: 'left'}), E('td', {classList: `right${fusion ? ' fusion' : ''}`})];
     }
-    static UX = async () => Blade._UX = (await DB.get.parts('blade')).filter(p => p.group == 'UX').map(p => p.abbr);
+    static #sub = ['upper', 'lower'];
+    static #UX;
+    static UX = async () => Blade.#UX = (await DB.get.parts('blade')).filter(p => p.group == 'UX').map(p => p.abbr);
 }
 class Ratchet extends AbsPart {
     constructor(sym) {
@@ -27,8 +32,7 @@ class Ratchet extends AbsPart {
     }
     cells() {
         if (this.sym == '/') return [E('td')];
-        let tds = [this.abbr()];
-        return tds;
+        return [this.abbr()];
     }
 }
 class Bit extends AbsPart {
@@ -37,8 +41,7 @@ class Bit extends AbsPart {
     }
     cells(fusion = this.fusion) {
         if (this.sym == '/') return [E('td'), E('td')];
-        let tds = [this.abbr(), E('td', fusion ? {classList: fusion} : null)];
-        return tds;
+        return [this.abbr(), E('td', fusion ? {classList: fusion} : null)];
     }
 }
 
