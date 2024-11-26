@@ -71,19 +71,25 @@ const DB = {
         });
     })),
     transfer: {
-        out: () => DB.get.all('user').then(data => sessionStorage.setItem('user', JSON.stringify(data))),
-        in: () => DB.put('user', JSON.parse(sessionStorage.getItem('user') ?? '[]').map(item => ({[Array.isArray(item) ? '#deck' : '#tier'] : item})))
+        out: () => DB.get.all('user').then(sheets => sheets.forEach((sheet, i) => sessionStorage[`sheet-${i+1}`] = JSON.stringify(sheet))),
+        in: () => DB.put('user', Object.entries(sessionStorage).map(([k, v]) => ({[k]: JSON.parse(v)})))
     },
     open: () => DB.db ? true : 
         new Promise(res => Object.assign(indexedDB.open(DB.current, 1), {onsuccess: res, onupgradeneeded: res}))
-        .then(ev => ev.type == 'success' ? DB.check(ev.target) : DB.setup(ev.target))
+        .then(ev => ev.type == 'success' ? DB.check(ev.target) : DB.setup(ev))
         .then(DB.cache).catch(er => DB.indicator.error(er) ?? console.error(er)),
 
-    setup ({result, transaction}) {
-        DB.db = result;
-        ['product','meta','user'].map(s => DB.db.createObjectStore(s));
-        DB.components.map(s => DB.db.createObjectStore(`.${s}`, {keyPath: 'abbr'}).createIndex('group', 'group'));
-        return new Promise(res => transaction.oncomplete = res).then(() => (DB.transfer.in(), DB.updates(true)));
+    setup (ev) {
+        DB.db = ev.target.result;
+        if (ev.oldVersion == 0) {
+            ['product','meta','user'].map(s => DB.db.createObjectStore(s));
+            DB.components.map(s => DB.db.createObjectStore(`.${s}`, {keyPath: 'abbr'}).createIndex('group', 'group'));
+        }
+        if (ev.oldVersion <= 1) {console.log(DB.db);
+            DB.db.createObjectStore('.blade-split');
+            DB.db.objectStore('.ratchet').deleteIndex('group');
+        }
+        return new Promise(res => ev.target.transaction.oncomplete = res).then(() => (DB.transfer.in(), DB.updates(true)));
     },
     check ({result}) {
         DB.db = result;        
