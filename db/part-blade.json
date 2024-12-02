@@ -418,6 +418,17 @@
         "desc": "（2000 年發售的陀螺之 X 代復刻版）",
         "attr": ["att","left"]
     },
+    "DCS": {
+        "group": "remake",
+        "names": {
+            "jap": "ドラシエルシールド",
+            "eng": "DracielShield",
+            "chi": "青銅玄武 堅甲戰龜 S"
+        },
+        "stat": [],
+        "desc": "外周的凹凸擅長反擊防禦。（2001 年發售的陀螺之 X 代復刻版）",
+        "attr": ["def","right"]
+    },
     "SPg": {
         "group": "remake",
         "names": {

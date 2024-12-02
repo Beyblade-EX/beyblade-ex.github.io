@@ -1,7 +1,8 @@
 [
   ["BXG-19","SS H","HlHm 3-70 H","EV4RZm7r7ik",{"coat":"red"}],["BXG-18","S H","DrBs 1-60 A","EV4RZm7r7ik",{"coat":"cornflowerblue"}],
-  ["UX-12","RB","GhCr 0-80 GB"],["UX-12","RB H","GhCr / /"],["UX-12","RB H","ShSh / /"],
-  ["UX-12","RB H","LnCl / /"],["UX-12","RB H","PhFt / /"],["UX-12","RB H","WyGl / /"],
+  ["BXG-11","B","DCS 7-60 D"],
+  ["UX-12","RB","GhCr 0-80 GB"],["UX-12","RB H","GhCr 4-60 H"],["UX-12","RB H","ShSh 3-80 F"],
+  ["UX-12","RB H","LnCl 0-80 E"],["UX-12","RB H","PhFt 2-60 N"],["UX-12","RB H","WyGl 0-80 C"],
   ["UX-11","S","ImDr 9-60 LR"],
   ["BXG-32","B","MmTs 2-80 E",{"coat":"black"}],["BXG-31","B H","DrBs 1-60 A",{"coat":"mediumorchid"}],
   ["BH","hidden","ShKn"],
