@@ -1,10 +1,21 @@
 {
+    "GlRc": {
+        "group": "UX",
+        "names": {
+            "jap": "ゴーレムロック",
+            "eng": "GolemRock",
+            "chi": ""
+        },
+        "stat": [],
+        "desc": "",
+        "attr": ["def","right"]
+    },
     "GhCr": {
         "group": "UX",
         "names": {
             "jap": "ゴーストサークル",
             "eng": "GhostCircle",
-            "chi": ""
+            "chi": "幽靈圓環 幽靈元魂"
         },
         "stat": [],
         "desc": "小徑零枚刃受對手攻擊時減輕持久損失。",
@@ -15,7 +26,7 @@
         "names": {
             "jap": "インパクトドレイク",
             "eng": "ImpactDrake",
-            "chi": ""
+            "chi": "衝擊魔龍 衝擊龍神"
         },
         "stat": [""],
         "desc": "在厚四枚刀添加的橡膠帶來的摩擦力及反發力，專門把對手撞飛。",
@@ -548,8 +559,8 @@
     "CrCr": {
         "group": "hasbro",
         "names": {
-            "jap": "クロッククランチ",
-            "eng": "CrocCrunch",
+            "jap": "クロコクランチ",
+            "eng": "CrocoCrunch",
             "chi": ""
         },
         "stat": ["34="],
