@@ -175,6 +175,13 @@ nav {
 
     &.safari {grid-template:1.7rem 1.7rem / 3em auto 1fr auto;}
 
+    &::before,&::after {
+        position:absolute;
+        left:3rem;
+        font-size:.6em; color:#999;
+    }
+    &::before {content:'拉';}
+    &::after {content:'pull';bottom:0;}
     menu {
         grid-area:1/1/3/2; justify-self:end;
         display:flex;
