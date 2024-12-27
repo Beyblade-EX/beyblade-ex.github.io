@@ -2,9 +2,9 @@
   "prod-others":   "2024/11/15 11:50:00",
   "prod-launchers":"2024/11/15 11:50:00",
   "prod-beys":     "2024/12/15 23:45:00",
-  "part-blade":    "2024/12/15 23:45:00",
-  "part-bit":      "2024/12/15 23:45:00",
-  "part-ratchet":  "2024/11/15 11:50:00",
+  "part-blade":    "2024/12/28 00:30:00",
+  "part-bit":      "2024/12/28 00:30:00",
+  "part-ratchet":  "2024/12/28 00:30:00",
   "part-meta":     "2024/10/25 12:15:00",
   "news": {
     "2024-12-28":[
@@ -13,7 +13,7 @@
     "desc":["Blade 有橡膠，緊抓對手及撞走"]},
       {"code":"UX-12 random booster vol.5","type":"sta","name":"ゴーストサークル 0-80GB<br>GhostCircle 0-80GB",
     "imgs":[],
-  "desc":["近乎正圓，阻力減至最少","首個 0 枚刃 Ratchet"]},
+  "desc":["近乎正圓，阻力減至最少","首個 0 枚刃 Ratchet","最輕量級登場！"]},
       {"code":"BXG-11 booster","type":"def","name":"ドラシエルシールド7-60D<br>DracielShield 7-60D"}
     ],
     "2025-01-25":[
@@ -26,7 +26,7 @@
       {"code":"UX-13 booster"}
     ],
     "2025-02":[
-      {"code":"BX-30 random booster select","desc":["小抽包"]}
+      {"code":"BX-39 random booster select","desc":["小抽包"]}
     ],
     "2025-03":[
       {"code":"CX-01 starter"},{"code":"CX-02 starter"},{"code":"CX-03 booster"},{"code":"CX-04 entry set","desc":["對戰盤組合"]},
