@@ -8,7 +8,7 @@
         },
         "stat": [],
         "desc": "高剛性圓形的兩枚刃兼備離心力持久及卸走性防禦。",
-        "attr": ["bal","right"]
+        "attr": ["bal","right","bsb"]
     },
     "GlRc": {
         "group": "UX",
@@ -41,7 +41,7 @@
         },
         "stat": ["39="],
         "desc": "在厚四枚刀添加的橡膠帶來的摩擦力及反發力，專門把對手撞飛。",
-        "attr": ["att","right"]
+        "attr": ["att","right","bsb"]
     },
     "KnMl": {
         "group": "UX",
