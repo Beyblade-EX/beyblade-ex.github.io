@@ -1,4 +1,15 @@
 {
+    "ShDr": {
+        "group": "BX",
+        "names": {
+            "jap": "シェルター\\ドレイク",
+            "eng": "Shelter\\Drake",
+            "chi": ""
+        },
+        "stat": [],
+        "desc": "高剛性圓形的兩枚刃兼備離心力持久及卸走性防禦。",
+        "attr": ["bal","right"]
+    },
     "GlRc": {
         "group": "UX",
         "names": {
@@ -7,7 +18,7 @@
             "chi": ""
         },
         "stat": [],
-        "desc": "",
+        "desc": "一併擁有能抵受對手攻擊的連打形狀側面，及傾側時撞走對手的上方向打擊面。",
         "attr": ["def","right"]
     },
     "GhCr": {
@@ -24,9 +35,9 @@
     "ImDr": {
         "group": "UX",
         "names": {
-            "jap": "インパクトドレイク",
-            "eng": "ImpactDrake",
-            "chi": "衝擊魔龍 衝擊龍神"
+            "jap": "インパクト\\ドレイク",
+            "eng": "Impact\\Drake",
+            "chi": "衝擊\\魔龍 衝擊\\龍神"
         },
         "stat": ["39="],
         "desc": "在厚四枚刀添加的橡膠帶來的摩擦力及反發力，專門把對手撞飛。",

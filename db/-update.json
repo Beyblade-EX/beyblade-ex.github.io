@@ -1,11 +1,11 @@
 {
   "prod-others":   "2024/11/15 11:50:00",
   "prod-launchers":"2024/11/15 11:50:00",
-  "prod-beys":     "2024/12/15 23:45:00",
-  "part-blade":    "2024/12/28 00:30:00",
-  "part-bit":      "2024/12/28 00:30:00",
-  "part-ratchet":  "2024/12/28 00:30:00",
-  "part-meta":     "2024/10/25 12:15:00",
+  "prod-beys":     "2025/01/15 11:15:00",
+  "part-blade":    "2025/01/15 11:15:00",
+  "part-bit":      "2025/01/15 11:15:00",
+  "part-ratchet":  "2025/01/15 11:15:00",
+  "part-meta":     "2025/01/15 12:15:00",
   "news": {
     "2025-01-25":[
       {"code":"BXG-18 starter","type":"att","name":"ドランバスター1-60A<br>メタルコート：ブルー<br>FCバルセロナVer.<br>DranBuster 1-60A<br>Metal Coat: Blue<br>FC Barcelona Ver.",
@@ -13,12 +13,10 @@
       {"code":"BXG-19 stadium set","type":"bal","name":"ベイキックオフセット<br>FCバルセロナVer.<br>Bey Kick-off Set<br>FC Barcelona Ver.",
     "desc":["與西班牙足球隊的 Collaboration","陀螺為 HellsHammer 3-70H"]},
       {"code":"UX-13 booster","type":"def","name":"ゴーレムロック1-60UN<br>GolemRock 1-60UN",
-      "imgs":["https://m.media-amazon.com/images/I/61OCGjDP3LL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/61K7yguwLyL._AC_SX679_.jpg"],
       "desc":["GolemRock：初時抵受對手水平的攻擊，尾段傾側時容易撞飛對手"]}
     ],
     "2025-02-15":[
       {"code":"BX-39 random booster select","type":"bal","name":"シェルタードレイク7-80GP<br>ShelterDrake 7-80GP",
-      "imgs":["https://m.media-amazon.com/images/I/61B0Tm9q6FL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/61qZT0Yj+CL._AC_SX679_.jpg"],
       "desc":["ShelterDrake：化解性防禦及高離心力的持久"]}
     ],
     "2025-03":[

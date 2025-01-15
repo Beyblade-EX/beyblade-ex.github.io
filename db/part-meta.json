@@ -31,6 +31,7 @@
             "labels": ["\ue019","\ue01a","\ue01b","\ue01c"],
             "title": "Bit",
             "filters": ["type","prefix"],
+            "variety": {"\ue047":"H,L,U","\ue04a":"M,R","\ue049":"B,F,T","\ue048":"G","\ue04b":"D"},
             "info": "Gear 齒愈多，X Dash 時的速度就愈快，但迴轉速度下降也加快。Shaft 部指與 Ratchet 機關接觸部分，目前以最小直徑計算，愈粗就愈難被擊至爆裂。"
         },
         "_": {
@@ -44,7 +45,8 @@
                 "L": {"eng": "Low ",   "jap": "ロー"    , "desc": "高度下降 10 "},
                 "M": {"eng": "Metal ", "jap": "メタル"  , "desc": "使用金屬軸端"},
                 "R": {"eng": "Rubber ", "jap": "ラバー" , "desc": "橡膠製"},
-                "T": {"eng": "Trans ", "jap": "トランス" ,"desc": "有高度模式轉換"}
+                "T": {"eng": "Trans ", "jap": "トランス" ,"desc": "有高度模式轉換"},
+                "U": {"eng": "Under ", "jap": "アンダー" ,"desc": "高度下降 20 "}
             }
         }
     }

@@ -76,7 +76,7 @@ const Filter = function(type) {
 };
 Object.assign(Filter.prototype, {
     create (type) {
-        let [dtText, inputs] = Filter.args()[this.type = type];
+        let [dtText, inputs] = Filter.args[this.type = type]();
         this.dl = E('dl', 
             {title: type, classList: `part-filter ${type == 'group' ? Parts.comp : ''}`}, 
             [E('dt', dtText), ...inputs.map(i => E('dd', [E('label', [E('input', {type: 'checkbox', id: i.id}), i.text])] ))]
@@ -98,20 +98,21 @@ Object.assign(Filter.prototype, {
     }
 });
 Object.assign(Filter, {
-    args: () => ({
-        group: [Parts.category, Parts.meta.groups.map((g, i) => ({id: g, text: Parts.meta.labels?.[i] || g.replace(Parts.comp, '')}) )],
-        type: ['類型', Parts.types.map(t => ({id: t, text: E('img', {src: `/img/types.svg#${t}`})}) )],
-        spin: ['迴轉', ['left','right'].map((s, i) => ({id: s, text: ['\ue01d','\ue01e'][i]}) )],
-        prefix: ['變化', ['–', ...Parts.bit?.prefix ?? []].map(p => ({id: p, text: p}) )],
-    }),
+    args: {
+        group:  () => [Parts.category, Parts.meta.groups.map((g, i) => ({id: g, text: Parts.meta.labels?.[i] || g.replace(Parts.comp, '')}) )],
+        type:   () => ['類型', Parts.types.map(t => ({id: t, text: E('img', {src: `/img/types.svg#${t}`})}) )],
+        spin:   () => ['迴轉', ['left','right'].map((s, i) => ({id: s, text: ['\ue01d','\ue01e'][i]}) )],
+        prefix: () => ['變化', [{id: '–', text: '–'}, ...Object.entries(Parts.meta.variety).map(([text, id]) => ({id, text})) ]],
+    },
     filter: async group => {
         let show = [Q('.part-filter[title]:not([hidden])')].flat().map(dl => 
-            `:is(${[dl.Q('input:checked')].flat().map(input => input.id == '–' ? Filter.normal(dl) : `.${input.id}`)})`
+            `:is(${[dl.Q('input:checked')].flat().map(input => input.id == '–' ? Filter.normal() : Filter.multiple(input.id))})`
         ).join('');
         Q('.catalog>a[class]', a => a.hidden = !a.matches(show));
         Parts.count(group);
     },
-    normal: dl => `:not(${dl.Q('input').map(input => `[class~=${input.id}]`)})`,
+    normal: () => `:not(${[...Parts.bit.prefix].map(p => `[class~=${p}]`)})`,
+    multiple: id => id.includes(',') ? id.split(',').map(id => `.${id}`).join() : `.${id}`
 });
 const Sorter = () => {
     let inputs = [['name', '\ue034'], /*['rank', '\ue037'],*/ ['weight', '\ue036'], ['time', '\ue035']];
@@ -121,7 +122,7 @@ const Sorter = () => {
     );
     dl.onchange = ({target: input}) => {
         Q('.catalog').append(...Parts.all.sort(Sorter.sort[input.id]).map(p => p.a));
-        input.checked && Storage('pref', {sort: input.id}) && gtag('event', 'preference', {sort: input.id});
+        input.checked && Storage('pref', {sort: input.id});
     };
     Sorter.release(Parts.comp);
     return dl;
@@ -133,8 +134,8 @@ Object.assign(Sorter, {
             [p.group, q.group].includes('remake') && Sorter.compare(p, q, p => p.group)
             || Sorter.compare(p, q, p => p.abbr[0] == '+')
             || Sorter.compare(p, q, p => parseInt(p.abbr))
-            || Sorter.compare(p, q, p => p.strip().toLowerCase())
-            || p.comp == 'bit' && Sorter.compare(p, q, p => p.abbr.length),
+            || Sorter.compare(p, q, p => p/*.strip()*/.toLowerCase()),
+            //|| p.comp == 'bit' && Sorter.compare(p, q, p => p.abbr.length),
 
         weight: (p, q) => Sorter.compare(q, p, p => (w => parseInt(w) + ({'+': .2, '-': -.2}[w.at(-1)] ?? 0))(p.stat[0] || '0')),
         time: (p, q) => Sorter.compare(p, q, p => (i => i == -1 ? 999 : i)(Sorter.release().lastIndexOf(p.abbr))),
