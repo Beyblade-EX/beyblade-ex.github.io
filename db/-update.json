@@ -1,25 +1,25 @@
 {
   "prod-others":   "2024/11/15 11:50:00",
-  "prod-launchers":"2024/11/15 11:50:00",
-  "prod-beys":     "2025/01/15 11:15:00",
-  "part-blade":    "2025/01/15 11:15:00",
-  "part-bit":      "2025/01/15 11:15:00",
+  "prod-launchers":"2025/02/03 10:55:00",
+  "prod-beys":     "2025/02/03 10:55:00",
+  "part-blade":    "2025/02/03 10:55:00",
+  "part-bit":      "2025/02/03 10:55:00",
   "part-ratchet":  "2025/01/15 11:15:00",
   "part-meta":     "2025/01/15 11:15:00",
   "news": {
-    "2025-01-25":[
-      {"code":"BXG-18 starter","type":"att","name":"ドランバスター1-60A<br>メタルコート：ブルー<br>FCバルセロナVer.<br>DranBuster 1-60A<br>Metal Coat: Blue<br>FC Barcelona Ver.",
-      "desc":["與西班牙足球隊的 Collaboration"]},
-      {"code":"BXG-19 stadium set","type":"bal","name":"ベイキックオフセット<br>FCバルセロナVer.<br>Bey Kick-off Set<br>FC Barcelona Ver.",
-    "desc":["與西班牙足球隊的 Collaboration","陀螺為 HellsHammer 3-70H"]},
-      {"code":"UX-13 booster","type":"def","name":"ゴーレムロック1-60UN<br>GolemRock 1-60UN",
-      "desc":["GolemRock：初時抵受對手水平的攻擊，尾段傾側時容易撞飛對手","Under Needle：比 L 系更短"]}
-    ],
     "2025-02-15":[
       {"code":"BX-39 random booster select","type":"bal","name":"シェルタードレイク7-80GP<br>ShelterDrake 7-80GP",
       "desc":["ShelterDrake：化解性防禦及高離心力的持久"]}
     ],
-    "2025-03":[
+    "2025-03-15":[
+      {"code":"BXG-35 starter","type":"att","name":"フェニックスウイング9-60GF<br>メタルコート:ブラック<br>キタニタツヤVer.<br>PhoenixWing 9-60GF<br>Metal Coat: Black<br>Kitani Tatsuya Ver.",
+      "desc":"與某音樂製作人的 Collaboration"}
+    ],
+    "2025-03-21":[
+      {"code":"BXG-12 set","type":"att","name":"ベイブレード25周年記念セット<br>Beyblade 25th Anniversary Set",
+      "desc":"包括四代陀螺的主角機 X 代復刻版","imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BXG00@1.png"]}
+    ],
+    "2025-03-29":[
       {"code":"CX-01 starter"},{"code":"CX-02 starter"},{"code":"CX-03 booster"},{"code":"CX-04 entry set","desc":["對戰盤組合"]},
       {"code":"BXG-12 set","name":"ベイブレード25周年記念セット<br>Beyblade 25th Anniversary Set","imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BXG00@1.png"]},
       {"code":"BXG-13 starter"},{"code":"BX-40 launcher","desc":["發射器"]},

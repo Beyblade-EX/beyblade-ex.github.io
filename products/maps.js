@@ -18,9 +18,10 @@ Mapping.maps = {
         'BXG-25', {switch: 'BXA-02', detail: 'bxa_02_d(b2|d|s)'},
         'BXG-17', {switch: 'BXG_bit01'},
         'BXG-14', {switch: 'BXG-09'},
+        'BXG-12', {switch: 'BXG-00'},
         'BXG-09', {switch: 'BXG-14'},
         'BXG-07', {underscore: true, detail: '${no}_(1|2)'},
-        /^BXG-0(3|5|6)$/, {detailUpper: true},
+        /^BXG-(03|05|06|35)$/, {detailUpper: true},
         'BX-08', {detail: '${no}_(r|g|y)', more: '${no}_(r|g|y)'},
     )
 }
