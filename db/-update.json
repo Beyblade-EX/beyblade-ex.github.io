@@ -20,11 +20,26 @@
       "desc":"包括四代陀螺的主角機 X 代復刻版","imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BXG00@1.png"]}
     ],
     "2025-03-29":[
-      {"code":"CX-01 starter"},{"code":"CX-02 starter"},{"code":"CX-03 booster"},{"code":"CX-04 entry set","desc":["對戰盤組合"]},
+      {"code":"CX-01 starter","type":"att","name":"DranBrave S6-60V<br>ドランブレイブ S6-60V",
+      "imgs":["https://m.media-amazon.com/images/I/61Ujr9V4VjL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/61Z09-w33nL._AC_SX679_.jpg"],
+      "desc":["Down Force 令攻擊性能提高","V Bit: 右迴轉時高速攻擊"]},
+      {"code":"CX-02 starter","type":"sta","name":"WizardArc R4-55LO<br>ウィザードアーク R4-55LO",
+      "imgs":["https://m.media-amazon.com/images/I/71MlPDqZFwL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/61oTfAzvoRL._AC_SX679_.jpg"],
+      "desc":["強離心力加低的 Ratchet 及 Bit，提高安定性"]},
+      {"code":"CX-03 booster","type":"def","name":"PerseusDark B6-80W<br>ペルセウスダーク B6-80W",
+      "imgs":["https://m.media-amazon.com/images/I/61jWvjxskuL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/61ZoD8QtxbL._AC_SX679_.jpg"],
+      "desc":["衝擊吸收及反擊都能夠"]},
+      {"code":"CX-04 entry set","type":"att","name":"Battle Entry Set C<br>バトルエントリーセットC",
+      "imgs":["https://m.media-amazon.com/images/I/61k9xJMt4TL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/61u9s2DcjpL._AC_SX679_.jpg"]},
       {"code":"BXG-12 set","name":"ベイブレード25周年記念セット<br>Beyblade 25th Anniversary Set","imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BXG00@1.png"]},
-      {"code":"BXG-13 starter"},{"code":"BX-40 launcher","desc":["發射器"]},
-      {"code":"BX-41 rubber grip","desc":["有橡膠的手把"]},{"code":"BX-42 rubber grip","desc":["有橡膠的手把"]},
-      {"code":"BX-43 gear case","desc":["儲存盒"]}
+      {"code":"BXG-13 starter"},
+      {"code":"BX-40 launcher","name":"Winder Launcher L<br>ワインダーランチャーL","imgs":["https://m.media-amazon.com/images/I/41dY7xFDNYL._AC_SX679_.jpg"],"desc":["左迴轉發射器"]},
+      {"code":"BX-41 rubber grip","name":"Rubber Custom Grip Gunmetal Ver.<br>ラバーカスタムグリップ ガンメタVer.","desc":["有橡膠的手把"],
+    "imgs":["https://m.media-amazon.com/images/I/51IE3Iie0ZL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/61wjfrMqM7L._AC_SX679_.jpg"]},
+      {"code":"BX-42 rubber grip","name":"Rubber Custom Grip Blue Ver.<br>ラバーカスタムグリップ ブルーVer.","desc":["有橡膠的手把"],
+    "imgs":["https://m.media-amazon.com/images/I/61CVHXhgO+L._AC_SX679_.jpg","https://m.media-amazon.com/images/I/61SkBZjDhkL._AC_SX679_.jpg"]},
+      {"code":"BX-43 gear case","name":"Gear Case White Ver.<br>ギアケース ホワイトVer.","desc":["儲存盒"],
+    "imgs":["https://m.media-amazon.com/images/I/61hGShzWaaL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/51SQwD1ihLL._AC_SX679_.jpg"]}
     ],
     "2025-04":[
       {"code":"UX-14 starter"},{"code":"CX-05 random booster"}
