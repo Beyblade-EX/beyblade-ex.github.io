@@ -91,8 +91,8 @@ const announce = news => Object.entries(news).forEach(([date, beys]) => {
     beys.forEach(bey => {
         let {code, name, imgs, desc, type, color, class: cl} = bey;
         imgs ??= [];
-        if (name && /[BU]XG?-\d+/.test(code)) {
-            let c = code.match(/[BU]XG?-\d+/)[0].replace('-',/BXG-07/.test(code) ? '_':'');
+        if (name && /[BCU]XG?-\d+/.test(code)) {
+            let c = code.match(/[BCU]XG?-\d+/)[0].replace('-', '');
             imgs = [base + `${c}@1.png`, ...imgs];
             imgs.push(...[2,3,4,5,6,7,8].map(n => base + `${c}${color ? `_${color}` : ''}_0${n}@1.png`));
         }
@@ -112,7 +112,7 @@ announce.colors = new Mapping(
     /Starter/i, 'S',
     /Random/i, 'RB',
     /Booster/i, 'B',
-    /[BU]XG?-/, 'others',
+    /[BCU]XG?-/, 'others',
     'Lm'
 );
 (new Date - Storage('cached'))/1000/60/60/24 > 30 && fetch('/sw/?delete=parts');

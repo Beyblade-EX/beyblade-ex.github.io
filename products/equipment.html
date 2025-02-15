@@ -63,7 +63,7 @@ const List = {
         }))
     },
     src: ([, no, href]) => /^https|\/img/.test(href) ? href : 
-        /^[BU]/.test(href) ? `https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/${href}.png` : 
+        /^[BCU]/.test(href) ? `https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/${href}.png` : 
         /^\d\//.test(href) ? `https://takaratomymall.jp/img/goods/${href}.jpg` :
         `https://pbs.twimg.com/media/${href}?format=jpg&name=large`,
     determinant: {
