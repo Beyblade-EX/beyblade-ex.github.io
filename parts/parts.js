@@ -16,7 +16,8 @@ let Parts = {
         });
     },
     async cataloging () {
-        Parts.all = DB.get.parts(Parts.comp).then(parts => parts.map((p, _, ar) => new Part(p, ar).prepare().catalog()));
+        Parts.all = DB.get.parts(/^.X$/.test(Parts.category) ? Parts.category : Parts.comp)
+            .then(parts => parts.map(p => new Part(p, Parts.category).prepare().catalog()));
         Parts.all = await Promise.all(await Parts.all);
     },
     async listing () {
@@ -87,6 +88,7 @@ Object.assign(Filter.prototype, {
     },
     events () {
         this.dl.Q('dt').onclick = async () => {
+            if (!Parts.meta.multiple) return;
             this.inputs.forEach(input => input.checked = true);
             await Filter.filter(this.type == 'group');
         }
@@ -105,9 +107,10 @@ Object.assign(Filter, {
         prefix: () => ['變化', [{id: '–', text: '–'}, ...Object.entries(Parts.meta.variety).map(([text, id]) => ({id, text})) ]],
     },
     filter: async group => {
-        let show = [Q('.part-filter[title]:not([hidden])')].flat().map(dl => 
-            `:is(${[dl.Q('input:checked')].flat().map(input => input.id == '–' ? Filter.normal() : Filter.multiple(input.id))})`
-        ).join('');
+        let show = Q('.part-filter[title]:not([hidden])', [])
+            .filter(dl => Q('#motif')?.checked ? dl.title != 'type' : dl)
+            .map(dl => `:is(${dl.Q('input:checked', []).map(input => input.id == '–' ? Filter.normal() : Filter.multiple(input.id))})`)
+            .join('');
         Q('.catalog>a[class]', a => a.hidden = !a.matches(show));
         Parts.count(group);
     },
@@ -138,10 +141,18 @@ Object.assign(Sorter, {
             //|| p.comp == 'bit' && Sorter.compare(p, q, p => p.abbr.length),
 
         weight: (p, q) => Sorter.compare(q, p, p => (w => parseInt(w) + ({'+': .2, '-': -.2}[w.at(-1)] ?? 0))(p.stat[0] || '0')),
-        time: (p, q) => Sorter.compare(p, q, p => (i => i == -1 ? 999 : i)(Sorter.release().lastIndexOf(p.abbr))),
+        time: (p, q) => Sorter.compare(p, q, p => (i => i == -1 ? 999 : i)(
+            Sorter.release().findLastIndex(abbr => Array.isArray(abbr) ? abbr[Sorter.index.blade[p.group]] == p.abbr : abbr == p.abbr)
+        )),
         rank: (p, q) => Sorter.compare(p, q, p => p.rank || 'Z')
     },
-    release: comp => Sorter.schedule ?? DB.get('product', 'schedule').then(beys => 
-        Sorter.schedule = beys.map(bey => bey[{blade: 0, ratchet: 1, bit: 2}[comp]])
-    )
+    release: comp => Sorter.schedule ?? DB.get('product', 'schedule').then(beys => Sorter.schedule = beys
+        .map(bey => bey[Sorter.index.full[comp]])
+        .filter(abbr => /.X$/.test(Parts.category) ? abbr.includes('.') : !abbr.includes('.'))
+        .map(abbr => /.X$/.test(Parts.category) ? abbr.split('.') : abbr)
+    ),
+    index: {
+        full: {blade: 0, ratchet: 1, bit: 2},
+        blade: {motif: 0, upper: 1, lower: 2}
+    }
 });

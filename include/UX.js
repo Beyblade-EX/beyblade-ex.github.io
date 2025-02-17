@@ -33,7 +33,7 @@ class Dragging {
     #press = {
         scroll: () => this.scrollInitX = this.dragged.scrollLeft,
         drop: () => {
-            this.targets = [this.drop.targets].flat().map(el => [Q(el)].flat());
+            this.targets = [this.drop.targets].flat().map(el => Q(el, []));
             this.dragged.initial = Dragging.getBoundingPageRect(this.dragged);
             this.scrollInitY = scrollY;
             this.events.scroll = () => this.move();

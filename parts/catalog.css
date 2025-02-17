@@ -51,7 +51,13 @@ a.bsb::after {
     content:url(/img/reincarnated.svg#bsb); 
     width:10em; z-index:-1;
     position:absolute; right:0;
-    transform:rotate(-135deg) translate(-.1em,1.9em);
+    transform:rotate(-135deg) translate(-.15em,1.9em);
+}
+a.mfb::after {
+    content:url(/img/reincarnated.svg#mfb); 
+    width:9em; z-index:-1;
+    position:absolute; right:0;
+    transform:translate(2em,-1.6em) rotate(15deg);
 }
 a img {filter:drop-shadow(0 0 .1rem var(--on));}
 a img[alt^=type] {filter:drop-shadow(0 0 .1rem var(--type));}
@@ -128,6 +134,7 @@ a ul {
     display:flex; gap:.2em;
 
     li {
+        &:only-child:not(:has(img)) {margin-left:auto;}
         &:has(img[alt^=type]) {
             order:0;
             width:var(--icon);
@@ -439,7 +446,14 @@ nav.safari:has(.part-filter.blade) {
 }
 
 menu {
-    li:nth-child(1 of :has([href^='?'])) a::after {background-image:url(/img/blade/CbDr.png) !important;}
-    li:nth-child(2 of :has([href^='?'])) a::after {background-image:url(/img/ratchet/3-60.png) !important;}
-    li:nth-child(3 of :has([href^='?'])) a::after {background-image:url(/img/bit/B.png) !important;}
+    a[href*=blade]::after {background-image:url(/img/blade/CbDr.png) !important;}
+    a[href*=ratchet]::after {background-image:url(/img/ratchet/3-60.png) !important;}
+    a[href*=bit]::after {background-image:url(/img/bit/B.png) !important;}
+    a[href*=CX]::before {
+        content:'';
+        position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+        z-index:1;
+        width:80%; height:60%;
+        background:url(/img/lines.svg#CX) center / contain no-repeat;
+    }
 }

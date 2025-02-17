@@ -7,6 +7,7 @@
 
 <nav>
     <menu>
+        <li><a href="?blade=CX"></a>
         <li><a href="?blade=一體"></a>
         <li><a href="?ratchet=一體"></a>
         <li><a href="?bit=軸心"></a>
@@ -17,9 +18,10 @@
 <!--ps: Get-ChildItem -Filter *.png | ForEach-Object {
     $inputFile = $_.FullName
     $outputFile = "o$($_.Name)"
-    backgroundremover -i $inputFile -o $outputFile
+    backgroundremover -i $inputFile -a -af 4 -o $outputFile
     magick mogrify -fuzz 5% -trim $outputFile
-    pngquant --quality=65-80 $outputFile -o "op/$($outputFile)"
+    $save = $outputFile -replace '^o', ''
+    pngquant --quality=65-80 $outputFile -o "op/$($save)"
 }-->
 <main id=catalog>
     <span class=loading></span>

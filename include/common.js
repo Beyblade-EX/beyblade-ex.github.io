@@ -1,6 +1,6 @@
 Q = Node.prototype.Q = function(el, func) {
     let els = this.querySelectorAll?.(el) ?? document.querySelectorAll(el);
-    return func ? els.forEach(func) : els.length > 1 ? [...els] : els[0];
+    return typeof func == 'function' ? els.forEach(func) : Array.isArray(func) || els.length > 1 ? [...els] : els[0];
 }
 Node.prototype.sQ = function(el) {return this.shadowRoot.Q(el);}
 

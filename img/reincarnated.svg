@@ -1,7 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -5 120 110">
     <style>
       g:not(:target) {display:none;}
-      svg {fill:hsla(200,50%,50%,.2);}
+      #bsb {fill:hsla(200,50%,50%,.2);}
+      #mfb {fill:hsla(120,50%,50%,.2);}
     </style>
     <defs>
         <clipPath id="bsb-clip">
@@ -13,5 +14,8 @@
         <polygon points="99,29 -99,29 50,-99"/>
         <polygon points="87,45 999,80 54,80"/>
         <polygon points="13,45 -999,80 46,80"/>
+    </g>
+    <g id="mfb">
+        <polygon points="0,50 43.3013,25 43.3013,-25 0,-50 -43.3013,-25 -43.3013,25" transform="translate(50 50)"/>
     </g>
 </svg>

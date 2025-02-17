@@ -1,8 +1,9 @@
 const concat = (...objs) => objs.reduce((summed, o, i) => i === 0 ? summed : Object.fromEntries(Object.entries(summed).map(([k, v]) => [k, v += o[k] ?? ''])), objs[0]);
 class Part {
-    constructor(dict) {
+    constructor(dict, line) {
         dict.key && ([dict.abbr, dict.comp] = dict.key.split('.'));
-        Object.assign(this, dict);
+        line &&= dict.comp == 'blade' ? /.X$/.exec(line)?.[0] : null;
+        Object.assign(this, {...dict, ...line ? {line: `${line}-${dict.group}`} : {}});
     }
     async revise(bits) {
         if (this.comp == 'ratchet') {
@@ -61,7 +62,7 @@ Part.prototype.catalog.html = function() {
     Q('#triangle') || Part.triangle();
     return [
         E('object', {data: this.html.background()}),
-        E('figure', [E('img', {src: `/img/${this.part.comp}/${this.part.abbr}.png`})]),
+        E('figure', [E('img', {src: `/img/${[this.part.comp, this.part.line, this.part.abbr].filter(p => p).join('/')}.png`})]),
         ...this.part.stat ? this.html.stat() : [],
         ...this.html.names(),
         E('p', this.part.desc ?? ''),

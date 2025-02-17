@@ -14,15 +14,15 @@ class Blade extends AbsPart {
     constructor(sym, upperFusionORsubBlade) {
         super(sym, upperFusionORsubBlade);
         if (this.sym == '/') return;
-        this.system = this.sym.includes('-') ? 'CX' : Blade.#UX.includes(sym) ? 'UX' : 'BX';
+        this.line = this.sym.includes('.') ? 'CX' : Blade.#UX.includes(sym) ? 'UX' : 'BX';
     }
     cells(fusion = this.fusion) {
         if (this.sym == '/') return this.none();
-        return this.sym.includes('-') ? 
-            this.sym.split('-').flatMap((p, i) => new Blade(p, Blade.#sub[i]).cells()) :
-            [this.abbr(''), E('td', {classList: 'left'}), E('td', {classList: `right${fusion ? ' fusion' : ''}`})];
+        return this.sym.includes('.') ? 
+            this.sym.split('.').flatMap((p, i) => new Blade(p, Blade.#sub[i]).cells()) :
+            [this.abbr(this.sub == 'lower' ? this.sym : ''), E('td', {classList: 'left'}), E('td', {classList: `right${fusion ? ' fusion' : ''}`})];
     }
-    static #sub = ['upper', 'lower'];
+    static #sub = ['motif', 'upper', 'lower'];
     static #UX;
     static UX = async () => Blade.#UX = (await DB.get.parts('blade')).filter(p => p.group == 'UX').map(p => p.abbr);
 }
@@ -59,7 +59,7 @@ class Row {
             bit.fusion ? [bit.cells(), bit.none(true)] : [ratchet.cells(), bit.cells()]
         ].flat(9), {
             hidden: this.hidden,
-            classList: [type, blade.system ?? ''].join(' '),
+            classList: [blade.line ?? '', type].join(' '),
             dataset: {abbr}
         });
         this.extra(extra ?? {});
@@ -69,7 +69,7 @@ class Row {
         code (code, type, video) {
             type.split(' ')[0] == 'RB' ? code == Row.current ? Row.RB++ : Row.RB = 1 : Row.RB = 0;
             Row.current = code;
-            video ??= [Q(`td[data-video]`)].flat().findLast(td => td?.custom().text == code)?.dataset.video;
+            video ??= Q(`td[data-video]`, []).findLast(td => td?.custom().text == code)?.dataset.video;
             return E('td', 
                 [code.replace(/^(?=.X-)/, ' '), ...Row.RB ? [E('s', '-'), E('sub', `0${Row.RB}`)] : []], 
                 {dataset: {...Mapping.maps.images.find(code), ...video ? {video} : {}}}
@@ -96,12 +96,12 @@ class Cell {
 
     dissect (naming) {
         let td = this.td.abbr ? this.td : $(this.td).prevAll('[abbr]')[0];
-        let comp = td.headers;
+        let [comp, line] = [td.headers, td.parentElement.classList[0]];
         let {prop, abbr} = this.dissect.exec(td.abbr, naming && this.dissect.items[comp] || []);
         //prop.core ? comp = 'frame' : null;
         
         return naming ? {...prop, abbr, comp} : [
-            `${abbr}.${comp}`, 
+            ['motif', 'upper', 'lower'].includes(comp) ? `${abbr}.${line}` : `${abbr}.${comp}`, 
             //prop.core && `${prop.core}.ratchet`, 
             //prop.mode && `${prop.mode}.${comp}`,
             //td.parentNode.more?.split(',').find(p => p.includes(comp.replace(/\d.$/, '')))
@@ -111,7 +111,7 @@ class Cell {
         items: {
             bit: ['pref']
         },
-        exec (abbr, items) {return{
+        exec (abbr, items) {return {
             prop: items.reduce((prop, item) => ({...prop, [item]: abbr.match(this.regex[item])?.[0]}), {}),
             abbr: items.reduce((abbr, item) => abbr.replace(this.regex[item], ''), abbr)
         }},
@@ -126,15 +126,21 @@ class Cell {
     fullname (lang) {
         if (!lang) return;
         let {abbr, comp, pref, dash, core, mode} = this.dissect(true);
-        let name = (comp == 'bit' && (pref || dash) ? Part.revise.name(NAMES[comp][abbr], pref[0]) : NAMES[comp]?.[abbr])?.[lang] ?? '';
+        let name = comp == 'bit' && (pref || dash) ? 
+            Part.revise.name(NAMES[comp][abbr], pref[0]) : 
+            comp != 'ratchet' && comp != 'bit' && this.td.parentElement.Q('td:nth-child(10)') ? 
+                NAMES.blade[this.td.parentElement.classList[0]][comp]?.[abbr] : 
+                NAMES[comp]?.[abbr];
+        name = name?.[lang] ?? '';
         this.td.innerHTML = this.fullname[lang](name, comp, core) + this.fullname.add(name, dash, mode);
     }
     static fullname = {
         eng: (name, comp, core) => Markup(name, 'products'),
-        jap: (name, comp, core) => Markup(name, 'products'),
+        jap: (name, comp, core) => Cell.oversize(name, comp, 'jap'),
         chi: (name, comp, core) => Markup(name, 'products'),
         add: (name, dash, mode) => (name && dash ? '<i>′</i>' : ''),
     }
+    static oversize = (name, comp, lang) => name.length >= {bit: {jap: 8}}[comp]?.[lang] ? `<small>${name}</small>` : name
 
     preview () {
         Object.assign(this.preview, this._preview);
@@ -147,7 +153,7 @@ class Cell {
     _preview = {
         part: async () => {
             Cell.popup.classList = 'catalog';
-            this.dissect().reduce((prom, part) => prom.then(() => DB.get(part)).then(p => new Part(p).catalog(true)), Promise.resolve())
+            this.dissect().reduce((prom, key) => prom.then(() => DB.get(key)).then(part => new Part(part, key).catalog(true)), Promise.resolve())
         },
         image () {
             Cell.popup.classList = 'images';
@@ -169,7 +175,7 @@ class Cell {
                     let values = {no};
                     let expression = this.td.dataset[type].replaceAll(/\$\{.+\}/g, whole => values[whole.match(/[a-z]+/)]);
                     let group = expression.match(/(?<=\().+(?=\))/)?.[0];
-                    group.split('|').forEach(s => this.format(expression.replace(`(${group})`, s), type));
+                    group.split('|').forEach(s => this.format(expression.replace(`(${group})`, s), type, this.td.dataset.detailUpper));
                 }
                 return this;
             },

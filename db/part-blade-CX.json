@@ -1,0 +1,62 @@
+{
+    "DR": {
+        "group": "motif",
+        "names": {"jap": "ドラン", "eng": "Dran", "chi": "翔龍 蒼龍"},
+        "stat": [],
+        "attr": ["right"]
+    },
+    "WZ": {
+        "group": "motif",
+        "names": {"jap": "ウィザード", "eng": "Wizard", "chi": "巫師 魔導"},
+        "stat": [],
+        "attr": ["right"]
+    },
+    "PR": {
+        "group": "motif",
+        "names": {"jap": "ペルセウス", "eng": "Perseus", "chi": ""},
+        "stat": [],
+        "attr": ["right","mfb"]
+    },
+    "Dr": {
+        "group": "upper",
+        "names": {"jap": "ダーク","eng": "Dark","chi": "巫師 魔導"},
+        "stat": [""],
+        "desc": "",
+        "attr": ["def","right","mfb"]
+    },
+    "Ar": {
+        "group": "upper",
+        "names": {"jap": "アーク","eng": "Arc","chi": ""},
+        "stat": [""],
+        "desc": "",
+        "attr": ["sta","right"]
+    },
+    "Br": {
+        "group": "upper",
+        "names": {"jap": "ブレイブ","eng": "Brave","chi": ""},
+        "stat": [""],
+        "desc": "",
+        "attr": ["att","right"]
+    },
+    "S": {
+        "group": "lower",
+        "names": {"jap": "スラッシュ","eng": "Slash","chi": ""},
+        "stat": [""],
+        "desc": "",
+        "attr": ["att","right"]
+    },        
+    "B": {
+        "group": "lower",
+        "names": {"jap": "バンパー","eng": "Bumper","chi": ""},
+        "stat": [""],
+        "desc": "",
+        "attr": ["def","right","mfb"]
+    },        
+    "R": {
+        "group": "lower",
+        "names": {"jap": "ラウンド","eng": "Round","chi": ""},
+        "stat": [""],
+        "desc": "",
+        "attr": ["sta","right"]
+    }
+}

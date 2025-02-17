@@ -4,9 +4,9 @@
         "names": {
             "jap": "シェルター\\ドレイク",
             "eng": "Shelter\\Drake",
-            "chi": ""
+            "chi": "神護魔龍"
         },
-        "stat": [],
+        "stat": ["33-"],
         "desc": "高剛性圓形的兩枚刃兼備離心力持久及卸走性防禦。",
         "attr": ["bal","right","bsb"]
     },
@@ -17,7 +17,7 @@
             "eng": "GolemRock",
             "chi": "魔像巨石"
         },
-        "stat": ["34+"],
+        "stat": ["34-"],
         "desc": "一併擁有能抵受對手攻擊的連打形狀側面，及傾側時撞走對手的上方向打擊面。",
         "attr": ["def","right"]
     },
@@ -107,7 +107,7 @@
         },
         "stat": ["38+"],
         "desc": "",
-        "attr": ["att","right"]
+        "attr": ["att","right","mfb"]
     },
     "LnCr": {
         "group": "UX",

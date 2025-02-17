@@ -43,21 +43,28 @@
 class Keihin {
     constructor({type, note, link, date, code, bey, ver, img}, NAMES) {
         let [blade, ...others] = bey.split(' ');
+        NAMES = {
+            jap: Keihin.naming(blade, NAMES, 'jap'),
+            chi: Keihin.naming(blade, NAMES, 'chi'),
+        };
         this.li = E('li', {classList: `keihin-${type}`}, [
             E('b', Keihin.type[type]), E('p', link ? [E('a', {href: link}, note)] : note),
             E('div', [
                 E('figure', [E('img', {src: img[0], style: img[1]})]), 
                 E('h5', [
                     code ? E('span', code, {classList: 'code'}) : '', 
-                    E('span', NAMES.blade[blade].jap), 
+                    E('span', NAMES.jap), 
                     ` ${others}`.replace('-', '‑'), 
                     E('small', {innerHTML: ver[0]})
                 ]),
             ]),
-            E('i', [NAMES.blade[blade].chi.replace(' ', '⬧').replaceAll('\\', '') + ` ${NAMES.blade[blade].chi ? others : ''}`.replace('-', '‑') || '　', E('small', ver[1])]),
+            E('i', [NAMES.chi.replace(' ', '⬧').replaceAll('\\', '') + ` ${NAMES.chi ? others : ''}`.replace('-', '‑') || '　', E('small', ver[1])]),
             E('time', date.replace('-','‒'))
         ]);
     }
+    static naming = (blade, NAMES, lang) => blade.includes('.') ? 
+        blade.split('.').map((c, i) => NAMES.blade.CX[['motif', 'upper'][i]]?.[c][lang] ?? c).join('') : 
+        NAMES.blade[blade][lang];
     static type = {t: '比賽', d: '抽獎', m: '限定商品', g: '贈品'}
     static all = []
 }
@@ -69,7 +76,7 @@ Q('nav input', (input, _, inputs) => input.onchange = () => {
 })
 
 const display = () =>
-    fetch('/db/prod-keihin.json').then(resp => Promise.all([DB.get.names(['blade']), resp.json()]))
+    fetch('/db/prod-keihin.json').then(resp => Promise.all([DB.get.names(['blade', 'blade-CX']), resp.json()]))
     .then(([names, keihins]) => Q('.diamonds').append(...Keihin.all = keihins.map(k => new Keihin(k, names).li)))
     .then(onresize);
 

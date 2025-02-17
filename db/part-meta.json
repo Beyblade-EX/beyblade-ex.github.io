@@ -6,6 +6,12 @@
             "labels": ["UX","BX","復刻","未出"],
             "info": " 圖案代表與所示的 Blade 有相同形狀的塑膠下層。"
         },
+        "CX": {
+            "groups": ["motif","upper","lower"],
+            "default": ["upper"],
+            "labels": ["Chip", "Main", "Assist"],
+            "multiple": false
+        },
         "_": {
             "terms": ["重量"],
             "filters": ["type","spin"]

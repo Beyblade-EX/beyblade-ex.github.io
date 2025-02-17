@@ -34,20 +34,24 @@ Object.assign(Table, {
         Table.show.count();
     },
     events () {
-        Q('caption').onchange = ev => ev.target.id == 'eng' ? Table.set.colspan('eng') : Table.show.names([null, ev.target.id]);
+        Q('caption').onchange = ev => {
+            Table.show.names([null, ev.target.id]);
+            Table.flush();
+        }
         Q('.prod-reset').onclick = Table.reset;
         Q('table button').onclick = Table.entire;
         Q('tbody').onclick = ev => ev.target.custom().preview();
         onresize = () => Table.flush();
     },
     flush () {
-        document.body.scrollWidth > 550 ?
-            Table.set.colspan(Q('#jap').checked ? 'cjk' : 'both') : Table.set.colspan(Q('#eng').checked ? 'eng' : 'cjk');
-        //$(Table.table).trigger('update', [false]);
+        window.innerWidth > 660 ?
+            Table.set.colspan(Q('#jap').checked ? 'jap' : 'both') : Table.set.colspan(Q('#eng').checked ? 'eng' : 'chi');
+        $(Table.table).trigger('update', [false]);
     },
     show: {
         names (lang) {
-            Table.table.Q(`td[headers=blade]`, td => td.custom().next2((td, i) => td.custom().fullname(lang[i])));
+            Table.table.Q(`td[headers]:not([headers=ratchet]):not([headers=bit])`, 
+                td => td.custom().next2((td, i) => td.custom().fullname(lang[i])));
             Table.table.Q(`td[headers=bit]+td`, td => td.custom().fullname(lang[1] == 'chi' ? 'eng' : lang[1]));
         },
         count: () => Q('.prod-result').value = document.querySelectorAll(`tbody tr:not(.hidden):not([hidden])`).length,
@@ -56,8 +60,7 @@ Object.assign(Table, {
     set: {
         colspan (lang) {
             if (Q('td:nth-child(10)')) {
-                let colspan = {eng: [2, 3], cjk: [2, 3]}[lang] ?? [2, 3];
-                Q('#blade').colSpan = 6;
+                let colspan = {eng: [7, 1], jap: [1, 7], chi: [1, 7]}[lang] ?? [4, 4];
                 Q('td[headers=blade],td:nth-child(2):not([headers])', td => new Cell(td).next2((td, i) => td.colSpan = colspan[i]));     
             }
             Table.table.classList.toggle('bilingual', lang == 'both');
@@ -132,17 +135,22 @@ Object.assign(Finder, {
             let regex = Object.entries(Parts.meta.prefix).map(([p, t]) => [p, new RegExp(Object.values(t).join('|').replace(/ |\|(?!.)/g,''), 'i')]);
             let prefix = regex.filter(([,t]) => t.test(Finder.target.free)).map(([p]) => p);
             Finder.target.free = Object.values(regex).reduce((str, reg) => str.replace(reg, ''), Finder.target.free);
-            Object.keys(NAMES).forEach(comp => {
-                let found = Finder.target.free && Finder.target.free.split('/').flatMap(typed => Finder.search.names(comp, typed)) || [];
-                Finder.target.parts[comp] = [...new Set(found)];
-            });
+            Finder.target.parts = Finder.search.names(NAMES, Finder.target.free);
             Finder.target.parts.bit.prefix = prefix;
         },
-        names: (comp, typed) =>
-            Object.keys(NAMES[comp]).filter(abbr => 
-                new RegExp(`^${typed}$`, 'i').test(abbr) || 
-                !/^[^一-龥]{1,2}(′|\\\+)?$/.test(typed) && Object.values(NAMES[comp][abbr] ?? {}).some(n => new RegExp(typed, 'i').test(Markup.sterilize(n)))
-            ),
+        names: (compTOpart, typed) => 
+            Object.entries(compTOpart).reduce((obj, [comp, parts]) => ({...obj, 
+                [comp]: Object.entries(parts).map(([abbr, namesORcomp]) => !namesORcomp || namesORcomp.jap ? 
+                    Finder.search.match([abbr, namesORcomp ?? {}], typed.split('/')) && abbr :
+                    Finder.search.names(namesORcomp, typed)
+                ).filter(abbr => abbr)
+            }), {})
+        ,
+        match: ([abbr, names], typed) => Array.isArray(typed) ? 
+            typed.some(t => Finder.search.match([abbr, names], t)) : 
+            new RegExp(`^${typed}$`, 'i').test(abbr) || 
+                !/^[^一-龥]{1,2}(′|\\\+)?$/.test(typed) && Object.values(names).some(n => new RegExp(typed, 'i').test(Markup.sterilize(n)))
+        ,
         beys (where) {
             Q('#regular.new') && Table.show.entire();
             Q('tbody tr', tr => tr.hidden = !(
@@ -155,8 +163,13 @@ Object.assign(Finder, {
     }, 
     build (where) {
         let s = Finder.target.parts;
-        if (s.blade?.length)
-            Finder.regexp.push(new RegExp('^(' + s.blade.join('|') + ') .+$', 'u'));
+        if (s.blade?.length) {
+            let divided = s.blade.filter(b => typeof b == 'object');
+            divided = ['motif', 'upper', 'lower'].map(c => divided.map(d => d[c]).join('|'));
+            divided.some(d => d.length) && (divided = divided.map(d => d ? `(?:${d})` : '.+?')) &&
+                Finder.regexp.push(new RegExp(`^${divided.join('\\.')} .+$`, 'u'));
+            Finder.regexp.push(new RegExp('^(' + s.blade.filter(b => typeof b == 'string').join('|') + ') .+$', 'u'));
+        }
         if (s.ratchet?.length)
             Finder.regexp.push(new RegExp('^.+? (' + s.ratchet.join('|') + ') .+$'));
         if (s.bit?.length || s.bit?.prefix?.length) {

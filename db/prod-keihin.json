@@ -1,5 +1,10 @@
 [
     {
+        "type":"t", "note":"G3 大會獎品（集齊後）", "date":"2025-04",
+        "bey":"PR.Dr.B 6-80W", "ver":["メタルコート：ゴールド", "Metal Coat: Gold"],
+        "img":["https://beyblade.takaratomy.co.jp/beyblade-x/event/_image/g3_gift1_2025.webp", {"width":"120%","top":"52%"}]
+    },
+    {
         "type":"g", "note":"攻略本附錄", "date":"2025-??",
         "code":"BXC-08", "bey":"PhFt", "ver":["メタルコート：オレンジ<br>（ブレード）", "Metal Coat: Orange (Blade)"],
         "img":["",{"width":"95%"}]

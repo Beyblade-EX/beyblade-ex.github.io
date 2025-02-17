@@ -210,7 +210,7 @@ tbody td {
 td:is([abbr],.right:not(:empty)+td,:nth-child(2)) {
     border-left:solid .5px var(--on);
 }
-td:last-child:not(:empty) {
+td:is([headers=lower]+td,:last-child:not(:empty)) {
     border-left:solid .5px hsl(0,0%,55%);
 }
 table:not(.bilingual):has(#eng:not(:checked)) .left,
@@ -256,8 +256,7 @@ thead {font-size:min(3vw,.7em);}
 tbody {font-size:min(2.75vw,.7em);}
 /*.bilingual thead {font-size:min(2.75vw,.9em);}
 .bilingual tbody {font-size:min(2.5vw,.9em);}
-#eng:checked~main tbody {font-size:min(2.5vw,.9em);}
-#jap:checked~main tbody {font-size:min(2.5vw,.9em);}*/
+#eng:checked~main tbody {font-size:min(2.5vw,.9em);}*/
 /*color*/
 tbody tr,.boards li {background:var(--light);}
 tr.H {background:var(--dark) !important;}

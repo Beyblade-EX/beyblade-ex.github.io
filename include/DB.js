@@ -61,7 +61,7 @@ customElements.define('db-status', class extends HTMLElement {
 });
 
 const DB = {
-    components: ['bit', 'blade', 'ratchet'],
+    components: ['bit','ratchet','blade','blade-CX'],
     current: 'V2',
     discard: (ver = DB.current, handler) => DB.transfer.out().then(() => new Promise(res => {
         ver == DB.current && DB.db?.close();
@@ -75,14 +75,18 @@ const DB = {
         in: () => DB.put('user', JSON.parse(sessionStorage.getItem('user') ?? '[]').map(item => ({[Array.isArray(item) ? '#deck' : '#tier'] : item})))
     },
     open: () => DB.db ? true : 
-        new Promise(res => Object.assign(indexedDB.open(DB.current, 1), {onsuccess: res, onupgradeneeded: res}))
-        .then(ev => ev.type == 'success' ? DB.check(ev.target) : DB.setup(ev.target))
+        new Promise(res => Object.assign(indexedDB.open(DB.current, 2), {onsuccess: res, onupgradeneeded: res}))
+        .then(ev => ev.type == 'success' ? DB.check(ev.target) : DB.setup(ev.target, ev.oldVersion))
         .then(DB.cache).catch(er => DB.indicator.error(er) ?? console.error(er)),
 
-    setup ({result, transaction}) {
+    setup ({result, transaction}, ver) {
         DB.db = result;
-        ['product','meta','user'].map(s => DB.db.createObjectStore(s));
-        DB.components.map(s => DB.db.createObjectStore(`.${s}`, {keyPath: 'abbr'}).createIndex('group', 'group'));
+        if (ver === 1) 
+            DB.db.createObjectStore(`.blade-CX`, {keyPath: 'abbr'}).createIndex('group', 'group');
+        else {
+            ['product','meta','user'].map(s => DB.db.createObjectStore(s));
+            DB.components.map(s => DB.db.createObjectStore(`.${s}`, {keyPath: 'abbr'}).createIndex('group', 'group'));
+        }
         return new Promise(res => transaction.oncomplete = res).then(() => (DB.transfer.in(), DB.updates(true)));
     },
     check ({result}) {
@@ -107,6 +111,7 @@ const DB = {
     },
     action: {
         'part-blade': (...args) => DB.put.parts(...args),
+        'part-blade-CX': (...args) => DB.put.parts(...args),
         'part-ratchet': (...args) => DB.put.parts(...args),
         'part-bit': (...args) => DB.put.parts(...args),
         'part-meta': (json) => DB.put('meta', {part: json}),
@@ -128,9 +133,10 @@ const DB = {
     get: (store, key) => {
         !key && ([store, key] = store.split('.').reverse());
         let part = DB.components.includes(store);
+        ['CX'].includes(store) && (part = true) && (store = `blade-${store}`);
         store == 'user' && (DB.tr = null);
         return new Promise(res => DB.store(part ? `.${store}` : store).get(key)
-            .onsuccess = ev => res(part ? {...ev.target.result, comp: store} : ev.target.result));
+            .onsuccess = ev => res(part ? {...ev.target.result, comp: store.split('-')[0]} : ev.target.result));
     },
     put: (store, items, callback) => items && new Promise(res => {
         store == 'meta' && (DB.tr = null);
@@ -148,20 +154,26 @@ Object.assign(DB.put, {
 });
 Object.assign(DB.get, {
     all: store => {
-        let part = DB.components.includes(store);
-        return new Promise(res => DB.store(part ? `.${store}` : store).getAll()
-            .onsuccess = ev => res(ev.target.result.map(p => part ? {...p, comp: store} : p)));
+        let comp = /(blade|ratchet|bit)/.exec(store)[0];
+        return new Promise(res => DB.store(comp && !store.includes('.') ? `.${store}` : store).getAll()
+            .onsuccess = ev => res(ev.target.result.map(p => comp ? {...p, comp} : p)));
     },
     parts (comps = DB.components, toNames) {
-        comps = [comps].flat();
-        DB.trans(comps.map(c => `.${c}`));
+        comps = [comps].flat().map(c => /^.X$/.test(c) ? `.blade-${c}` : `.${c}`);
+        DB.trans(comps);
         return comps.length === 1 && !toNames ? 
             DB.get.all(comps[0]) : 
-            Promise.all(comps.map(c => DB.get.all(c).then(parts => [c, parts]))).then(PARTS => toNames ? PARTS : Object.fromEntries(PARTS));
+            Promise.all(comps.map(c => DB.get.all(c).then(parts => [c.replace('.', ''), parts]))).then(PARTS => toNames ? PARTS : Object.fromEntries(PARTS));
     },
-    names: (comps = DB.components) => DB.get.parts(comps, true).then(PARTS => 
-        Object.fromEntries(PARTS.map(([comp, parts]) => [comp, parts.reduce((obj, {abbr, names}) => ({...obj, [abbr]: names}), {})]))
-    ),
+    names: (comps = DB.components) => DB.get.parts(comps, true).then(PARTS => {
+        let NAMES = {};
+        PARTS.forEach(([comp, parts]) => {
+            ['blade','ratchet','bit'].includes(comp) && (NAMES[comp] = parts.reduce((obj, {abbr, names}) => ({...obj, [abbr]: names}), {}));
+            comp.includes('-') && (NAMES.blade[comp.split('-')[1]] 
+                = parts.reduce((obj, {group, abbr, names}) => ({...obj, [group]: {...obj[group], [abbr]: names} }), {}));
+        });
+        return NAMES;
+    }),
     async meta (comp, category) {
         let meta = await DB.get('meta', 'part');
         meta = comp ? {...meta[comp][category], ...meta[comp]._} : meta.bit._;
