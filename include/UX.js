@@ -14,7 +14,7 @@ class Dragging {
         el.addEventListener('pointerdown', ev => this.press(ev, custom ?? {}));
     }
     events = new Proxy(
-        Object.defineProperty({}, 'remove', {value() {Object.entries(this).forEach(p => removeEventListener(...p))}, enumerable: false}),
+        Object.defineProperty({}, 'remove', {value() {[...new O(this)].forEach(p => removeEventListener(...p))}, enumerable: false}),
         {set: (target, ...p) => addEventListener(...p) ?? Reflect.set(target, ...p)} //window
     )
     press (ev, {press, move, lift}) {

@@ -1,4 +1,3 @@
-const concat = (...objs) => objs.reduce((summed, o, i) => i === 0 ? summed : Object.fromEntries(Object.entries(summed).map(([k, v]) => [k, v += o[k] ?? ''])), objs[0]);
 class Part {
     constructor(dict, line) {
         dict.key && ([dict.abbr, dict.comp] = dict.key.split('.'));
@@ -25,11 +24,11 @@ class Part {
         name: (ref, pref) => this.names = Part.revise.name(ref, pref),
         attr: (ref, pref) => [this.group, this.attr] = [ref.group, [...this.attr ?? [], ...ref.attr, ...pref]],
         stat: ref => this.stat.length === 1 && this.stat.push(...ref.stat.slice(1)),
-        desc: (ref, pref) => this.desc = [...pref].map(p => Parts.meta.prefix[p].desc).join('、') + `的【${ref.abbr}】bit${this.desc ? `，${this.desc}` : '。'}`,
-        group: () => this.group = Object.entries(Parts.meta.height).find(([_, dmm]) => this.abbr.split('-')[1] >= dmm)[0]
+        desc: (ref, pref) => this.desc = [...pref].map(p => Parts.bit.prefix[p].desc).join('、') + `的【${ref.abbr}】bit${this.desc ? `，${this.desc}` : '。'}`,
+        group: () => this.group = [...new O(Parts.meta.height)].find(([_, dmm]) => this.abbr.split('-')[1] >= dmm)[0]
     }
     static revise = {
-        name: (ref, pref) => [...pref].reverse().reduce((names, p) => concat(Parts.meta.prefix[p], names), ref?.names ?? ref),
+        name: (ref, pref) => new O(ref?.names ?? ref).prepend(...[...pref].reverse().map(p => Parts.bit.prefix[p])),
     }
     
     strip = what => this.comp == 'bit' ? Part.strip(this.abbr, what) : this.abbr;
@@ -52,8 +51,12 @@ class Part {
             hidden: !show,
             for: For,
         });
-        location.pathname == '/parts/' && (this.a.href = `/products/?${comp}=${encodeURIComponent(abbr)}`);
-        location.pathname == '/products/' && (this.a.onclick = () => Finder?.find([[comp, abbr]]));
+        let query = new O(this.line ? 
+            {line: this.line.split('-')[0],[group]: abbr} : 
+            {[comp]: abbr}
+        );
+        location.pathname == '/parts/' && (this.a.href = `/products/?${query.url()}`);
+        location.pathname == '/products/' && (this.a.onclick = () => Finder?.find(query));
         return this;
     }
 }
@@ -120,8 +123,7 @@ Object.assign(Part.prototype.catalog.html, {
     }
 });
 Part.chi = (abbr, chi) => E('h5', {
-    innerHTML: /^D[ZRGC]/.test(abbr) ? chi.replace(' ', ' ') : 
-        Markup(chi, 'parts'), 
+    innerHTML: /^D[ZRGC]/.test(abbr) ? chi.replace(' ', ' ') : Markup(chi, 'parts'), 
     classList: 'chi'
 });
 

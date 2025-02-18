@@ -95,7 +95,7 @@ const DB = {
     },
     updates (fresh) {
         if (location.pathname != '/' && fresh) return null;
-        let compare = files => Object.entries(files).filter(([file, time]) => new Date(time) / 1000 > (Storage('DB')?.[file] || 0)).map(([file]) => file);
+        let compare = files => [...new O(files)].filter(([file, time]) => new Date(time) / 1000 > (Storage('DB')?.[file] || 0)).map(([file]) => file);
         return fetch(`/db/-update.json`).catch(() => DB.indicator.setAttribute('status', 'offline'))
         .then(resp => resp.json()).then(({news, ...files}) => {
             location.pathname == '/' && announce(news);
@@ -107,7 +107,6 @@ const DB = {
         DB.indicator.init(outdated);
         outdated = Object.keys(DB.action).filter(f => outdated?.some(p => p.includes(f)) ?? true);
         return DB.fetch(outdated).then(() => DB.indicator.update(true)).catch(() => DB.indicator.error());
-        //update(['layer7', 'layer6', 'layer5'],       json => Promise.all(Object.entries(json).map(([comp, parts]) => DB.put.parts(parts, comp)))),
     },
     action: {
         'part-blade': (...args) => DB.put.parts(...args),
@@ -133,7 +132,7 @@ const DB = {
     get: (store, key) => {
         !key && ([store, key] = store.split('.').reverse());
         let part = DB.components.includes(store);
-        ['CX'].includes(store) && (part = true) && (store = `blade-${store}`);
+        /^.X$/.test(store) && (part = true) && (store = `blade-${store}`);
         store == 'user' && (DB.tr = null);
         return new Promise(res => DB.store(part ? `.${store}` : store).get(key)
             .onsuccess = ev => res(part ? {...ev.target.result, comp: store.split('-')[0]} : ev.target.result));
@@ -141,7 +140,7 @@ const DB = {
     put: (store, items, callback) => items && new Promise(res => {
         store == 'meta' && (DB.tr = null);
         if (!Array.isArray(items))
-            return DB.store(store).put(...items.abbr ? [items] : Object.entries(items)[0].reverse()).onsuccess = () => res(callback?.());
+            return DB.store(store).put(...items.abbr ? [items] : [...new O(items)][0].reverse()).onsuccess = () => res(callback?.());
         DB.trans(store);
         Promise.all(items.map(item => DB.put(store, item, callback))).then(res).catch(er => (console.error(store), console.error(er)));
     }),
@@ -150,7 +149,7 @@ const DB = {
         ).catch(() => {})
 }
 Object.assign(DB.put, {
-    parts: (parts, file) => DB.put(file.replace('part-', '.'), Object.entries(parts).map(([abbr, part]) => ({...part, abbr}) ), () => DB.indicator.update()),
+    parts: (parts, file) => DB.put(file.replace('part-', '.'), [...new O(parts)].map(([abbr, part]) => ({...part, abbr}) ), () => DB.indicator.update()),
 });
 Object.assign(DB.get, {
     all: store => {
@@ -163,7 +162,7 @@ Object.assign(DB.get, {
         DB.trans(comps);
         return comps.length === 1 && !toNames ? 
             DB.get.all(comps[0]) : 
-            Promise.all(comps.map(c => DB.get.all(c).then(parts => [c.replace('.', ''), parts]))).then(PARTS => toNames ? PARTS : Object.fromEntries(PARTS));
+            Promise.all(comps.map(c => DB.get.all(c).then(parts => [c.replace('.', ''), parts]))).then(PARTS => toNames ? PARTS : new O(PARTS));
     },
     names: (comps = DB.components) => DB.get.parts(comps, true).then(PARTS => {
         let NAMES = {};
@@ -177,7 +176,7 @@ Object.assign(DB.get, {
     async meta (comp, category) {
         let meta = await DB.get('meta', 'part');
         meta = comp ? {...meta[comp][category], ...meta[comp]._} : meta.bit._;
-        let bit = !comp || comp == 'bit' ? {prefix: Object.keys(meta.prefix).join('')} : {};
+        let bit = !comp || comp == 'bit' ? {prefix: new KeysAsString(meta.prefix)} : {};
         return {meta, bit, types: ['att', 'bal', 'def', 'sta']};
     },
 });

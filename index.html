@@ -84,7 +84,7 @@
 <script>    
 const observer = new IntersectionObserver(entries => entries.forEach(entry => entry.target.classList.toggle('seeing', entry.isIntersecting)));
     
-const announce = news => Object.entries(news).forEach(([date, beys]) => {
+const announce = news => [...new O(news)].forEach(([date, beys]) => {
     let base = `https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/`;
     let types = {att: 'ATTACK', bal: 'BALANCE', sta: 'STAMINA', def: 'DEFENSE'};
     Q('#products').append(E('time', {title: date}));

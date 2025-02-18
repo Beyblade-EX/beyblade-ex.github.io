@@ -88,7 +88,7 @@ Object.assign(Filter.prototype, {
     },
     events () {
         this.dl.Q('dt').onclick = async () => {
-            if (!Parts.meta.multiple) return;
+            if (this.type == 'group' && !Parts.meta.multiple) return;
             this.inputs.forEach(input => input.checked = true);
             await Filter.filter(this.type == 'group');
         }
@@ -104,7 +104,7 @@ Object.assign(Filter, {
         group:  () => [Parts.category, Parts.meta.groups.map((g, i) => ({id: g, text: Parts.meta.labels?.[i] || g.replace(Parts.comp, '')}) )],
         type:   () => ['類型', Parts.types.map(t => ({id: t, text: E('img', {src: `/img/types.svg#${t}`})}) )],
         spin:   () => ['迴轉', ['left','right'].map((s, i) => ({id: s, text: ['\ue01d','\ue01e'][i]}) )],
-        prefix: () => ['變化', [{id: '–', text: '–'}, ...Object.entries(Parts.meta.variety).map(([text, id]) => ({id, text})) ]],
+        prefix: () => ['變化', [{id: '–', text: '–'}, ...[...new O(Parts.meta.variety)].map(([text, id]) => ({id, text})) ]],
     },
     filter: async group => {
         let show = Q('.part-filter[title]:not([hidden])', [])
@@ -114,7 +114,7 @@ Object.assign(Filter, {
         Q('.catalog>a[class]', a => a.hidden = !a.matches(show));
         Parts.count(group);
     },
-    normal: () => `:not(${[...Parts.bit.prefix].map(p => `[class~=${p}]`)})`,
+    normal: () => `:not(${[...`${Parts.bit.prefix}`].map(p => `[class~=${p}]`)})`,
     multiple: id => id.includes(',') ? id.split(',').map(id => `.${id}`).join() : `.${id}`
 });
 const Sorter = () => {
@@ -148,7 +148,7 @@ Object.assign(Sorter, {
     },
     release: comp => Sorter.schedule ?? DB.get('product', 'schedule').then(beys => Sorter.schedule = beys
         .map(bey => bey[Sorter.index.full[comp]])
-        .filter(abbr => /.X$/.test(Parts.category) ? abbr.includes('.') : !abbr.includes('.'))
+        .filter(abbr => /.X$/.test(Parts.category) ? abbr.includes('.') : !abbr?.includes('.'))
         .map(abbr => /.X$/.test(Parts.category) ? abbr.split('.') : abbr)
     ),
     index: {

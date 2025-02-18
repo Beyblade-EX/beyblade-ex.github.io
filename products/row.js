@@ -19,10 +19,10 @@ class Blade extends AbsPart {
     cells(fusion = this.fusion) {
         if (this.sym == '/') return this.none();
         return this.sym.includes('.') ? 
-            this.sym.split('.').flatMap((p, i) => new Blade(p, Blade.#sub[i]).cells()) :
+            this.sym.split('.').flatMap((p, i) => new Blade(p, Blade.sub[i]).cells()) :
             [this.abbr(this.sub == 'lower' ? this.sym : ''), E('td', {classList: 'left'}), E('td', {classList: `right${fusion ? ' fusion' : ''}`})];
     }
-    static #sub = ['motif', 'upper', 'lower'];
+    static sub = ['motif', 'upper', 'lower'];
     static #UX;
     static UX = async () => Blade.#UX = (await DB.get.parts('blade')).filter(p => p.group == 'UX').map(p => p.abbr);
 }
@@ -69,7 +69,7 @@ class Row {
         code (code, type, video) {
             type.split(' ')[0] == 'RB' ? code == Row.current ? Row.RB++ : Row.RB = 1 : Row.RB = 0;
             Row.current = code;
-            video ??= Q(`td[data-video]`, []).findLast(td => td?.custom().text == code)?.dataset.video;
+            video ??= Q(`td[data-video]`, []).findLast(td => new Cell(td)?.text == code)?.dataset.video;
             return E('td', 
                 [code.replace(/^(?=.X-)/, ' '), ...Row.RB ? [E('s', '-'), E('sub', `0${Row.RB}`)] : []], 
                 {dataset: {...Mapping.maps.images.find(code), ...video ? {video} : {}}}
@@ -79,7 +79,7 @@ class Row {
     extra({more, coat}) {
         coat && this.tr.style.setProperty('--coat', coat);
         more && (this.tr.dataset.more = Object.keys(more));
-        more && Object.entries(more).forEach(([part, column], i) => {
+        more && [...new O(more)].forEach(([part, column], i) => {
             this.tr.Q(`td:nth-child(${column})`).dataset.more = i;
             this.tr.style.setProperty(`--more${i}`, `'${part.split('.')[0]}'`);
         });
@@ -101,7 +101,7 @@ class Cell {
         //prop.core ? comp = 'frame' : null;
         
         return naming ? {...prop, abbr, comp} : [
-            ['motif', 'upper', 'lower'].includes(comp) ? `${abbr}.${line}` : `${abbr}.${comp}`, 
+            Blade.sub.includes(comp) ? `${abbr}.${line}` : `${abbr}.${comp}`, 
             //prop.core && `${prop.core}.ratchet`, 
             //prop.mode && `${prop.mode}.${comp}`,
             //td.parentNode.more?.split(',').find(p => p.includes(comp.replace(/\d.$/, '')))
@@ -136,11 +136,12 @@ class Cell {
     }
     static fullname = {
         eng: (name, comp, core) => Markup(name, 'products'),
-        jap: (name, comp, core) => Cell.oversize(name, comp, 'jap'),
+        jap: (name, comp, core) => Cell.oversize(Markup(name, 'products'), comp, 'jap'),
         chi: (name, comp, core) => Markup(name, 'products'),
         add: (name, dash, mode) => (name && dash ? '<i>′</i>' : ''),
     }
-    static oversize = (name, comp, lang) => name.length >= {bit: {jap: 8}}[comp]?.[lang] ? `<small>${name}</small>` : name
+    static oversize = (name, comp, lang) => name.length >= Cell.limit[comp]?.[lang] ? `<small>${name}</small>` : name
+    static limit = {bit: {jap: 8}}
 
     preview () {
         Object.assign(this.preview, this._preview);
@@ -151,7 +152,7 @@ class Cell {
         this.preview[this.td.matches('td:first-child') ? 'image' : 'part']();
     }
     _preview = {
-        part: async () => {
+        part: () => {
             Cell.popup.classList = 'catalog';
             this.dissect().reduce((prom, key) => prom.then(() => DB.get(key)).then(part => new Part(part, key).catalog(true)), Promise.resolve())
         },
@@ -194,5 +195,3 @@ class Cell {
 Object.assign(Cell.prototype.dissect, Cell.dissect);
 Object.assign(Cell.prototype.fullname, Cell.fullname);
 //Object.assign(Cell.prototype.preview, Cell.prototype._preview()());
-
-HTMLTableCellElement.prototype.custom = function () {return this._custom ??= new Cell(this);}

@@ -137,7 +137,7 @@ const Controls = {
         let {type, ...controls} = Layers.selected.dataset;
         Controls.reset();
         Controls.show(type);
-        Object.entries(controls).forEach(([n, v]) => {
+        [...new O(controls)].forEach(([n, v]) => {
             Q(`spin-knob:has(input[name=${n}])`)?.set(v);
             Q('form')[n] && (Q('form')[n].value = v);
         });

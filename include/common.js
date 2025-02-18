@@ -89,6 +89,38 @@ class Mapping {
     }
     static maps = {};
 }
+class KeysAsString {
+    constructor(obj) {Object.assign(this, obj);}
+    [Symbol.toPrimitive] = type => type == 'string' && Object.keys(this).join('')
+};
+class O {
+    constructor(...objs) {
+        objs.forEach(obj => Object.assign(this, typeof obj[Symbol.iterator] == 'function' ? Object.fromEntries(obj) : obj));
+    }
+    [Symbol.iterator] = function* () {
+        let content = Object.entries(this);
+        for (let i = 0; i < content.length; i++)
+            yield content[i];
+    }
+}
+Object.defineProperties(O.prototype, {
+    url: {
+        value: function() {return new URLSearchParams([...this]).toString();}
+    },
+    map: {
+        value: function(...transforms) {return new O(Object.fromEntries([...this].map(
+            transforms.length === 1 ? transforms[0] : ([k, v]) => [transforms[0]?.(k) || k, transforms[1]?.(v) || v]
+        )));}
+    },
+    filter: {
+        value: function(filter) {return new O(Object.fromEntries([...this].filter(filter)));}
+    },
+    prepend: {
+        value: function(...objs) {
+            return objs.reduce((summed, o) => new O(summed).map(([k, v]) => [k, (o[k] ?? '') + v]), this);
+        }
+    },
+});
 const Markup = (text, location) => Markup.items[location].reduce((text, [before, after]) => text.replace(before, after), text);
 Markup.items = [
     [/_([^ ]{4,})/g, '<sub class=long>$1</sub>'],
