@@ -1,5 +1,5 @@
 
-let NAMES, Parts;
+let NAMES;
 const Table = () => {
     Table.el = Q('table');
     Table.count = Q('.prod-result');
@@ -14,8 +14,7 @@ Object.assign(Table, {
         Finder.free.disabled = Finder.free.value = 'Loading';
         Table.events();
         return Promise.all([DB.get.names(), DB.get.meta(), Blade.UX()])
-            .then(([names, meta]) => (NAMES = names, Parts = meta))
-            .then(() => Cell.prototype.dissect.regex.pref = new RegExp(`^[${Parts.bit.prefix}]+(?=[^a-z].*)`));
+            .then(([names]) => [NAMES = names, Cell.prototype.dissect.regex.pref = new RegExp(`^[${PARTS.prefixes.bit}]+(?=[^a-z].*)`)]);
     },
     async tabulate () {
         let beys = await DB.get('product', 'beys');
@@ -138,7 +137,7 @@ Object.assign(Finder, {
     },
     search: {
         parts () {
-            let regex = [...new O(Parts.bit.prefix).map(null, t => new RegExp(Object.values(t).join('|').replace(/ |\|(?!.)/g,''), 'i'))];
+            let regex = [...new O(PARTS.prefixes.bit).map(null, t => new RegExp(Object.values(t).join('|').replace(/ |\|(?!.)/g,''), 'i'))];
             let prefix = regex.filter(([,t]) => t.test(Finder.target.free)).map(([p]) => p);
             Finder.target.free = Object.values(regex).reduce((str, reg) => str.replace(reg, ''), Finder.target.free);
             Finder.target.parts = Finder.search.names(NAMES, Finder.target.free);
@@ -158,13 +157,12 @@ Object.assign(Finder, {
                 !/^[^一-龥]{1,2}(′|\\\+)?$/.test(typed) && Object.values(names).some(n => new RegExp(typed, 'i').test(Markup.sterilize(n)))
         ,
         beys (where) {
-            let divided = [...Finder.regexp.find(r => r.constructor.name == 'O') ?? []];
-            let regexps = Finder.regexp.filter(r => r.constructor.name == 'RegExp');
             Q('#regular.new') && Table.show.entire();
+            let {true: divided, false: regexps} = Object.groupBy(Finder.regexp, r => r.constructor.name == 'O');
             Table.rows().forEach(tr => tr.hidden = !(
                 Finder.target.free.length >= 2 && new RegExp(Finder.target.free, 'i').test(tr.firstChild.innerText) ||
-                regexps.some(r => r.test(tr.dataset.abbr)) || 
-                divided.some(([line, regex]) => tr.classList[0] == line && regex.test(tr.dataset.abbr)) ||
+                [...regexps ?? []].some(r => r.test(tr.dataset.abbr)) || 
+                [...divided?.[0] ?? []].some(([line, regex]) => tr.classList[0] == line && regex.test(tr.dataset.abbr)) ||
                 tr.dataset.more?.split(',').some(m => Finder.target.more.includes(m))
             ));
             Finder.state(true, where == 'form' && Finder.target.parts);

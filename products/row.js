@@ -20,7 +20,11 @@ class Blade extends AbsPart {
         if (this.sym == '/') return this.none();
         return this.sym.includes('.') ? 
             this.sym.split('.').flatMap((p, i) => new Blade(p, Blade.sub[i]).cells()) :
-            [this.abbr(this.sub == 'lower' ? this.sym : ''), E('td', {classList: 'left'}), E('td', {classList: `right${fusion ? ' fusion' : ''}`})];
+            [
+                this.abbr(this.sub == 'lower' ? this.sym : ''), 
+                E('td', {classList: 'left'}), 
+                E('td', {classList: `right${fusion ? ' fusion' : ''}`})
+            ];
     }
     static sub = ['motif', 'upper', 'lower'];
     static #UX;
@@ -59,7 +63,7 @@ class Row {
             bit.fusion ? [bit.cells(), bit.none(true)] : [ratchet.cells(), bit.cells()]
         ].flat(9), {
             hidden: this.hidden,
-            classList: [blade.line ?? '', type].join(' '),
+            classList: [blade.line ?? '', type],
             dataset: {abbr}
         });
         this.extra(extra ?? {});

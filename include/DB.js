@@ -175,8 +175,10 @@ Object.assign(DB.get, {
     }),
     async meta (comp, category) {
         let meta = await DB.get('meta', 'part');
-        meta = comp ? {...meta[comp][category], ...meta[comp]._} : meta.bit._;
-        let bit = !comp || comp == 'bit' ? {prefix: new KeysAsString(meta.prefix)} : {};
-        return {meta, bit, types: ['att', 'bal', 'def', 'sta']};
+        comp && (Parts.meta = {...meta[comp][category], ...meta[comp]._});
+        PARTS ??= {
+            types: ['att', 'bal', 'def', 'sta'],
+            prefixes: {bit: new KeysAsString(new O(meta.bit._.prefix).map(null, ({eng, jap}) => ({eng, jap})))}
+        };
     },
 });

@@ -97,11 +97,11 @@ const announce = news => [...new O(news)].forEach(([date, beys]) => {
             imgs.push(...[2,3,4,5,6,7,8].map(n => base + `${c}${color ? `_${color}` : ''}_0${n}@1.png`));
         }
         let div = E('div', [
-            E('h5', type? [E('ruby', {classList: `below ${type}`}, [E('img', {src: `/img/types.svg#${type}`}), E('rt', types[type])]), code] : code),
+            E('h5', type? [E('ruby', {classList: [`below`, type]}, [E('img', {src: `/img/types.svg#${type}`}), E('rt', types[type])]), code] : code),
             E('h4', name?.replaceAll('-', '‑').replaceAll('<br>', String.fromCharCode(10))), 
             ...imgs.map(src => E('figure', [E('a', '🖼️', {href: src}), E('img', {src})])), 
             ...([desc ?? []].flat()).map(d => E('p', {innerHTML: d.replaceAll('-', '‑')}))
-        ], {classList: `scroller ${cl || announce.colors.find(code)}`});
+        ], {classList: [`scroller`, cl || announce.colors.find(code)]});
 
         Q('#products').appendChild(div);
     });

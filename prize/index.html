@@ -43,7 +43,7 @@
 class Keihin {
     constructor({type, note, link, date, code, bey, ver, img}, NAMES) {
         let [blade, ...others] = bey.split(' ');
-        NAMES = {
+        let names = {
             jap: Keihin.naming(blade, NAMES, 'jap'),
             chi: Keihin.naming(blade, NAMES, 'chi'),
         };
@@ -53,12 +53,15 @@ class Keihin {
                 E('figure', [E('img', {src: img[0], style: img[1]})]), 
                 E('h5', [
                     code ? E('span', code, {classList: 'code'}) : '', 
-                    E('span', NAMES.jap), 
+                    E('span', names.jap), 
                     ` ${others}`.replace('-', '‑'), 
                     E('small', {innerHTML: ver[0]})
                 ]),
             ]),
-            E('i', [NAMES.chi.replace(' ', '⬧').replaceAll('\\', '') + ` ${NAMES.chi ? others : ''}`.replace('-', '‑') || '　', E('small', ver[1])]),
+            E('i', [
+                names.chi.replace(' ', '⬧').replaceAll('\\', '') + ` ${names.chi ? others : ''}`.replace('-', '‑') || '　', 
+                E('small', ver[1])
+            ]),
             E('time', date.replace('-','‒'))
         ]);
     }
@@ -68,7 +71,7 @@ class Keihin {
     static type = {t: '比賽', d: '抽獎', m: '限定商品', g: '贈品'}
     static all = []
 }
-Q('nav div').append(...Object.keys(Keihin.type).map(t => E('label', [E('input', {type: 'checkbox', id: `keihin-${t}`, checked: true})])));
+Q('nav div').append(...E.checkboxes(Object.keys(Keihin.type).map(t => ({id: `keihin-${t}`, checked: true}) )));
 Q('nav input', (input, _, inputs) => input.onchange = () => {
     let show = [...inputs].filter(i => i.checked).map(i => i.id);
     Keihin.all.forEach(k => k.hidden = !show.includes(k.classList[0]));

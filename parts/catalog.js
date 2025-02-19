@@ -1,8 +1,9 @@
+let PARTS, Parts = {};
 class Part {
-    constructor(dict, line) {
+    constructor(dict, key) {
         dict.key && ([dict.abbr, dict.comp] = dict.key.split('.'));
-        line &&= dict.comp == 'blade' ? /.X$/.exec(line)?.[0] : null;
-        Object.assign(this, {...dict, ...line ? {line: `${line}-${dict.group}`} : {}});
+        key &&= dict.comp == 'blade' ? /.X$/.exec(key)?.[0] : null;
+        Object.assign(this, {...dict, line: key});
     }
     async revise(bits) {
         if (this.comp == 'ratchet') {
@@ -11,8 +12,7 @@ class Part {
         }
         if (this.comp != 'bit' || this.names)
             return this;
-        Parts.bit?.prefix ?? Object.assign(Parts, await DB.get.meta());
-        let [, pref, ref] = new RegExp(`^([${Parts.bit.prefix}]+)([^a-z].*)$`).exec(this.abbr);
+        let [, pref, ref] = new RegExp(`^([${PARTS.prefixes.bit}]+)([^a-z].*)$`).exec(this.abbr);
         ref = bits ? bits.find(p => p.abbr == ref) : await DB.get('bit', this.strip());
         this.#revise.name(ref, pref);
         this.#revise.attr(ref, pref);
@@ -24,35 +24,35 @@ class Part {
         name: (ref, pref) => this.names = Part.revise.name(ref, pref),
         attr: (ref, pref) => [this.group, this.attr] = [ref.group, [...this.attr ?? [], ...ref.attr, ...pref]],
         stat: ref => this.stat.length === 1 && this.stat.push(...ref.stat.slice(1)),
-        desc: (ref, pref) => this.desc = [...pref].map(p => Parts.bit.prefix[p].desc).join('、') + `的【${ref.abbr}】bit${this.desc ? `，${this.desc}` : '。'}`,
+        desc: (ref, pref) => this.desc = [...pref].map(p => PARTS.prefixes.bit[p].desc).join('、') + `的【${ref.abbr}】bit${this.desc ? `，${this.desc}` : '。'}`,
         group: () => this.group = [...new O(Parts.meta.height)].find(([_, dmm]) => this.abbr.split('-')[1] >= dmm)[0]
     }
     static revise = {
-        name: (ref, pref) => new O(ref?.names ?? ref).prepend(...[...pref].reverse().map(p => Parts.bit.prefix[p])),
+        name: (ref, pref) => new O(ref?.names ?? ref).prepend(...[...pref].reverse().map(p => PARTS.prefixes.bit[p])),
     }
     
     strip = what => this.comp == 'bit' ? Part.strip(this.abbr, what) : this.abbr;
-    static strip = (abbr, what) => abbr.replace(what == 'dash' ? '′' : new RegExp(`^[${Parts.bit.prefix}]+(?=[^′a-z])|′`, what == 'prefORdash' ? '' : 'g'), '');
+    static strip = (abbr, what) => abbr.replace(what == 'dash' ? '′' : new RegExp(`^[${PARTS.prefixes.bit}]+(?=[^′a-z])|′`, what == 'prefORdash' ? '' : 'g'), '');
 
     prepare() {
         this.a = Q('.catalog').appendChild(E('a', {hidden: true}));
         return this;
     }
     async catalog(show) {
-        location.pathname == '/products/' && (Parts = await DB.get.meta(this.comp));
+        location.pathname == '/products/' && await DB.get.meta(this.comp);
         let {abbr, comp, group, attr, for: For} = await this.revise();
         this.catalog.part = this.catalog.html.part = this;
 
         this.a ??= Q('.catalog').appendChild(E('a'));
-        this.a.append(...this.catalog.html());
-        Object.assign(this.a, {
+        new E.prop(this.catalog.html(), {
             id: abbr,
-            className: [comp, group, ...(attr ?? [])].filter(c => c).join(' '),
+            classList: [comp, group, ...(attr ?? [])],
             hidden: !show,
             for: For,
-        });
+        }).apply(this.a);
+
         let query = new O(this.line ? 
-            {line: this.line.split('-')[0],[group]: abbr} : 
+            {line: this.line, [group]: abbr} : 
             {[comp]: abbr}
         );
         location.pathname == '/parts/' && (this.a.href = `/products/?${query.url()}`);
@@ -60,12 +60,13 @@ class Part {
         return this;
     }
 }
-
 Part.prototype.catalog.html = function() {
     Q('#triangle') || Part.triangle();
+    let {comp, line, group, abbr} = this.part;
+    let path = [comp, line ? `${line}-${group}` : '', abbr].filter(p => p).join('/');
     return [
         E('object', {data: this.html.background()}),
-        E('figure', [E('img', {src: `/img/${[this.part.comp, this.part.line, this.part.abbr].filter(p => p).join('/')}.png`})]),
+        E('figure', [E('img', {src: `/img/${path}.png`})]),
         ...this.part.stat ? this.html.stat() : [],
         ...this.html.names(),
         E('p', this.part.desc ?? ''),
@@ -77,16 +78,19 @@ Part.prototype.catalog.html = function() {
 Object.assign(Part.prototype.catalog.html, {
     background () {
         let {comp, attr} = this.part;
-        let spin = attr?.includes('left') ? '&left' : attr?.includes('right') ? '&right' : '';
-        return `/parts/bg.svg?hue=${getComputedStyle(document.querySelector(`.${comp.match(/^[^0-9]+/)}`)).getPropertyValue('--c')}${spin}`;
+        let param = [
+            ['hue', getComputedStyle(document.querySelector(`.${comp.match(/^[^0-9]+/)}`)).getPropertyValue('--c')],
+            [attr?.find(a => a == 'left' || a == 'right') ?? '', '']
+        ];
+        return `/parts/bg.svg?${new URLSearchParams(param).toString()}`;
     },
     icons () {
-        let {abbr, group, attr} = this.part;
-        let icons = new Mapping('left', '\ue01d', 'right', '\ue01e', /^.{3}$/, t => [E('img', {src: `/img/types.svg#${t}`})]);
-        return E('ul', [
-            /X$/.test(group) ? E('li', [E('img', {src: `/img/lines.svg#${group}`})]) : '', 
-            group == 'remake' ? E('li', [E('img', {src: `/img/system-${/^D..$/.test(abbr) ? 'BSB' : /\d$/.test(abbr) ? 'BBB' : 'MFB'}.png`})]) : '', 
-            ...(attr ?? []).map(a => E('li', icons.find(a, true))), 
+        let {abbr, line, group, attr} = this.part;
+        let icons = new Mapping('left', '\ue01d', 'right', '\ue01e', /^(?:att|def|sta|bal)$/, t => [E('img', {src: `/img/types.svg#${t}`})]);
+        return E.ul([
+            (line || /.X$/.test(group)) && [E('img', {src: `/img/lines.svg#${line ?? group}`})], 
+            group == 'remake' && [E('img', {src: `/img/system-${/^D..$/.test(abbr) ? 'BSB' : /\d$/.test(abbr) ? 'BBB' : 'MFB'}.png`})], 
+            ...(attr ?? []).map(a => icons.find(a, true))
         ]);
     },
     names () {
@@ -94,7 +98,7 @@ Object.assign(Part.prototype.catalog.html, {
         names ??= {};
         names.chi = (names.chi ?? '').split(' ');
         let children = comp != 'blade' ? 
-            [E('h4', abbr.replace('-', '‒')), ...['jap','eng'].map(l => E('h5', names[l], {classList: l}))] : 
+            [E('h4', abbr.replace('-', '‒')), ...['jap','eng'].map(l => E('h5', names[l] || '', {classList: l}))] : 
             [
                 Part.chi(abbr, names.chi[0]),
                 Part.chi(abbr, names.chi[1] ?? ''),
@@ -108,15 +112,14 @@ Object.assign(Part.prototype.catalog.html, {
         comp == 'ratchet' && stat[0] && stat.push(...abbr.split('-'));
         return [
             E('strong', limited ? 'L' : ''),
-            E('dl', stat.flatMap((s, i) => [
-                E('dt', Parts.meta.terms[i].replace(/(?<=[A-Z])(?=[一-龢])/, `
-`)), 
-                E('dd', {innerHTML: `${s}`.replace(/[+\-=]/, '<sup>$&</sup>').replace('-','−').replace('=','≈')})
+            E.dl(stat.map((s, i) => [
+                Parts.meta.terms[i].replace(/(?<=[A-Z])(?=[一-龢])/, `
+`),             {innerHTML: `${s}`.replace(/[+\-=]/, '<sup>$&</sup>').replace('-','−').replace('=','≈')}
             ]))
         ];
     },
     buttons () {
-        let div = E('div', Parts.types.map(t => E('svg', [E('use')], {classList: t})))
+        let div = E('div', PARTS.types.map(t => E('svg', [E('use')], {classList: t})))
         div.Q('svg', svg => svg.setAttribute('viewBox', '-10 -10 20 10'));
         div.Q('use', use => use.setAttribute('href', '#triangle'));
         return div;

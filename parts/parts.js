@@ -1,10 +1,10 @@
-let Parts = {
+Parts = {
     list: () => Parts.firstly().then(Parts.listing).then(Parts.finally),
     catalog: () => Parts.firstly().then(Parts.before).then(Parts.cataloging).then(Parts.after).then(Parts.finally),
     count: () => Q('.part-result').value = document.querySelectorAll('.catalog>a:not([id^="+"]):not([hidden])').length,
 
     async firstly () {
-        Object.assign(Parts, await DB.get.meta(Parts.comp, Parts.category));
+        await DB.get.meta(Parts.comp, Parts.category);
         Magnifier();
     },
     before () {
@@ -27,20 +27,20 @@ let Parts = {
     after () {
         let hash = decodeURI(location.hash.substring(1));
         let target = hash && Q(`a#${hash}`);
-        Parts.switch([target?.classList?.[1] || hash || Parts.meta.default].flat(), target);
+        Parts.switch(target?.classList?.[1] || hash, target);
         Q(`#${Storage('pref')?.sort || 'name'}`).click();
     },
     finally () {
         Q('.loading').classList.remove('loading');
     },
-    async switch (groups, keep) {
-        Q(`dl[title=group] input[id]`, input => input.checked = groups.includes(input.id));
-        await Filter.filter();
+    switch (groups, keep) {
+        groups && Q(`dl[title=group] input[id]`, input => input.checked = groups.includes(input.id));
+        Filter.filter();
         if (keep === false) return;
         keep === true ? (location.hash = groups[0]) : location.hash && Parts.focus();
-        document.title = document.title.replace(/^.*?(?= ￨ )/, Parts.meta.title?.[groups] ?? Parts.meta.title);
-        Q('details article').innerHTML = typeof Parts.meta.info == 'string' ? Parts.meta.info : Parts.meta.info?.[groups] ?? '';
-        Q('details').hidden = !Q('details article').innerHTML;
+        document.title = document.title.replace(/^.*?(?= ■ )/, Parts.meta.title?.[groups] ?? Parts.meta.title ?? '');
+        let info = typeof Parts.meta.info == 'string' ? Parts.meta.info : Parts.meta.info?.[groups] ?? '';
+        Q('details').hidden = !(Q('details article').innerHTML = info);
     },
     focus () {
         Q('.target')?.classList.remove('target');
@@ -60,11 +60,11 @@ const Magnifier = () => {
 Object.assign(Magnifier, {
     create: () => E('div', {classList: 'part-mag'}, [
         E('spin-knob', {classList: 'no-data'}, [E('input', {type: 'range', min: .75, max: 2, step: 'any'}), E('i', '')]),
-        ...[1,2,3].map(n => E('label', [E('input', {id: `mag${n}`, type: 'radio', name: 'mag'})]))
+        ...E.radios([1,2,3].map(n => ({id: `mag${n}`, name: 'mag'}) ))
     ]),
     events () {
         Q('.part-mag').onchange = ({target: input}) => input.checked && Storage('pref', {button: input.id});
-        Magnifier.knob.onchange = ev => ev && (Q('.catalog').style.fontSize = `${ev.target.value}em`) && Storage('pref', {knob: ev.target.value});
+        Magnifier.knob.onchange = ev => ev && [Q('.catalog').style.fontSize = `${ev.target.value}em`, Storage('pref', {knob: ev.target.value})];
         setTimeout((onresize = Magnifier.switch));
     },
     switch: () => Q('.catalog').style.fontSize = innerWidth > 630 ? (Magnifier.knob.value = Storage('pref')?.knob || '1') + 'em' : ''
@@ -77,22 +77,20 @@ const Filter = function(type) {
 };
 Object.assign(Filter.prototype, {
     create (type) {
-        let [dtText, inputs] = Filter.args[this.type = type]();
-        this.dl = E('dl', 
-            {title: type, classList: `part-filter ${type == 'group' ? Parts.comp : ''}`}, 
-            [E('dt', dtText), ...inputs.map(i => E('dd', [E('label', [E('input', {type: 'checkbox', id: i.id}), i.text])] ))]
-        );
+        let dl = new O(Filter.dl[this.type = type]())
+            .map(null, inputs => E.checkboxes(inputs.map(i => new E.prop(i.label, {id: i.id, checked: i.checked ?? true}) )));
+        this.dl = E.dl(dl, {title: type, classList: [`part-filter`, type == 'group' ? Parts.comp : '']});
         this.inputs = [...this.dl.querySelectorAll('input')];
         type != 'group' && this.inputs.forEach(input => input.checked = true);
         return this;
     },
     events () {
-        this.dl.Q('dt').onclick = async () => {
-            if (this.type == 'group' && !Parts.meta.multiple) return;
+        this.dl.Q('dt').onclick = () => {
+            if (this.type == 'group' && Parts.meta.multiple === false) return;
             this.inputs.forEach(input => input.checked = true);
-            await Filter.filter(this.type == 'group');
+            Filter.filter(this.type == 'group');
         }
-        this.dl.onchange = async ({target: input}) => {
+        this.dl.onchange = ({target: input}) => {
             this.inputs.forEach(i => i.checked = i == input);
             this.type == 'group' ? Parts.switch([input.id]) : Filter.filter(this.type == 'group');
         };
@@ -100,13 +98,13 @@ Object.assign(Filter.prototype, {
     }
 });
 Object.assign(Filter, {
-    args: {
-        group:  () => [Parts.category, Parts.meta.groups.map((g, i) => ({id: g, text: Parts.meta.labels?.[i] || g.replace(Parts.comp, '')}) )],
-        type:   () => ['類型', Parts.types.map(t => ({id: t, text: E('img', {src: `/img/types.svg#${t}`})}) )],
-        spin:   () => ['迴轉', ['left','right'].map((s, i) => ({id: s, text: ['\ue01d','\ue01e'][i]}) )],
-        prefix: () => ['變化', [{id: '–', text: '–'}, ...[...new O(Parts.meta.variety)].map(([text, id]) => ({id, text})) ]],
+    dl: {
+        group:  () => ({[Parts.category]: [...new O(Parts.meta.group)].map(([id, {label, checked}]) => ({id, label, checked})) }),
+        type:   () => ({類型: PARTS.types.map(t => ({id: t, label: E('img', {src: `/img/types.svg#${t}`})}) )}),
+        spin:   () => ({迴轉: ['left','right'].map((s, i) => ({id: s, label: ['\ue01d','\ue01e'][i]}) )}),
+        prefix: () => ({變化: [{id: '–', label: '–'}, ...[...new O(Parts.meta.variety)].map(([label, id]) => ({id, label}))] }),
     },
-    filter: async group => {
+    filter (group) {
         let show = Q('.part-filter[title]:not([hidden])', [])
             .filter(dl => Q('#motif')?.checked ? dl.title != 'type' : dl)
             .map(dl => `:is(${dl.Q('input:checked', []).map(input => input.id == '–' ? Filter.normal() : Filter.multiple(input.id))})`)
@@ -114,14 +112,14 @@ Object.assign(Filter, {
         Q('.catalog>a[class]', a => a.hidden = !a.matches(show));
         Parts.count(group);
     },
-    normal: () => `:not(${[...`${Parts.bit.prefix}`].map(p => `[class~=${p}]`)})`,
+    normal: () => `:not(${[...`${PARTS.prefixes.bit}`].map(p => `[class~=${p}]`)})`,
     multiple: id => id.includes(',') ? id.split(',').map(id => `.${id}`).join() : `.${id}`
 });
 const Sorter = () => {
     let inputs = [['name', '\ue034'], /*['rank', '\ue037'],*/ ['weight', '\ue036'], ['time', '\ue035']];
-    let dl = E('dl', 
-        {classList: `part-sorter`}, 
-        [E('dt', '排序'), ...inputs.map( i => E('dd', [E('label', [E('input', {type: 'radio', name: 'sort', id: i[0]}), i[1]])]) )]
+    let dl = E.dl(
+        {排序: E.radios(inputs.map(([id, icon]) => new E.prop(icon, {name: 'sort', id}) ))}, 
+        {classList: `part-sorter`}
     );
     dl.onchange = ({target: input}) => {
         Q('.catalog').append(...Parts.all.sort(Sorter.sort[input.id]).map(p => p.a));

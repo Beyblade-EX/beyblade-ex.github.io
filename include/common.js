@@ -1,4 +1,4 @@
-Q = Node.prototype.Q = function(el, func) {
+const Q = Node.prototype.Q = function(el, func) {
     let els = this.querySelectorAll?.(el) ?? document.querySelectorAll(el);
     return typeof func == 'function' ? els.forEach(func) : Array.isArray(func) || els.length > 1 ? [...els] : els[0];
 }
@@ -47,15 +47,51 @@ addEventListener('DOMContentLoaded', () => {
     Q('[popover]')?.addEventListener('click', ev => ev.target.closest('[popover]').hidePopover());
 });
 const E = (el, ...stuff) => {
-    let [text, attr, children] = ['String', 'Object', 'Array'].map(t => stuff.find(s => Object.prototype.toString.call(s).includes(t)));
-    text && (attr = {textContent: text, ...attr ?? {}});
-    el == 'img' && (attr &&= {alt: attr.src.match(/([^/.]+)(\.[^/.]+)$/)?.[1], onerror: ev => ev.target.remove(), ...attr ?? {}});
+    stuff = E.prop.already(...stuff);
+    el == 'img' && stuff.assign({alt: stuff.src?.match(/([^/.]+)(\.[^/.]+)$/)?.[1], onerror: ev => ev.target.remove()});
     el = ['svg', 'use', 'path'].includes(el) ? document.createElementNS('http://www.w3.org/2000/svg', el) : document.createElement(el);
-    el.append(...children ?? []);
-    Object.assign(el.style, attr?.style ?? {});
-    Object.assign(el.dataset, attr?.dataset ?? {});
-    return Object.assign(el, (({style, dataset, ...attr}) => attr)(attr ?? {}));
+    return stuff.apply(el);
 }
+E.prop = class extends Array {
+    constructor(...stuff) {
+        let {true: objs, false: others} = Object.groupBy(stuff, s => Object.prototype.toString.call(s).includes('Object'));
+        super(...(others ?? []).flat(9));
+        this.assign(...objs ?? []);
+        return new Proxy(this, this);
+    }
+    get (_, prop) {
+        let value = this[prop];
+        if (E.prop.nested.includes(prop)) delete this[prop];
+        return value;
+    }
+    assign (...objs) {
+        return Object.assign(this, ...objs);
+    }
+    apply (el) {
+        el.append(...this);
+        E.prop.nested.forEach(attr => Object.assign(el[attr], this[attr] ?? {}));
+        Array.isArray(this.classList) && (this.classList = this.classList.filter(c => c).join(' '));
+        return Object.assign(el, {...this});
+    }
+    static nested = ['dataset', 'style'];
+    static already (...stuff) {
+        let {true: already, false: others} = Object.groupBy(stuff, s => s instanceof E.prop);
+        return already ? already[0].assign(...others ?? []) : new E.prop(...stuff);
+    }
+}
+Object.assign(E, {
+    ul: lis => E('ul', lis.filter(li => li).map(li => E('li', li))),
+    dl: (obj, attr = {}) => E('dl', attr, [...new O(obj)].flatMap(([dt, dds]) => [E('dt', dt), ...[dds].flat().map(dd => E('dd', dd instanceof HTMLElement ? [dd] : dd))])),
+    
+    input: (...stuff) => (prop => E('label', [E('input', {...prop}), ...prop]))(E.prop.already(...stuff)),
+    inputs: contents => contents.map(content => E.input(content)),
+
+    radio: (...stuff) => E.input(...stuff, {type: 'radio'}),
+    radios: contents => contents.map(content => E.radio(content)),
+    
+    checkbox: (...stuff) => E.input(...stuff, {type: 'checkbox'}),
+    checkboxes: contents => contents.map(content => E.checkbox(content)),
+});
 const Storage = (key, obj) => !obj ? 
     JSON.parse(localStorage[key] ?? 'null') : 
     localStorage[key] = typeof obj == 'object' ? JSON.stringify({...Storage(key), ...obj}) : obj;
@@ -102,26 +138,23 @@ class O {
         for (let i = 0; i < content.length; i++)
             yield content[i];
     }
-}
-Object.defineProperties(O.prototype, {
-    url: {
-        value: function() {return new URLSearchParams([...this]).toString();}
-    },
-    map: {
-        value: function(...transforms) {return new O(Object.fromEntries([...this].map(
+    url () {
+        return new URLSearchParams([...this]).toString();
+    }
+    map (...transforms) {
+        return new O(Object.fromEntries([...this].map(
             transforms.length === 1 ? transforms[0] : ([k, v]) => [transforms[0]?.(k) || k, transforms[1]?.(v) || v]
-        )));}
-    },
-    filter: {
-        value: function(filter) {return new O(Object.fromEntries([...this].filter(filter)));}
-    },
-    prepend: {
-        value: function(...objs) {
-            return objs.reduce((summed, o) => new O(summed).map(([k, v]) => [k, (o[k] ?? '') + v]), this);
-        }
-    },
-});
-const Markup = (text, location) => Markup.items[location].reduce((text, [before, after]) => text.replace(before, after), text);
+        )));
+    }
+    filter (filter) {
+        return new O(Object.fromEntries([...this].filter(filter)));
+    }
+    prepend (...objs) {
+        return objs.reduce((summed, o) => new O(summed).map(([k, v]) => [k, (o[k] ?? '') + v]), this);
+    }
+}
+
+const Markup = (text, location) => text && Markup.items[location].reduce((text, [before, after]) => text.replace(before, after), text);
 Markup.items = [
     [/_([^ ]{4,})/g, '<sub class=long>$1</sub>'],
     [/_([^ ]+)/g, '<sub>$1</sub>'],
