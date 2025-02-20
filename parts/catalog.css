@@ -160,6 +160,20 @@ a ul {
         }
     }
 }
+a.hall::after {
+    content:'\e04d';
+    font-size: 1.2em;
+    grid-area:1/1/2/2;
+    z-index:1;
+    margin:-.1em 0 0 -.1em;
+}
+a.hall::before{
+    content: '';
+    background: gray;
+    width: 6em; height: 3em;
+    transform: rotate(-45deg);
+    position: absolute; left: -2em; top: -1em;
+}
 a.CX.motif ul::before {
     content: '';
     width: 1.4em;

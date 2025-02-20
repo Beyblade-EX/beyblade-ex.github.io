@@ -195,7 +195,7 @@
         },
         "stat": ["35+"],
         "desc": "外重心又大徑幅的五枚刃形狀，專門産生離心力。",
-        "attr": ["sta","right"]
+        "attr": ["sta","right","hall"]
     },
     "HlHm": {
         "group": "UX",
