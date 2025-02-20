@@ -31,8 +31,16 @@ customElements.define('db-status', class extends HTMLElement {
     connectedCallback() {
         DB.indicator = this;
         Q('link[href$="common.css"]') && addEventListener('DOMContentLoaded', () => 
-            DB.open().then(Function('', this.getAttribute('callback')))
-            .catch(er => [console.error(er), (DB.errors ??= 0)++ <= 2 && location.reload()])
+            DB.replace('V2','V3')
+            //DB.open('V2')
+            .then(Function('', this.getAttribute('callback')))
+            .then(() => Storage('error', 0))
+            .catch(er => {
+                this.error();
+                console.error(...[er].flat());
+                //let error = Storage('error') ?? 0;
+                //error < 2 && Storage('error', error += 1) && location.reload();
+            })
         );
     }
     attributeChangedCallback(_, __, value) {
@@ -62,110 +70,115 @@ customElements.define('db-status', class extends HTMLElement {
 });
 
 const DB = {
-    components: ['bit','ratchet','blade','blade-CX'],
-    current: 'V2',
-    discard: (ver = DB.current, handler) => DB.transfer.out().then(() => new Promise(res => {
-        ver == DB.current && DB.db?.close();
-        Object.assign(indexedDB.deleteDatabase(ver), {        
-            onsuccess: () => res(ver == DB.current && (DB.db = null)),
-            onblocked: handler ?? console.error
-        });
-    })),
+    replace: (before, after) => indexedDB.databases()
+        .then(dbs => dbs.find(db => db.name == before) ? 
+            new Promise(res => indexedDB.open(before).onsuccess = res).then(ev => DB.discard(ev.target.result)): 
+            Promise.resolve()
+        ).then(() => DB.open(after))
+    ,
+    discard: (db, handler) => (DB.db = db) && DB.transfer.out()
+        .then(() => new Promise(res => {
+            DB.db.close();
+            Object.assign(indexedDB.deleteDatabase(db.name), {        
+                onsuccess: () => res(DB.db = null),
+                onblocked: handler ?? console.error
+            });
+        }))
+    ,
     transfer: {
-        out: () => DB.get.all('user').then(data => sessionStorage.setItem('user', JSON.stringify(data))),
-        in: () => DB.put('user', JSON.parse(sessionStorage.getItem('user') ?? '[]').map(item => ({[Array.isArray(item) ? '#deck' : '#tier'] : item})))
+        out: () => DB.get.all('user').then(data => sessionStorage.setItem('user', JSON.stringify(data))).catch(() => {}),
+        in: () => DB.put('user', JSON.parse(sessionStorage.getItem('user') ?? '[]').map((item, i) => ({[`sheet-${i+1}`] : item})))
     },
-    open: () => DB.db ? true : 
-        new Promise(res => Object.assign(indexedDB.open(DB.current, 2), {onsuccess: res, onupgradeneeded: res}))
-        .then(ev => ev.type == 'success' ? DB.check(ev.target) : DB.setup(ev.target, ev.oldVersion))
-        .then(DB.cache).catch(er => DB.indicator.error(er) ?? console.error(er)),
+    components: ['bit','ratchet','blade','blade-CX'],
 
-    async setup ({result, transaction}, ver) {
-        DB.db = result;
-        if (ver === 1) 
-            DB.db.createObjectStore(`.blade-CX`, {keyPath: 'abbr'}).createIndex('group', 'group');
-        else {
-            ['product','meta','user'].map(s => DB.db.createObjectStore(s));
-            DB.components.map(s => DB.db.createObjectStore(`.${s}`, {keyPath: 'abbr'}).createIndex('group', 'group'));
-        }
-        await new Promise(res => transaction.oncomplete = res);
-        DB.transfer.in();
-        DB.updates(true);
+    open: (ver) => DB.db ? Promise.resolve() : 
+        new Promise(res => Object.assign(indexedDB.open(ver, 1), {onsuccess: res, onupgradeneeded: res}))
+        .then(ev => {
+            DB.db = ev.target.result;
+            let home = location.pathname == '/';
+            return ev.type == 'success' ? 
+                DB.fetch.updates({fresh: false, home}) : 
+                DB.setup(ev.target).then(DB.transfer.in).then(() => DB.fetch.updates({fresh: true, home}));
+        }).then(DB.cache)
+    ,
+    setup ({transaction}) {
+        ['product','meta','user'].map(s => DB.db.createObjectStore(s));
+        DB.components.map(s => DB.db.createObjectStore(s.toUpperCase(), {keyPath: 'abbr'}).createIndex('group', 'group'));
+        return new Promise(res => transaction.oncomplete = res);
     },
-    check ({result}) {
-        DB.db = result;        
-        return DB.updates(false);
+    fetch: {
+        updates: ({fresh, home}) => fresh && !home ||
+            fetch(`/db/-update.json`).catch(() => DB.indicator.setAttribute('status', 'offline'))
+            .then(resp => resp.json())
+            .then(({news, ...files}) => (home && announce(news), fresh || DB.filter.outdated(files)))
+        ,
+        files: files => Promise.all(files.map(file => 
+                fetch(`/db/${file}.json`)
+                .then(resp => Promise.all([file, resp.json(), /^part-/.test(file) && DB.clear(file) ]))
+            )).then(arr => arr.map(([file, json]) => //in one transaction
+                (DB.actions[file] || DB.put.parts)(json, file)
+                .then(() => console.log(`Updated '${file}'`) ?? Storage('DB', {[file]: Math.round(new Date() / 1000)} ))
+                .catch(er => console.error(file, er))
+            ))
     },
-    updates (fresh) {
-        if (location.pathname != '/' && fresh) return null;
-        let compare = files => [...new O(files)].filter(([file, time]) => new Date(time) / 1000 > (Storage('DB')?.[file] || 0)).map(([file]) => file);
-        return fetch(`/db/-update.json`).catch(() => DB.indicator.setAttribute('status', 'offline'))
-        .then(resp => resp.json()).then(({news, ...files}) => {
-            location.pathname == '/' && announce(news);
-            return fresh ? null : compare(files);
-        });
+    filter: {
+        outdated: files => [...new O(files)].filter(([file, time]) => new Date(time) / 1000 > (Storage('DB')?.[file] || 0)).map(([file]) => file),
     },
-    cache (outdated) {
-        if (outdated && !outdated.length) return DB.indicator.hidden = true;
-        DB.indicator.init(outdated);
-        outdated = Object.keys(DB.action).filter(f => outdated?.some(p => p.includes(f)) ?? true);
-        return DB.fetch(outdated).then(() => DB.indicator.update(true)).catch(() => DB.indicator.error());
+    cache (files) {
+        if (Array.isArray(files) && !files.length) 
+            return DB.indicator.hidden = true;
+        DB.indicator.init(files);
+        files = Object.keys(DB.actions).filter(f => files === true ? true : files.includes(f));
+        return DB.fetch.files(files).then(() => DB.indicator.update(true));
     },
-    action: {
-        'part-blade': (...args) => DB.put.parts(...args),
-        'part-blade-CX': (...args) => DB.put.parts(...args),
-        'part-ratchet': (...args) => DB.put.parts(...args),
-        'part-bit': (...args) => DB.put.parts(...args),
+    actions: {
+        'part-blade': '', 'part-blade-CX': '', 'part-ratchet': '', 'part-bit': '',
         'part-meta': (json) => DB.put('meta', {part: json}),
         'prod-launchers': (json) => DB.put('product', {launchers: json}),
         'prod-others': (json) => DB.put('product', {others: json}),
         'prod-beys': (beys) => DB.put('product', [{beys}, {schedule: beys.filter(bey => bey[1].includes('BXG') || !bey[1].includes('H')).map(bey => bey[2].split(' '))}]),
     },
-    fetch: files => Promise.all(files.map(file => 
-            fetch(`/db/${file}.json`).then(resp => Promise.all([file, resp.json(), DB.clear(file.match(/[^-]+$/)[0]) ]))
-        )).then(ar => ar.map(([file, json]) => 
-            DB.action[file](json, file).then(() => Storage('DB', {[file]: Math.round(new Date() / 1000)} ))
-        )).catch(er => (console.error(file), console.error(er))),
 
-    trans: (store) => DB.tr?.objectStoreNames.contains(store) ? DB.tr : 
-        DB.tr = Object.assign(DB.db.transaction(store, 'readwrite'), {oncomplete: () => DB.tr = null}),
+    trans: (store) => DB.tr = Object.assign(DB.db.transaction(DB.store.format(store), 'readwrite')),
 
-    store: (...args) => DB.trans(...args).objectStore(args[0]),
+    store: (store) => (s => DB.trans(s).objectStore(s))(DB.store.format(store)),
 
     get: (store, key) => {
         !key && ([store, key] = store.split('.').reverse());
-        let part = DB.components.includes(store);
-        /^.X$/.test(store) && (part = true) && (store = `blade-${store}`);
+        /^.X$/.test(store) && (store = `blade-${store}`);
         store == 'user' && (DB.tr = null);
-        return new Promise(res => DB.store(part ? `.${store}` : store).get(key)
-            .onsuccess = ev => res(part ? {...ev.target.result, comp: store.split('-')[0]} : ev.target.result));
+        return new Promise(res => 
+            DB.store(store).get(key).onsuccess = ({target: {result}}) => res(result.abbr ? {...result, comp: store.split('-')[0]} : result));
     },
     put: (store, items, callback) => items && new Promise(res => {
         store == 'meta' && (DB.tr = null);
         if (!Array.isArray(items))
             return DB.store(store).put(...items.abbr ? [items] : [...new O(items)][0].reverse()).onsuccess = () => res(callback?.());
         DB.trans(store);
-        Promise.all(items.map(item => DB.put(store, item, callback))).then(res).catch(er => (console.error(store), console.error(er)));
+        return Promise.all(items.map(item => DB.put(store, item, callback))).then(res).catch(er => console.error(store, er));
     }),
-    clear: (store) => new Promise(res => DB.store(DB.components.includes(store) ? `.${store}` : store).clear()
-            .onsuccess = () => res(Storage('DB', {[`part-${store}`]: null}))
-        ).catch(() => {})
+    clear: file => new Promise(res => DB.store(file).clear().onsuccess = () => res(Storage('DB', {[file]: null})))
+}
+DB.store.format = store => {
+    if (Array.isArray(store)) return store.map(DB.store.format);
+    store = store.replace('part-', '');
+    return DB.components.includes(store) ? store.toUpperCase() : store;
 }
 Object.assign(DB.put, {
-    parts: (parts, file) => DB.put(file.replace('part-', '.'), [...new O(parts)].map(([abbr, part]) => ({...part, abbr}) ), () => DB.indicator.update()),
+    parts: (parts, file) => DB.put(file, [...new O(parts)].map(([abbr, part]) => ({...part, abbr}) ), () => DB.indicator.update()),
 });
 Object.assign(DB.get, {
     all: store => {
-        let comp = /(blade|ratchet|bit)/.exec(store)[0];
-        return new Promise(res => DB.store(comp && !store.includes('.') ? `.${store}` : store).getAll()
+        let comp = /(blade|ratchet|bit)/.exec(store)?.[0];
+        return new Promise(res => DB.store(store).getAll()
             .onsuccess = ev => res(ev.target.result.map(p => comp ? {...p, comp} : p)));
     },
     parts (comps = DB.components, toNames) {
-        comps = [comps].flat().map(c => /^.X$/.test(c) ? `.blade-${c}` : `.${c}`);
+        comps = [comps].flat().map(c => /^.X$/.test(c) ? `blade-${c}` : c);
         DB.trans(comps);
         return comps.length === 1 && !toNames ? 
             DB.get.all(comps[0]) : 
-            Promise.all(comps.map(c => DB.get.all(c).then(parts => [c.replace('.', ''), parts]))).then(PARTS => toNames ? PARTS : new O(PARTS));
+            Promise.all(comps.map(c => DB.get.all(c).then(parts => [c, parts]))).then(PARTS => toNames ? PARTS : new O(PARTS));
     },
     names: (comps = DB.components) => DB.get.parts(comps, true).then(PARTS => {
         let NAMES = {};
