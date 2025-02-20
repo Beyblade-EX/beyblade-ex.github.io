@@ -4,6 +4,7 @@ const Table = () => {
     Table.el = Q('table');
     Table.count = Q('.prod-result');
     Table.lang = {chi: Q('#chi'), eng: Q('#eng'), jap: Q('#jap')};
+    Table.bilingual = 660;
     return Table.firstly().then(Table.tabulate).then(Table.finally);
 }
 Object.assign(Table, {
@@ -49,7 +50,7 @@ Object.assign(Table, {
         onresize = () => Table.flush();
     },
     flush () {
-        window.innerWidth > 660 ?
+        window.innerWidth > Table.bilingual ?
             Table.set.colspan(Table.lang.jap.checked ? 'jap' : 'both') : Table.set.colspan(Table.lang.eng.checked ? 'eng' : 'chi');
         $(Table.el).trigger('update', [false]);
     },
@@ -66,7 +67,7 @@ Object.assign(Table, {
             let colspan = {eng: [7, 1], jap: [1, 7], chi: [1, 7]}[lang] ?? [4, 4];
             Table.rows().forEach(tr => tr.children.length < 9 && new Cell(tr.children[1]).next2((td, i) => td.colSpan = colspan[i]))
             Table.el.classList.toggle('bilingual', lang == 'both');
-            Table.lang.eng.labels[0].hidden = lang == 'both';
+            Table.lang.eng.labels[0].hidden = window.innerWidth > Table.bilingual || lang == 'both';
         },    
     },
     reset () {

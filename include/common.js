@@ -49,8 +49,8 @@ Object.assign(E, {
 E.prop = class extends Array {
     constructor(...stuff) {
         let {true: objs, false: others} = Object.groupBy(stuff, s => Object.prototype.toString.call(s).includes('Object'));
-        super(...(others ?? []).flat(9));
-        this.assign(...objs ?? []);
+        super(...(others?.filter(o => o) ?? []).flat(9));
+        this.assign(...objs?.filter(o => o) ?? []);
         return new Proxy(this, this);
     }
     get (_, prop) {

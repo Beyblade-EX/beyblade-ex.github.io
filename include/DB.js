@@ -31,7 +31,8 @@ customElements.define('db-status', class extends HTMLElement {
     connectedCallback() {
         DB.indicator = this;
         Q('link[href$="common.css"]') && addEventListener('DOMContentLoaded', () => 
-            DB.open().then(Function('', this.getAttribute('callback'))).catch(er => (document.body.append(er), console.error(er)))
+            DB.open().then(Function('', this.getAttribute('callback')))
+            .catch(er => [console.error(er), (DB.errors ??= 0)++ <= 2 && location.reload()])
         );
     }
     attributeChangedCallback(_, __, value) {
@@ -79,7 +80,7 @@ const DB = {
         .then(ev => ev.type == 'success' ? DB.check(ev.target) : DB.setup(ev.target, ev.oldVersion))
         .then(DB.cache).catch(er => DB.indicator.error(er) ?? console.error(er)),
 
-    setup ({result, transaction}, ver) {
+    async setup ({result, transaction}, ver) {
         DB.db = result;
         if (ver === 1) 
             DB.db.createObjectStore(`.blade-CX`, {keyPath: 'abbr'}).createIndex('group', 'group');
@@ -87,7 +88,9 @@ const DB = {
             ['product','meta','user'].map(s => DB.db.createObjectStore(s));
             DB.components.map(s => DB.db.createObjectStore(`.${s}`, {keyPath: 'abbr'}).createIndex('group', 'group'));
         }
-        return new Promise(res => transaction.oncomplete = res).then(() => (DB.transfer.in(), DB.updates(true)));
+        await new Promise(res => transaction.oncomplete = res);
+        DB.transfer.in();
+        DB.updates(true);
     },
     check ({result}) {
         DB.db = result;        
