@@ -38,8 +38,8 @@ customElements.define('db-status', class extends HTMLElement {
             .catch(er => {
                 this.error();
                 console.error(...[er].flat());
-                //let error = Storage('error') ?? 0;
-                //error < 2 && Storage('error', error += 1) && location.reload();
+                let error = Storage('error') ?? 0;
+                error < 2 && Storage('error', error += 1) && location.reload();
             })
         );
     }
