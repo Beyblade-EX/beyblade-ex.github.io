@@ -13,27 +13,27 @@
     },
     "PR": {
         "group": "motif",
-        "names": {"jap": "ペルセウス", "eng": "Perseus", "chi": ""},
+        "names": {"jap": "ペルセウス", "eng": "Perseus", "chi": "英仙"},
         "stat": [],
         "attr": ["right","mfb"]
     },
     "Dr": {
         "group": "upper",
-        "names": {"jap": "ダーク","eng": "Dark","chi": "巫師 魔導"},
+        "names": {"jap": "ダーク","eng": "Dark","chi": "幽暗"},
         "stat": [""],
         "desc": "",
         "attr": ["def","right","mfb"]
     },
     "Ar": {
         "group": "upper",
-        "names": {"jap": "アーク","eng": "Arc","chi": ""},
+        "names": {"jap": "アーク","eng": "Arc","chi": "弧光"},
         "stat": [""],
         "desc": "",
         "attr": ["sta","right"]
     },
     "Br": {
         "group": "upper",
-        "names": {"jap": "ブレイブ","eng": "Brave","chi": ""},
+        "names": {"jap": "ブレイブ","eng": "Brave","chi": "勇者"},
         "stat": [""],
         "desc": "",
         "attr": ["att","right"]

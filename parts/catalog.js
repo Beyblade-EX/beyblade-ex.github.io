@@ -40,13 +40,13 @@ class Part {
     }
     async catalog(show) {
         location.pathname == '/products/' && await DB.get.meta(this.comp);
-        let {abbr, comp, group, attr, for: For} = await this.revise();
+        let {abbr, comp, line, group, attr, for: For} = await this.revise();
         this.catalog.part = this.catalog.html.part = this;
 
         this.a ??= Q('.catalog').appendChild(E('a'));
         new E.prop(this.catalog.html(), {
             id: abbr,
-            classList: [comp, group, ...(attr ?? [])],
+            classList: [comp, line, group, ...(attr ?? [])],
             hidden: !show,
             for: For,
         }).apply(this.a);
@@ -94,10 +94,10 @@ Object.assign(Part.prototype.catalog.html, {
         ]);
     },
     names () {
-        let {abbr, comp, names} = this.part;
+        let {abbr, comp, line, group, names} = this.part;
         names ??= {};
         names.chi = (names.chi ?? '').split(' ');
-        let children = comp != 'blade' ? 
+        let children = comp != 'blade' || line == 'CX' && group == 'lower' ? 
             [E('h4', abbr.replace('-', '‒')), ...['jap','eng'].map(l => E('h5', names[l] || '', {classList: l}))] : 
             [
                 Part.chi(abbr, names.chi[0]),
