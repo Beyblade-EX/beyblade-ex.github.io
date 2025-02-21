@@ -34,13 +34,7 @@ customElements.define('db-status', class extends HTMLElement {
             DB.replace('V2','V3')
             //DB.open('V2')
             .then(Function('', this.getAttribute('callback')))
-            .then(() => Storage('error', 0))
-            .catch(er => {
-                this.error();
-                console.error(...[er].flat());
-                let error = Storage('error') ?? 0;
-                error < 2 && Storage('error', error += 1) && location.reload();
-            })
+            .catch(er => this.error(er))
         );
     }
     attributeChangedCallback(_, __, value) {
@@ -64,6 +58,7 @@ customElements.define('db-status', class extends HTMLElement {
     }
     error(er) {
         this.setAttribute('status', 'error');
+        console.error(...[er].flat());
         //this.title = `${er}`;
     }
     static observedAttributes = ['status'];
