@@ -163,7 +163,7 @@ Object.assign(DB.put, {
     parts: (parts, file) => DB.put(file, [...new O(parts)].map(([abbr, part]) => ({...part, abbr}) ), () => DB.indicator.update()),
 });
 Object.assign(DB.get, {
-    all: store => {
+    all (store) {
         let comp = /(blade|ratchet|bit)/.exec(store)?.[0];
         return new Promise(res => DB.store(store).getAll()
             .onsuccess = ev => res(ev.target.result.map(p => comp ? {...p, comp} : p)));
@@ -189,7 +189,7 @@ Object.assign(DB.get, {
         comp && (Parts.meta = {...meta[comp][category], ...meta[comp]._});
         PARTS ??= {
             types: ['att', 'bal', 'def', 'sta'],
-            prefixes: {bit: new KeysAsString(new O(meta.bit._.prefix).map(null, ({eng, jap}) => ({eng, jap})))}
+            prefixes: {bit: new KeysAsString(new O(meta.bit._.prefix).map(([k, {eng, jap}]) => [k, {eng, jap}]))}
         };
     },
 });

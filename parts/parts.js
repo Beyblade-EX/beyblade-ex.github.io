@@ -78,7 +78,7 @@ const Filter = function(type) {
 Object.assign(Filter.prototype, {
     create (type) {
         let dl = new O(Filter.dl[this.type = type]())
-            .map(null, inputs => E.checkboxes(inputs.map(i => new E.prop(i.label, {id: i.id, checked: i.checked ?? true}) )));
+            .map(([_, inputs]) => [_, E.checkboxes(inputs.map(i => new E.prop(i.label, {id: i.id, checked: i.checked ?? true}) ))]);
         this.dl = E.dl(dl, {title: type, classList: [`part-filter`, type == 'group' ? Parts.comp : '']});
         this.inputs = [...this.dl.querySelectorAll('input')];
         type != 'group' && this.inputs.forEach(input => input.checked = true);

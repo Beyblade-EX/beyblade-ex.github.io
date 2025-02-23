@@ -138,19 +138,19 @@ Object.assign(Finder, {
     },
     search: {
         parts () {
-            let regex = [...new O(PARTS.prefixes.bit).map(null, t => new RegExp(Object.values(t).join('|').replace(/ |\|(?!.)/g,''), 'i'))];
+            let regex = [...new O(PARTS.prefixes.bit).map(([_, t]) => [_, new RegExp(Object.values(t).join('|').replace(/ |\|(?!.)/g,''), 'i')])];
             let prefix = regex.filter(([,t]) => t.test(Finder.target.free)).map(([p]) => p);
             Finder.target.free = Object.values(regex).reduce((str, reg) => str.replace(reg, ''), Finder.target.free);
             Finder.target.parts = Finder.search.names(NAMES, Finder.target.free);
             Finder.target.parts.bit.prefix = prefix;
         },
         names: (compTOpart, typed) => 
-            new O(compTOpart).map(null,
-                parts => [...new O(parts)].map(([abbrORline, namesORcomp]) => !namesORcomp || namesORcomp.jap ? 
+            new O(compTOpart).map(([_, parts]) => [_, 
+                [...new O(parts)].map(([abbrORline, namesORcomp]) => !namesORcomp || namesORcomp.jap ? 
                     Finder.search.match([abbrORline, namesORcomp ?? {}], typed.split('/')) && abbrORline :
                     {[abbrORline]: Finder.search.names(namesORcomp, typed)}
                 ).filter(abbr => abbr)
-            )
+            ])
         ,
         match: ([abbr, names], typed) => Array.isArray(typed) ? 
             typed.some(t => Finder.search.match([abbr, names], t)) : 
@@ -174,7 +174,7 @@ Object.assign(Finder, {
         if (s.blade?.length) {
             let divided = new O(...s.blade.filter(b => typeof b == 'object'))
                 .filter(([, parts]) => Object.values(parts).some(abbrs => abbrs.length > 0))
-                .map(null, parts => new RegExp(`^${Blade.sub.map(s => parts[s]?.length ? `(?:${parts[s].join('|')})` : '.+?').join('\\.')} .+$`, 'u'))
+                .map(([_, parts]) => [_, new RegExp(`^${Blade.sub.map(s => parts[s]?.length ? `(?:${parts[s].join('|')})` : '.+?').join('\\.')} .+$`, 'u')])
             Finder.regexp.push(divided);
             Finder.regexp.push(new RegExp('^(' + s.blade.filter(b => typeof b == 'string').join('|') + ') .+$', 'u'));
         }

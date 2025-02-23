@@ -21,42 +21,42 @@
         "group": "upper",
         "names": {"jap": "ダーク","eng": "Dark","chi": "幽暗"},
         "stat": [""],
-        "desc": "",
+        "desc": "波浪形狀的連打六枚刃抵受並撞回攻擊。",
         "attr": ["def","right","mfb"]
     },
     "Ar": {
         "group": "upper",
         "names": {"jap": "アーク","eng": "Arc","chi": "弧光"},
         "stat": [""],
-        "desc": "",
+        "desc": "把金屬重量配置在外側的圓弧狀兩枚刃產生強離心力。",
         "attr": ["sta","right"]
     },
     "Br": {
         "group": "upper",
         "names": {"jap": "ブレイブ","eng": "Brave","chi": "勇者"},
         "stat": [""],
-        "desc": "",
+        "desc": "三枚大形 Upper 刃加上能產生 Down force 的空力構造。",
         "attr": ["att","right"]
     },
     "S": {
         "group": "lower",
         "names": {"jap": "スラッシュ","eng": "Slash","chi": ""},
         "stat": [""],
-        "desc": "",
+        "desc": "高度較低的高撞擊性能三枚刃，擅長善用低重心的攻擊性能。",
         "attr": ["att","right"]
     },        
     "B": {
         "group": "lower",
         "names": {"jap": "バンパー","eng": "Bumper","chi": ""},
         "stat": [""],
-        "desc": "",
+        "desc": "容易吸收衝擊的阻尼器形狀的刃緩和並卸走對手攻擊。",
         "attr": ["def","right","mfb"]
     },        
     "R": {
         "group": "lower",
         "names": {"jap": "ラウンド","eng": "Round","chi": ""},
         "stat": [""],
-        "desc": "",
+        "desc": "內側鏤空的圓形刃徹底提升 Blade 的離心力。",
         "attr": ["sta","right"]
     }
 }

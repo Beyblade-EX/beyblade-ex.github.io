@@ -91,7 +91,7 @@ navigator.serviceWorker?.register('/worker.js').then(() => {
     if (!Q('link[href$="common.css"]')) return Promise.reject();
     document.title += ' ■ 戰鬥陀螺 X⬧爆旋陀螺 X⬧ベイブレード X⬧Beyblade X';
     Q('#unsupported')?.remove();
-}).catch(() => location.reload());
+});
 
 addEventListener('DOMContentLoaded', () => {
     let menu = Q('nav menu');

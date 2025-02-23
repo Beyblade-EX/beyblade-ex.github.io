@@ -56,8 +56,9 @@ fetch.cache = res => caches.open(is.part(res.url) ? 'parts' : 'V3')
 
 const Head = {
     url: '/include/head.html',
+    QOE: 'https://beybladeburst.github.io/QOE.js',
     code: `<!DOCTYPE HTML>
-    <meta charset=UTF-8>
+    <meta charset='UTF-8'>
     <meta name=viewport content='width=device-width,initial-scale=1'>
     <meta name=theme-color content='#b0ff50'>
     <link rel=stylesheet href=/include/common.css>
@@ -70,6 +71,7 @@ const Head = {
       "background_color":"black",
       "icons":[{"src":"https://beyblade-ex.github.io/favicon.png","type":"image/png","sizes":"192x192"},{"src":"https://beyblade-ex.github.io/favicon.ico","type":"image/png","sizes":"512x512","purpose":"maskable"}]
     }'>
+    <!--script src="https://beybladeburst.github.io/QOE.js"></script-->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MJMB14RTQP"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -83,7 +85,7 @@ const Head = {
     <script src=/include/DB.js></script>
     <script src=/include/UX.js></script>
     `,
-    cache: () => caches.open('V3').then(cache => cache.put(Head.url, new Response(Head.code))),
+    cache: () => caches.open('V3').then(cache => Promise.all([cache.put(Head.url, new Response(Head.code)), cache.add(Head.QOE)])),
     fetch: () => caches.match(Head.url).then(resp => resp.text()),
 
     add: async resp => new Response(await Head.fetch() + await resp.text(), Head.response(resp)),
