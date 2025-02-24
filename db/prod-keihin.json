@@ -2,12 +2,17 @@
     {
         "type":"t", "note":"G3 大會獎品（集齊後）", "date":"2025-04",
         "bey":"PR.Dr.B 6-80W", "ver":["メタルコート：ゴールド", "Metal Coat: Gold"],
-        "img":["https://beyblade.takaratomy.co.jp/beyblade-x/event/_image/g3_gift1_2025.webp", {"width":"120%","top":"52%"}]
+        "img":["https://beyblade.takaratomy.co.jp/beyblade-x/event/_image/g3_gift1_2025.webp", {"width":"135%"}]
     },
     {
         "type":"g", "note":"攻略本附錄", "date":"2025-02",
         "code":"BXC-08", "bey":"PhFt", "ver":["メタルコート：オレンジ<br>（ブレード）", "Metal Coat: Orange (Blade)"],
-        "img":["",{"width":"95%"}]
+        "img":["https://pbs.twimg.com/media/GjzKL90b0AAT4Xv?format=jpg&name=large",{"width":"110%"}]
+    },
+    {
+        "type":"d", "note":"三月號コロコロ雜誌抽選", "date":"2025-02",
+        "bey":"SmSb 2-70L", "ver":["メタルコート：オレンジ", "Metal Coat: Orange"],
+        "img":["https://pbs.twimg.com/media/GjzKKRDa0AAaxOg?format=jpg&name=large",{"width":"97%"}]
     },
     {
         "type":"m", "note":"二月號コロコロ雜誌應募", "link":"https://corocoro-news.jp/news/393959/", "date":"2025-01",
