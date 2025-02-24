@@ -143,7 +143,7 @@ const DB = {
         /^.X$/.test(store) && (store = `blade-${store}`);
         store == 'user' && (DB.tr = null);
         return new Promise(res => 
-            DB.store(store).get(key).onsuccess = ({target: {result}}) => res(result.abbr ? {...result, comp: store.split('-')[0]} : result));
+            DB.store(store).get(key).onsuccess = ({target: {result}}) => res(result?.abbr ? {...result, comp: store.split('-')[0]} : result));
     },
     put: (store, items, callback) => items && new Promise(res => {
         store == 'meta' && (DB.tr = null);
