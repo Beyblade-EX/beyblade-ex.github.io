@@ -125,7 +125,7 @@ announce.colors = new Mapping(
         [Q('spin-knob[title^=App] a').href, Q('spin-knob[title^=App]').alt] = navigator.appVersion.includes('Mac') ? app : app.reverse();
 
         const reset = message => Promise.all([
-            DB.discard('V2', ev => message.innerText = ev.type == 'blocked' ? '請先關閉所有本網的分頁' : ev.type),
+            DB.discard('V3', ev => message.innerText = ev.type == 'blocked' ? '請先關閉所有本網的分頁' : ev.type),
             caches.delete('V3'), caches.delete('parts'),
             localStorage.clear(),
             navigator.serviceWorker.getRegistrations().then(([reg]) => reg.unregister())
