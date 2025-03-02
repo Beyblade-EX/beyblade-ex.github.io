@@ -71,15 +71,16 @@ const DB = {
             Promise.resolve()
         ).then(() => DB.open(after))
     ,
-    discard: (db, handler) => (DB.db = db) && DB.transfer.out()
-        .then(() => new Promise(res => {
+    discard: (db, handler) => {
+        typeof db == 'object' && (DB.db = db);
+        return DB.transfer.out().then(() => new Promise(res => {
             DB.db.close();
             Object.assign(indexedDB.deleteDatabase(db.name), {        
                 onsuccess: () => res(DB.db = null),
                 onblocked: handler ?? console.error
             });
         }))
-    ,
+    },
     transfer: {
         out: () => DB.get.all('user').then(data => sessionStorage.setItem('user', JSON.stringify(data))).catch(() => {}),
         in: () => DB.put('user', JSON.parse(sessionStorage.getItem('user') ?? '[]').map((item, i) => ({[`sheet-${i+1}`] : item})))
