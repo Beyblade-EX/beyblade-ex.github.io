@@ -17,7 +17,8 @@
                 "lower": {"label": "Assist", "checked": false}
             },
             "title": "【CX】鋼鐵戰刃⬧刃擊環⬧Blade",
-            "multiple": false
+            "multiple": false,
+            "info": "<img src=https://beyblade.takaratomy.co.jp/beyblade-x/guide/_image/pict17_cx.webp>CX Blade 分為〖Lock Chip〗、〖Main Blade〗及〖Assist Blade〗三個組件。若下方兩組件都是單數重旋轉對稱，把其中一件旋轉 180 度再裝上，可有兩個模式。"
         },
         "_": {
             "terms": ["重量"],

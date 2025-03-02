@@ -320,10 +320,10 @@ a div {
 #catalog details {
     position:relative;
     user-select:none; -webkit-user-select:none;
-    transform:translateY(calc(-100% - 1em)); transition:transform .5s,opacity .5s;
+    max-height:0; transition:max-height .5s,opacity .5s;
     
     summary {
-        position:absolute; left:1.5em; bottom:-2.4em;
+        position:absolute; left:1.5em; bottom:-1.5em;
         width:1.2em; height:2.4em;
         border-bottom-left-radius:9em; border-bottom-right-radius:9em;
         background:var(--theme); color:black;
@@ -367,7 +367,7 @@ a div {
     }
 }
 #catalog details.showing {
-    transform:none;
+    max-height:50em;
 
     summary {
         height:calc(3.3em + 100%);
