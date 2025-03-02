@@ -70,6 +70,8 @@ label:has(#keihin-m)::after,.keihin-m b::before {content:'\e001';}
 
         a {
             color:green;
+
+            small {display:inline; color:inherit;}
         }
     }
     div {

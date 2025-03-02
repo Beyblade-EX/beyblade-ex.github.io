@@ -48,7 +48,7 @@ class Keihin {
             chi: Keihin.naming(blade, NAMES, 'chi'),
         };
         this.li = E('li', {classList: `keihin-${type}`}, [
-            E('b', Keihin.type[type]), E('p', link ? [E('a', {href: link}, note)] : note),
+            E('b', Keihin.type[type]), E('p', link ? [E('a', {href: link, innerHTML: note})] : note),
             E('div', [
                 E('figure', [E('img', {src: img[0], style: img[1]})]), 
                 E('h5', [
