@@ -1,5 +1,6 @@
 <title>陀螺景品⬧Prizes</title>
 <script src=/include/common.js></script>
+<script src=https://aeoq.github.io/diamond-grid/script.js type=module></script>
 <link rel=stylesheet href=/include/component.css>
 <link rel=stylesheet href=prize.css>
 
@@ -17,7 +18,7 @@
 </nav>
 <db-status callback="display()"></db-status>
 <main>
-    <ul class=diamonds></ul>
+    <diamond-grid></diamond-grid>
 
     <article class=groups hidden>
         <details id=driver>
@@ -71,41 +72,15 @@ class Keihin {
     static type = {t: '比賽', d: '抽獎', m: '限定商品', g: '贈品'}
     static all = []
 }
-Q('nav div').append(...E.checkboxes(Object.keys(Keihin.type).map(t => ({id: `keihin-${t}`, checked: true}) )));
-Q('nav input', (input, _, inputs) => input.onchange = () => {
-    let show = [...inputs].filter(i => i.checked).map(i => i.id);
-    Keihin.all.forEach(k => k.hidden = !show.includes(k.classList[0]));
-    onresize();
-})
-
+addEventListener('DOMContentLoaded', () => {
+    Q('nav div').append(...E.checkboxes(Object.keys(Keihin.type).map(t => ({id: `keihin-${t}`, checked: true}) )));
+    Q('nav input', (input, _, inputs) => input.onchange = () => {
+        let show = [...inputs].filter(i => i.checked).map(i => i.id);
+        Keihin.all.forEach(k => k.hidden = !show.includes(k.classList[0]));
+    });
+    location.hash && Q(location.hash)?.setAttribute('open', true);
+});
 const display = () =>
     fetch('/db/prod-keihin.json').then(resp => Promise.all([DB.get.names(['blade', 'blade-CX']), resp.json()]))
-    .then(([names, keihins]) => Q('.diamonds').append(...Keihin.all = keihins.map(k => new Keihin(k, names).li)))
-    .then(onresize);
-
-onresize = () => {
-    //nw+(n-1)g=W, n=(W+g)/(w+g)
-    //nw+(n-1)g=W-(w+g/2), n=(2W-w+g)/2(w+g)  
-    Keihin.all.forEach(li => li.classList.remove('left', 'center', 'right', 'next'));
-    let showing = Keihin.all.filter(li => !li.hidden);
-    if (!showing.length) return;
-    
-    let W = Q('.diamonds').getBoundingClientRect().width, 
-        g = parseFloat(getComputedStyle(Q('.diamonds')).gap),
-        w = showing[0].getBoundingClientRect().width;
-    let more = Math.floor((W + g) / (w + g)),
-        less = Math.floor((2*W - w + g) / 2 / (w + g));
-
-    if (more === less)
-        return showing.forEach((li, i) => li.classList.add(Math.ceil((i+1)/more)%2 === 0 ? 'right' : 'left'));
-    
-    let n = 1, k;
-    while (showing[k = (2*more-1)*n-(more-1)]) {
-        let [last, ...others] = showing.slice(k, k+less+1).reverse();
-        last.classList.add(last == showing.at(-1) && (others.length == less - 1 || !others.length) ? 'center' : 'next');
-        others.forEach(li => li.classList.add('center'));
-        n++;
-    }
-}
-location.hash && Q(location.hash)?.setAttribute('open', true);
+    .then(([names, keihins]) => Q('diamond-grid').append(...Keihin.all = keihins.map(k => new Keihin(k, names).li)))
 </script>

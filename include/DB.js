@@ -1,49 +1,46 @@
 customElements.define('db-status', class extends HTMLElement {
     constructor() {
         super();
-        [this.progress, this.total] = [0, Storage('DB')?.count || 100];
-        this.attachShadow({mode: 'open'}).innerHTML = `
-        <style>
+        this.attachShadow({mode: 'open'}).append(E('style', `
         :host(:not([progress]):not([status]))::before {color:white;}
         :host {
             position:relative;
             background:radial-gradient(circle at center var(--p),hsla(0,0%,100%,.2) 70%, var(--on) 70%);
-            background-clip:text;-webkit-background-clip:text;
-            display:inline-block;min-height:5rem;
+            background-clip:text; -webkit-background-clip:text;
+            display:inline-block; min-height:5rem;
         }
         :host([style*='--c']) {
             background:var(--c);
-            background-clip:text;-webkit-background-clip:text;
+            background-clip:text; -webkit-background-clip:text;
         }
         :host([title])::after {
             content:attr(title) ' ' attr(progress);
-            position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-            color:var(--on);font-size:.9em;
+            position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+            color:var(--on); font-size:.9em;
             width:4.7rem;
         }
         :host::before {
-            font-size:5rem;color:transparent;
+            font-size:5rem; color:transparent;
             content:'\\e006';
         }
-        :host([status=offline])::before {content:'\\e007';}
-        </style>`;
+        :host([status=offline])::before {content:'\\e007';}`));
     }
     connectedCallback() {
-        DB.indicator = this;
-        Q('link[href$="common.css"]') && addEventListener('DOMContentLoaded', () => 
-            DB.replace('V2','V3')
-            //DB.open('V2')
-            .then(Function('', this.getAttribute('callback')))
-            .catch(er => this.error(er))
-        );
+        addEventListener('DOMContentLoaded', () => {
+            DB.indicator = this;
+            [this.progress, this.total] = [0, Storage('DB')?.count || 100];
+            Q('link[href$="common.css"]') && DB.replace('V2','V3')
+                .then(Function('', this.getAttribute('callback')))
+                .catch(er => this.error(er))
+        });
     }
     attributeChangedCallback(_, __, value) {
         if (value == 'success') {
-            this.style.setProperty('--p', 40 - 225 + '%');
+            E(this).set({'--p': 40 - 225 + '%'});
             this.progress > (Storage('DB')?.count ?? 0) && Storage('DB', {count: this.progress});
             setTimeout(() => this.hidden = true, 2000);
         }
-        this.style.setProperty('--c', value == 'success' ? 'lime' : 'deeppink');
+        E(this).set({'--c': value == 'success' ? 'lime' : 'deeppink'});
         this.title = value == 'success' ? '更新成功' : value == 'offline' ? '離線' : '';
     }
     init(update) {
@@ -53,7 +50,7 @@ customElements.define('db-status', class extends HTMLElement {
     update(finish) {
         finish || ++this.progress == this.total ?
             this.setAttribute('status', 'success') : 
-            this.style.setProperty('--p', 40 - 225 * this.progress / this.total + '%');
+            E(this).set({'--p': 40 - 225 * this.progress / this.total + '%'});
         this.setAttribute('progress', this.progress);
     }
     error(er) {
@@ -71,15 +68,16 @@ const DB = {
             Promise.resolve()
         ).then(() => DB.open(after))
     ,
-    discard: (db, handler) => (DB.db = db) && DB.transfer.out()
-        .then(() => new Promise(res => {
+    discard: (db, handler) => {
+        typeof db == 'object' && (DB.db = db);
+        return DB.transfer.out().then(() => new Promise(res => {
             DB.db.close();
             Object.assign(indexedDB.deleteDatabase(db.name), {        
                 onsuccess: () => res(DB.db = null),
                 onblocked: handler ?? console.error
             });
         }))
-    ,
+    },
     transfer: {
         out: () => DB.get.all('user').then(data => sessionStorage.setItem('user', JSON.stringify(data))).catch(() => {}),
         in: () => DB.put('user', JSON.parse(sessionStorage.getItem('user') ?? '[]').map((item, i) => ({[`sheet-${i+1}`] : item})))
@@ -143,7 +141,7 @@ const DB = {
         /^.X$/.test(store) && (store = `blade-${store}`);
         store == 'user' && (DB.tr = null);
         return new Promise(res => 
-            DB.store(store).get(key).onsuccess = ({target: {result}}) => res(result.abbr ? {...result, comp: store.split('-')[0]} : result));
+            DB.store(store).get(key).onsuccess = ({target: {result}}) => res(result?.abbr ? {...result, comp: store.split('-')[0]} : result));
     },
     put: (store, items, callback) => items && new Promise(res => {
         store == 'meta' && (DB.tr = null);

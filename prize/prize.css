@@ -28,28 +28,14 @@ label:has(#keihin-d)::after,.keihin-d b::before {content:'\e02f';}
 label:has(#keihin-g)::after,.keihin-g b::before {content:'\e002';}
 label:has(#keihin-m)::after,.keihin-m b::before {content:'\e001';}
 
-.diamonds {
-    padding:calc(var(--size)/4 + 2em) 0 !important;
-    display:grid; grid-template-columns:repeat(auto-fill,var(--size)); justify-content:center;
-    gap:var(--gap);
+diamond-grid {
     font-size:.8em;
-    --size:20em; --gap:.5em;
-    --shift:calc(var(--size)/4 + var(--gap)/4);
+    --side:20em; --gap:.5em;
 
     li {
-        width:var(--size); height:var(--size);
-        clip-path:polygon(50% 0%,0% 50%,50% 100%,100% 50%);
         background:#fbfbfd; color:black;
         display:grid; grid-template:20% 7.5% 44% 13.5% 15% / 10% 80% 7% 3%;
         grid-template-areas:'. type . .' '. desc . .' '. img img .' '. name . .' '. date . .';
-        margin:calc(var(--shift)*-1) 0;
-        transform:translate(calc(var(--shift)*var(--factor,0)));
-        transition:transform .5s,margin .5s;
-
-        &.left {--factor:-1;}
-        &.right {--factor:1;}
-        &.center {--factor:2;}
-        &.next {grid-column:1;}
     }
     b {
         grid-area:type; align-self:end;
@@ -69,7 +55,7 @@ label:has(#keihin-m)::after,.keihin-m b::before {content:'\e001';}
         margin-top:.2em;
 
         a {
-            color:green;
+            color:green !important;
         }
     }
     div {

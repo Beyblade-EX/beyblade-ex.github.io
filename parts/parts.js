@@ -9,11 +9,6 @@ Parts = {
     },
     before () {
         Filter();
-        new Dragging('summary', {
-            click: false,
-            translate: false,
-            move: (drag, dragged) => Math.abs(drag.deltaY) > 50 && dragged.parentElement.classList[drag.deltaY > 0 ? 'add' : 'remove']('showing')
-        });
     },
     async cataloging () {
         Parts.all = DB.get.parts(/^.X$/.test(Parts.category) ? Parts.category : Parts.comp)
@@ -54,20 +49,20 @@ onhashchange = () => Parts.after();
 const Magnifier = () => {
     Q('nav data').before(Magnifier.create());
     Q(`#${Storage('pref')?.button || 'mag2'}`).checked = true;
-    Magnifier.knob = Q('spin-knob');
+    Magnifier.knob = Q('continuous-knob');
     Magnifier.events();
 };
 Object.assign(Magnifier, {
     create: () => E('div', {classList: 'part-mag'}, [
-        E('spin-knob', {classList: 'no-data'}, [E('input', {type: 'range', min: .75, max: 2, step: 'any'}), E('i', '')]),
+        E('continuous-knob', {min: .75, max: 2, value: Storage('pref')?.knob || 1}, [E('i', '', {classList: 'center'})]),
         ...E.radios([1,2,3].map(n => ({id: `mag${n}`, name: 'mag'}) ))
     ]),
     events () {
         Q('.part-mag').onchange = ({target: input}) => input.checked && Storage('pref', {button: input.id});
-        Magnifier.knob.onchange = ev => ev && [Q('.catalog').style.fontSize = `${ev.target.value}em`, Storage('pref', {knob: ev.target.value})];
+        Magnifier.knob.oninput = ev => ev && [Q('.catalog').style.fontSize = `${ev.target.value}em`, Storage('pref', {knob: ev.target.value})];
         setTimeout((onresize = Magnifier.switch));
     },
-    switch: () => Q('.catalog').style.fontSize = innerWidth > 630 ? (Magnifier.knob.value = Storage('pref')?.knob || '1') + 'em' : ''
+    switch: () => Q('.catalog').style.fontSize = innerWidth > 630 ? Magnifier.knob.value + 'em' : ''
 });
 
 const Filter = function(type) {
@@ -78,9 +73,9 @@ const Filter = function(type) {
 Object.assign(Filter.prototype, {
     create (type) {
         let dl = new O(Filter.dl[this.type = type]())
-            .map(([_, inputs]) => [_, E.checkboxes(inputs.map(i => new E.prop(i.label, {id: i.id, checked: i.checked ?? true}) ))]);
+            .map(([_, inputs]) => [_, E.checkboxes(inputs.map(i => new A(i.label, {id: i.id, checked: i.checked ?? true}) ))]);
         this.dl = E.dl(dl, {title: type, classList: [`part-filter`, type == 'group' ? Parts.comp : '']});
-        this.inputs = [...this.dl.querySelectorAll('input')];
+        this.inputs = [this.dl.Q('input')].flat();
         type != 'group' && this.inputs.forEach(input => input.checked = true);
         return this;
     },
@@ -118,7 +113,7 @@ Object.assign(Filter, {
 const Sorter = () => {
     let inputs = [['name', '\ue034'], /*['rank', '\ue037'],*/ ['weight', '\ue036'], ['time', '\ue035']];
     let dl = E.dl(
-        {排序: E.radios(inputs.map(([id, icon]) => new E.prop(icon, {name: 'sort', id}) ))}, 
+        {排序: E.radios(inputs.map(([id, icon]) => new A(icon, {name: 'sort', id}) ))}, 
         {classList: `part-sorter`}
     );
     dl.onchange = ({target: input}) => {

@@ -47,7 +47,7 @@ const List = {
                 E('ol', {classList: 'boards'})
             ]);
             let size = (colors[1] || colors[0])[3];
-            size && details.Q('picture').style.setProperty('--size', size + '%');
+            size && E(details.Q('picture')).set({'--size': size + '%'});
             details.Q('summary').addEventListener('click', () => List.products(details, colors), {once: true});
             where.Q(`h2:nth-of-type(${determinant(eng)})`).after(details);
         }
@@ -58,7 +58,7 @@ const List = {
                 E('code', no.replace('<br>', String.fromCharCode(10))),
                 E('figure', [E('img', {src: List.src([, no, img]), alt: no})])
             ], {classList})
-            size && li.Q('img').style.setProperty('--size', size + '%');
+            size && E(li.Q('img')).set({'--size': size + '%'});
             return li;
         }))
     },
@@ -71,10 +71,10 @@ const List = {
         others: eng => eng.includes('Stadium') ? 2 : 1
     }
 };
-(onhashchange = async () => {
+addEventListener('DOMContentLoaded', () => (onhashchange = async () => {
     let target = location.hash.substring(1);
     if (Q(`#${target} details`)) return;
     let products = await (await fetch(`/db/prod-${target}.json`)).json();
     List.headers(Q(`#${target}`), products, List.determinant[target]);
-})();
+})());
 </script>

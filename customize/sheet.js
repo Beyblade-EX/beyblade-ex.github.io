@@ -93,8 +93,6 @@ Object.assign(App, {
         });
         Object.assign(Q('#layer'), {
             onchange: Layers.switch,
-            ondblclick: Layers.solo,
-            ontouchend: ev => !/iPad|iPhone/.test(navigator.userAgent) ? doubletap(ev, Layers, Layers.solo) : null,
             onclick: ev => ev.target.id == 'create' ? Layers.create(ev) : ['up', 'down'].includes(ev.target.id) ? Layers.move(ev) : null,
             onpointerdown: ev => ev.target.id == 'delete' && Layers.delete(ev)
         });
@@ -107,12 +105,9 @@ Object.assign(App, {
                 Q('aside').showPopover();
             }
         });
-        Object.assign(Q('#control-color'), {
-            oninput: ev => ev.target.type == 'color' && Controls.get(ev),
-            onchange: Controls.get
-        });
+        Q('#control-color').oninput = Controls.get;
         Q('#type').onclick = ev => ev.target.tagName == 'BUTTON' && Controls.chooseType(ev);
-        Q('#control').onchange = Controls.get;
+        Q('#control').oninput = Controls.get;
         
         Q('#export,#download,#sample', button => button.onclick = App[button.id]);
         Q('#import').onchange = App.import;
@@ -131,20 +126,20 @@ const Controls = {
     reset () {
         Q('input[type=color]', input => input.value = '#000000');
         Q('input[value=Linear]').checked = true;
-        Q('spin-knob', knob => knob.set());
+        Q('continuous-knob', knob => knob.set.value({v: knob.getAttribute('value')}));
     },
     put () {
         let {type, ...controls} = Layers.selected.dataset;
         Controls.reset();
         Controls.show(type);
-        [...new O(controls)].forEach(([n, v]) => {
-            Q(`spin-knob:has(input[name=${n}])`)?.set(v);
+        new O(controls).each(([n, v]) => {
+            Q(`continuous-knob[name=${n}]`)?.set.value({v});
             Q('form')[n] && (Q('form')[n].value = v);
         });
     },
     get (ev) {
         if (ev.target.id == 'fine') 
-            return Q('spin-knob', knob => knob.classList.toggle('fine', ev.target.checked));
+            return Q('continuous-knob', knob => knob.classList.toggle('fine', ev.target.checked));
         if (!Layers.selected || !ev.target.name) return;
         Layers.selected.dataset[ev.target.name] = ev.target.value;
         Draw();
@@ -179,7 +174,7 @@ const Layers = {
         Layers.solo(false);
     },
     label (dataset, img) {
-        let label = E('label', {dataset}, [E('input', {type: 'radio', name: 'layer'})]);
+        let label = E('label', dataset ? {dataset} : {}, [E('input', {type: 'radio', name: 'layer'})]);
         dataset?.type == 'image' && (label.img = label.appendChild(img ?? E('img')));
         label.can = new OffscreenCanvas(MAIN.W, MAIN.H);
         label.con = label.can.getContext('2d');
@@ -216,9 +211,9 @@ const Layers = {
         Layers.fieldset.scrollTop = scrollTop;
         Draw();
     },
-    solo (ev) {
-        Layers.fieldset.classList.toggle('solo', typeof ev == 'object' ? undefined : false);
-        (ev || !Q('.solo')) && Draw();
+    solo (go) {
+        Layers.fieldset.classList.toggle('solo', go === true ? undefined : false);
+        (go || !Q('.solo')) && Draw();
     },
     async put (layers) {
         const labels = await Promise.all(layers.map(({image, ...others}) => image ?
@@ -250,6 +245,7 @@ Object.assign(Draw, {
     frame: () => MAIN.con.drawImage(Layers.frame, 0, 0, MAIN.W, MAIN.H),
     transform (con, {sk, sc, ro, st, x, y}, img) { //translate -> skew -> scale -> rotate -> stretch
         sk ??= 0, sc ??= 1, ro ??= 0, st ??= 1, x ??= 0, y ??= 0;
+        x /= 100; y /= 100;
         let drawing = img ? {W: img.naturalWidth, H: img.naturalHeight} : {W: MAIN.H, H: MAIN.H};
         if (img) {
             img.fit ??= Draw.transform.fit(drawing, {xW: drawing.W - MAIN.W, xH: drawing.H - MAIN.H});
@@ -302,3 +298,4 @@ Draw.color.rotated = angle => {
     let coor = ['cos', 'sin'].map(r => MAIN.H*Math.max(0, Math.min(.5*Math.SQRT2*ratio[r] + .5, 1)));
     return {x: coor[0],y: coor[1]};
 }
+export {App, Layers}

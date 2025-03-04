@@ -24,7 +24,7 @@
     html:has(#mag2:checked) label:has(#mag3),
     .part-mag::after {
         display:inline-block;--h:40;--s:60%;margin-left:.2em;}
-    spin-knob {display:none;}
+    continuous-knob {display:none;}
 }
 
 #catalog {

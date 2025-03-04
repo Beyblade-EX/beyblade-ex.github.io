@@ -44,12 +44,12 @@ class Part {
         this.catalog.part = this.catalog.html.part = this;
 
         this.a ??= Q('.catalog').appendChild(E('a'));
-        new E.prop(this.catalog.html(), {
+        E(this.a).set(this.catalog.html(), {
             id: abbr,
             classList: [comp, line, group, ...(attr ?? [])],
             hidden: !show,
             for: For,
-        }).apply(this.a);
+        });
 
         let query = new O(this.line ? 
             {line: this.line, [group]: abbr} : 
@@ -79,7 +79,7 @@ Object.assign(Part.prototype.catalog.html, {
     background () {
         let {comp, attr} = this.part;
         let param = [
-            ['hue', getComputedStyle(document.querySelector(`.${comp.match(/^[^0-9]+/)}`)).getPropertyValue('--c')],
+            ['hue', E([Q(`.${comp.match(/^[^0-9]+/)}`)].flat()[0]).get('--c')],
             [attr?.find(a => a == 'left' || a == 'right') ?? '', '']
         ];
         return `/parts/bg.svg?${new URLSearchParams(param).toString()}`;
@@ -119,9 +119,9 @@ Object.assign(Part.prototype.catalog.html, {
         ];
     },
     buttons () {
-        let div = E('div', PARTS.types.map(t => E('svg', [E('use')], {classList: t})))
-        div.Q('svg', svg => svg.setAttribute('viewBox', '-10 -10 20 10'));
-        div.Q('use', use => use.setAttribute('href', '#triangle'));
+        let div = E('div', PARTS.types.map(t => E('svg', [E('use')], {class: t})))
+        div.Q('svg', svg => E(svg).set({viewBox: '-10 -10 20 10'}));
+        div.Q('use', use => E(use).set({href: '#triangle'}));
         return div;
     }
 });
@@ -136,9 +136,9 @@ Part.triangle = () => {
     let cornerAdjustY = cornerAdjustX * Math.SQRT1_2;
     let topAdjust = r2 / Math.SQRT2;
     document.body.append(E('svg', [E('defs', [E('path', {id: 'triangle'})])]));
-    Q('#triangle').setAttribute('d',
+    E(Q('#triangle')).set({d: 
         `M ${cornerAdjustX-10},-10 A ${r1},${r1},0,0,0,${cornerAdjustY-10},${cornerAdjustY-10}
         L -${topAdjust},-${topAdjust} A ${r2},${r2},0,0,0,${topAdjust},-${topAdjust}
         L ${10-cornerAdjustY},${cornerAdjustY-10} A ${r1},${r1},0,0,0,${10-cornerAdjustX},-10 Z`
-    );
+    });
 };

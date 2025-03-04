@@ -1,5 +1,5 @@
 <title>爆旋戰力儀 ⬧ 通行證 ⬧ BeyBattle Pass Sheet Customizer</title>
-<script src=/include/common.js></script>
+<script defer src=/include/common.js></script>
 <script defer src=https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js></script>
 <link href="/customize/sheet.css" rel=stylesheet>
 <nav>
@@ -69,19 +69,19 @@
             <label>顏色 1<input type="color" name="color1"></label>
             <label>顏色 2<input type="color" name="color2"></label>
             <label>顏色 3<input type="color" name="color3"></label>
-            <spin-knob title="不透明度" range='{"min":0,"max":1,"name":"opacity1","value":1}'></spin-knob>
-            <spin-knob title="不透明度" range='{"min":0,"max":1,"name":"opacity2","value":1}'></spin-knob>
-            <spin-knob title="不透明度" range='{"min":0,"max":1,"name":"opacity3","value":1}'></spin-knob>
+            <continuous-knob title="不透明度" min=0 max=1 name="opacity1" value=1></continuous-knob>
+            <continuous-knob title="不透明度" min=0 max=1 name="opacity2" value=1></continuous-knob>
+            <continuous-knob title="不透明度" min=0 max=1 name="opacity3" value=1></continuous-knob>
         </fieldset>
         <fieldset id="control">
-            <spin-knob title="大小" range='{"min":0.01,"max":2,"value":1,"step":0.01,"name":"sc"}'></spin-knob>
-            <spin-knob title="左右" unit="%" range='{"min":-1,"max":1,"value":0,"name":"x"}'></spin-knob>
-            <spin-knob title="上下" unit="%" range='{"min":-1,"max":1,"value":0,"name":"y"}'></spin-knob>
-            <spin-knob title="旋轉" unit="π" range='{"min":-1,"max":1,"value":0,"name":"ro"}' dblclick="0.5"></spin-knob>
-            <spin-knob class="image" title="伸縮" range='{"min":0.01,"max":2,"step":0.01,"value":1,"name":"st"}'></spin-knob>
-            <spin-knob class="image" title="不透明度" range='{"min":0,"max":1,"value":1,"name":"opacity"}'></spin-knob>
-            <spin-knob class="color" title="歪斜" unit="π" range='{"min":-0.49,"max":0.49,"value":0,"name":"sk"}'></spin-knob>
-            <spin-knob class="color" title="角度" unit="π" range='{"min":-1,"max":1,"value":0,"name":"angle"}' dblclick="0.5"></spin-knob>
+            <continuous-knob title="大小" min=0.01 max=2 value=1 name="sc"></continuous-knob>
+            <continuous-knob title="左右" unit="%" min=-100 max=100 value=0 name="x"></continuous-knob>
+            <continuous-knob title="上下" unit="%" min=-100 max=100 value=0 name="y"></continuous-knob>
+            <continuous-knob title="旋轉" unit="π" min=-1 max=1 value=0 name="ro" snap="0.5"></continuous-knob>
+            <continuous-knob class="image" title="伸縮" min=0.01 max=2 value=1 name="st"></continuous-knob>
+            <continuous-knob class="image" title="不透明度" min=0 max=1 value=1 name="opacity"></continuous-knob>
+            <continuous-knob class="color" title="歪斜" unit="π" min=-0.49 max=0.49 value=0 name="sk"></continuous-knob>
+            <continuous-knob class="color" title="角度" unit="π" min=-1 max=1 value=0 name="angle" snap="0.5"></continuous-knob>
             <label><input type="checkbox" id="fine">微調<small>（Ctrl）</small></label>
         </fieldset>
     </form>
@@ -90,14 +90,14 @@
     <p>若想使用以下圖片，請長按／按右鍵下載，然後重新上載<small>因 CORS 限制，只能手動</small>
 </aside>
 
-<script src="/customize/sheet.js"></script>
-<script>
+<script type="module">
+    import {App, Layers} from './sheet.js';
     App.picker = () => {
         let show = image => picker.append(E('img', {src: `https://beyblade.takaratomy.co.jp/anime/character/_image/chara${image}`}));
         let picker = Q('[popover]'), 
-            main = ["tenka","multi","bird","ekusu"], 
-            mobu = ["kuromu","shieru","shiguru","quinn","rex","yuni","zonamos","burn","kadovar","toguro","pan","manju","meiko"],
-            team = ["pend","cl","pakunchanel","yggdrasil","b4","zoo","persona"];
+            main = ['tenka','multi','bird','ekusu'], 
+            mobu = ['ginro','karura','kuromu','shieru','shiguru','quinn','rex','yuni','zonamos','burn','kadovar','toguro','pan','manju','meiko'],
+            team = ['goldia','pend','cl','pakunchanel','yggdrasil','b4','zoo','persona'];
         main.forEach(c => [1,2,3,4,5,6,7].forEach(i => show(`_${c}_chara0${i}.png`)));
         mobu.forEach(c => show(`_${c}_chara01.png`));
         team.forEach(t => show(`_team_${t}.png`));
@@ -106,4 +106,9 @@
         main.forEach(c => [1,2,3,4].forEach(i => show(`_${c}_bey0${i}.png`)));
         mobu.forEach(c => [1,2].forEach(i => show(`_${c}_bey0${i}.png`)));
     }
+    import {PointerInteraction} from 'https://aeoq.github.io/pointer-interaction/script.js';
+    PointerInteraction.events({
+        '#layers label': {click: click => click.for(2).to(() => Layers.solo(true))}
+    });
+    setTimeout(App, 500);
 </script>

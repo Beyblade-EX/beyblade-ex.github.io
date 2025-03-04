@@ -32,7 +32,7 @@ const actions = {
 }
 
 const is = {
-    internal: url => new URL(location.href).host == new URL(url).host,
+    internal: url => ['aeoq.github.io', new URL(location.href).host].includes(new URL(url).host),
     cacheable: url => is.internal(url) && !/\.json$/.test(new URL(url).pathname),
     volatile: url => /\.(?:css|js|json)$/.test(new URL(url).pathname),
     image: url => /\.(?:ico|svg|jpeg|jpg|png)$/.test(new URL(url).pathname),
@@ -50,13 +50,16 @@ fetch.net = req => {
         new URL(req.url).pathname == '/' && self.registration.unregister();
     });
 }
-fetch.cache = res => caches.open(is.part(res.url) ? 'parts' : 'V3')
+fetch.cache = res => res.url ? caches.open(is.part(res.url) ? 'parts' : 'V3')
     .then(cache => cache.put(res.url.replace(/[?#].*$/, ''), res.clone()))
-    .then(() => res);
+    .then(() => res) : Promise.resolve(res);
 
 const Head = {
     url: '/include/head.html',
-    QOE: 'https://beybladeburst.github.io/QOE.js',
+    aeoq: [
+        'https://aeoq.github.io/diamond-grid/style.css',
+        'https://aeoq.github.io/drag-knob/style.css'
+    ],
     code: `<!DOCTYPE HTML>
     <meta charset='UTF-8'>
     <meta name=viewport content='width=device-width,initial-scale=1'>
@@ -71,7 +74,10 @@ const Head = {
       "background_color":"black",
       "icons":[{"src":"https://beyblade-ex.github.io/favicon.png","type":"image/png","sizes":"192x192"},{"src":"https://beyblade-ex.github.io/favicon.ico","type":"image/png","sizes":"512x512","purpose":"maskable"}]
     }'>
-    <!--script src="https://beybladeburst.github.io/QOE.js"></script-->
+    <script type=module>import {A,E,O,Q} from 'https://aeoq.github.io/AEOQ.mjs'; Object.assign(window, {A,E,O,Q});</script>
+    <script type=module src=https://aeoq.github.io/drag-knob/script.js></script>
+    <script defer src=/include/DB.js></script>
+
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MJMB14RTQP"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -82,10 +88,10 @@ const Head = {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&family=IBM+Plex+Sans+JP:wght@500&display=swap" rel="stylesheet">
-    <script src=/include/DB.js></script>
-    <script src=/include/UX.js></script>
     `,
-    cache: () => caches.open('V3').then(cache => Promise.all([cache.put(Head.url, new Response(Head.code)), cache.add(Head.QOE)])),
+    cache: () => caches.open('V3').then(cache => Promise.all([
+        cache.put(Head.url, new Response(Head.code)), ...Head.aeoq.map(url => cache.add(url))
+    ])),
     fetch: () => caches.match(Head.url).then(resp => resp.text()),
 
     add: async resp => new Response(await Head.fetch() + await resp.text(), Head.response(resp)),

@@ -45,7 +45,8 @@ main {
         small {display:block;}
     }
 }
-spin-knob:nth-child(n+4) {margin-top:.25em;}
+continuous-knob:nth-child(n+4) {margin-top:.25em;}
+continuous-knob::part(output) {font-size:.65em;}
 details {
     summary {
         &::before {content:'▶';}
@@ -66,7 +67,7 @@ fieldset {
     &:not(#layer) {
         align-self:start;
 
-        label,spin-knob::before {font-size:.9em;}
+        label,continuous-knob::before {font-size:.9em;}
     }
 }
 form {

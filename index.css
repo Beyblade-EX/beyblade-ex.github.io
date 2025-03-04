@@ -78,14 +78,20 @@ db-status {display:block;}
         font-size:.65em; line-height:3;
         pointer-events:none;
     }
-    spin-knob {
+    continuous-knob {
         align-self:end;
+
+        &.alt {--light:var(--theme-alt);}
+        &:not(.PI-target):hover {
+            --angle:calc(360deg - var(--min)) !important; transition:--angle .5s;
+        }
+        &::before {font-size:.8em;}
+        &[data-icon]::after {
+            font-size:1.25em;
+        }
+        &::part(output) {color:transparent;}
+        data {display:none;}
     }
-    spin-knob::before {
-        font-size:.8em;
-        margin-bottom:.2em;
-    }
-    spin-knob data {display:none;}
 }
 #contents {
     grid-template:1fr/min-content repeat(6,1fr); gap:0 .5em;
@@ -150,10 +156,7 @@ db-status {display:block;}
         }
     }
 }
-a[data-icon]::before {
-    content:attr(data-icon);
-    pointer-events:none
-}
+
 @property --stop {
     syntax:'<percentage>'; inherits:false;
     initial-value:0%;
@@ -243,7 +246,7 @@ a[data-icon]::before {
         &:last-child::before {
             content:'・';
         }
-        &.reached {
+        &.PI-reached {
             background:var(--theme);
         }
         .animaing & {

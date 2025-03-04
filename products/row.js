@@ -81,11 +81,11 @@ class Row {
         }
     }
     extra({more, coat}) {
-        coat && this.tr.style.setProperty('--coat', coat);
+        coat && E(this.tr).set({'--coat': coat});
         more && (this.tr.dataset.more = Object.keys(more));
         more && [...new O(more)].forEach(([part, column], i) => {
             this.tr.Q(`td:nth-child(${column})`).dataset.more = i;
-            this.tr.style.setProperty(`--more${i}`, `'${part.split('.')[0]}'`);
+            E(this.tr).set({[`--more${i}`]: `'${part.split('.')[0]}'`});
         });
     }
     any = (...tds) => this.tr.querySelector(tds.map(td => `td[abbr$=${td}]`));

@@ -188,8 +188,8 @@ nav {
         position:relative;
         z-index:1;
 
-        &:not(.dragged) {animation:pull 5s 2s infinite;}
-        &.dragged a {pointer-events:none;}
+        &:not(.PI-dragged) {animation:pull 5s 2s infinite;}
+        &.PI-dragged a {pointer-events:none;}
         &::before {
             content:'';
             position:absolute;
@@ -237,7 +237,7 @@ nav {
             }
             &.current {border:.1rem dashed var(--theme);}
         }
-        li.selected a {background:var(--theme); color:black;}
+        li.PI-selected a {background:var(--theme); color:black;}
     }
     :is(.part-result,.prod-result)[value]::before {
         content:attr(value);
@@ -314,11 +314,11 @@ nav {
         grid-area:2/4/3/5; justify-self:flex-end;
 
         label {display:none;}
-        spin-knob {
+        continuous-knob {
             margin-top:.15em; 
             font-size:.9em;
 
-            data {display:none;}
+            &::part(output) {color:transparent;}
         }
     }
 }
@@ -347,6 +347,9 @@ nav {
     inherits:true;
     initial-value:15deg;
 }
-.selected {
+.PI-selected {
     touch-action:none;
+}
+continuous-knob {
+    --light:var(--theme);
 }
