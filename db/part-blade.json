@@ -4,7 +4,7 @@
         "names": {
             "jap": "シェルター\\ドレイク",
             "eng": "Shelter\\Drake",
-            "chi": "神護魔龍"
+            "chi": "神護\\魔龍 飛龍庇護"
         },
         "stat": ["33-"],
         "desc": "高剛性圓形的兩枚刃兼備離心力持久及卸走性防禦。",
@@ -601,5 +601,17 @@
         "desc": "（目前只在孩之寶商品中收錄，稱「Roar Tyranno」）",
         "attr": ["att","right"],
         "from": "PhWn"
+    },
+    "ShGl": {
+        "group": "hasbro",
+        "names": {
+            "jap": "",
+            "eng": "",
+            "chi": ""
+        },
+        "stat": [""],
+        "desc": "（目前只在孩之寶商品中收錄，稱「Gill Shark」）",
+        "attr": ["bal","right"],
+        "from": "ShDr"
     }
 }

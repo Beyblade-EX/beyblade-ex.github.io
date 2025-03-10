@@ -19,21 +19,21 @@
     },
     "Dr": {
         "group": "upper",
-        "names": {"jap": "ダーク","eng": "Dark","chi": "幽暗"},
+        "names": {"jap": "ダーク","eng": "Dark","chi": "幽暗 幽冥"},
         "stat": [""],
         "desc": "波浪形狀的連打六枚刃抵受並撞回攻擊。",
         "attr": ["def","right","mfb"]
     },
     "Ar": {
         "group": "upper",
-        "names": {"jap": "アーク","eng": "Arc","chi": "弧光"},
+        "names": {"jap": "アーク","eng": "Arc","chi": "弧光 至尊"},
         "stat": [""],
         "desc": "把金屬重量配置在外側的圓弧狀兩枚刃產生強離心力。",
         "attr": ["sta","right"]
     },
     "Br": {
         "group": "upper",
-        "names": {"jap": "ブレイブ","eng": "Brave","chi": "勇者"},
+        "names": {"jap": "ブレイブ","eng": "Brave","chi": "勇者 勇氣"},
         "stat": [""],
         "desc": "三枚大形 Upper 刃加上能產生 Down force 的空力構造。",
         "attr": ["att","right"]
