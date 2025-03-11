@@ -1,8 +1,0 @@
-<!DOCTYPE html>
-<main>
-</main>
-<script type="module">
-    import _DB from './DB.mjs';
-    window._DB = _DB;
-    Q('main').after(_DB(()=>_DB.get.meta('blade','UX').then(console.log)))
-</script>

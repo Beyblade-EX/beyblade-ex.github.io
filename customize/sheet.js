@@ -1,4 +1,4 @@
-import _DB from '/include/DB.mjs'
+import DB from '../include/DB.mjs'
 import {PointerInteraction} from 'https://aeoq.github.io/pointer-interaction/script.js';
 E.img = src => new Promise(res => E('img', {src, onload: function() {res(this);}}));
 const MAIN = {con: Q('canvas').getContext('2d', { alpha: false })};
@@ -24,8 +24,8 @@ Object.assign(App, {
         Draw();
     },
     loading: loading => Q('summary').classList[loading ? 'add' : 'remove']('loading'),
-    save: () => Layers.modified && _DB.put('user', {[`sheet-${location.hash.substring(1)}`]: Layers.get()}),
-    load: hash => _DB.get('user', `sheet-${hash.substring(1)}`).then(layers => layers ? Layers.put(layers) : App.reset()),
+    save: () => Layers.modified && DB.put('user', {[`sheet-${location.hash.substring(1)}`]: Layers.get()}),
+    load: hash => DB.get('user', `sheet-${hash.substring(1)}`).then(layers => layers ? Layers.put(layers) : App.reset()),
     stage (design) {
         if (design === true)
             return App.designs.reduce((prom, a) => prom.then(() => a.canvas ? 

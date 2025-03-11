@@ -1,3 +1,8 @@
+import DB from '../include/DB.mjs'
+import {Markup} from '../include/utilities.js'
+import Mapping from './maps.js'
+import Part from '../parts/catalog.js'
+let META;
 class AbsPart {
     constructor(sym, fusionORsub = false) {
         this.sym = sym;
@@ -94,7 +99,10 @@ class Row {
 Object.assign(Row.prototype.create, Row.create);
 
 class Cell {
-    constructor(td) {this.td = td;}
+    constructor(td) {
+        this.td = td;
+        this.tr = td.parentElement;
+    }
     get text() {return Cell.text(this.td);}
     next2 = (action) => [this.td.nextElementSibling, this.td.nextElementSibling?.nextElementSibling].forEach(action);
 
@@ -131,10 +139,10 @@ class Cell {
         if (!lang) return;
         let {abbr, comp, pref, dash, core, mode} = this.dissect(true);
         let name = comp == 'bit' && (pref || dash) ? 
-            Part.revise.name(NAMES[comp][abbr], pref[0]) : 
-            comp != 'ratchet' && comp != 'bit' && this.td.parentElement.Q('td:nth-child(10)') ? 
-                NAMES.blade[this.td.parentElement.classList[0]][comp]?.[abbr] : 
-                NAMES[comp]?.[abbr];
+            Part.revise.name(META.names[comp][abbr], pref[0]) : 
+            comp != 'ratchet' && comp != 'bit' && this.tr.Q('td:nth-child(10)') ? 
+                META.names.blade[this.tr.classList[0]][comp]?.[abbr] : 
+                META.names[comp]?.[abbr];
         name = name?.[lang] ?? '';
         this.td.innerHTML = this.fullname[lang](name, comp, core) + this.fullname.add(name, dash, mode);
     }
@@ -148,14 +156,14 @@ class Cell {
     static limit = {bit: {jap: 8}}
 
     preview () {
-        Object.assign(this.preview, this._preview);
-        Object.assign(this.preview.image, this.preview._image);
+        Object.assign(this.preview, this.#preview);
+        Object.assign(this.preview.image, this.#preview._image);
         this.preview.image.td = this.preview.td = this.td;
         Cell.popup.showPopover();
         Cell.popup.innerHTML = '';
         this.preview[this.td.matches('td:first-child') ? 'image' : 'part']();
     }
-    _preview = {
+    #preview = {
         part: () => {
             Cell.popup.classList = 'catalog';
             this.dissect().reduce((prom, key) => prom.then(() => DB.get(key)).then(part => new Part(part, key).catalog(true)), Promise.resolve())
@@ -195,7 +203,9 @@ class Cell {
     }
     static text = td => td.childNodes[0].textContent.trim();
     static popup = Q('[popover]');
+    static import = meta => Part.import(META = meta);
 }
 Object.assign(Cell.prototype.dissect, Cell.dissect);
 Object.assign(Cell.prototype.fullname, Cell.fullname);
-//Object.assign(Cell.prototype.preview, Cell.prototype._preview()());
+//Object.assign(Cell.prototype.preview, Cell.prototype.#preview()());
+export {Blade, Row, Cell}

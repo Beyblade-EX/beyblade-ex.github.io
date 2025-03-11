@@ -1,4 +1,5 @@
-import _DB from '/include/DB.mjs'
+import DB from '../include/DB.mjs'
+import {Storage} from '../include/utilities.js';
 import Part from './catalog.js'
 let META;
 const [component, category] = [...new URLSearchParams(location.search)]?.[0] ?? [];
@@ -8,19 +9,19 @@ const Parts = {
     count: () => Q('.part-result').value = document.querySelectorAll('.catalog>a:not([id^="+"]):not([hidden])').length,
 
     async firstly () {
-        Part.import(META = await _DB.get.meta(component, category));
+        Part.import(META = await DB.get.meta(component, category));
         Magnifier();
     },
     before () {
         Filter();
     },
     async cataloging () {
-        Parts.all = _DB.get.parts(/^.X$/.test(category) ? category : component)
+        Parts.all = DB.get.parts(/^.X$/.test(category) ? category : component)
             .then(parts => parts.map(p => new Part(p, category).prepare().catalog()));
         Parts.all = await Promise.all(await Parts.all);
     },
     async listing () {
-        Parts.all = await Promise.all(location.hash.substring(1).split(',').map(p => _DB.get(p)));
+        Parts.all = await Promise.all(location.hash.substring(1).split(',').map(p => DB.get(p)));
         Parts.all = Parts.all.map(p => new Part(p).prepare().catalog(true));
     },
     after () {
@@ -98,7 +99,7 @@ Object.assign(Filter.prototype, {
 Object.assign(Filter, {
     dl: {
         group:  () => ({[category]: [...new O(META.group)].map(([id, {label, checked}]) => ({id, label, checked})) }),
-        type:   () => ({類型: META.types.map(t => ({id: t, label: E('img', {src: `/img/types.svg#${t}`})}) )}),
+        type:   () => ({類型: META.types.map(t => ({id: t, label: E('img', {src: `../img/types.svg#${t}`})}) )}),
         spin:   () => ({迴轉: ['left','right'].map((s, i) => ({id: s, label: ['\ue01d','\ue01e'][i]}) )}),
         prefix: () => ({變化: [{id: '–', label: '–'}, ...[...new O(META.variety)].map(([label, id]) => ({id, label}))] }),
     },
@@ -142,7 +143,7 @@ Object.assign(Sorter, {
         )),
         rank: (p, q) => Sorter.compare(p, q, p => p.rank || 'Z')
     },
-    release: comp => Sorter.schedule ?? _DB.get('product', 'schedule').then(beys => Sorter.schedule = beys
+    release: comp => Sorter.schedule ?? DB.get('product', 'schedule').then(beys => Sorter.schedule = beys
         .map(bey => bey[Sorter.index.full[comp]])
         .filter(abbr => /.X$/.test(category) ? abbr.includes('.') : !abbr?.includes('.'))
         .map(abbr => /.X$/.test(category) ? abbr.split('.') : abbr)

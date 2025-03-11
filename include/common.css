@@ -10,7 +10,7 @@ i {
 summary:focus {
     outline:none;
 }
-:root,input,input::placeholder,button,db-status {
+:root,input,input::placeholder,button,db-state {
     font-family:'IBM Plex Sans JP',COND,sans-serif;
 }
 #parts h4,#menu h4,.catalog dd,
@@ -135,7 +135,7 @@ body {
     text-align:center; -webkit-text-size-adjust:100%;
     opacity:1; transition:opacity .25s; @starting-style {opacity:0;}
 }
-body:has(db-status[title=更新中]) {
+body:has(db-state[title=更新中]) {
     pointer-events:none;
 }
 html,body {
@@ -144,7 +144,7 @@ html,body {
 main {
     margin:5em auto 1em auto;
 }
-db-status:not([hidden])~main {
+db-state:not([hidden])~main {
     margin-top:1em;
 }
 a[href],a[onclick],nav,form summary,caption label,:is(caption,#filter) button,#filter summary {

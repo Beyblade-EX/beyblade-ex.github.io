@@ -1,5 +1,7 @@
-
-let NAMES;
+import DB from '../include/DB.mjs'
+import {Markup} from '../include/utilities.js'
+import {Blade, Row, Cell} from './row.js'
+let META = {};
 const Table = () => {
     Table.el = Q('table');
     Table.count = Q('.prod-result');
@@ -15,7 +17,10 @@ Object.assign(Table, {
         Finder.free.disabled = Finder.free.value = 'Loading';
         Table.events();
         return Promise.all([DB.get.names(), DB.get.meta(), Blade.UX()])
-            .then(([names]) => [NAMES = names, Cell.prototype.dissect.regex.pref = new RegExp(`^[${PARTS.prefixes.bit}]+(?=[^a-z].*)`)]);
+            .then(([names, meta]) => {
+                Cell.import(META = {...meta, names});
+                Cell.prototype.dissect.regex.pref = new RegExp(`^[${META.prefixes.bit}]+(?=[^a-z].*)`);
+            });
     },
     async tabulate () {
         let beys = await DB.get('product', 'beys');
@@ -127,7 +132,7 @@ Object.assign(Finder, {
                 Finder.regexp.push(new RegExp(Finder.free.value.replaceAll('/', ''))) : 
                 Finder.target.free = Finder.esc(Finder.free.value);
 
-        Finder.target.parts = new O(new FormData(Finder.form)).map(k => k, v => [decodeURIComponent(v)]);
+        Finder.target.parts = new O(new FormData(Finder.form)).map(([k, v]) => [k, [decodeURIComponent(v)]]);
         return Object.keys(Finder.target.parts).length > 0;
     },
     process (where) {
@@ -138,10 +143,10 @@ Object.assign(Finder, {
     },
     search: {
         parts () {
-            let regex = [...new O(PARTS.prefixes.bit).map(([_, t]) => [_, new RegExp(Object.values(t).join('|').replace(/ |\|(?!.)/g,''), 'i')])];
+            let regex = [...new O(META.prefixes.bit).map(([_, t]) => [_, new RegExp(Object.values(t).join('|').replace(/ |\|(?!.)/g,''), 'i')])];
             let prefix = regex.filter(([,t]) => t.test(Finder.target.free)).map(([p]) => p);
             Finder.target.free = Object.values(regex).reduce((str, reg) => str.replace(reg, ''), Finder.target.free);
-            Finder.target.parts = Finder.search.names(NAMES, Finder.target.free);
+            Finder.target.parts = Finder.search.names(META.names, Finder.target.free);
             Finder.target.parts.bit.prefix = prefix;
         },
         names: (compTOpart, typed) => 
@@ -193,7 +198,7 @@ Object.assign(Finder, {
         Table.show.count();
 
         let [comp, abbr] = obake ? [...new O(Finder.target.parts)][0] : [];
-        abbr &&= comp == 'blade' ? NAMES[comp][abbr].jap : abbr;
+        abbr &&= comp == 'blade' ? META.names[comp][abbr].jap : abbr;
         comp &&= {blade: 'ブレード', ratchet: 'ラチェット', bit: 'ビット'}[comp];
         Q('a[href*=obake]').href = 'http://obakeblader.com/' + (obake && Table.count.value > 1 ? `${comp}-${abbr}/#toc2` : `?s=入手法`);
     },
@@ -202,3 +207,4 @@ Object.assign(Finder, {
         Finder.free.labels[0].onclick = () => Finder.find();
     }
 });
+export {Table, Filter, Finder}

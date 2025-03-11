@@ -19,25 +19,6 @@
 
 <main>
     <diamond-grid></diamond-grid>
-
-    <article class=groups hidden>
-        <details id=driver>
-            <summary><h3>Driver<picture><img src alt=Driver></picture></h3></summary>
-            <h4>抽選 &#xe02f;</h4>
-            <ul>
-                <li data-url=img/wp/20220315/BUD/0003.png><h5>MBD</h5><time>2022-08</time>
-            </ul>
-            <h4>購物贈品 &#xe02e;</h4>
-            <ul>
-            </ul>
-            <h4>大會積分兌換 &#xe030;</h4>
-            <ul>
-            </ul>
-            <h4>コロコロ雜誌應募 &#xe02e;</h4>
-            <ul>
-            </ul>
-        </details>
-    </article>
 </main>
 
 <script type=module>
@@ -73,7 +54,7 @@ class Keihin {
     static all = []
 }
 Keihin.display = () =>
-    fetch('/db/prod-keihin.json').then(resp => Promise.all([_DB.get.names(['blade', 'blade-CX']), resp.json()]))
+    fetch('/db/prod-keihin.json').then(resp => Promise.all([DB.get.names(['blade', 'blade-CX']), resp.json()]))
     .then(([names, keihins]) => (Keihin.names = names) && 
         Q('diamond-grid').append(...Keihin.all = keihins.map(k => new Keihin(k).li))
     );
@@ -84,7 +65,7 @@ Keihin.events = () => {
         Keihin.all.forEach(k => k.hidden = !show.includes(k.classList[0]));
     }); 
 }
-import _DB from '/include/DB.mjs'
-Q('nav').after(_DB(Keihin.display));
+import DB from '/include/DB.mjs'
+Q('nav').after(DB(Keihin.display));
 Keihin.events();
 </script>

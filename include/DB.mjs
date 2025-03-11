@@ -1,90 +1,83 @@
-const Storage = (key, obj) => !obj ? 
-    JSON.parse(localStorage[key] ?? 'null') : 
-    localStorage[key] = typeof obj == 'object' ? JSON.stringify({...Storage(key), ...obj}) : obj;
-class KeysAsString {
-    constructor(obj) {Object.assign(this, obj);}
-    [Symbol.toPrimitive] = type => type == 'string' && Object.keys(this).join('')
-};
-
-const _DB = callback => _DB.indicator = new _DB.indicator(callback);
-Object.assign(_DB, {
+import {KeysAsString, Storage} from "./utilities.js"
+const DB = callback => DB.indicator = new DB.indicator(callback);
+Object.assign(DB, {
     current: 'V3',
     replace: (before, after) => indexedDB.databases()
-        .then(dbs => dbs.find(db => db.name == before) && _DB.open(before).then(_DB.discard))
-        .then(() => _DB.open(after))
+        .then(dbs => dbs.find(db => db.name == before) && DB.open(before).then(DB.discard))
+        .then(() => DB.open(after))
     ,
-    discard: (name, handler) => (name != _DB.db?.name ? _DB.open(name) : Promise.resolve())
-        .then(_DB.transfer.out).then(() => new Promise(res => {
-            _DB.db.close();
-            Object.assign(indexedDB.deleteDatabase(_DB.db.name), {        
-                onsuccess: () => res(_DB.db = null),
+    discard: (name, handler) => (name != DB.db?.name ? DB.open(name) : Promise.resolve())
+        .then(DB.transfer.out).then(() => new Promise(res => {
+            DB.db.close();
+            Object.assign(indexedDB.deleteDatabase(DB.db.name), {        
+                onsuccess: () => res(DB.db = null),
                 onblocked: handler ?? console.error
             });
         }))
     ,
     transfer: {
-        out: () => _DB.get.all('user').then(data => sessionStorage.setItem('user', JSON.stringify(data))).catch(() => {}),
-        in: () => _DB.put('user', JSON.parse(sessionStorage.getItem('user') ?? '[]').map((item, i) => ({[`sheet-${i+1}`] : item})))
+        out: () => DB.get.all('user').then(data => sessionStorage.setItem('user', JSON.stringify(data))).catch(() => {}),
+        in: () => DB.put('user', JSON.parse(sessionStorage.getItem('user') ?? '[]').map((item, i) => ({[`sheet-${i+1}`] : item})))
     },
     components: ['bit','ratchet','blade','blade-CX'],
 
-    open: (name = _DB.current) => name == _DB.db?.name ? Promise.resolve(_DB.db) : 
+    open: (name = DB.current) => name == DB.db?.name ? Promise.resolve(DB.db) : 
         new Promise(res => Object.assign(indexedDB.open(name, 1), {onsuccess: res, onupgradeneeded: res}))
         .then(ev => {
-            _DB.db = ev.target.result;
-            if (_DB.db.name != _DB.current) return;
+            DB.db = ev.target.result;
+            if (DB.db.name != DB.current) return;
             let [index, fresh] = [location.pathname == '/', ev.type != 'success'];
             return fresh ? 
-                _DB.setup(ev).then(_DB.transfer.in).then(() => _DB.fetch.updates({fresh, index})).then(_DB.cache) :
-                _DB.fetch.updates({fresh, index}).then(_DB.cache);
+                DB.setup(ev).then(DB.transfer.in).then(() => DB.fetch.updates({fresh, index})).then(DB.cache) :
+                DB.fetch.updates({fresh, index}).then(DB.cache);
         })
     ,
     setup (ev) {
-        ['product','meta','user'].forEach(s => _DB.db.createObjectStore(s));
-        _DB.components.map(s => _DB.db.createObjectStore(s.toUpperCase(), {keyPath: 'abbr'}).createIndex('group', 'group'));
+        ['product','meta','user'].forEach(s => DB.db.createObjectStore(s));
+        DB.components.map(s => DB.db.createObjectStore(s.toUpperCase(), {keyPath: 'abbr'}).createIndex('group', 'group'));
         return new Promise(res => ev.target.transaction.oncomplete = res);
     },
     fetch: {
         updates: ({fresh, index}) => fresh && !index ||
-            fetch(`/db/-update.json`).catch(() => _DB.indicator.setAttribute('status', 'offline'))
+            fetch(`/db/-update.json`).catch(() => DB.indicator.setAttribute('status', 'offline'))
             .then(resp => resp.json())
-            .then(({news, ...files}) => (index && _DB.plugins?.announce(news), fresh || _DB.cache.filter(files)))
+            .then(({news, ...files}) => (index && DB.plugins?.announce(news), fresh || DB.cache.filter(files)))
         ,
         files: files => Promise.all(files.map(file => 
                 fetch(`/db/${file}.json`)
-                .then(resp => Promise.all([file, resp.json(), /^part-/.test(file) && _DB.clear(file) ]))
+                .then(resp => Promise.all([file, resp.json(), /^part-/.test(file) && DB.clear(file) ]))
             )).then(arr => arr.map(([file, json]) => //in one transaction
-                (_DB.cache.actions[file] || _DB.put.parts)(json, file)
-                .then(() => console.log(`Updated '${file}'`) ?? Storage('_DB', {[file]: Math.round(new Date() / 1000)} ))
+                (DB.cache.actions[file] || DB.put.parts)(json, file)
+                .then(() => console.log(`Updated '${file}'`) ?? Storage('DB', {[file]: Math.round(new Date() / 1000)} ))
                 .catch(er => console.error(file, er))
             ))
     },
     cache (files) {
         if (Array.isArray(files) && !files.length) 
-            return _DB.indicator.hidden = true;
-        _DB.indicator.init(files);
-        files = Object.keys(_DB.cache.actions).filter(f => files === true ? true : files.includes(f));
-        return _DB.fetch.files(files).then(() => _DB.indicator.update(true));
+            return DB.indicator.hidden = true;
+        DB.indicator.init(files);
+        files = Object.keys(DB.cache.actions).filter(f => files === true ? true : files.includes(f));
+        return DB.fetch.files(files).then(() => DB.indicator.update(true));
     },
-    trans: store => _DB.tr = Object.assign(_DB.db.transaction(_DB.store.format(store), 'readwrite')),
+    trans: store => DB.tr = Object.assign(DB.db.transaction(DB.store.format(store), 'readwrite')),
 
-    store: store => (s => _DB.trans(s).objectStore(s))(_DB.store.format(store)),
+    store: store => (s => DB.trans(s).objectStore(s))(DB.store.format(store)),
 
     get (store, key) {
         !key && ([store, key] = store.split('.').reverse());
         /^.X$/.test(store) && (store = `blade-${store}`);
-        store == 'user' && (_DB.tr = null);
+        store == 'user' && (DB.tr = null);
         return new Promise(res => 
-            _DB.store(store).get(key).onsuccess = ({target: {result}}) => res(result?.abbr ? {...result, comp: store.split('-')[0]} : result));
+            DB.store(store).get(key).onsuccess = ({target: {result}}) => res(result?.abbr ? {...result, comp: store.split('-')[0]} : result));
     },
     put: (store, items, callback) => items && new Promise(res => {
-        store == 'meta' && (_DB.tr = null);
+        store == 'meta' && (DB.tr = null);
         if (!Array.isArray(items))
-            return _DB.store(store).put(...items.abbr ? [items] : [...new O(items)][0].reverse()).onsuccess = () => res(callback?.());
-        _DB.trans(store);
-        return Promise.all(items.map(item => _DB.put(store, item, callback))).then(res).catch(er => console.error(store, er));
+            return DB.store(store).put(...items.abbr ? [items] : [...new O(items)][0].reverse()).onsuccess = () => res(callback?.());
+        DB.trans(store);
+        return Promise.all(items.map(item => DB.put(store, item, callback))).then(res).catch(er => console.error(store, er));
     }),
-    clear: file => new Promise(res => _DB.store(file).clear().onsuccess = () => res(Storage('_DB', {[file]: null}))),
+    clear: file => new Promise(res => DB.store(file).clear().onsuccess = () => res(Storage('DB', {[file]: null}))),
 
     indicator: class extends HTMLElement {
         constructor(callback) {
@@ -93,13 +86,13 @@ Object.assign(_DB, {
             this.attachShadow({mode: 'open'}).append(E('style', this.#css));
         }
         connectedCallback() {
-            [this.progress, this.total] = [0, Storage('_DB')?.count || 100];
-            Q('link[href$="common.css"]') && _DB.replace('V2', _DB.current).then(this.callback).catch(this.error);
+            [this.progress, this.total] = [0, Storage('DB')?.count || 100];
+            Q('link[href$="common.css"]') && DB.replace('V2', DB.current).then(this.callback).catch(this.error);
         }
         attributeChangedCallback(_, __, state) {
             if (state == 'success') {
                 E(this).set({'--p': 40 - 225 + '%'});
-                this.progress > (Storage('_DB')?.count ?? 0) && Storage('_DB', {count: this.progress});
+                this.progress > (Storage('DB')?.count ?? 0) && Storage('DB', {count: this.progress});
                 setTimeout(() => this.hidden = true, 2000);
             }
             E(this).set({'--c': state == 'success' ? 'lime' : 'deeppink'});
@@ -146,40 +139,40 @@ Object.assign(_DB, {
         `
     },
 });
-Object.assign(_DB.cache, {
+Object.assign(DB.cache, {
     actions: {
         'part-blade': '', 'part-blade-CX': '', 'part-ratchet': '', 'part-bit': '',
-        'part-meta': json => _DB.put('meta', {part: json}),
-        'prod-launchers': json => _DB.put('product', {launchers: json}),
-        'prod-others': json => _DB.put('product', {others: json}),
-        'prod-beys': beys => _DB.put('product', [{beys}, {schedule: beys.filter(bey => bey[1].includes('BXG') || !bey[1].includes('H')).map(bey => bey[2].split(' '))}]),
+        'part-meta': json => DB.put('meta', {part: json}),
+        'prod-launchers': json => DB.put('product', {launchers: json}),
+        'prod-others': json => DB.put('product', {others: json}),
+        'prod-beys': beys => DB.put('product', [{beys}, {schedule: beys.filter(bey => bey[1].includes('BXG') || !bey[1].includes('H')).map(bey => bey[2].split(' '))}]),
     },
-    filter: files => [...new O(files)].filter(([file, time]) => new Date(time) / 1000 > (Storage('_DB')?.[file] || 0)).map(([file]) => file),
+    filter: files => [...new O(files)].filter(([file, time]) => new Date(time) / 1000 > (Storage('DB')?.[file] || 0)).map(([file]) => file),
 });
-Object.assign(_DB.store, {
+Object.assign(DB.store, {
     format (store) {
-        if (Array.isArray(store)) return store.map(_DB.store.format);
+        if (Array.isArray(store)) return store.map(DB.store.format);
         store = store.replace('part-', '');
-        return _DB.components.includes(store) ? store.toUpperCase() : store;
+        return DB.components.includes(store) ? store.toUpperCase() : store;
     }
 });
-Object.assign(_DB.put, {
-    parts: (parts, file) => _DB.put(file, [...new O(parts)].map(([abbr, part]) => ({...part, abbr}) ), () => _DB.indicator.update()),
+Object.assign(DB.put, {
+    parts: (parts, file) => DB.put(file, [...new O(parts)].map(([abbr, part]) => ({...part, abbr}) ), () => DB.indicator.update()),
 });
-Object.assign(_DB.get, {
+Object.assign(DB.get, {
     all (store) {
         let comp = /(blade|ratchet|bit)/.exec(store)?.[0];
-        return new Promise(res => _DB.store(store).getAll()
+        return new Promise(res => DB.store(store).getAll()
             .onsuccess = ev => res(ev.target.result.map(p => comp ? {...p, comp} : p)));
     },
-    parts (comps = _DB.components, toNAMES) {
+    parts (comps = DB.components, toNAMES) {
         comps = [comps].flat().map(c => /^.X$/.test(c) ? `blade-${c}` : c);
-        _DB.trans(comps);
+        DB.trans(comps);
         return comps.length === 1 && !toNAMES ? 
-            _DB.get.all(comps[0]) : 
-            Promise.all(comps.map(c => _DB.get.all(c).then(parts => [c, parts]))).then(PARTS => toNAMES ? PARTS : new O(PARTS));
+            DB.get.all(comps[0]) : 
+            Promise.all(comps.map(c => DB.get.all(c).then(parts => [c, parts]))).then(PARTS => toNAMES ? PARTS : new O(PARTS));
     },
-    names: (comps = _DB.components) => _DB.get.parts(comps, true)
+    names: (comps = DB.components) => DB.get.parts(comps, true)
         .then(PARTS => {
             let NAMES = {};
             PARTS.forEach(([comp, parts]) => comp.includes('-') ?
@@ -189,7 +182,7 @@ Object.assign(_DB.get, {
             return NAMES;
         })
     ,
-    meta: (comp, category) => _DB.get('meta', 'part')
+    meta: (comp, category) => DB.get('meta', 'part')
         .then(meta => ({
             ...comp ? meta[comp][category] : {}, 
             ...comp ? meta[comp]._ : {},
@@ -198,5 +191,5 @@ Object.assign(_DB.get, {
         })
     ),
 });
-customElements.define('db-state', _DB.indicator);
-export default _DB
+customElements.define('db-state', DB.indicator);
+export default DB

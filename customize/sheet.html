@@ -1,7 +1,8 @@
 <title>爆旋戰力儀 ⬧ 通行證 ⬧ BeyBattle Pass Sheet Customizer</title>
-<script defer src=/include/common.js></script>
+<script defer src=../include/common.js></script>
+<script type=module src=https://aeoq.github.io/drag-knob/script.js></script>
 <script defer src=https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js></script>
-<link href="/customize/sheet.css" rel=stylesheet>
+<link href=sheet.css rel=stylesheet>
 <nav>
     <menu>
         <li><a href="#6">#6</a></li>
@@ -90,9 +91,9 @@
 </aside>
 
 <script type="module">
-import _DB from '/include/DB.mjs'
+import DB from '../include/DB.mjs'
 import {App, Layers} from './sheet.js';
-Q('nav').after(_DB(App));
+Q('nav').after(DB(App));
 
 App.picker = () => {
     let show = image => picker.append(E('img', {src: `https://beyblade.takaratomy.co.jp/anime/character/_image/chara${image}`}));

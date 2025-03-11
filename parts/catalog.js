@@ -1,4 +1,6 @@
-import _DB from '/include/DB.mjs'
+import DB from '../include/DB.mjs'
+import {Markup, Mapping} from '../include/utilities.js'
+import {Finder} from '../products/table.js'
 let META;
 class Part {
     constructor(dict, key) {
@@ -14,7 +16,7 @@ class Part {
         if (this.comp != 'bit' || this.names)
             return this;
         let [, pref, ref] = new RegExp(`^([${META.prefixes.bit}]+)([^a-z].*)$`).exec(this.abbr);
-        ref = bits ? bits.find(p => p.abbr == ref) : await _DB.get('bit', this.strip());
+        ref = bits ? bits.find(p => p.abbr == ref) : await DB.get('bit', this.strip());
         this.#revise.name(ref, pref);
         this.#revise.attr(ref, pref);
         this.#revise.stat(ref);
@@ -40,7 +42,7 @@ class Part {
         return this;
     }
     async catalog(show) {
-        location.pathname == '/products/' && await _DB.get.meta(this.comp);
+        location.pathname == '/products/' && Object.assign(META, await DB.get.meta(this.comp));
         let {abbr, comp, line, group, attr, for: For} = await this.revise();
         this.catalog.part = this.catalog.html.part = this;
 
@@ -57,7 +59,7 @@ class Part {
             {[comp]: abbr}
         );
         location.pathname == '/parts/' && (this.a.href = `/products/?${query.url()}`);
-        location.pathname == '/products/' && (this.a.onclick = () => Finder?.find(query));
+        location.pathname == '/products/' && (this.a.onclick = () => Finder.find(query));
         return this;
     }
 }
@@ -67,7 +69,7 @@ Part.prototype.catalog.html = function() {
     let path = [comp, line ? `${line}-${group}` : '', abbr].filter(p => p).join('/');
     return [
         E('object', {data: this.html.background()}),
-        E('figure', [E('img', {src: `/img/${path}.png`})]),
+        E('figure', [E('img', {src: `../img/${path}.png`})]),
         ...this.part.stat ? this.html.stat() : [],
         ...this.html.names(),
         E('p', this.part.desc ?? ''),
@@ -80,17 +82,17 @@ Object.assign(Part.prototype.catalog.html, {
     background () {
         let {comp, attr} = this.part;
         let param = [
-            ['hue', E([Q(`.${comp.match(/^[^0-9]+/)}`)].flat()[0]).get('--c')],
+            ['hue', E([Q(`.${comp}`)].flat()[0]).get('--c')],
             [attr?.find(a => a == 'left' || a == 'right') ?? '', '']
         ];
-        return `/parts/bg.svg?${new URLSearchParams(param).toString()}`;
+        return `../parts/bg.svg?${new URLSearchParams(param).toString()}`;
     },
     icons () {
         let {abbr, line, group, attr} = this.part;
-        let icons = new Mapping('left', '\ue01d', 'right', '\ue01e', /^(?:att|def|sta|bal)$/, t => [E('img', {src: `/img/types.svg#${t}`})]);
+        let icons = new Mapping('left', '\ue01d', 'right', '\ue01e', /^(?:att|def|sta|bal)$/, t => [E('img', {src: `../img/types.svg#${t}`})]);
         return E.ul([
-            (line || /.X$/.test(group)) && [E('img', {src: `/img/lines.svg#${line ?? group}`})], 
-            group == 'remake' && [E('img', {src: `/img/system-${/^D..$/.test(abbr) ? 'BSB' : /\d$/.test(abbr) ? 'BBB' : 'MFB'}.png`})], 
+            (line || /.X$/.test(group)) && [E('img', {src: `../img/lines.svg#${line ?? group}`})], 
+            group == 'remake' && [E('img', {src: `../img/system-${/^D..$/.test(abbr) ? 'BSB' : /\d$/.test(abbr) ? 'BBB' : 'MFB'}.png`})], 
             ...(attr ?? []).map(a => icons.find(a, true))
         ]);
     },

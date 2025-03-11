@@ -1,6 +1,7 @@
 <title>非官方資訊站⬧Unofficial site</title>
 <meta name=description content="最新日本陀螺情報、所有部件圖鑑、限量産品，都一應俱全。">
 <script defer src=include/common.js></script>
+<script type=module src=https://aeoq.github.io/drag-knob/script.js></script>
 <link rel=stylesheet href=index.css>
 <link rel=stylesheet href=/include/component.css>
 <img src="https://beyblade.takaratomy.co.jp/anime/_image/kv_chara.png" hidden>
@@ -38,7 +39,7 @@
     <div>
         如在本網遇上問題<p><i id=reset>&#xe010;</i><span>重設儲存</span><i></i></p>
     </div>
-    <a href="https://beyblade-burst.github.io/" id=bbb><img src="/img/system-BBB.png"></a>
+    <a href="https://beyblade-burst.github.io/" id=bbb><img src="img/system-BBB.png"></a>
 </section>
 
 <footer>
@@ -47,10 +48,11 @@
 </footer>
 
 <script type=module>  
-import _DB from '/include/DB.mjs'
+import DB from './include/DB.mjs'
+import {Mapping, Storage} from './include/utilities.js'
 
 const observer = new IntersectionObserver(entries => entries.forEach(entry => entry.target.classList.toggle('seeing', entry.isIntersecting)));
-Q('header').after(_DB(() => Q('header,section,time,.scroller', el => observer.observe(el))));
+Q('header').after(DB(() => Q('header,section,time,.scroller', el => observer.observe(el))));
 
 class Shohin {
     constructor({code, name, imgs, desc, type, color, class: classList}) {
@@ -63,7 +65,7 @@ class Shohin {
         this.div = E('div', [
             E('h5', type ? [
                 E('ruby', {classList: [`below`, type]}, [
-                    E('img', {src: `/img/types.svg#${type}`}), 
+                    E('img', {src: `img/types.svg#${type}`}), 
                     E('rt', Shohin.types[type])]),
                     code
                 ] : code),
@@ -84,7 +86,7 @@ class Shohin {
     static base = `https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/`;
     static types = {att: 'ATTACK', bal: 'BALANCE', sta: 'STAMINA', def: 'DEFENSE'};
 }
-_DB.plugins = {
+DB.plugins = {
     announce: news => [...new O(news)].forEach(([date, beys]) => 
         Q('#products').append(E('time', {title: date}), ...beys.map(bey => new Shohin(bey).div))
     ),
@@ -130,5 +132,5 @@ Q('body>input').onkeypress = ev => {
         return location.href = `https://www.threads.net/search?q=${/(?<=\?).+/.exec(ev.target.value.replace('#', '%23'))}`;
     return location.href = `https://${ev.target.value}`;
 }
-(new Date - Storage('cached'))/1000/60/60/24 > 30 && fetch('/sw/?delete=parts');
+(new Date - Storage('cached'))/1000/60/60/24 > 30 && fetch('sw/?delete=parts');
 </script>

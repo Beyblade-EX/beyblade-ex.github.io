@@ -24,8 +24,8 @@ self.addEventListener('fetch', ev => ev.respondWith((() => {
 
 const actions = {
     delete: {
-        parts: () => fetch('/db/-update.json').then(() => caches.delete('parts')),
-        _: extension => fetch('/db/-update.json')
+        parts: () => fetch('db/-update.json').then(() => caches.delete('parts')),
+        _: extension => fetch('db/-update.json')
             .then(() => caches.open('V3'))
             .then(cache => cache.keys().then(reqs => reqs.forEach(req => new RegExp(`\\.${extension}$`).test(req.url) && cache.delete(req))))
     }
@@ -75,9 +75,6 @@ const Head = {
       "icons":[{"src":"https://beyblade-ex.github.io/favicon.png","type":"image/png","sizes":"192x192"},{"src":"https://beyblade-ex.github.io/favicon.ico","type":"image/png","sizes":"512x512","purpose":"maskable"}]
     }'>
     <script type=module>import {A,E,O,Q} from 'https://aeoq.github.io/AEOQ.mjs'; Object.assign(window, {A,E,O,Q});</script>
-    <script type=module src=https://aeoq.github.io/drag-knob/script.js></script>
-    <script defer src=/include/DB.js></script>
-
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MJMB14RTQP"></script>
     <script>
       window.dataLayer = window.dataLayer || [];

@@ -64,7 +64,7 @@ h3 {
         text-shadow:0 0 .5em gray;
     }
 }
-db-status {display:block;}
+db-state {display:block;}
 #links {
     gap:.5em 1em;
 
