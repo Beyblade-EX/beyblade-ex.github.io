@@ -1,4 +1,5 @@
-let PARTS, Parts = {};
+import _DB from '/include/DB.mjs'
+let META;
 class Part {
     constructor(dict, key) {
         dict.key && ([dict.abbr, dict.comp] = dict.key.split('.'));
@@ -12,8 +13,8 @@ class Part {
         }
         if (this.comp != 'bit' || this.names)
             return this;
-        let [, pref, ref] = new RegExp(`^([${PARTS.prefixes.bit}]+)([^a-z].*)$`).exec(this.abbr);
-        ref = bits ? bits.find(p => p.abbr == ref) : await DB.get('bit', this.strip());
+        let [, pref, ref] = new RegExp(`^([${META.prefixes.bit}]+)([^a-z].*)$`).exec(this.abbr);
+        ref = bits ? bits.find(p => p.abbr == ref) : await _DB.get('bit', this.strip());
         this.#revise.name(ref, pref);
         this.#revise.attr(ref, pref);
         this.#revise.stat(ref);
@@ -24,22 +25,22 @@ class Part {
         name: (ref, pref) => this.names = Part.revise.name(ref, pref),
         attr: (ref, pref) => [this.group, this.attr] = [ref.group, [...this.attr ?? [], ...ref.attr, ...pref]],
         stat: ref => this.stat.length === 1 && this.stat.push(...ref.stat.slice(1)),
-        desc: (ref, pref) => this.desc = [...pref].map(p => Parts.meta.prefix[p].desc).join('、') + `的【${ref.abbr}】bit${this.desc ? `，${this.desc}` : '。'}`,
-        group: () => this.group = [...new O(Parts.meta.height)].find(([_, dmm]) => this.abbr.split('-')[1] >= dmm)[0]
+        desc: (ref, pref) => this.desc = [...pref].map(p => META.prefix[p].desc).join('、') + `的【${ref.abbr}】bit${this.desc ? `，${this.desc}` : '。'}`,
+        group: () => this.group = [...new O(META.height)].find(([_, dmm]) => this.abbr.split('-')[1] >= dmm)[0]
     }
     static revise = {
-        name: (ref, pref) => new O(ref?.names ?? ref).prepend(...[...pref].reverse().map(p => PARTS.prefixes.bit[p])),
+        name: (ref, pref) => new O(ref?.names ?? ref).prepend(...[...pref].reverse().map(p => META.prefixes.bit[p])),
     }
     
     strip = what => this.comp == 'bit' ? Part.strip(this.abbr, what) : this.abbr;
-    static strip = (abbr, what) => abbr.replace(what == 'dash' ? '′' : new RegExp(`^[${PARTS.prefixes.bit}]+(?=[^′a-z])|′`, what == 'prefORdash' ? '' : 'g'), '');
+    static strip = (abbr, what) => abbr.replace(what == 'dash' ? '′' : new RegExp(`^[${META.prefixes.bit}]+(?=[^′a-z])|′`, what == 'prefORdash' ? '' : 'g'), '');
 
     prepare() {
         this.a = Q('.catalog').appendChild(E('a', {hidden: true}));
         return this;
     }
     async catalog(show) {
-        location.pathname == '/products/' && await DB.get.meta(this.comp);
+        location.pathname == '/products/' && await _DB.get.meta(this.comp);
         let {abbr, comp, line, group, attr, for: For} = await this.revise();
         this.catalog.part = this.catalog.html.part = this;
 
@@ -113,13 +114,13 @@ Object.assign(Part.prototype.catalog.html, {
         return [
             E('strong', limited ? 'L' : ''),
             E.dl(stat.map((s, i) => [
-                Parts.meta.terms[i].replace(/(?<=[A-Z])(?=[一-龢])/, `
+                META.terms[i].replace(/(?<=[A-Z])(?=[一-龢])/, `
 `),             {innerHTML: `${s}`.replace(/[+\-=]/, '<sup>$&</sup>').replace('-','−').replace('=','≈')}
             ]))
         ];
     },
     buttons () {
-        let div = E('div', PARTS.types.map(t => E('svg', [E('use')], {class: t})))
+        let div = E('div', META.types.map(t => E('svg', [E('use')], {class: t})))
         div.Q('svg', svg => E(svg).set({viewBox: '-10 -10 20 10'}));
         div.Q('use', use => E(use).set({href: '#triangle'}));
         return div;
@@ -129,7 +130,6 @@ Part.chi = (abbr, chi) => E('h5', {
     innerHTML: /^D[ZRGC]/.test(abbr) ? chi.replace(' ', ' ') : Markup(chi, 'parts'), 
     classList: 'chi'
 });
-
 Part.triangle = () => {
     let [r1, r2] = [.75, 1];
     let cornerAdjustX = r1 / Math.tan(Math.PI / 8);
@@ -142,3 +142,5 @@ Part.triangle = () => {
         L ${10-cornerAdjustY},${cornerAdjustY-10} A ${r1},${r1},0,0,0,${10-cornerAdjustX},-10 Z`
     });
 };
+Part.import = meta => META = meta;
+export default Part

@@ -1,11 +1,13 @@
+import _DB from '/include/DB.mjs'
+import {PointerInteraction} from 'https://aeoq.github.io/pointer-interaction/script.js';
+E.img = src => new Promise(res => E('img', {src, onload: function() {res(this);}}));
 const MAIN = {con: Q('canvas').getContext('2d', { alpha: false })};
-const loadIMG = src => new Promise(res => E('img', {src, onload: function() {res(this);}}));
 const App = () => {
     App.loading(true);
     Controls.show(null);
     Q('form button', button => button.type = 'button');
     App.events();
-    loadIMG('./frame.png').then(img => {
+    E.img('./frame.png').then(img => {
         MAIN.W = MAIN.con.canvas.width = img.naturalWidth, MAIN.H = MAIN.con.canvas.height = img.naturalHeight;
         MAIN.hW = MAIN.W/2, MAIN.hH = MAIN.H/2;
         Layers.frame = img;
@@ -22,8 +24,8 @@ Object.assign(App, {
         Draw();
     },
     loading: loading => Q('summary').classList[loading ? 'add' : 'remove']('loading'),
-    save: () => Layers.modified && DB.put('user', {[`sheet-${location.hash.substring(1)}`]: Layers.get()}),
-    load: hash => DB.get('user', `sheet-${hash.substring(1)}`).then(layers => layers ? Layers.put(layers) : App.reset()),
+    save: () => Layers.modified && _DB.put('user', {[`sheet-${location.hash.substring(1)}`]: Layers.get()}),
+    load: hash => _DB.get('user', `sheet-${hash.substring(1)}`).then(layers => layers ? Layers.put(layers) : App.reset()),
     stage (design) {
         if (design === true)
             return App.designs.reduce((prom, a) => prom.then(() => a.canvas ? 
@@ -87,16 +89,19 @@ Object.assign(App, {
         }).catch(document.body.append);
     },
     events () {
-        Object.assign(Q('form'), {
+        PointerInteraction.events({
+            '#layers label': {click: click => click.for(2).to(() => Layers.solo(true))}
+        });
+        E(Q('form')).set({
             oncontextmenu: () => false,
             onpointerup: App.save
         });
-        Object.assign(Q('#layer'), {
+        E(Q('#layer')).set({
             onchange: Layers.switch,
             onclick: ev => ev.target.id == 'create' ? Layers.create(ev) : ['up', 'down'].includes(ev.target.id) ? Layers.move(ev) : null,
             onpointerdown: ev => ev.target.id == 'delete' && Layers.delete(ev)
         });
-        Object.assign(Q('#control-image'), {
+        E(Q('#control-image')).set({
             onchange: Controls.image,
             onclick: ev => {
                 if (!ev.target.popoverTargetElement) return;
@@ -149,7 +154,7 @@ const Controls = {
         App.loading(true);
         const reader = new FileReader();
         reader.readAsDataURL(ev.target.files[0]);
-        reader.onload = () => loadIMG(reader.result).then(img => {
+        reader.onload = () => E.img(reader.result).then(img => {
             Layers.selected.Q('img').replaceWith(Layers.selected.img = img);
             Draw();
         });
@@ -217,7 +222,7 @@ const Layers = {
     },
     async put (layers) {
         const labels = await Promise.all(layers.map(({image, ...others}) => image ?
-            loadIMG(image).then(img => Layers.label(others, img)) : Layers.label(others)
+            E.img(image).then(img => Layers.label(others, img)) : Layers.label(others)
         ));
         Q('#layers').replaceChildren(...labels);
         labels[0]?.click();

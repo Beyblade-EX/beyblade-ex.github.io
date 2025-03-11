@@ -16,7 +16,7 @@
         </a>
     </div>
 </nav>
-<db-status callback="display()"></db-status>
+
 <main>
     <diamond-grid></diamond-grid>
 
@@ -40,16 +40,16 @@
     </article>
 </main>
 
-<script>
+<script type=module>
 class Keihin {
-    constructor({type, note, link, date, code, bey, ver, img}, NAMES) {
+    constructor({type, note, link, date, code, bey, ver, img}) {
         let [blade, ...others] = bey.split(' ');
         let names = {
-            jap: Keihin.naming(blade, NAMES, 'jap'),
-            chi: Keihin.naming(blade, NAMES, 'chi'),
+            jap: Keihin.naming(blade, 'jap'),
+            chi: Keihin.naming(blade, 'chi'),
         };
         this.li = E('li', {classList: `keihin-${type}`}, [
-            E('b', Keihin.type[type]), E('p', link ? [E('a', {href: link}, note)] : note),
+            E('b', Keihin.types[type]), E('p', link ? [E('a', {href: link}, note)] : note),
             E('div', [
                 E('figure', [E('img', {src: img[0], style: img[1]})]), 
                 E('h5', [
@@ -66,21 +66,25 @@ class Keihin {
             E('time', date.replace('-','‒'))
         ]);
     }
-    static naming = (blade, NAMES, lang) => blade.includes('.') ? 
-        blade.split('.').map((c, i) => NAMES.blade.CX[['motif', 'upper'][i]]?.[c][lang] ?? c).join('') : 
-        NAMES.blade[blade][lang];
-    static type = {t: '比賽', d: '抽獎', m: '限定商品', g: '贈品'}
+    static naming = (blade, lang) => blade.includes('.') ? 
+        blade.split('.').map((c, i) => Keihin.names.blade.CX[['motif', 'upper'][i]]?.[c][lang] ?? c).join('') : 
+        Keihin.names.blade[blade][lang];
+    static types = {t: '比賽', d: '抽獎', m: '限定商品', g: '贈品'}
     static all = []
 }
-addEventListener('DOMContentLoaded', () => {
-    Q('nav div').append(...E.checkboxes(Object.keys(Keihin.type).map(t => ({id: `keihin-${t}`, checked: true}) )));
+Keihin.display = () =>
+    fetch('/db/prod-keihin.json').then(resp => Promise.all([_DB.get.names(['blade', 'blade-CX']), resp.json()]))
+    .then(([names, keihins]) => (Keihin.names = names) && 
+        Q('diamond-grid').append(...Keihin.all = keihins.map(k => new Keihin(k).li))
+    );
+Keihin.events = () => {
+    Q('nav div').append(...E.checkboxes(Object.keys(Keihin.types).map(t => ({id: `keihin-${t}`, checked: true}) )));
     Q('nav input', (input, _, inputs) => input.onchange = () => {
         let show = [...inputs].filter(i => i.checked).map(i => i.id);
         Keihin.all.forEach(k => k.hidden = !show.includes(k.classList[0]));
-    });
-    location.hash && Q(location.hash)?.setAttribute('open', true);
-});
-const display = () =>
-    fetch('/db/prod-keihin.json').then(resp => Promise.all([DB.get.names(['blade', 'blade-CX']), resp.json()]))
-    .then(([names, keihins]) => Q('diamond-grid').append(...Keihin.all = keihins.map(k => new Keihin(k, names).li)))
+    }); 
+}
+import _DB from '/include/DB.mjs'
+Q('nav').after(_DB(Keihin.display));
+Keihin.events();
 </script>

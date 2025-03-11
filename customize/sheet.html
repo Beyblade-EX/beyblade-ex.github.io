@@ -22,7 +22,6 @@
     </div>
 </nav>
 
-<db-status callback="App()"></db-status>
 <main>
     <p class="message"><span>按住兩秒以刪除此層<small>無法回復！</span></small></p>
     <canvas></canvas>
@@ -91,24 +90,22 @@
 </aside>
 
 <script type="module">
-    import {App, Layers} from './sheet.js';
-    App.picker = () => {
-        let show = image => picker.append(E('img', {src: `https://beyblade.takaratomy.co.jp/anime/character/_image/chara${image}`}));
-        let picker = Q('[popover]'), 
-            main = ['tenka','multi','bird','ekusu'], 
-            mobu = ['ginro','karura','kuromu','shieru','shiguru','quinn','rex','yuni','zonamos','burn','kadovar','toguro','pan','manju','meiko'],
-            team = ['goldia','pend','cl','pakunchanel','yggdrasil','b4','zoo','persona'];
-        main.forEach(c => [1,2,3,4,5,6,7].forEach(i => show(`_${c}_chara0${i}.png`)));
-        mobu.forEach(c => show(`_${c}_chara01.png`));
-        team.forEach(t => show(`_team_${t}.png`));
-        [...Array(25)].forEach((_, i) => show(`Nav${`${i}`.padStart(2, 0)}.png`));
-        [...main, ...mobu].forEach(c => show(`_${c}_bgPC.png`));
-        main.forEach(c => [1,2,3,4].forEach(i => show(`_${c}_bey0${i}.png`)));
-        mobu.forEach(c => [1,2].forEach(i => show(`_${c}_bey0${i}.png`)));
-    }
-    import {PointerInteraction} from 'https://aeoq.github.io/pointer-interaction/script.js';
-    PointerInteraction.events({
-        '#layers label': {click: click => click.for(2).to(() => Layers.solo(true))}
-    });
-    setTimeout(App, 500);
+import _DB from '/include/DB.mjs'
+import {App, Layers} from './sheet.js';
+Q('nav').after(_DB(App));
+
+App.picker = () => {
+    let show = image => picker.append(E('img', {src: `https://beyblade.takaratomy.co.jp/anime/character/_image/chara${image}`}));
+    let picker = Q('[popover]'), 
+        main = ['tenka','multi','bird','ekusu'], 
+        mobu = ['ginro','karura','kuromu','shieru','shiguru','quinn','rex','yuni','zonamos','burn','kadovar','toguro','pan','manju','meiko'],
+        team = ['goldia','pend','cl','pakunchanel','yggdrasil','b4','zoo','persona'];
+    main.forEach(c => [1,2,3,4,5,6,7].forEach(i => show(`_${c}_chara0${i}.png`)));
+    mobu.forEach(c => show(`_${c}_chara01.png`));
+    team.forEach(t => show(`_team_${t}.png`));
+    [...Array(25)].forEach((_, i) => show(`Nav${`${i}`.padStart(2, 0)}.png`));
+    [...main, ...mobu].forEach(c => show(`_${c}_bgPC.png`));
+    main.forEach(c => [1,2,3,4].forEach(i => show(`_${c}_bey0${i}.png`)));
+    mobu.forEach(c => [1,2].forEach(i => show(`_${c}_bey0${i}.png`)));
+}
 </script>

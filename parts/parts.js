@@ -1,22 +1,26 @@
-Parts = {
+import _DB from '/include/DB.mjs'
+import Part from './catalog.js'
+let META;
+const [component, category] = [...new URLSearchParams(location.search)]?.[0] ?? [];
+const Parts = {
     list: () => Parts.firstly().then(Parts.listing).then(Parts.finally),
     catalog: () => Parts.firstly().then(Parts.before).then(Parts.cataloging).then(Parts.after).then(Parts.finally),
     count: () => Q('.part-result').value = document.querySelectorAll('.catalog>a:not([id^="+"]):not([hidden])').length,
 
     async firstly () {
-        await DB.get.meta(Parts.comp, Parts.category);
+        Part.import(META = await _DB.get.meta(component, category));
         Magnifier();
     },
     before () {
         Filter();
     },
     async cataloging () {
-        Parts.all = DB.get.parts(/^.X$/.test(Parts.category) ? Parts.category : Parts.comp)
-            .then(parts => parts.map(p => new Part(p, Parts.category).prepare().catalog()));
+        Parts.all = _DB.get.parts(/^.X$/.test(category) ? category : component)
+            .then(parts => parts.map(p => new Part(p, category).prepare().catalog()));
         Parts.all = await Promise.all(await Parts.all);
     },
     async listing () {
-        Parts.all = await Promise.all(location.hash.substring(1).split(',').map(p => DB.get(p)));
+        Parts.all = await Promise.all(location.hash.substring(1).split(',').map(p => _DB.get(p)));
         Parts.all = Parts.all.map(p => new Part(p).prepare().catalog(true));
     },
     after () {
@@ -33,8 +37,8 @@ Parts = {
         Filter.filter();
         if (keep === false) return;
         keep === true ? (location.hash = groups[0]) : location.hash && Parts.focus();
-        document.title = document.title.replace(/^.*?(?= ■ )/, Parts.meta.title?.[groups] ?? Parts.meta.title ?? '');
-        let info = typeof Parts.meta.info == 'string' ? Parts.meta.info : Parts.meta.info?.[groups] ?? '';
+        document.title = document.title.replace(/^.*?(?= ■ )/, META.title?.[groups] ?? META.title ?? '');
+        let info = typeof META.info == 'string' ? META.info : META.info?.[groups] ?? '';
         Q('details').hidden = !(Q('details article').innerHTML = info);
     },
     focus () {
@@ -43,7 +47,6 @@ Parts = {
         Q(location.hash)?.scrollIntoView();
     }
 };
-[Parts.comp, Parts.category] = [...new URLSearchParams(location.search)]?.[0] ?? [];
 onhashchange = () => Parts.after();
 
 const Magnifier = () => {
@@ -68,20 +71,20 @@ Object.assign(Magnifier, {
 const Filter = function(type) {
     return this instanceof Filter ? 
         this.create(type).events().dl :
-        Q('nav menu').after(...['group', ...Parts.meta.filters ?? []].map(f => new Filter(f)), Sorter());
+        Q('nav menu').after(...['group', ...META.filters ?? []].map(f => new Filter(f)), Sorter());
 };
 Object.assign(Filter.prototype, {
     create (type) {
         let dl = new O(Filter.dl[this.type = type]())
             .map(([_, inputs]) => [_, E.checkboxes(inputs.map(i => new A(i.label, {id: i.id, checked: i.checked ?? true}) ))]);
-        this.dl = E.dl(dl, {title: type, classList: [`part-filter`, type == 'group' ? Parts.comp : '']});
+        this.dl = E.dl(dl, {title: type, classList: [`part-filter`, type == 'group' ? component : '']});
         this.inputs = [this.dl.Q('input')].flat();
         type != 'group' && this.inputs.forEach(input => input.checked = true);
         return this;
     },
     events () {
         this.dl.Q('dt').onclick = () => {
-            if (this.type == 'group' && Parts.meta.multiple === false) return;
+            if (this.type == 'group' && META.multiple === false) return;
             this.inputs.forEach(input => input.checked = true);
             Filter.filter(this.type == 'group');
         }
@@ -94,10 +97,10 @@ Object.assign(Filter.prototype, {
 });
 Object.assign(Filter, {
     dl: {
-        group:  () => ({[Parts.category]: [...new O(Parts.meta.group)].map(([id, {label, checked}]) => ({id, label, checked})) }),
-        type:   () => ({類型: PARTS.types.map(t => ({id: t, label: E('img', {src: `/img/types.svg#${t}`})}) )}),
+        group:  () => ({[category]: [...new O(META.group)].map(([id, {label, checked}]) => ({id, label, checked})) }),
+        type:   () => ({類型: META.types.map(t => ({id: t, label: E('img', {src: `/img/types.svg#${t}`})}) )}),
         spin:   () => ({迴轉: ['left','right'].map((s, i) => ({id: s, label: ['\ue01d','\ue01e'][i]}) )}),
-        prefix: () => ({變化: [{id: '–', label: '–'}, ...[...new O(Parts.meta.variety)].map(([label, id]) => ({id, label}))] }),
+        prefix: () => ({變化: [{id: '–', label: '–'}, ...[...new O(META.variety)].map(([label, id]) => ({id, label}))] }),
     },
     filter (group) {
         let show = Q('.part-filter[title]:not([hidden])', [])
@@ -107,7 +110,7 @@ Object.assign(Filter, {
         Q('.catalog>a[class]', a => a.hidden = !a.matches(show));
         Parts.count(group);
     },
-    normal: () => `:not(${[...`${PARTS.prefixes.bit}`].map(p => `[class~=${p}]`)})`,
+    normal: () => `:not(${[...`${META.prefixes.bit}`].map(p => `[class~=${p}]`)})`,
     multiple: id => id.includes(',') ? id.split(',').map(id => `.${id}`).join() : `.${id}`
 });
 const Sorter = () => {
@@ -120,7 +123,7 @@ const Sorter = () => {
         Q('.catalog').append(...Parts.all.sort(Sorter.sort[input.id]).map(p => p.a));
         input.checked && Storage('pref', {sort: input.id});
     };
-    Sorter.release(Parts.comp);
+    Sorter.release(component);
     return dl;
 }
 Object.assign(Sorter, {
@@ -139,13 +142,14 @@ Object.assign(Sorter, {
         )),
         rank: (p, q) => Sorter.compare(p, q, p => p.rank || 'Z')
     },
-    release: comp => Sorter.schedule ?? DB.get('product', 'schedule').then(beys => Sorter.schedule = beys
+    release: comp => Sorter.schedule ?? _DB.get('product', 'schedule').then(beys => Sorter.schedule = beys
         .map(bey => bey[Sorter.index.full[comp]])
-        .filter(abbr => /.X$/.test(Parts.category) ? abbr.includes('.') : !abbr?.includes('.'))
-        .map(abbr => /.X$/.test(Parts.category) ? abbr.split('.') : abbr)
+        .filter(abbr => /.X$/.test(category) ? abbr.includes('.') : !abbr?.includes('.'))
+        .map(abbr => /.X$/.test(category) ? abbr.split('.') : abbr)
     ),
     index: {
         full: {blade: 0, ratchet: 1, bit: 2},
         blade: {motif: 0, upper: 1, lower: 2}
     }
 });
+export default Parts

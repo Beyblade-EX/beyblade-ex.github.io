@@ -13,8 +13,6 @@
     <h2>非官方資訊站</h2>
 </header>
 
-<db-status callback="Q('header,section,time,.scroller', content => observer.observe(content));"></db-status>
-
 <section id=contents>
     <h3>本站内容</h3>
     <a href=products/ >商品</a>
@@ -48,52 +46,49 @@
     <br>Developed and Designed by V Man (MKK). 2023–.
 </footer>
 
-<script>    
+<script type=module>  
+import _DB from '/include/DB.mjs'
+
 const observer = new IntersectionObserver(entries => entries.forEach(entry => entry.target.classList.toggle('seeing', entry.isIntersecting)));
-    
-const announce = news => [...new O(news)].forEach(([date, beys]) => {
-    let base = `https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/`;
-    let types = {att: 'ATTACK', bal: 'BALANCE', sta: 'STAMINA', def: 'DEFENSE'};
-    Q('#products').append(E('time', {title: date}));
-    beys.forEach(bey => {
-        let {code, name, imgs, desc, type, color, class: cl} = bey;
+Q('header').after(_DB(() => Q('header,section,time,.scroller', el => observer.observe(el))));
+
+class Shohin {
+    constructor({code, name, imgs, desc, type, color, class: classList}) {
         imgs ??= [];
-        if (name && /[BCU]XG?-\d+/.test(code)) {
-            let c = code.match(/[BCU]XG?-\d+/)[0].replace('-', '');
-            imgs = [base + `${c}@1.png`, ...imgs];
-            imgs.push(...[2,3,4,5,6,7,8].map(n => base + `${c}${color ? `_${color}` : ''}_0${n}@1.png`));
+        if (name && /XG?-\d+/.test(code)) {
+            let c = code.match(/.XG?-\d+/)[0].replace('-', '');
+            imgs = [Shohin.base + `${c}@1.png`, ...imgs];
+            imgs.push(...[2,3,4,5,6,7,8].map(n => Shohin.base + `${c}${color ? `_${color}` : ''}_0${n}@1.png`));
         }
-        let div = E('div', [
-            E('h5', type? [E('ruby', {classList: [`below`, type]}, [E('img', {src: `/img/types.svg#${type}`}), E('rt', types[type])]), code] : code),
+        this.div = E('div', [
+            E('h5', type ? [
+                E('ruby', {classList: [`below`, type]}, [
+                    E('img', {src: `/img/types.svg#${type}`}), 
+                    E('rt', Shohin.types[type])]),
+                    code
+                ] : code),
             E('h4', name?.replaceAll('-', '‑').replaceAll('<br>', String.fromCharCode(10))), 
             ...imgs.map(src => E('figure', [E('a', '🖼️', {href: src}), E('img', {src})])), 
             ...([desc ?? []].flat()).map(d => E('p', {innerHTML: d.replaceAll('-', '‑')}))
-        ], {classList: [`scroller`, cl || announce.colors.find(code)]});
-
-        Q('#products').appendChild(div);
-    });
-});
-addEventListener('DOMContentLoaded', () => {
-    announce.colors = new Mapping(
+        ], {classList: [`scroller`, classList || Shohin.classes.find(code)]});
+    }
+    static classes = new Mapping(
         /(stadium|entry) set/i, 'SS',
         /組合|Set/i, 'St',
         /Starter/i, 'S',
         /Random/i, 'RB',
         /Booster/i, 'B',
-        /[BCU]XG?-/, 'others',
+        /.XG?-/, 'others',
         'Lm'
-    );
-    (new Date - Storage('cached'))/1000/60/60/24 > 30 && fetch('/sw/?delete=parts');
-
-    Q('continuous-knob', knob => {
-        knob.click = click => click.for(1).to(_ => location.href = knob.get('href')),
-        knob.drag = PI => Math.abs(PI.$drag.θ - PI.$press.θ) >= 180 && [knob.classList.add('alt'), knob.set('href', knob.get('alt'))]
-    });
-    let app = ['https://apps.apple.com/tw/app/id1670801696', 'https://play.google.com/store/apps/details?id=jp.co.takaratomy.beyblade&pli=1'];
-    ((knob, [href, alt]) => [knob.set('href', href), knob.set('alt', alt)])(Q('continuous-knob[title^=App]'), navigator.appVersion.includes('Mac') ? app : app.reverse());
-});
-</script>    
-<script type="module">
+    )
+    static base = `https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/`;
+    static types = {att: 'ATTACK', bal: 'BALANCE', sta: 'STAMINA', def: 'DEFENSE'};
+}
+_DB.plugins = {
+    announce: news => [...new O(news)].forEach(([date, beys]) => 
+        Q('#products').append(E('time', {title: date}), ...beys.map(bey => new Shohin(bey).div))
+    ),
+};
 import {PointerInteraction} from 'https://aeoq.github.io/pointer-interaction/script.js';
 const reset = message => Promise.all([
     DB.discard('V3', ev => message.innerText = ev.type == 'blocked' ? '請先關閉所有本網的分頁' : ev.type),
@@ -112,9 +107,15 @@ PointerInteraction.events({
         }).catch(er => console.error(er)),
     }
 });
-</script>
-<script>
-addEventListener('DOMContentLoaded', () => Q('body>input').onkeypress = ev => {
+
+Q('continuous-knob', knob => {
+    knob.click = click => click.for(1).to(_ => location.href = knob.get('href')),
+    knob.drag = PI => Math.abs(PI.$drag.θ - PI.$press.θ) >= 180 && [knob.classList.add('alt'), knob.set('href', knob.get('alt'))]
+});
+let app = ['https://apps.apple.com/tw/app/id1670801696', 'https://play.google.com/store/apps/details?id=jp.co.takaratomy.beyblade&pli=1'];
+((knob, [href, alt]) => [knob.set('href', href), knob.set('alt', alt)])(Q('continuous-knob[title^=App]'), navigator.appVersion.includes('Mac') ? app : app.reverse());
+
+Q('body>input').onkeypress = ev => {
     if ((ev.keyCode || ev.which) != 13) return;
     ev.target.value = ev.target.value.trim();
     if (/^i#.+$/i.test(ev.target.value))
@@ -128,5 +129,6 @@ addEventListener('DOMContentLoaded', () => Q('body>input').onkeypress = ev => {
     if (/^t\?.+$/i.test(ev.target.value))
         return location.href = `https://www.threads.net/search?q=${/(?<=\?).+/.exec(ev.target.value.replace('#', '%23'))}`;
     return location.href = `https://${ev.target.value}`;
-})
+}
+(new Date - Storage('cached'))/1000/60/60/24 > 30 && fetch('/sw/?delete=parts');
 </script>
