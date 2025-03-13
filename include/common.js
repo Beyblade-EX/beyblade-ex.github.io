@@ -73,25 +73,25 @@ E.prop = class extends Array {
         return already ? already[0].assign(...others ?? []) : new E.prop(...stuff);
     }
 }
-
-Q('head').insertAdjacentHTML('beforeend', `<style id=unsupported>
+const unsupported = document.createElement('style');
+unsupported.textContent = `
     html::before {
         content:'請重新整理\\A如問題持續，需更新／換瀏覽器';
         opacity:1;
         animation:show .5s 1.5s forwards;
-        z-index:1;
+        z-index:9;
         background:black; color:black; font-size:3em;
         white-space:pre-wrap;
         position:fixed; width:100%; height:100%;
         display:flex; justify-content:center; align-items:center;
     }
-    @keyframes show {to {color:white;}}
-    </style>`);
+    @keyframes show {to {color:white;}}`;
+document.head.append(unsupported);
 navigator.serviceWorker?.register('/worker.js').then(() => {
-    if (!Q('link[href$="common.css"]')) return Promise.reject();
+    if (!document.querySelector('link[href$="common.css"]')) return Promise.reject();
     document.title += ' ■ 戰鬥陀螺 X⬧爆旋陀螺 X⬧ベイブレード X⬧Beyblade X';
-    Q('#unsupported')?.remove();
-}).catch(() => Storage('reloaded') < 3 && Storage('reloaded', Storage('reloaded') + 1) && location.reload());
+    unsupported.remove();
+}).catch(() => Storage('reloaded') < 3 && Storage('reloaded', Storage('reloaded') + 1) && location.reload());;
 
 addEventListener('DOMContentLoaded', () => {
     let menu = Q('nav menu');
