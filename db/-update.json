@@ -31,12 +31,29 @@
       {"code":"BX-42 rubber grip","name":"Rubber Custom Grip Blue Ver.<br>ラバーカスタムグリップ ブルーVer.","desc":["有橡膠的手把"]},
       {"code":"BX-43 gear case","name":"Gear Case White Ver.<br>ギアケース ホワイトVer.","desc":["儲存盒"]}
     ],
-    "2025-04":[
-      {"code":"UX-14 starter"},{"code":"CX-05 random booster","name":"ヘルズリーパーT4-70K<br>HellsReaper T4-70K","type":"bal",
-      "imgs":["https://i.redd.it/bmeo7vdf3kje1.png"]}
+    "2025-04-26":[
+      {"code":"CX-05 random booster","name":"ヘルズリーパーT4-70K<br>HellsReaper T4-70K","type":"bal",
+      "imgs":["https://m.media-amazon.com/images/I/61F38JzGIBL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/611EsmhbebL._AC_SX679_.jpg"],
+      "desc":["Rare 2：RhinoReaper C4-55D（犀牛）"]},
+      {"code":"UX-14 starter"}
     ],
     "2025-05":[
       {"code":"CX-06 random booster select"}
+    ],
+    "2025-06":[
+      {"code":"BX-44 Booster"}
+    ],
+    "2025-07":[
+      {"code":"CX-07 starter"},
+      {"code":"BXG-20 booster"}
+    ],
+    "2025-08":[
+      {"code":"CX-08 random booster"},
+      {"code":"UX-15 deck set"},
+      {"code":"BX-45 booster"}
+    ],
+    "2025-09":[
+      {"code":"CX-09 starter"}
     ]
   }
 

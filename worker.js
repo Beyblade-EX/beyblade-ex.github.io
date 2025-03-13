@@ -56,7 +56,7 @@ fetch.cache = res => caches.open(is.part(res.url) ? 'parts' : 'V3')
 
 const Head = {
     url: '/include/head.html',
-    QOE: 'https://beybladeburst.github.io/QOE.js',
+
     code: `<!DOCTYPE HTML>
     <meta charset='UTF-8'>
     <meta name=viewport content='width=device-width,initial-scale=1'>
@@ -85,7 +85,7 @@ const Head = {
     <script src=/include/DB.js></script>
     <script src=/include/UX.js></script>
     `,
-    cache: () => caches.open('V3').then(cache => Promise.all([cache.put(Head.url, new Response(Head.code)), cache.add(Head.QOE)])),
+    cache: () => caches.open('V3').then(cache => Promise.all([cache.put(Head.url, new Response(Head.code))])),
     fetch: () => caches.match(Head.url).then(resp => resp.text()),
 
     add: async resp => new Response(await Head.fetch() + await resp.text(), Head.response(resp)),
