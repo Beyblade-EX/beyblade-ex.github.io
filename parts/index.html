@@ -22,7 +22,8 @@
     magick mogrify -fuzz 5% -trim $outputFile
     $save = $outputFile -replace '^o', ''
     pngquant --quality=65-80 $outputFile -o "op/$($save)"
-}-->
+}
+    -->
 <main id=catalog>
     <span class=loading></span>
     <details hidden open>
