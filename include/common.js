@@ -79,7 +79,7 @@ unsupported.textContent = `
         content:'請重新整理\\A如問題持續，需更新／換瀏覽器';
         opacity:1;
         animation:show .5s 1.5s forwards;
-        z-index:2;
+        z-index:1;
         background:black; color:black; font-size:3em;
         white-space:pre-wrap;
         position:fixed; width:100%; height:100%;
