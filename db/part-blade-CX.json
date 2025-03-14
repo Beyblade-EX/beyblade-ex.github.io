@@ -31,10 +31,10 @@
     },
     "Rp": {
         "group": "upper",
-        "names": {"jap": "","eng": "Reaper","chi": ""},
+        "names": {"jap": "リーパー","eng": "Reaper","chi": ""},
         "stat": [""],
         "desc": "有起伏的 Smash 形四枚刃以連打令對手體勢傾倒。",
-        "attr": ["def","right"]
+        "attr": ["bal","right"]
     },
     "Dr": {
         "group": "upper",
