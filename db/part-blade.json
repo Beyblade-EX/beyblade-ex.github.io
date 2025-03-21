@@ -436,7 +436,7 @@
             "eng": "DragoonStorm",
             "chi": "暴風戰龍 龍騎士 S"
         },
-        "stat": [],
+        "stat": ["25="],
         "desc": "（2000 年發售的陀螺之 X 代復刻版）",
         "attr": ["att","left"]
     },
@@ -458,7 +458,7 @@
             "eng": "Storm \\Pegasis",
             "chi": "烈風\\天馬 暴風\\天馬"
         },
-        "stat": [],
+        "stat": ["31+"],
         "desc": "（2009 年發售的陀螺之 X 代復刻版）",
         "attr": ["att","right"]
     },
@@ -491,7 +491,7 @@
             "eng": "Victory \\Valkyrie",
             "chi": "勝利\\武神 天翼\\戰神"
         },
-        "stat": [],
+        "stat": ["33+"],
         "desc": "（2016 年發售的陀螺之 X 代復刻版）",
         "attr": ["att","right"]
     },
