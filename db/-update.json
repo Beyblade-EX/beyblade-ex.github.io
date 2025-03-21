@@ -8,14 +8,6 @@
   "part-ratchet":  "2025/02/21 23:15:00",
   "part-meta":     "2025/03/02 18:25:00",
   "news": {
-    "2025-03-15":[
-      {"code":"BXG-35 starter","type":"att","name":"フェニックスウイング9-60GF<br>メタルコート:ブラック<br>キタニタツヤVer.<br>PhoenixWing 9-60GF<br>Metal Coat: Black<br>Kitani Tatsuya Ver.",
-      "desc":"與某音樂製作人的 Collaboration"}
-    ],
-    "2025-03-21":[
-      {"code":"BXG-12 set","type":"att","name":"ベイブレード25周年記念セット<br>Beyblade 25th Anniversary Set",
-      "desc":"包括四代陀螺的主角機 X 代復刻版","imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BXG00@1.png"]}
-    ],
     "2025-03-29":[
       {"code":"CX-01 starter","type":"att","name":"DranBrave S6-60V<br>ドランブレイブ S6-60V",
       "desc":["【Brave】Main blade：Upper 刃產生 Down force","【Slash】Assist blade：低重心三枚刃","【Vortex】Bit：右迴轉版【C】Bit"]},
@@ -35,10 +27,22 @@
       {"code":"CX-05 random booster","name":"ヘルズリーパーT4-70K<br>HellsReaper T4-70K","type":"bal",
       "imgs":["https://m.media-amazon.com/images/S/aplus-media-library-service-media/70403632-4d23-404c-af6c-830a82da420f.__CR0,0,970,600_PT0_SX970_V1___.jpg"],
       "desc":["Rare 2：RhinoReaper C4-55D（犀牛）","【Turn】Assist blade：外側可拆除，反轉再裝上轉換模式","【Kick】Bit：傾側後容易回正","【Charge】Assist blade：小徑，重心集中在内"]},
-      {"code":"UX-14 starter"}
+      {"code":"UX-14 starter"},
+      {"code":"BXG-29 set","name":"アイアンマン4-80B<br>サノス4-60P<br>Ironman 4-80B<br>Thanos 4-60P",
+      "desc":["Marvel 漫畫角色陀螺"]},
+      {"code":"BXG-30 set","name":"スパイダーマン3-60F<br>ヴェノム3-80N<br>Spiderman 3-60F<br>Venom 3-80N",
+      "desc":["Marvel 漫畫角色陀螺"]},
+      {"code":"BXG-33 set","name":"ルーク・スカイウォーカー4-80B<br>ダース・ベイダー4-60P<br>Luke Skywalker 4-80B<br>Darth Vader 4-60P",
+      "desc":["Star Wars 角色陀螺"]},
+      {"code":"BXG-34 set","name":"マンダロリアン3-60F<br>モフ・ギデオン3-80N<br>Mandalorian 3-60F<br>Moff Gideon 3-80N",
+      "desc":["Star Wars 角色陀螺"]}
     ],
-    "2025-05":[
-      {"code":"CX-06 random booster select"}
+    "2025-05-17":[
+      {"code":"CX-06 random booster select"},
+      {"code":"BXG-36 set","name":"オプティマスプライム4-60P<br>メガトロン4-80B<br>Optimus Prime 4-60P<br>Megatron 4-80B",
+      "desc":["Transformers 角色陀螺"]},
+      {"code":"BXG-37 set","name":"オプティマスプライマル3-60F<br>スタースクリーム3-80N<br>Optimus Primal 3-60F<br>Starscream 3-80N",
+      "desc":["Transformers 角色陀螺"]}
     ],
     "2025-06":[
       {"code":"BX-44 Booster"}
