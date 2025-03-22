@@ -5,6 +5,7 @@
                 "UX": {"label": "UX"},
                 "BX": {"label": "BX"},
                 "remake": {"label": "復刻", "checked": false},
+                "collabo": {"label": "聯名", "checked": false},
                 "hasbro": {"label": "未出", "checked": false}
             },
             "title": "【UX】【BX】鋼鐵戰刃⬧刃擊環⬧Blade",

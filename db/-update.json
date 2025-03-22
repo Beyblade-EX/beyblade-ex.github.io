@@ -1,27 +1,29 @@
 {
-  "part-blade":    "2025/03/14 11:30:00",
   "part-blade-CX": "2025/03/14 11:30:00",
-  "prod-beys":     "2025/03/21 11:46:00",
+  "part-blade":    "2025/03/23 00:05:00",
+  "prod-beys":     "2025/03/23 00:05:00",
   "part-bit":      "2025/03/14 11:30:00",
   "prod-others":   "2025/02/21 23:15:00",
   "prod-launchers":"2025/02/21 23:15:00",
   "part-ratchet":  "2025/02/21 23:15:00",
-  "part-meta":     "2025/03/02 18:25:00",
+  "part-meta":     "2025/03/23 00:05:00",
   "news": {
+    "2025-03-21":[
+      {"code":"BXG-12 set","type":"att","name":"ベイブレード25周年記念セット<br>Beyblade 25th Anniversary Set","imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BXG00@1.png"]}
+    ],
     "2025-03-29":[
-      {"code":"CX-01 starter","type":"att","name":"DranBrave S6-60V<br>ドランブレイブ S6-60V",
+      {"code":"CX-01 starter","type":"att","name":"ドランブレイブ S6-60V<br>DranBrave S6-60V",
       "desc":["【Brave】Main blade：Upper 刃產生 Down force","【Slash】Assist blade：低重心三枚刃","【Vortex】Bit：右迴轉版【C】Bit"]},
-      {"code":"CX-02 starter","type":"sta","name":"WizardArc R4-55LO<br>ウィザードアーク R4-55LO",
+      {"code":"CX-02 starter","type":"sta","name":"ウィザードアーク R4-55LO<br>WizardArc R4-55LO",
       "desc":["【Arc】Main blade：金屬配置在外側","【Round】Assist blade：圓形，内側多空穴"]},
-      {"code":"CX-03 booster","type":"def","name":"PerseusDark B6-80W<br>ペルセウスダーク B6-80W",
+      {"code":"CX-03 booster","type":"def","name":"ペルセウスダーク B6-80W<br>PerseusDark B6-80W",
       "desc":["【Dark】Main blade：連打六枚刃","【Bumper】Assist blade：吸收衝擊","【Wedge】Bit：鈍角軸，10 齒"]},
-      {"code":"CX-04 entry set","type":"att","name":"Battle Entry Set C<br>バトルエントリーセットC"},
-      {"code":"BXG-12 set","name":"ベイブレード25周年記念セット<br>Beyblade 25th Anniversary Set","imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BXG00@1.png"]},
-      {"code":"BXG-13 starter"},
-      {"code":"BX-40 launcher","name":"Winder Launcher L<br>ワインダーランチャーL","desc":["左迴轉發射器"]},
-      {"code":"BX-41 rubber grip","name":"Rubber Custom Grip Gunmetal Ver.<br>ラバーカスタムグリップ ガンメタVer.","desc":["有橡膠的手把"]},
-      {"code":"BX-42 rubber grip","name":"Rubber Custom Grip Blue Ver.<br>ラバーカスタムグリップ ブルーVer.","desc":["有橡膠的手把"]},
-      {"code":"BX-43 gear case","name":"Gear Case White Ver.<br>ギアケース ホワイトVer.","desc":["儲存盒"]}
+      {"code":"CX-04 entry set","type":"att","name":"バトルエントリーセットC<br>Battle Entry Set C"},
+      {"code":"BXG-13 starter","type":"att","name":"ゼノエクスカリバー3-60GF<br>Xeno Xcalibur 3-60GF"},
+      {"code":"BX-40 launcher","name":"ワインダーランチャーL<br>Winder Launcher L","desc":["左迴轉發射器"]},
+      {"code":"BX-41 rubber grip","name":"ラバーカスタムグリップ ガンメタVer.<br>Rubber Custom Grip Gunmetal Ver.","desc":["有橡膠的手把"]},
+      {"code":"BX-42 rubber grip","name":"ラバーカスタムグリップ ブルーVer.<br>Rubber Custom Grip Blue Ver.","desc":["有橡膠的手把"]},
+      {"code":"BX-43 gear case","name":"ギアケース ホワイトVer.<br>Gear Case White Ver.","desc":["儲存盒"]}
     ],
     "2025-04-26":[
       {"code":"CX-05 random booster","name":"ヘルズリーパーT4-70K<br>HellsReaper T4-70K","type":"bal",

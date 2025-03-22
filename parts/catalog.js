@@ -103,7 +103,7 @@ Object.assign(Part.prototype.catalog.html, {
                 Part.chi(abbr, names.chi[0]),
                 Part.chi(abbr, names.chi[1] ?? ''),
                 E('h5', {classList: 'jap', innerHTML: Markup(names.jap, 'parts')}),
-                E('h5', {classList: 'eng', innerHTML: Markup(names.eng, 'parts')}),
+                E('h5', {classList: 'eng', innerHTML: group == 'collabo' ? names.eng : Markup(names.eng, 'parts')}),
             ];
         return children;
     },
