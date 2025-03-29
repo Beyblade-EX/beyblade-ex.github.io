@@ -1,5 +1,20 @@
 [
     {
+        "type":"t", "note":"G1 大會冠軍獎品", "date":"2025-05",
+        "bey":"DR.Br.S 6-60V", "ver":["メタルコート：ゴールド", "Metal Coat: Gold"],
+        "img":["https://beyblade.takaratomy.co.jp/beyblade-x/event/_image/gp_pre2025_1.png",{"width":"200%","left":"52%"}]
+    },
+    {
+        "type":"t", "note":"G1 大會亞軍獎品", "date":"2025-05",
+        "bey":"DR.Br.S 6-60V", "ver":["メタルコート：シルバー", "Metal Coat: Silver"],
+        "img":["https://beyblade.takaratomy.co.jp/beyblade-x/event/_image/gp_pre2025_2.png",{"width":"200%","left":"52%"}]
+    },
+    {
+        "type":"t", "note":"G1 大會季軍獎品", "date":"2025-05",
+        "bey":"DR.Br.S 6-60V", "ver":["メタルコート：ブロンズ", "Metal Coat: Bronze"],
+        "img":["https://beyblade.takaratomy.co.jp/beyblade-x/event/_image/gp_pre2025_3.png",{"width":"200%","left":"54%"}]
+    },
+    {
         "type":"t", "note":"G3 大會獎品（集齊後）", "date":"2025-04",
         "bey":"PR.Dr.B 6-80W", "ver":["メタルコート：ゴールド", "Metal Coat: Gold"],
         "img":["https://beyblade.takaratomy.co.jp/beyblade-x/event/_image/g3_gift1_2025.webp", {"width":"135%"}]

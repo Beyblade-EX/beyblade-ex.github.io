@@ -502,7 +502,7 @@
             "eng": "Xeno \\Xcalibur",
             "chi": "異界\\聖劍 神力\\聖劍"
         },
-        "stat": [],
+        "stat": ["31="],
         "desc": "劍形大型一枚刃，擅長強烈地撞飛對手。（2016 年發售的陀螺之 X 代復刻版）",
         "attr": ["att","right"]
     },
@@ -575,7 +575,7 @@
         },
         "stat": ["31+"],
         "desc": "（目前只在孩之寶商品中收錄，稱「Kong Yell」）",
-        "attr": ["def","right"],
+        "attr": ["def","right","BX"],
         "from": "WyGl"
     },
     "CrCr": {
@@ -590,6 +590,17 @@
         "attr": ["att","right"],
         "from": "ShEd"
     },
+    "HvWy": {
+        "group": "hasbro",
+        "names": {
+            "jap": "",
+            "eng": "",
+            "chi": ""
+        },
+        "stat": ["35="],
+        "desc": "（目前只在孩之寶商品中收錄，稱「Hover Wyvern」）",
+        "attr": ["sta","right","UX"]
+    },
     "TyRr": {
         "group": "hasbro",
         "names": {
@@ -599,7 +610,7 @@
         },
         "stat": ["36-"],
         "desc": "（目前只在孩之寶商品中收錄，稱「Roar Tyranno」）",
-        "attr": ["att","right"],
+        "attr": ["att","right","BX"],
         "from": "PhWn"
     },
     "ShGl": {
@@ -611,7 +622,7 @@
         },
         "stat": [""],
         "desc": "（目前只在孩之寶商品中收錄，稱「Gill Shark」）",
-        "attr": ["bal","right"],
+        "attr": ["bal","right","BX"],
         "from": "ShDr"
     },
     "IRON": {
@@ -622,7 +633,7 @@
             "chi": ""
         },
         "stat": ["32+"],
-        "attr": ["def","right"],
+        "attr": ["def","right","BX"],
         "from": "KnSh"
     },
     "THAN": {
@@ -633,7 +644,7 @@
             "chi": ""
         },
         "stat": ["30-"],
-        "attr": ["def","right"],
+        "attr": ["def","right","BX"],
         "from": "KnLn"
     },
     "SPID": {
@@ -644,7 +655,7 @@
             "chi": ""
         },
         "stat": ["33="],
-        "attr": ["sta","right"],
+        "attr": ["sta","right","BX"],
         "from": "VpTl"
     },
     "VENO": {
@@ -655,7 +666,7 @@
             "chi": ""
         },
         "stat": ["35-"],
-        "attr": ["att","right"],
+        "attr": ["att","right","BX"],
         "from": "DrSw"
     },
     "LUKE": {
@@ -666,7 +677,7 @@
             "chi": ""
         },
         "stat": ["30+"],
-        "attr": ["def","right"],
+        "attr": ["def","right","BX"],
         "from": "KnSh"
     },
     "DART": {
@@ -677,7 +688,7 @@
             "chi": ""
         },
         "stat": ["31-"],
-        "attr": ["def","right"],
+        "attr": ["def","right","BX"],
         "from": "KnLn"
     },
     "MAND": {
@@ -688,7 +699,7 @@
             "chi": ""
         },
         "stat": ["31-"],
-        "attr": ["bal","right"],
+        "attr": ["bal","right","BX"],
         "from": "LnCl"
     },
     "MOFF": {
@@ -699,7 +710,7 @@
             "chi": ""
         },
         "stat": ["31-"],
-        "attr": ["bal","right"],
+        "attr": ["bal","right","BX"],
         "from": "HlSc"
     },
     "OPME": {
@@ -710,7 +721,7 @@
             "chi": ""
         },
         "stat": ["32-"],
-        "attr": ["def","right"],
+        "attr": ["def","right","BX"],
         "from": "KnSh"
     },
     "MEGA": {
@@ -721,7 +732,7 @@
             "chi": ""
         },
         "stat": ["31+"],
-        "attr": ["bal","right"],
+        "attr": ["bal","right","BX"],
         "from": "HlSc"
     },
     "OPAL": {
@@ -732,7 +743,7 @@
             "chi": ""
         },
         "stat": ["35+"],
-        "attr": ["att","right"],
+        "attr": ["att","right","BX"],
         "from": "ShEd"
     },
     "STAR": {
@@ -743,7 +754,7 @@
             "chi": ""
         },
         "stat": ["29+"],
-        "attr": ["sta","right"],
+        "attr": ["sta","right","BX"],
         "from": "WzAr"
     }
 }

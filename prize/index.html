@@ -59,15 +59,22 @@ class Keihin {
                 ]),
             ]),
             E('i', [
-                names.chi.replace(' ', '⬧').replaceAll('\\', '') + ` ${names.chi ? others : ''}`.replace('-', '‑') || '　', 
+                names.chi.replaceAll(' ', '⬧').replaceAll('\\', '') + ` ${names.chi ? others : ''}`.replace('-', '‑') || '　', 
                 E('small', ver[1])
             ]),
             E('time', date.replace('-','‒'))
         ]);
     }
-    static naming = (blade, NAMES, lang) => blade.includes('.') ? 
-        blade.split('.').map((c, i) => NAMES.blade.CX[['motif', 'upper'][i]]?.[c][lang] ?? c).join('') : 
-        NAMES.blade[blade][lang];
+    static naming = (blade, NAMES, lang) => {
+        let name = blade.includes('.') ? 
+            blade.split('.').map((c, i) => NAMES.blade.CX[['motif', 'upper'][i]]?.[c][lang] ?? c) : 
+            NAMES.blade[blade][lang];
+        if (lang == 'chi' && Array.isArray(name)) {
+            name = name.map(n => n.split(' '));
+            name = name[0][0] + name[1][0] + ' ' + (name[0][1] ?? name[0][0]) + (name[1][1] ?? name[1][0]) + name[2];
+        }
+        return name;
+    }
     static type = {t: '比賽', d: '抽獎', m: '限定商品', g: '贈品'}
     static all = []
 }

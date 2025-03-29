@@ -46,7 +46,7 @@ class Part {
         this.a ??= Q('.catalog').appendChild(E('a'));
         new E.prop(this.catalog.html(), {
             id: abbr,
-            classList: [comp, line, group, ...(attr ?? [])],
+            classList: [comp, line, group, ...(attr ?? []).filter(a => !/.X$/.test(a))],
             hidden: !show,
             for: For,
         }).apply(this.a);
@@ -87,6 +87,7 @@ Object.assign(Part.prototype.catalog.html, {
     icons () {
         let {abbr, line, group, attr} = this.part;
         let icons = new Mapping('left', '\ue01d', 'right', '\ue01e', /^(?:att|def|sta|bal)$/, t => [E('img', {src: `/img/types.svg#${t}`})]);
+        ['hasbro', 'collabo'].includes(group) && (group = attr.find(a => /.X$/.test(a)));
         return E.ul([
             (line || /.X$/.test(group)) && [E('img', {src: `/img/lines.svg#${line ?? group}`})], 
             group == 'remake' && [E('img', {src: `/img/system-${/^D..$/.test(abbr) ? 'BSB' : /\d$/.test(abbr) ? 'BBB' : 'MFB'}.png`})], 

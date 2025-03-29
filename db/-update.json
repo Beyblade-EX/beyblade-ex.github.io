@@ -1,16 +1,13 @@
 {
-  "part-blade-CX": "2025/03/14 11:30:00",
-  "part-blade":    "2025/03/23 00:25:00",
+  "part-blade-CX": "2025/03/29 11:55:00",
+  "part-blade":    "2025/03/29 12:05:00",
+  "part-ratchet":  "2025/02/29 11:55:00",
+  "part-bit":      "2025/03/29 11:55:00",
+  "part-meta":     "2025/03/29 11:55:00",
   "prod-beys":     "2025/03/23 00:05:00",
-  "part-bit":      "2025/03/14 11:30:00",
   "prod-others":   "2025/02/21 23:15:00",
   "prod-launchers":"2025/02/21 23:15:00",
-  "part-ratchet":  "2025/02/21 23:15:00",
-  "part-meta":     "2025/03/23 00:05:00",
   "news": {
-    "2025-03-21":[
-      {"code":"BXG-12 set","type":"att","name":"ベイブレード25周年記念セット<br>Beyblade 25th Anniversary Set","imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/BXG00@1.png"]}
-    ],
     "2025-03-29":[
       {"code":"CX-01 starter","type":"att","name":"ドランブレイブ S6-60V<br>DranBrave S6-60V",
       "desc":["【Brave】Main blade：Upper 刃產生 Down force","【Slash】Assist blade：低重心三枚刃","【Vortex】Bit：右迴轉版【C】Bit"]},
