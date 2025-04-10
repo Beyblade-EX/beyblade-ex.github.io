@@ -109,10 +109,10 @@ Object.assign(Part.prototype.catalog.html, {
         return children;
     },
     stat () {
-        let {abbr, comp, stat, limited} = this.part;
+        let {abbr, comp, stat, date} = this.part;
         comp == 'ratchet' && stat[0] && stat.push(...abbr.split('-'));
         return [
-            E('strong', limited ? 'L' : ''),
+            date ? E('strong', date) : '',
             E.dl(stat.map((s, i) => [
                 Parts.meta.terms[i].replace(/(?<=[A-Z])(?=[一-龢])/, `
 `),             {innerHTML: `${s}`.replace(/[+\-=]/, '<sup>$&</sup>').replace('-','−').replace('=','≈')}
