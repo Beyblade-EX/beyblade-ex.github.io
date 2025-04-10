@@ -72,7 +72,7 @@
             "eng": "Crimson\\Garuda",
             "chi": "緋紅\\迦樓羅 赫燃\\天鳳"
         },
-        "stat": ["35-"],
+        "stat": ["35="],
         "desc": "上下擁有不同的性能：上面擅長少持久損失的攻擊，下面擅長反擊。",
         "attr": ["bal","right","bsb"]
     },
@@ -514,7 +514,7 @@
             "eng": "ShinobiKnife",
             "chi": ""
         },
-        "stat": ["31+"],
+        "stat": ["31="],
         "desc": "小徑及高剛性内重心構造，容易抵耐對手衝擊。",
         "attr": ["def","right"],
         "from": "RhHr"
