@@ -600,7 +600,7 @@
         },
         "stat": ["35="],
         "desc": "（目前只在孩之寶商品中收錄，稱「Hover Wyvern」）",
-        "attr": ["sta","right","UX"]
+        "attr": ["def","right","UX"]
     },
     "TyRr": {
         "group": "hasbro",
