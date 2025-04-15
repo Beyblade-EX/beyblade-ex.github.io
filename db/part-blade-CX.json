@@ -1,4 +1,10 @@
 {
+    "FX": {
+        "group": "motif",
+        "names": {"jap": "フォックス", "eng": "Fox", "chi": ""},
+        "stat": [],
+        "attr": ["right"]
+    },
     "HL": {
         "group": "motif",
         "names": {"jap": "ヘルズ", "eng": "Hells", "chi": "煉獄 惡魔"},
@@ -29,6 +35,13 @@
         "stat": ["2-"],
         "attr": ["right","mfb"]
     },
+    "Bs": {
+        "group": "upper",
+        "names": {"jap": "ブラッシュ","eng": "Brush","chi": ""},
+        "stat": [""],
+        "desc": "九枚刃以上下排列，擴闊連打攻擊的範圍同時旨在強力的一擊。",
+        "attr": ["att","right"]
+    },
     "Rp": {
         "group": "upper",
         "names": {"jap": "リーパー","eng": "Reaper","chi": ""},
@@ -57,6 +70,13 @@
         "desc": "三枚大形 Upper 刃加上能產生 Down force 的空力構造。",
         "attr": ["att","right"]
     },
+    "J": {
+        "group": "lower",
+        "names": {"jap": "ジャギー","eng": "Jaggy","chi": ""},
+        "stat": [""],
+        "desc": "向下擴闊的低重心九枚刃擅長如下潛的連打攻擊。",
+        "attr": ["att","right"]
+    },        
     "S": {
         "group": "lower",
         "names": {"jap": "スラッシュ","eng": "Slash","chi": ""},

@@ -3,7 +3,7 @@ Mapping.maps = {
     ...Mapping.maps,
     rare: new Mapping(),
     note: new Mapping(
-        /^BXG-1[4]$/, '日本以外未有發售',
+        /^BXG-(14|35)$/, '日本以外未有發售',
         /^BXG-(03|05|08|17|23|32)$/, 'App 内抽中後購買',
         'BXG-31', '各部件自選一色',
         ['BXG-07','BX-36','UX-05','BX-16','BX-27', 'BX-39'], '各款封入比例均等',
@@ -23,6 +23,7 @@ Mapping.maps = {
         'BXG-09', {switch: 'BXG-14'},
         'BXG-07', {underscore: true, detail: '${no}_(1|2)'},
         /^BXG-(03|05|06|13|35)$/, {detailUpper: true},
+        /^UX-14/, {detailUpper: true},
         /^CX/, {detailUpper: true},
         'BX-08', {detail: '${no}_(r|g|y)', more: '${no}_(r|g|y)'},
     )

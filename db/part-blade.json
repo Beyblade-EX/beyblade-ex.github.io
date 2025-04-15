@@ -1,4 +1,15 @@
 {
+    "ScSp": {
+        "group": "UX",
+        "names": {
+            "jap": "スコーピオスピア",
+            "eng": "ScorpioSpear",
+            "chi": ""
+        },
+        "stat": [""],
+        "desc": "X Dash 時從高化解性防禦性能的圓形六枚刃變形至高攻擊性能的三枚刃。",
+        "attr": ["bal","right",""]
+    },
     "ShDr": {
         "group": "BX",
         "names": {
@@ -520,14 +531,14 @@
         "from": "RhHr"
     },
     "SmSt": {
-        "group": "hasbro",
+        "group": "BX",
         "names": {
             "jap": "サムライスチール",
             "eng": "SamuraiSteel",
             "chi": ""
         },
         "stat": ["31+"],
-        "desc": "（目前只在孩之寶商品中收錄，稱「Steel Samurai」）",
+        "desc": "",
         "attr": ["bal","right"],
         "from": "LnCl"
     },
