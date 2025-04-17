@@ -2,7 +2,7 @@
     {
         "eng": "RUBBER CUSTOM GRIP",
         "jap": "ラバーカスタムグリップ",
-        "desc": "四塊可拆除橡膠 Panel，以調節最適握感",
+        "desc": "四塊可拆除橡膠 Panel，以調節最適握感",
         "colors":[
             ["B","BX-42","BX42@1",115],
             ["B","BX-41","BX41@1",115]
@@ -11,7 +11,7 @@
     {
         "eng": "CUSTOM GRIP",
         "jap": "カスタムグリップ",
-        "desc": "四塊可拆除 Panel，以調節最適握感",
+        "desc": "四塊可拆除 Panel，以調節最適握感",
         "colors":[
             ["B","BXG-10","BXG07@1",110],
             ["B","BX-30","BX30@1",110],
@@ -21,7 +21,7 @@
     {
         "eng": "LAUNCHER GRIP",
         "jap": "ランチャーグリップ",
-        "desc": "一塊可拆除 Panel 的發射器手把",
+        "desc": "一塊可拆除 Panel 的發射器手把",
         "colors":[
             ["B","BX-11","BX11@1",120],
             ["SS","BX-07","BX07_05@1"]
@@ -31,6 +31,7 @@
         "eng": "Xtreme Stadium",
         "jap": "エクストリームスタジアム",
         "desc": "基本對戰盤",
+        "details": "下方兩側為 2 分 Over Zone，中間為 3 分 Xtreme Zone。",
         "colors":[
             ["SS","CX-04","CX04_05@1"],
             ["SS","BXG-19","BXG19_07@1"],
@@ -45,6 +46,7 @@
         "eng": "Wide Xtreme Stadium",
         "jap": "ワイドエクストリームスタジアム",
         "desc": "供三人用的對戰盤",
+        "details": "上方兩個角落為 3 分 Xtreme Zone，下方中間為 2 分 Over Zone。最後一顆生存的陀螺為勝，依其餘兩顆如何落敗而加總得分。例如兩顆陀螺互相碰撞後分別從 2 分區及 3 分區離開對戰盤，剩餘的一顆就取得 5 分。",
         "colors":[
             ["B","BX-32","BX32@1",120]
         ]

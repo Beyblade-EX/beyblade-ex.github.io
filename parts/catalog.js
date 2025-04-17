@@ -6,10 +6,6 @@ class Part {
         Object.assign(this, {...dict, line: key});
     }
     async revise(bits) {
-        if (this.comp == 'ratchet') {
-            this.#revise.group();
-            return this;
-        }
         if (this.comp != 'bit' || this.names)
             return this;
         let [, pref, ref] = new RegExp(`^([${PARTS.prefixes.bit}]+)([^a-z].*)$`).exec(this.abbr);
@@ -36,6 +32,7 @@ class Part {
 
     prepare() {
         this.a = Q('.catalog').appendChild(E('a', {hidden: true}));
+        this.comp == 'ratchet' && this.#revise.group();
         return this;
     }
     async catalog(show) {

@@ -164,7 +164,7 @@ a[href],a[onclick],nav,form summary,caption label,:is(caption,#filter) button,#f
     transition:transform .5s;
 }
 @keyframes pull {
-    25% {transform:translateX(1.5em);}
+    25% {transform:translateX(1em);}
     50%,to {transform:none;}
 }
 nav {

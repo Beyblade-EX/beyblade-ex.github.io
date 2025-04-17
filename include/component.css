@@ -77,6 +77,11 @@
     details[open] picture {
         outline-color:var(--theme);
     }
+    p {
+        font-size:.8em;
+        text-align:left;
+        margin-bottom:0;
+    }
 }
 
 .boards {
@@ -107,6 +112,11 @@
             border-color:transparent transparent var(--light) transparent;
             border-width:0 1em 1em 1em;
             border-style:solid;
+        }
+        &::after {
+            position:absolute; bottom:.4em; right:.8em;
+            font-size:1.5em;
+            color:black;
         }
     }
     code {
@@ -169,6 +179,8 @@
         content:"\e01d";
         left:-1.2em;
     }
+    .plus-1::after {content:'+';}
+    .plus-2::after {content:'++';}
 }
 
 .scroller {

@@ -1,5 +1,10 @@
 [
     {
+        "type":"m", "note":"六月號コロコロ雜誌應募", "date":"2025-05",
+        "bey":"SmSt 5-70GF", "ver":["メタルコート：ホワイト", "Metal Coat: White"],
+        "img":["https://corocoro-news.jp/wp-content/uploads/2025/04/4e0bd5ecc822c03193ad809c190f0a2d.jpg",{"width":"104%"}]
+    },
+    {
         "type":"t", "note":"G1 大會冠軍獎品", "date":"2025-05",
         "bey":"DR.Br.S 6-60V", "ver":["メタルコート：ゴールド", "Metal Coat: Gold"],
         "img":["https://beyblade.takaratomy.co.jp/beyblade-x/event/_image/gp_pre2025_1.png",{"width":"200%","left":"52%"}]

@@ -37,13 +37,14 @@
 <script>
 const List = {
     headers: (where, products, determinant) => {
-        for (let {eng, jap, desc, colors} of products.reverse()) {
+        for (let {eng, jap, desc, colors, details: p} of products.reverse()) {
             let details = E('details', {name: 'panel'}, [
                 E('summary', [
                     E('h3', {innerHTML: `${jap}<br>${eng}`}),
                     E('small', desc),
                     E('picture', {style: {backgroundImage: `url(${List.src(colors[1] || colors[0])})`}})
                 ]),
+                p ? E('p', p) : '',
                 E('ol', {classList: 'boards'})
             ]);
             let size = (colors[1] || colors[0])[3];
