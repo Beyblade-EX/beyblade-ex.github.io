@@ -153,7 +153,8 @@ class KeysAsString {
     constructor(obj) {Object.assign(this, obj);}
     [Symbol.toPrimitive] = type => type == 'string' && Object.keys(this).join('')
 };
-const Markup = (text, location) => text && Markup.items[location].reduce((text, [before, after]) => text.replace(before, after), text);
+const Markup = (text, location) => text && (location ? Markup.items[location] : Markup.items)
+    .reduce((text, [before, after]) => text.replace(before, after), text);
 Markup.items = [
     [/_([^ ]{4,})/g, '<sub class=long>$1</sub>'],
     [/_([^ ]+)/g, '<sub>$1</sub>'],

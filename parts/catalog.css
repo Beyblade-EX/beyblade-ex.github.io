@@ -102,7 +102,7 @@ a object {
         margin:0 0 .2em .2em;
     }
 }
-:is(.eng,.chi) span {
+:is(.eng,.chi):not(:has(span)),:is(.eng,.chi) span {
     color:var(--type);
     -webkit-text-stroke:initial;
     font-weight:normal;

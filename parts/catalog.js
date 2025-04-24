@@ -92,14 +92,14 @@ Object.assign(Part.prototype.catalog.html, {
         ]);
     },
     names () {
-        let {abbr, comp, line, group, names} = this.part;
+        let {abbr, comp, line, group, names, attr} = this.part;
         names ??= {};
         names.chi = (names.chi ?? '').split(' ');
         let children = comp != 'blade' || line == 'CX' && group == 'lower' ? 
             [E('h4', abbr.replace('-', '‒')), ...['jap','eng'].map(l => E('h5', names[l] || '', {classList: l}))] : 
             [
-                Part.chi(abbr, names.chi[0]),
-                Part.chi(abbr, names.chi[1] ?? ''),
+                Part.chi(group, attr, names.chi[0]),
+                Part.chi(group, attr, names.chi[1] ?? ''),
                 E('h5', {classList: 'jap', innerHTML: Markup(names.jap, 'parts')}),
                 E('h5', {classList: 'eng', innerHTML: group == 'collabo' ? names.eng : Markup(names.eng, 'parts')}),
             ];
@@ -123,8 +123,8 @@ Object.assign(Part.prototype.catalog.html, {
         return div;
     }
 });
-Part.chi = (abbr, chi) => E('h5', {
-    innerHTML: /^D[ZRGC]/.test(abbr) ? chi.replace(' ', ' ') : Markup(chi, 'parts'), 
+Part.chi = (group, attr, chi) => E('h5', {
+    innerHTML: Markup(chi, group == 'collabo' || attr.includes('BSB') ? '' : 'parts'), 
     classList: 'chi'
 });
 

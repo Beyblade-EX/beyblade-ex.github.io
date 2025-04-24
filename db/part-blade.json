@@ -4,9 +4,9 @@
         "names": {
             "jap": "スコーピオスピア",
             "eng": "ScorpioSpear",
-            "chi": ""
+            "chi": "天蠍長矛"
         },
-        "stat": [""],
+        "stat": ["40-"],
         "desc": "X Dash 時從高化解性防禦性能的圓形六枚刃變形至高攻擊性能的三枚刃。",
         "attr": ["bal","right",""]
     },
@@ -15,7 +15,7 @@
         "names": {
             "jap": "シェルター\\ドレイク",
             "eng": "Shelter\\Drake",
-            "chi": "神護\\魔龍 飛龍庇護"
+            "chi": "神護\\魔龍 護城\\龍神"
         },
         "stat": ["33-"],
         "desc": "高剛性圓形的兩枚刃兼備離心力持久及卸走性防禦。",
@@ -62,7 +62,7 @@
             "chi": "騎士護甲 騎士圓甲"
         },
         "stat": ["37-"],
-        "desc": "圓形十二枚刃中内藏的三顆金屬球能上下移動，緩和衝擊。",
+        "desc": "圓形十二枚刃中內藏的三顆金屬球能上下移動，緩和衝擊。",
         "attr": ["def","right"]
     },
     "SmSb": {
@@ -125,7 +125,7 @@
         "names": {
             "jap": "レオンクレスト",
             "eng": "LeonCrest",
-            "chi": "獅王徽章 雄獅巓峰"
+            "chi": "獅王徽章 雄獅巔峰"
         },
         "stat": ["35="],
         "desc": "垂直高聳形狀的厚七枚刃，防禦從任何方向而來的攻擊。",
@@ -325,7 +325,7 @@
         "names": {
             "jap": "ヘルズサイズ",
             "eng": "HellsScythe",
-            "chi": "煉獄魔鎌 惡魔紅鎌"
+            "chi": "煉獄魔鐮 惡魔紅鐮"
         },
         "stat": ["33-"],
         "desc": "四枚 Smash 刃擅長令對手體勢傾倒。",
@@ -372,7 +372,7 @@
             "chi": "犀牛號角 戰犀號角"
         },
         "stat": ["33-"],
-        "desc": "金屬凝縮在内側的内重心構造，是令體勢受強衝擊也難以傾倒的設計。",
+        "desc": "金屬凝縮在內側的內重心構造，是令體勢受強衝擊也難以傾倒的設計。",
         "attr": ["def","right"]
     },
     "ShEd": {
@@ -383,7 +383,7 @@
             "chi": "烈鯊利刃 鮫鯊鋒鰭"
         },
         "stat": ["35-"],
-        "desc": "急角度的 Upper 刃侵入對手身内，能從低位置向上撞。",
+        "desc": "急角度的 Upper 刃侵入對手身內，能從低位置向上撞。",
         "attr": ["att","right"]
     },
     "LnCl": {
@@ -428,7 +428,7 @@
         },
         "stat": ["29-"],
         "desc": "擁有圓形翼的兩枚刃兼備攻擊及防禦。（2000 年發售的陀螺之 X 代復刻版）",
-        "attr": ["bal","right"]
+        "attr": ["bal","right","BSB"]
     },
     "DZS": {
         "group": "remake",
@@ -439,7 +439,7 @@
         },
         "stat": ["28-"],
         "desc": "兩枚水平刃産生高攻擊力及持久力，是重視平衡的設計。（2000 年發售的陀螺之 X 代復刻版）",
-        "attr": ["bal","right"]
+        "attr": ["bal","right","BSB"]
     },
     "DGS": {
         "group": "remake",
@@ -450,7 +450,7 @@
         },
         "stat": ["25="],
         "desc": "特化於左迴轉的四枚刃強力地把對手撞走。（2000 年發售的陀螺之 X 代復刻版）",
-        "attr": ["att","left"]
+        "attr": ["att","left","BSB"]
     },
     "DCS": {
         "group": "remake",
@@ -461,7 +461,7 @@
         },
         "stat": ["28+"],
         "desc": "外周的凹凸擅長反擊防禦。（2001 年發售的陀螺之 X 代復刻版）",
-        "attr": ["def","right"]
+        "attr": ["def","right","BSB"]
     },
     "SPg": {
         "group": "remake",
@@ -472,7 +472,7 @@
         },
         "stat": ["31+"],
         "desc": "Upper 形狀三枚刃把對手撞走及給予傷害。",
-        "attr": ["att","right"]
+        "attr": ["att","right","MFB"]
     },
     "LLd_u": {
         "group": "remake",
@@ -483,7 +483,7 @@
         },
         "stat": ["34-"],
         "desc": "在三處配置向左的 Upper 刃，重視 Upper 攻擊。（2009 年發售的陀螺之 X 代復刻版）",
-        "attr": ["att","left"]
+        "attr": ["att","left","MFB"]
     },
     "LLd_r": {
         "group": "remake",
@@ -494,7 +494,7 @@
         },
         "stat": ["33="],
         "desc": "在三處配置向左的連打刃，重視連打攻擊。（2009 年發售的陀螺之 X 代復刻版）",
-        "attr": ["att","left"]
+        "attr": ["att","left","MFB"]
     },
     "V2": {
         "group": "remake",
@@ -505,7 +505,7 @@
         },
         "stat": ["33+"],
         "desc": "三把大劍的強烈上段攻擊旨在擊爆。（2016 年發售的陀螺之 X 代復刻版）",
-        "attr": ["att","right"]
+        "attr": ["att","right","BBB"]
     },
     "X2": {
         "group": "remake",
@@ -516,7 +516,7 @@
         },
         "stat": ["31="],
         "desc": "劍形大型一枚刃，擅長強烈地撞飛對手。（2016 年發售的陀螺之 X 代復刻版）",
-        "attr": ["att","right"]
+        "attr": ["att","right","BBB"]
     },
     "ShKn": {
         "group": "BX",
@@ -526,7 +526,7 @@
             "chi": ""
         },
         "stat": ["31="],
-        "desc": "小徑及高剛性内重心構造，容易抵耐對手衝擊。",
+        "desc": "小徑及高剛性內重心構造，容易抵耐對手衝擊。",
         "attr": ["def","right"],
         "from": "RhHr"
     },
@@ -574,7 +574,7 @@
             "chi": "狂熊鋭爪 悍熊猛爪"
         },
         "stat": ["30="],
-        "desc": "凝縮成小徑的内重心構造，受到衝擊體勢也難以倒下。",
+        "desc": "凝縮成小徑的內重心構造，受到衝擊體勢也難以倒下。",
         "attr": ["def","right"],
         "from": "RhHr"
     },
@@ -642,7 +642,7 @@
         "names": {
             "jap": "アイアンマン",
             "eng": "Ironman",
-            "chi": ""
+            "chi": "鋼鐵人"
         },
         "stat": ["32+"],
         "attr": ["def","right","BX"],
@@ -653,7 +653,7 @@
         "names": {
             "jap": "サノス",
             "eng": "Thanos",
-            "chi": ""
+            "chi": "薩諾斯"
         },
         "stat": ["30-"],
         "attr": ["def","right","BX"],
@@ -664,7 +664,7 @@
         "names": {
             "jap": "スパイダーマン",
             "eng": "Spiderman",
-            "chi": ""
+            "chi": "蜘蛛人"
         },
         "stat": ["33="],
         "attr": ["sta","right","BX"],
@@ -675,7 +675,7 @@
         "names": {
             "jap": "ヴェノム",
             "eng": "Venom",
-            "chi": ""
+            "chi": "猛毒"
         },
         "stat": ["35-"],
         "attr": ["att","right","BX"],
@@ -686,7 +686,7 @@
         "names": {
             "jap": "ルーク・スカイウォーカー",
             "eng": "Luke Skywalker",
-            "chi": ""
+            "chi": "路克天行者"
         },
         "stat": ["30+"],
         "attr": ["def","right","BX"],
@@ -697,7 +697,7 @@
         "names": {
             "jap": "ダース・ベイダー",
             "eng": "Darth Vader",
-            "chi": ""
+            "chi": "達斯維達"
         },
         "stat": ["31-"],
         "attr": ["def","right","BX"],
@@ -708,7 +708,7 @@
         "names": {
             "jap": "マンダロリアン",
             "eng": "The Mandalorian",
-            "chi": ""
+            "chi": "曼達洛人"
         },
         "stat": ["31-"],
         "attr": ["bal","right","BX"],
@@ -719,7 +719,7 @@
         "names": {
             "jap": "モフ・ギデオン",
             "eng": "Moff Gideon",
-            "chi": ""
+            "chi": "星區長吉迪恩"
         },
         "stat": ["31-"],
         "attr": ["bal","right","BX"],

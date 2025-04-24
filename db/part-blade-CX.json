@@ -95,7 +95,7 @@
         "group": "lower",
         "names": {"jap": "チャージ","eng": "Charge","chi": ""},
         "stat": [""],
-        "desc": "小徑三枚刃，内重心令安定性優秀。",
+        "desc": "小徑三枚刃，內重心令安定性優秀。",
         "attr": ["def","right"]
     },        
     "B": {
@@ -109,7 +109,7 @@
         "group": "lower",
         "names": {"jap": "ラウンド","eng": "Round","chi": ""},
         "stat": ["5-"],
-        "desc": "内側鏤空的圓形刃徹底提升 Blade 的離心力。",
+        "desc": "內側鏤空的圓形刃徹底提升 Blade 的離心力。",
         "attr": ["sta","right"]
     }
 }

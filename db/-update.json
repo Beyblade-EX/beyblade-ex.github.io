@@ -1,9 +1,9 @@
 {
   "part-blade-CX": "2025/04/15 12:15:00",
-  "part-blade":    "2025/04/15 12:25:00",
+  "part-blade":    "2025/04/24 23:10:00",
   "part-ratchet":  "2025/04/15 12:25:00",
   "part-bit":      "2025/04/15 12:20:00",
-  "prod-beys":     "2025/04/15 12:15:00",
+  "prod-beys":     "2025/04/24 12:15:00",
   "part-meta":     "2025/03/29 11:55:00",
   "prod-others":   "2025/02/21 23:15:00",
   "prod-launchers":"2025/02/21 23:15:00",
@@ -11,7 +11,7 @@
     "2025-04-26":[
       {"code":"CX-05 random booster","name":"ヘルズリーパーT4-70K<br>HellsReaper T4-70K","type":"bal",
       "imgs":["https://m.media-amazon.com/images/S/aplus-media-library-service-media/70403632-4d23-404c-af6c-830a82da420f.__CR0,0,970,600_PT0_SX970_V1___.jpg"],
-      "desc":["Rare 2：RhinoReaper C4-55D（犀牛）","【Turn】Assist blade：外側可拆除，反轉再裝上轉換模式","【Kick】Bit：傾側後容易回正","【Charge】Assist blade：小徑，重心集中在内"]},
+      "desc":["Rare 2：RhinoReaper C4-55D（犀牛）","【Turn】Assist blade：外側可拆除，反轉再裝上轉換模式","【Kick】Bit：傾側後容易回正","【Charge】Assist blade：小徑，重心集中在內"]},
       {"code":"UX-14 starter","name":"スコーピオスピア0-70Z<br>ScorpioSpear 0-70Z","type":"bal",
       "imgs":["https://takaratomymall.jp/img/goods/5/4904810958499_492bbfae88444bc693b4b4883ed4bcaa.jpg","https://takaratomymall.jp/img/goods/1/4904810958499_78a7dc1cc6a8455bb8820773295b4fca.jpg","https://takaratomymall.jp/img/goods/C/4904810958499_bbe84195aff54178a441ef8ed2cbc60b.jpg"],
       "desc":["X dash 時能從六枚刃防禦模式變成三枚刃攻擊模式","附較長發射器拉條"]},
