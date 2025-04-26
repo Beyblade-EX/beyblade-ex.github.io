@@ -72,7 +72,7 @@ Object.assign(App, {
             return Promise.all(canvases.map(can => can ? doc.embedPng(can.toDataURL("image/png", 1.0)) : null));
         }).then(images => {
             images.flatMap((im, i) => im ? Array(amount[i]).fill(im) : []).forEach((image, i) => {
-                let scaled = image.scale(.291);
+                let scaled = image.scale(.292);//.291
                 pages[Math.floor(i/12)].drawImage(image, {
                     x: 20 + i % 6 * (12.5 + scaled.width),
                     y: 84.5 + (1 - Math.floor(i/6) % 2) * (20 + scaled.height),
