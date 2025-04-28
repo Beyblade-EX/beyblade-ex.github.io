@@ -8,13 +8,13 @@
     "HL": {
         "group": "motif",
         "names": {"jap": "ヘルズ", "eng": "Hells", "chi": "煉獄 惡魔"},
-        "stat": [],
+        "stat": ["2-"],
         "attr": ["right"]
     },
     "RH": {
         "group": "motif",
         "names": {"jap": "ライノ", "eng": "Rhino", "chi": "犀牛 戰犀"},
-        "stat": [],
+        "stat": ["2-"],
         "attr": ["right"]
     },
     "DR": {
@@ -45,7 +45,7 @@
     "Rp": {
         "group": "upper",
         "names": {"jap": "リーパー","eng": "Reaper","chi": ""},
-        "stat": [""],
+        "stat": ["29="],
         "desc": "有起伏的 Smash 形四枚刃以連打令對手體勢傾倒。",
         "attr": ["bal","right"]
     },
@@ -59,14 +59,14 @@
     "Ar": {
         "group": "upper",
         "names": {"jap": "アーク","eng": "Arc","chi": "弧光 至尊"},
-        "stat": ["29="],
+        "stat": ["29+"],
         "desc": "把金屬重量配置在外側的圓弧狀兩枚刃產生強離心力。",
         "attr": ["sta","right"]
     },
     "Br": {
         "group": "upper",
         "names": {"jap": "ブレイブ","eng": "Brave","chi": "勇者 勇氣"},
-        "stat": ["31="],
+        "stat": ["31+"],
         "desc": "三枚大形 Upper 刃加上能產生 Down force 的空力構造。",
         "attr": ["att","right"]
     },
@@ -87,14 +87,14 @@
     "T": {
         "group": "lower",
         "names": {"jap": "ターン","eng": "Turn","chi": ""},
-        "stat": [""],
+        "stat": ["6-"],
         "desc": "把外周的刃反轉可切換至連擊或化解模式。",
         "attr": ["bal","right"]
     },        
     "C": {
         "group": "lower",
         "names": {"jap": "チャージ","eng": "Charge","chi": ""},
-        "stat": [""],
+        "stat": ["5="],
         "desc": "小徑三枚刃，內重心令安定性優秀。",
         "attr": ["def","right"]
     },        
