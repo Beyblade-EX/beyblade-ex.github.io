@@ -17,7 +17,7 @@ Parts = {
     },
     async cataloging () {
         Parts.all = DB.get.parts(/^.X$/.test(Parts.category) ? Parts.category : Parts.comp)
-            .then(parts => parts.map(p => new Part(p, Parts.category).prepare()));
+            .then(parts => Promise.all(parts.map(p => new Part(p, Parts.category).prepare())));
         Parts.all = await Parts.all;
     },
     async listing () {

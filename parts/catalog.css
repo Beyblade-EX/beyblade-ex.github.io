@@ -331,7 +331,7 @@ a div {
     }
     img:only-of-type {
         width:90%;max-width:30em;
-        margin:1em auto;
+        margin:1em 0;
         display:block;
     }
     i {

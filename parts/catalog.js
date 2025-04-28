@@ -6,6 +6,8 @@ class Part {
         Object.assign(this, {...dict, line: key});
     }
     async revise(bits) {
+        if (this.comp == 'ratchet')
+            return this.#revise.group();
         if (this.comp != 'bit' || this.names)
             return this;
         let [, pref, ref] = new RegExp(`^([${PARTS.prefixes.bit}]+)([^a-z].*)$`).exec(this.abbr);
@@ -30,14 +32,14 @@ class Part {
     strip = what => this.comp == 'bit' ? Part.strip(this.abbr, what) : this.abbr;
     static strip = (abbr, what) => abbr.replace(what == 'dash' ? '′' : new RegExp(`^[${PARTS.prefixes.bit}]+(?=[^′a-z])|′`, what == 'prefORdash' ? '' : 'g'), '');
 
-    prepare() {
+    async prepare() {
         this.a = Q('.catalog').appendChild(E('a', {hidden: true}));
-        this.comp == 'ratchet' && this.#revise.group();
+        await this.revise();
         return this;
     }
     async catalog(show) {
         location.pathname == '/products/' && await DB.get.meta(this.comp);
-        let {abbr, comp, line, group, attr, for: For} = await this.revise();
+        let {abbr, comp, line, group, attr, for: For} = this;
         this.catalog.part = this.catalog.html.part = this;
 
         this.a ??= Q('.catalog').appendChild(E('a'));
