@@ -7,8 +7,8 @@ body {
         content:'';
         position:absolute; left:0; top:0;
         width:100%; height:100%;
-        background:url(bg.jpeg) 60% center / cover;
-        filter:blur(10px) brightness(60%);
+        background:url(bg.webp) 60% center / cover;
+        filter:blur(10px);
         z-index:-1;
     }
 }
