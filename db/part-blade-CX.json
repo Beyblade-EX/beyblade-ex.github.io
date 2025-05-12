@@ -107,7 +107,7 @@
     },        
     "R": {
         "group": "lower",
-        "names": {"jap": "ラウンド","eng": "Round","chi": ""},
+        "names": {"jap": "ラウンド","eng": "Round","chi": "死神 獵魂"},
         "stat": ["5-"],
         "desc": "內側鏤空的圓形刃徹底提升 Blade 的離心力。",
         "attr": ["sta","right"]
