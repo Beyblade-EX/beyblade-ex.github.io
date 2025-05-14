@@ -44,7 +44,7 @@
     },
     "Rp": {
         "group": "upper",
-        "names": {"jap": "リーパー","eng": "Reaper","chi": ""},
+        "names": {"jap": "リーパー","eng": "Reaper","chi": "死神 獵魂"},
         "stat": ["29="],
         "desc": "有起伏的 Smash 形四枚刃以連打令對手體勢傾倒。",
         "attr": ["bal","right"]
@@ -107,7 +107,7 @@
     },        
     "R": {
         "group": "lower",
-        "names": {"jap": "ラウンド","eng": "Round","chi": "死神 獵魂"},
+        "names": {"jap": "ラウンド","eng": "Round","chi": ""},
         "stat": ["5-"],
         "desc": "內側鏤空的圓形刃徹底提升 Blade 的離心力。",
         "attr": ["sta","right"]
