@@ -25,6 +25,7 @@ Mapping.maps = {
         'BXG-07', {underscore: true, detail: '${no}_(1|2)'},
         /^BXG-(03|05|06|13|35)$/, {detailUpper: true},
         /^UX-14/, {detailUpper: true},
+        /^BX-44/, {detailUpper: true},
         /^CX/, {detailUpper: true},
         'BX-08', {detail: '${no}_(r|g|y)', more: '${no}_(r|g|y)'},
     )
