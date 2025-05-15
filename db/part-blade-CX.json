@@ -1,4 +1,10 @@
 {
+    "LN": {
+        "group": "motif",
+        "names": {"jap": "レオン", "eng": "Leon", "chi": ""},
+        "stat": [],
+        "attr": ["right"]
+    },
     "FX": {
         "group": "motif",
         "names": {"jap": "フォックス", "eng": "Fox", "chi": ""},
@@ -34,6 +40,13 @@
         "names": {"jap": "ペルセウス", "eng": "Perseus", "chi": "英仙"},
         "stat": ["2-"],
         "attr": ["right","mfb"]
+    },
+    "Fn": {
+        "group": "upper",
+        "names": {"jap": "ファング","eng": "Fang","chi": ""},
+        "stat": [""],
+        "desc": "向下的鋸齒尖刺形四枚刃削弱對手持久。",
+        "attr": ["att","right"]
     },
     "Bs": {
         "group": "upper",

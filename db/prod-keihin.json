@@ -1,6 +1,16 @@
 [
     {
-        "type":"m", "note":"六月號コロコロ雜誌應募", "date":"2025-05",
+        "type":"m", "note":"實物版遊戲同梱", "link":"https://www.cs.furyu.jp/beyblade2025/", "date":"2025-11",
+        "bey":"LN.Fn.T 4-60A", "ver":["レッド Ver.", "Red Ver."],
+        "img":["https://pbs.twimg.com/media/Gq9VsAaaAAcQkI4?format=jpg&name=large",{"width":"100%"}]
+    },
+    {
+        "type":"d", "note":"七月號コロコロ雜誌抽選", "date":"2025-06",
+        "bey":"DR.Ar.S 2-70K", "ver":["メタルコート：ブルー", "Metal Coat: Blue"],
+        "img":["",{"width":"200%","left":"52%"}]
+    },
+    {
+        "type":"m", "note":"六月號コロコロ雜誌應募", "date":"2025-05", "link": "https://corocoro-news.jp/news/396091/",
         "bey":"SmSt 5-70GF", "ver":["メタルコート：ホワイト", "Metal Coat: White"],
         "img":["https://corocoro-news.jp/wp-content/uploads/2025/04/4e0bd5ecc822c03193ad809c190f0a2d.jpg",{"width":"104%"}]
     },

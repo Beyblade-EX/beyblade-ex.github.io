@@ -1,4 +1,15 @@
 {
+    "TrPr": {
+        "group": "BX",
+        "names": {
+            "jap": "トリケラプレス",
+            "eng": "TriceraPress",
+            "chi": ""
+        },
+        "stat": [""],
+        "desc": "擁有大型 Launcher Hook（發射器爪的掛勾）的內重心構造，受到攻擊也難以被撞飛。",
+        "attr": ["def","right",""]
+    },
     "ScSp": {
         "group": "UX",
         "names": {

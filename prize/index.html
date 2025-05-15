@@ -67,7 +67,7 @@ class Keihin {
     }
     static naming = (blade, NAMES, lang) => {
         let name = blade.includes('.') ? 
-            blade.split('.').map((c, i) => NAMES.blade.CX[['motif', 'upper'][i]]?.[c][lang] ?? c) : 
+            blade.split('.').map((c, i) => NAMES.blade.CX[['motif', 'upper'][i]]?.[c]?.[lang] ?? c) : 
             NAMES.blade[blade][lang];
         if (lang == 'chi' && Array.isArray(name)) {
             name = name.map(n => n.split(' '));
@@ -113,6 +113,12 @@ onresize = () => {
         others.forEach(li => li.classList.add('center'));
         n++;
     }
+}
+onclick = ev => {
+    let h5 = ev.target.closest('h5')?.cloneNode(true);
+    if (!h5) return;
+    h5.Q('.code')?.remove();
+    navigator.clipboard.writeText([...h5.children].map(el => el.innerText.replace(' ', '')).join(' '));
 }
 location.hash && Q(location.hash)?.setAttribute('open', true);
 </script>

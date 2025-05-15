@@ -158,7 +158,9 @@ class Cell {
     _preview = {
         part: () => {
             Cell.popup.classList = 'catalog';
-            this.dissect().reduce((prom, key) => prom.then(() => DB.get(key)).then(part => new Part(part, key).catalog(true)), Promise.resolve())
+            this.dissect().reduce((prom, key) => prom
+                .then(() => DB.get(key)).then(part => new Part(part, key).prepare()).then(part => part.catalog(true))
+            , Promise.resolve())
         },
         image () {
             Cell.popup.classList = 'images';

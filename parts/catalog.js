@@ -33,12 +33,12 @@ class Part {
     static strip = (abbr, what) => abbr.replace(what == 'dash' ? '′' : new RegExp(`^[${PARTS.prefixes.bit}]+(?=[^′a-z])|′`, what == 'prefORdash' ? '' : 'g'), '');
 
     async prepare() {
-        this.a = Q('.catalog').appendChild(E('a', {hidden: true}));
+        location.pathname == '/products/' && await DB.get.meta(this.comp);
+        location.pathname == '/parts/' && (this.a = Q('.catalog').appendChild(E('a', {hidden: true})));
         await this.revise();
         return this;
     }
     async catalog(show) {
-        location.pathname == '/products/' && await DB.get.meta(this.comp);
         let {abbr, comp, line, group, attr, for: For} = this;
         this.catalog.part = this.catalog.html.part = this;
 
