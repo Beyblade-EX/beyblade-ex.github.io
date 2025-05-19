@@ -1,14 +1,14 @@
 {
     "LN": {
         "group": "motif",
-        "names": {"jap": "レオン", "eng": "Leon", "chi": ""},
+        "names": {"jap": "レオン", "eng": "Leon", "chi": "獅王 雄獅"},
         "stat": [],
         "attr": ["right"]
     },
     "FX": {
         "group": "motif",
-        "names": {"jap": "フォックス", "eng": "Fox", "chi": ""},
-        "stat": [],
+        "names": {"jap": "フォックス", "eng": "Fox", "chi": "妖狐 極狐"},
+        "stat": ["2-"],
         "attr": ["right"]
     },
     "HL": {
@@ -50,8 +50,8 @@
     },
     "Bs": {
         "group": "upper",
-        "names": {"jap": "ブラッシュ","eng": "Brush","chi": ""},
-        "stat": [""],
+        "names": {"jap": "ブラッシュ","eng": "Brush","chi": "兇尾 九尾"},
+        "stat": ["30+"],
         "desc": "九枚刃以上下排列，擴闊連打攻擊的範圍同時旨在強力的一擊。",
         "attr": ["att","right"]
     },
@@ -86,7 +86,7 @@
     "J": {
         "group": "lower",
         "names": {"jap": "ジャギー","eng": "Jaggy","chi": ""},
-        "stat": [""],
+        "stat": ["5="],
         "desc": "向下擴闊的低重心九枚刃擅長如下潛的連打攻擊。",
         "attr": ["att","right"]
     },        

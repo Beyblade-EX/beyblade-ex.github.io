@@ -1,22 +1,13 @@
 {
-  "part-blade-CX": "2025/05/15 12:45:00",
-  "part-blade":    "2025/05/15 12:15:00",
+  "part-blade-CX": "2025/05/19 17:45:00",
+  "part-blade":    "2025/05/19 17:45:00",
   "part-ratchet":  "2025/05/15 12:15:00",
-  "part-bit":      "2025/04/28 13:15:00",
+  "part-bit":      "2025/05/19 17:45:00",
   "prod-beys":     "2025/05/15 12:15:00",
   "part-meta":     "2025/03/29 11:55:00",
   "prod-others":   "2025/02/21 23:15:00",
   "prod-launchers":"2025/02/21 23:15:00",
   "news": {
-    "2025-05-17":[
-      {"code":"CX-06 random booster select","name":"フォックスブラッシュJ9-70GR<br>FoxBrush J9-70GR","type":"att",
-    "imgs":["https://takaratomymall.jp/img/goods/5/4904810956969_fe253785d308406a81c98edf8f8d9adf.jpg"],
-    "desc":["一併擁有廣範圍連打及強攻擊的刃"]},
-      {"code":"BXG-36 set","name":"オプティマスプライム4-60P<br>メガトロン4-80B<br>Optimus Prime 4-60P<br>Megatron 4-80B",
-      "desc":["Transformers 角色陀螺"]},
-      {"code":"BXG-37 set","name":"オプティマスプライマル3-60F<br>スタースクリーム3-80N<br>Optimus Primal 3-60F<br>Starscream 3-80N",
-      "desc":["Transformers 角色陀螺"]}
-    ],
     "2025-06-28":[
       {"code":"BX-44 Booster","name":"トリケラプレスM-85BS<br>TriceraPress M-85BS","type":"def",
       "imgs":["https://takaratomymall.jp/img/goods/5/4904810939528_75cf5296881c493e81614752d20212ef.jpg","https://takaratomymall.jp/img/goods/L/4904810939528_6aecc11747b84710b7fd6c7173e2aae1.jpg","https://takaratomymall.jp/img/goods/C/4904810939528_7c15305fcd8c46cd809a94a8cafde0e2.jpg"],

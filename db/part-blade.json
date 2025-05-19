@@ -281,7 +281,7 @@
             "eng": "PhoenixWing",
             "chi": "鳳凰飛翼"
         },
-        "stat": ["39="],
+        "stat": ["39-"],
         "date": ["I ░░ 24+"],
         "desc": "厚重三枚刃猛烈撞向對手。",
         "attr": ["att","right"]
@@ -741,7 +741,7 @@
         "names": {
             "jap": "オプティマスプライム",
             "eng": "Optimus Prime",
-            "chi": ""
+            "chi": "柯博文"
         },
         "stat": ["32-"],
         "attr": ["def","right","BX"],
@@ -752,7 +752,7 @@
         "names": {
             "jap": "メガトロン",
             "eng": "Megatron",
-            "chi": ""
+            "chi": "密卡登"
         },
         "stat": ["31+"],
         "attr": ["bal","right","BX"],
@@ -763,7 +763,7 @@
         "names": {
             "jap": "オプティマスプライマル",
             "eng": "Optimus Primal",
-            "chi": ""
+            "chi": "金剛王"
         },
         "stat": ["35+"],
         "attr": ["att","right","BX"],
@@ -774,7 +774,7 @@
         "names": {
             "jap": "スタースクリーム",
             "eng": "Starscream",
-            "chi": ""
+            "chi": "天王星"
         },
         "stat": ["29+"],
         "attr": ["sta","right","BX"],
