@@ -109,7 +109,7 @@ Object.assign(Part.prototype.catalog.html, {
     },
     stat () {
         let {abbr, comp, stat, date} = this.part;
-        comp == 'ratchet' && stat[0] && stat.push(...abbr.split('-'));
+        comp == 'ratchet' && stat.length === 1 && stat.push(...abbr.split('-'));
         return [
             date ? E('strong', date) : '',
             E.dl(stat.map((s, i) => [
