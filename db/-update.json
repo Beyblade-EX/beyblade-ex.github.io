@@ -13,14 +13,14 @@
       "imgs":["https://takaratomymall.jp/img/goods/5/4904810939528_75cf5296881c493e81614752d20212ef.jpg","https://takaratomymall.jp/img/goods/L/4904810939528_6aecc11747b84710b7fd6c7173e2aae1.jpg","https://takaratomymall.jp/img/goods/C/4904810939528_7c15305fcd8c46cd809a94a8cafde0e2.jpg"],
     "desc":["【TriceraPress】Blade：內重心提升安定性","【Metal-85】Ratchet：金屬組件提升重量"]}
     ],
-    "2025-07":[
+    "2025-07-19":[
       {"code":"CX-07 starter","name":"ペガサスブラストATr<br>PegasusBlast ATr","type":"att",
         "imgs":["https://m.media-amazon.com/images/S/aplus-media-library-service-media/51c5652b-55c7-4f07-a0f2-67c0503fd757.__CR0,0,970,600_PT0_SX970_V1___.jpg",
         "https://m.media-amazon.com/images/S/aplus-media-library-service-media/eca07a42-7e87-4c25-a434-5a5ecc0bd007.__CR0,0,970,600_PT0_SX970_V1___.jpg",
         "https://m.media-amazon.com/images/I/61+3io3McIL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/610tKOO3NiL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/61qho2+DtML._AC_SX679_.jpg"],
         "desc":["【Assault】Assist Blade：厚三枚刃","【Turbo Bit】：離心力機關令尖軸端高速回轉時伸出、低速迴轉收入，提升移動速動"]
       },
-      {"code":"CX-08 random booster","name":"ケルベロスフレイムW5-80WB<br>KerberosFlame W5-80WB",
+      {"code":"CX-08 random booster","name":"ケルベロスフレイムW5-80WB<br>KerberosFlame W5-80WB","type":"sta",
            "imgs":["https://m.media-amazon.com/images/S/aplus-media-library-service-media/080ff19b-b86d-4b98-b437-b3c8c870cad7.__CR0,0,970,600_PT0_SX970_V1___.jpg",
         "https://m.media-amazon.com/images/S/aplus-media-library-service-media/104489d3-3437-4f35-b7a4-9adaf7b7bc7f.__CR0,0,970,600_PT0_SX970_V1___.jpg","https://m.media-amazon.com/images/S/aplus-media-library-service-media/104489d3-3437-4f35-b7a4-9adaf7b7bc7f.__CR0,0,970,600_PT0_SX970_V1___.jpg"],
         "desc":["【Massive】Assist Blade：大徑 Smash 型五枚刃","【Wall Ball】Bit：有筒狀的壁，減低傾側"]
