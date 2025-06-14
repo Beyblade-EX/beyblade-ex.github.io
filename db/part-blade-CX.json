@@ -119,7 +119,7 @@
         "group": "lower",
         "names": {"jap": "マッシブ","eng": "Massive"},
         "stat": [""],
-        "desc": "大徑 Smash 形狀五枚刃的連打擅長手卜廿土倒對手體勢。",
+        "desc": "大徑 Smash 形狀五枚刃的連打擅長撞倒對手體勢。",
         "attr": ["att","right"]
     },
     "W": {
