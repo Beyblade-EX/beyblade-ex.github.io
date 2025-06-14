@@ -1,32 +1,32 @@
 {
-  "part-blade-CX": "2025/05/19 17:45:00",
-  "part-blade":    "2025/05/19 17:45:00",
-  "part-ratchet":  "2025/05/15 12:15:00",
-  "part-bit":      "2025/05/19 17:45:00",
-  "prod-beys":     "2025/05/15 12:15:00",
-  "part-meta":     "2025/03/29 11:55:00",
+  "part-ratchet":  "2025/05/14 13:25:00",
+  "part-blade-CX": "2025/06/14 13:25:00",
+  "part-blade":    "2025/06/14 13:25:00",
+  "part-bit":      "2025/06/14 13:25:00",
+  "prod-beys":     "2025/06/14 13:25:00",
+  "part-meta":     "2025/06/14 13:25:00",
+  "prod-launchers":"2025/06/14 13:25:00",
   "prod-others":   "2025/02/21 23:15:00",
-  "prod-launchers":"2025/02/21 23:15:00",
   "news": {
     "2025-06-28":[
       {"code":"BX-44 Booster","name":"トリケラプレスM-85BS<br>TriceraPress M-85BS","type":"def",
-      "imgs":["https://takaratomymall.jp/img/goods/5/4904810939528_75cf5296881c493e81614752d20212ef.jpg","https://takaratomymall.jp/img/goods/L/4904810939528_6aecc11747b84710b7fd6c7173e2aae1.jpg","https://takaratomymall.jp/img/goods/C/4904810939528_7c15305fcd8c46cd809a94a8cafde0e2.jpg"],
+      "imgs":[],
     "desc":["【TriceraPress】Blade：內重心提升安定性","【Metal-85】Ratchet：金屬組件提升重量"]}
     ],
     "2025-07-19":[
       {"code":"CX-07 starter","name":"ペガサスブラストATr<br>PegasusBlast ATr","type":"att",
         "imgs":["https://m.media-amazon.com/images/S/aplus-media-library-service-media/51c5652b-55c7-4f07-a0f2-67c0503fd757.__CR0,0,970,600_PT0_SX970_V1___.jpg",
-        "https://m.media-amazon.com/images/S/aplus-media-library-service-media/eca07a42-7e87-4c25-a434-5a5ecc0bd007.__CR0,0,970,600_PT0_SX970_V1___.jpg",
-        "https://m.media-amazon.com/images/I/61+3io3McIL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/610tKOO3NiL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/61qho2+DtML._AC_SX679_.jpg"],
+        "https://m.media-amazon.com/images/S/aplus-media-library-service-media/eca07a42-7e87-4c25-a434-5a5ecc0bd007.__CR0,0,970,600_PT0_SX970_V1___.jpg"],
         "desc":["【Blast】Main Blade：流線形重三枚刃容易撞走對手","【Assault】Assist Blade：厚三枚刃","【Turbo】Bit：離心力機關令尖軸端高速回轉時伸出、低速迴轉時收入，提升移動速度"]
       },
       {"code":"CX-08 random booster","name":"ケルベロスフレイムW5-80WB<br>CerberusFlame W5-80WB","type":"sta",
            "imgs":["https://m.media-amazon.com/images/S/aplus-media-library-service-media/080ff19b-b86d-4b98-b437-b3c8c870cad7.__CR0,0,970,600_PT0_SX970_V1___.jpg",
-        "https://m.media-amazon.com/images/S/aplus-media-library-service-media/104489d3-3437-4f35-b7a4-9adaf7b7bc7f.__CR0,0,970,600_PT0_SX970_V1___.jpg",
-             "https://m.media-amazon.com/images/I/61vwqYFYgmL._AC_SX679_.jpg"
+        "https://m.media-amazon.com/images/S/aplus-media-library-service-media/104489d3-3437-4f35-b7a4-9adaf7b7bc7f.__CR0,0,970,600_PT0_SX970_V1___.jpg"
            ],
         "desc":["【Flame】Main Blade：圓滑刃減低空氣抵抗","【Wheel】Assist Blade：圓柱形的刃化解由上而來的攻擊","【Massive】Assist Blade：大徑 Smash 型五枚刃","【Wall Ball】Bit：有筒狀的壁，減低傾側"]
       },
+      {"code":"BXG-40 set","name":"T. Rex 1-80GB / Mosasaurus 9-60U","desc":["Jurassic World 角色陀螺"]},
+      {"code":"BXG-41 set","name":"Spinosaurus 3-85A / Quetzalcoatlus 4-55D","desc":["Jurassic World 角色陀螺"]},
 
       {"code":"BXG-20 booster","name":"",
      

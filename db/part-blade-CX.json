@@ -1,4 +1,22 @@
 {
+    "PG": {
+        "group": "motif",
+        "names": {"jap": "ペガサス", "eng": "Pegasus", "chi": "天馬"},
+        "stat": [],
+        "attr": ["right","mfb"]
+    },
+    "CR": {
+        "group": "motif",
+        "names": {"jap": "ケルベロス", "eng": "Cerberus", "chi": ""},
+        "stat": [],
+        "attr": ["right","mfb"]
+    },
+    "WH": {
+        "group": "motif",
+        "names": {"jap": "ホエール", "eng": "Whale", "chi": "戰鯨 巨鯨"},
+        "stat": [],
+        "attr": ["right"]
+    },
     "LN": {
         "group": "motif",
         "names": {"jap": "レオン", "eng": "Leon", "chi": "獅王 雄獅"},
@@ -40,6 +58,20 @@
         "names": {"jap": "ペルセウス", "eng": "Perseus", "chi": "英仙"},
         "stat": ["2-"],
         "attr": ["right","mfb"]
+    },
+    "Fl": {
+        "group": "upper",
+        "names": {"jap": "フレイム","eng": "Flame","chi": ""},
+        "stat": [""],
+        "desc": "順滑圓形減少空氣抵抗，擅長持久性能。",
+        "attr": ["sta","right","mfb"]
+    },
+    "Bl": {
+        "group": "upper",
+        "names": {"jap": "ブラスト","eng": "Blast","chi": ""},
+        "stat": [""],
+        "desc": "流線形厚重三枚刃擅長撞飛對手。",
+        "attr": ["att","right","mfb"]
     },
     "Fn": {
         "group": "upper",
@@ -83,44 +115,65 @@
         "desc": "三枚大形 Upper 刃加上能產生 Down force 的空力構造。",
         "attr": ["att","right"]
     },
+    "M": {
+        "group": "lower",
+        "names": {"jap": "マッシブ","eng": "Massive"},
+        "stat": [""],
+        "desc": "大徑 Smash 形狀五枚刃的連打擅長手卜廿土倒對手體勢。",
+        "attr": ["att","right"]
+    },
+    "W": {
+        "group": "lower",
+        "names": {"jap": "ウィール","eng": "Wheel"},
+        "stat": [""],
+        "desc": "有厚度的圓柱形狀刃持續地把從任何高度而來的攻擊都化解。",
+        "attr": ["sta","right"]
+    },
+    "A": {
+        "group": "lower",
+        "names": {"jap": "アサルト","eng": "Assault"},
+        "stat": [""],
+        "desc": "有厚度的三枚刃實現高撞擊性能。",
+        "attr": ["att","right"]
+    },
     "J": {
         "group": "lower",
-        "names": {"jap": "ジャギー","eng": "Jaggy","chi": ""},
+        "names": {"jap": "ジャギー","eng": "Jaggy"},
         "stat": ["5="],
         "desc": "向下擴闊的低重心九枚刃擅長如下潛的連打攻擊。",
         "attr": ["att","right"]
-    },        
+    },
     "S": {
         "group": "lower",
-        "names": {"jap": "スラッシュ","eng": "Slash","chi": ""},
+        "names": {"jap": "スラッシュ","eng": "Slash"},
         "stat": ["5-"],
         "desc": "高度較低的高撞擊性能三枚刃，擅長善用低重心的攻擊性能。",
         "attr": ["att","right"]
     },        
     "T": {
         "group": "lower",
-        "names": {"jap": "ターン","eng": "Turn","chi": ""},
+        "names": {"jap": "ターン","eng": "Turn"},
         "stat": ["6-"],
         "desc": "把外周的刃反轉可切換至連擊或化解模式。",
         "attr": ["bal","right"]
     },        
     "C": {
         "group": "lower",
-        "names": {"jap": "チャージ","eng": "Charge","chi": ""},
+        "names": {"jap": "チャージ","eng": "Charge"},
         "stat": ["5="],
         "desc": "小徑三枚刃，內重心令安定性優秀。",
         "attr": ["def","right"]
     },        
     "B": {
         "group": "lower",
-        "names": {"jap": "バンパー","eng": "Bumper","chi": ""},
+        "names": {"jap": "バンパー","eng": "Bumper"},
         "stat": ["5+"],
         "desc": "容易吸收衝擊的阻尼器形狀的刃緩和並卸走對手攻擊。",
-        "attr": ["def","right","mfb"]
+        "attr": ["def","right"]
     },        
     "R": {
         "group": "lower",
-        "names": {"jap": "ラウンド","eng": "Round","chi": ""},
+        "names": {"jap": "ラウンド","eng": "Round"},
         "stat": ["5-"],
         "desc": "內側鏤空的圓形刃徹底提升 Blade 的離心力。",
         "attr": ["sta","right"]

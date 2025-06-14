@@ -6,7 +6,8 @@ class AbsPart {
     abbr = html => E('td', {
         innerHTML: html ?? this.sym.replace(/^[A-Z]$/, ' $&'), 
         abbr: this.sym, 
-        headers: this.sub ?? this.constructor.name.toLowerCase()
+        headers: this.sub ?? this.constructor.name.toLowerCase(),
+        classList: this.fusion ? 'fusion' : ''
     });
     none = hidden => [E('td'), E('td'), E('td', {classList: 'right'})];
 }
@@ -45,7 +46,7 @@ class Bit extends AbsPart {
     }
     cells(fusion = this.fusion) {
         if (this.sym == '/') return [E('td'), E('td')];
-        return [this.abbr(), E('td', fusion ? {classList: fusion} : null)];
+        return [this.abbr(), E('td')];
     }
 }
 
@@ -55,12 +56,13 @@ class Row {
         if (code == 'BH') return;
         let [video, extra] = ['string', 'object'].map(t => others.find(o => typeof o == t));
         let [blade, ratchet, bit] = abbr.split(' ');
-        [blade, ratchet, bit] = [new Blade(blade), new Ratchet(ratchet), new Bit(bit)];
+        [blade, ratchet, bit] = ratchet == '=' ?
+            [new Blade(blade), new Ratchet('/'), new Bit(bit, true)] : 
+            [new Blade(blade), new Ratchet(ratchet), new Bit(bit)];
                 
         this.tr = E('tr', [
             this.create.code(code, type, video), 
-            blade.cells(), 
-            bit.fusion ? [bit.cells(), bit.none(true)] : [ratchet.cells(), bit.cells()]
+            blade.cells(), ratchet.cells(), bit.cells()
         ].flat(9), {
             hidden: this.hidden,
             classList: [blade.line ?? '', type],
@@ -80,13 +82,14 @@ class Row {
             );
         }
     }
-    extra({more, coat}) {
+    extra({coat, mode, more}) {
         coat && this.tr.style.setProperty('--coat', coat);
-        more && (this.tr.dataset.more = Object.keys(more));
-        more && [...new O(more)].forEach(([part, column], i) => {
-            this.tr.Q(`td:nth-child(${column})`).dataset.more = i;
-            this.tr.style.setProperty(`--more${i}`, `'${part.split('.')[0]}'`);
-        });
+        mode && (this.tr.Q('td[headers=blade]').dataset.mode = JSON.stringify(mode));
+        //more && (this.tr.dataset.more = Object.keys(more));
+        //more && [...new O(more)].forEach(([part, column], i) => {
+        //    this.tr.Q(`td:nth-child(${column})`).dataset.more = i;
+        //    this.tr.style.setProperty(`--more${i}`, `'${part.split('.')[0]}'`);
+        //});
     }
     any = (...tds) => this.tr.querySelector(tds.map(td => `td[abbr$=${td}]`));
     static RB = 0;
@@ -100,11 +103,12 @@ class Cell {
 
     dissect (naming) {
         let td = this.td.abbr ? this.td : $(this.td).prevAll('[abbr]')[0];
+        let mode = JSON.parse(td.dataset.mode ?? '{}');
         let [comp, line] = [td.headers, td.parentElement.classList[0]];
         let {prop, abbr} = this.dissect.exec(td.abbr, naming && this.dissect.items[comp] || []);
         //prop.core ? comp = 'frame' : null;
         
-        return naming ? {...prop, abbr, comp} : [
+        return naming ? {...prop, abbr, comp, mode} : [
             Blade.sub.includes(comp) ? `${abbr}.${line}` : `${abbr}.${comp}`, 
             //prop.core && `${prop.core}.ratchet`, 
             //prop.mode && `${prop.mode}.${comp}`,
@@ -136,13 +140,13 @@ class Cell {
                 NAMES.blade[this.td.parentElement.classList[0]][comp]?.[abbr] : 
                 NAMES[comp]?.[abbr];
         name = name?.[lang] ?? '';
-        this.td.innerHTML = this.fullname[lang](name, comp, core) + this.fullname.add(name, dash, mode);
+        this.td.innerHTML = this.fullname[lang](name, comp, core) + this.fullname.add(mode[lang]);
     }
     static fullname = {
         eng: (name, comp, core) => Markup(name, 'products'),
         jap: (name, comp, core) => Cell.oversize(Markup(name, 'products'), comp, 'jap'),
         chi: (name, comp, core) => Markup(name, 'products'),
-        add: (name, dash, mode) => (name && dash ? '<i>′</i>' : ''),
+        add: (mode) => mode ? `<sub>${mode}</sub>` : ''
     }
     static oversize = (name, comp, lang) => name.length >= Cell.limit[comp]?.[lang] ? `<small>${name}</small>` : name
     static limit = {bit: {jap: 8}}

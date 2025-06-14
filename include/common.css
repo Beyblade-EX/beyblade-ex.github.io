@@ -115,6 +115,7 @@ html {
 .blade   {--c:55;--b-adj:-5%;}
 .ratchet {--c:175;--b-adj:0%;}
 .bit     {--c:245;--s-adj:20%;--b-adj:15%;}
+.bit.fusion {--c:200;}
 .att,dd:has(#att) {--type:#0081e3;}
 .def,dd:has(#def) {--type:#009f48;}
 .sta,dd:has(#sta) {--type:#f08200;}

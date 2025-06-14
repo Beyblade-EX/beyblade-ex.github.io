@@ -228,22 +228,33 @@ a dl {
         font-size:1.6em; font-style:italic;
         text-align:left; line-height:.8;
     }
+    :is(dt,dd):first-of-type {
+        grid-area:1/-2/2/-1;
+    }
     dt:first-of-type {
-        grid-column-start: 3;
         justify-self:end;
+        position:absolute;
         border-bottom: .2em solid;
-        transform: translate(2em,-1.8em);
-        height: 1.4em; width: 3em;
+        transform: translate(-1em,-1.8em);
+        width: 3em;
     }
     dd:first-of-type {
         text-align:right;
         min-width:1em;
         transform:translateX(-.5em);
     }
+    dd:first-of-type~* {
+        grid-row-start:2;
+    }
     sup {
         margin-left:.15em;
         line-height:0;
         position:absolute;
+    }
+    small {
+        font-size:.6em;
+        margin-left:.1em;
+        vertical-align:middle;
     }
 }
 strong {

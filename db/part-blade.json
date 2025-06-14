@@ -128,7 +128,7 @@
             "chi": "翔空\\天馬 空力\\天馬"
         },
         "stat": ["38+"],
-        "desc": "",
+        "desc": "Upper 刃、Damper 刃、Smash 刃三種性能都持有。",
         "attr": ["att","right","mfb"]
     },
     "LnCr": {
@@ -625,16 +625,28 @@
         "attr": ["def","right","UX"]
     },
     "TyRr": {
-        "group": "hasbro",
+        "group": "BX",
         "names": {
             "jap": "ティラノロア",
             "eng": "TyrannoRoar",
             "chi": ""
         },
         "stat": ["36-"],
-        "desc": "（目前只在孩之寶商品中收錄，稱「Roar Tyranno」）",
+        "desc": "",
         "attr": ["att","right","BX"],
         "from": "PhWn"
+    },
+    "TrSp": {
+        "group": "BX",
+        "names": {
+            "jap": "トリケラスパイキー",
+            "eng": "TriceraSpiky",
+            "chi": ""
+        },
+        "stat": [""],
+        "desc": "",
+        "attr": ["def","right","BX"],
+        "from": "SpCw"
     },
     "ShGl": {
         "group": "hasbro",

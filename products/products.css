@@ -167,7 +167,8 @@ td[abbr],td:first-child,td::after {
 td[abbr]:not(:empty),td:first-child {
     width:.1em;
 }
-tr[style] td:is(:nth-child(3),:nth-child(4)) {
+tr[style]:not(:has(td:nth-child(12))) td:is(:nth-child(3),:nth-child(4)),
+tr[style]:has(td:nth-child(12)) td:is(:nth-child(6),:nth-child(7)) {
     color:var(--coat,transparent);
 }
 /*below td*/
@@ -207,7 +208,7 @@ tbody tr:last-child td {
 tbody td {
     border-top:solid .5px var(--on);
 }
-td:is([abbr],.right:not(:empty)+td,:nth-child(2)) {
+td:is([abbr]:not(.fusion),.right+td,:nth-child(2)) {
     border-left:solid .5px var(--on);
 }
 td:is([headers=lower]+td,:last-child:not(:empty)) {

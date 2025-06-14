@@ -50,11 +50,12 @@
                 "multi": {"label": "\ue01c"}
             },
             "title": "軸心⬧Bit",
-            "variety": {"\ue047":"H,L,U","\ue04a":"M,R","\ue049":"B,F,T","\ue048":"G","\ue04b":"D"},
+            "variety": {"\ue047":"H,L,U","\ue04a":"M,R","\ue049":"B,F,T","\ue048":"G","\ue04b":"D,W"},
             "info": "Gear 齒愈多，X Dash 時的速度就愈快，但迴轉速度下降也加快。Shaft 部指與 Ratchet 機關接觸部分，目前以最小直徑計算，愈粗就愈難被擊至爆裂。"
         },
         "_": {
             "terms": ["重量", "GEAR齒數", "SHAFT粗度"],
+            "terms.fusion": ["重量", "GEAR齒數", "BASE高度"],
             "filters": ["type","prefix"],
             "prefix": {
                 "B": {"eng": "Bound ", "jap": "バウンド", "desc": "對 Ratchet 能以上下方向陷入"},
@@ -66,7 +67,8 @@
                 "M": {"eng": "Metal ", "jap": "メタル"  , "desc": "使用金屬軸端"},
                 "R": {"eng": "Rubber ", "jap": "ラバー" , "desc": "橡膠製"},
                 "T": {"eng": "Trans ", "jap": "トランス" ,"desc": "有高度模式轉換"},
-                "U": {"eng": "Under ", "jap": "アンダー" ,"desc": "高度下降 20 "}
+                "U": {"eng": "Under ", "jap": "アンダー" ,"desc": "高度下降 20 "},
+                "W": {"eng": "Wall ", "jap": "ウォール" ,"desc": "軸端被筒狀壁包圍"}
             }
         }
     }

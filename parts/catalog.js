@@ -77,8 +77,14 @@ Part.prototype.catalog.html = function() {
 Object.assign(Part.prototype.catalog.html, {
     background () {
         let {comp, attr} = this.part;
+        let selector = `.${comp.match(/^[^0-9]+/)}${attr?.includes('fusion') ? '.fusion' : ''}`;
+        if (!Part.hue[selector]) {
+            let found;
+            [...document.styleSheets].find(css => found = [...css.cssRules].find(rule => rule    .selectorText == selector));
+            Part.hue[selector] = Object.fromEntries(found.styleMap)['--c'][0][0];
+        }
         let param = [
-            ['hue', getComputedStyle(document.querySelector(`.${comp.match(/^[^0-9]+/)}`)).getPropertyValue('--c')],
+            ['hue', Part.hue[selector]],
             [attr?.find(a => a == 'left' || a == 'right') ?? '', '']
         ];
         return `/parts/bg.svg?${new URLSearchParams(param).toString()}`;
@@ -108,13 +114,15 @@ Object.assign(Part.prototype.catalog.html, {
         return children;
     },
     stat () {
-        let {abbr, comp, stat, date} = this.part;
+        let {abbr, comp, stat, date, attr} = this.part;
         comp == 'ratchet' && stat.length === 1 && stat.push(...abbr.split('-'));
+        let terms = Parts.meta[attr?.includes('fusion') ? 'terms.fusion' : 'terms'];
         return [
             date ? E('strong', date) : '',
             E.dl(stat.map((s, i) => [
-                Parts.meta.terms[i].replace(/(?<=[A-Z])(?=[一-龢])/, `
-`),             {innerHTML: `${s}`.replace(/[+\-=]/, '<sup>$&</sup>').replace('-','−').replace('=','≈')}
+                terms[i].replace(/(?<=[A-Z])(?=[一-龢])/, `
+`),
+                {innerHTML: Markup(`${s}`, 'stats')}
             ]))
         ];
     },
@@ -142,3 +150,4 @@ Part.triangle = () => {
         L ${10-cornerAdjustY},${cornerAdjustY-10} A ${r1},${r1},0,0,0,${10-cornerAdjustX},-10 Z`
     );
 };
+Part.hue = {};
