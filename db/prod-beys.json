@@ -6,7 +6,7 @@
   ["BXG-40","St","TrSp 9-60 U",{"mode":{"jap":"モササウルス","eng":"Mosasaurus"}}],
   ["CX-08","RB","CR.Fl.W 5-80 WB"],["CX-08","RB","WH.Fl.M 3-85 HT"],["CX-08","RB H","CR.Dr.W 1-60 F"],
   ["CX-08","RB H","DrBs 5-80 MN"],["CX-08","RB H","BlSh 7-70 WB"],["CX-08","RB H","CbDg 4-55 WB"],
-  ["CX-07","S","PG.Bl.A = Tr"],
+  ["CX-07","S","PG.Bl.A = Tr",{"coat":"mediumseagreen"}],
   ["BX-44","B","TrPr M-85 BS"],
   ["BH","hidden","SmSt"],
   ["CX-06","RB","FX.Bs.J 9-70 GR"],["CX-06","RB H","FX.Bs.J 0-80 DB"],["CX-06","RB H","FX.Bs.J 2-60 U"],
