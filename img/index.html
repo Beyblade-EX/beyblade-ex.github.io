@@ -1,0 +1,115 @@
+<title>Chip Centralizer</title>
+<script src=/include/common.js></script>
+<canvas></canvas>
+<form>
+    <label>上載<input type="file" accept="image/*" ></label>
+    <input type=color>
+    <button>下載</button>
+    <output name=side></output>
+    <fieldset>
+        <spin-knob class=fine range='{"min":0.5,"max":4,"value":3.54,"step":0.01,"name":"sc"}'></spin-knob>
+        <spin-knob range='{"min":-20,"max":20,"value":0,"step":1,"name":"x"}'></spin-knob>
+        <spin-knob range='{"min":-20,"max":20,"value":0,"step":1,"name":"y"}'></spin-knob>
+    </fieldset>
+</form>
+
+<style>
+html {background:white !important
+}
+body {
+    display:flex; flex-wrap:wrap; gap:1em;
+    align-items:center; justify-content:center;
+    margin:.5em;
+}
+input:not([type]) {display:none;}
+canvas {
+    width:400px; height:400px;
+    border:.1em solid var(--theme); box-sizing:content-box !important;
+}
+fieldset {
+    border:none;
+}
+spin-knob {
+    margin:.5em;
+}
+label,button {
+    margin:1em;
+    color:var(--theme);
+}
+</style>
+
+<script>
+const MAIN = {
+    con: Q('canvas').getContext('2d', { alpha: false }),
+    setSide: S => MAIN.hS = (FORM.side.value = MAIN.S = MAIN.con.canvas.width = MAIN.con.canvas.height = Math.floor(S))/2
+}, FORM = document.forms[0];
+const loadIMG = src => new Promise(res => E('img', {src, onload: function() {res(this);}}));
+let IMG;
+Q('input[type=file]').onchange = ev => {
+    const reader = new FileReader();
+    reader.readAsDataURL(ev.target.files[0]);
+    reader.onload = () => loadIMG(reader.result).then(img => {
+        MAIN.setSide(Math.max(img.naturalWidth, img.naturalHeight));
+        IMG = img;
+        Draw();
+    });
+}
+Q('button').onclick = () => {
+    Draw(false);
+    E('a', {
+        download: 'canvas_image.png',
+        href: Q('canvas').toDataURL('image/png'),
+        target: '_blank'
+    }).click();
+}
+FORM.onchange = () => Draw();
+document.addEventListener("keydown", ev => { 
+    ev.key == "ArrowUp"    && FORM.y.value++ ;//&& Draw();
+    ev.key == "ArrowDown"  && FORM.y.value-- ;//&& Draw();
+    ev.key == "ArrowLeft"  && FORM.x.value-- ;//&& Draw();
+    ev.key == "ArrowRight" && FORM.x.value++ ;//&& Draw();
+});
+const Draw = (editing = true) => {
+    FORM.values = {};
+    ['sc','ro','st','x','y','opacity'].forEach(name => FORM.values[name] = FORM[name]?.value);
+    let {sc, ro, st, x, y, opacity} = FORM.values, W, H;
+    IMG && ({x, y, W, H} = Draw.transform(MAIN.con, {sc, ro, st, x, y}, IMG));
+    editing ? Draw.bg() : MAIN.con.clearRect(0, 0, 999, 999);
+    IMG && MAIN.con.drawImage(IMG, x, y, W, H);
+    editing && Draw.bisectors();
+}
+Object.assign(Draw, {
+    bg () {
+        MAIN.con.fillStyle = Q('input[type=color]').value;
+        MAIN.con.fillRect(0, 0, MAIN.S, MAIN.S);
+    },
+    bisectors () {
+        MAIN.con.strokeStyle = 'lime';
+        MAIN.con.lineWidth = 1;
+        MAIN.con.beginPath();
+        MAIN.con.moveTo(0, MAIN.hS);
+        MAIN.con.lineTo(MAIN.S, MAIN.hS);
+        MAIN.con.moveTo(MAIN.hS, 0);
+        MAIN.con.lineTo(MAIN.hS, MAIN.S);
+        MAIN.con.moveTo(MAIN.hS + MAIN.S/2.6, MAIN.hS);
+        MAIN.con.arc(MAIN.hS, MAIN.hS, MAIN.S/2.6, 0, 2 * Math.PI);
+        MAIN.con.stroke();
+    },
+    transform (con, {sk, sc, ro, st, x, y}, img) { //translate -> skew -> scale -> rotate -> stretch
+        sk ??= 0, sc ??= 1, ro ??= 0, st ??= 1, x ??= 0, y ??= 0;
+        MAIN.setSide(Math.max(img.naturalWidth, img.naturalHeight)/sc);
+        sc = 1;
+
+        let drawing = {W: img.naturalWidth, H: img.naturalHeight};
+        img.fit ??= Draw.transform.fit(drawing, {xW: drawing.W - MAIN.S, xH: drawing.H - MAIN.S});
+        drawing.hW = drawing.W/2, drawing.hH = drawing.H/2;
+
+        let cos = Math.cos(ro*Math.PI), sin = Math.sin(ro*Math.PI), tan = Math.tan(sk*Math.PI);
+        x = -x-MAIN.hS, y = y-MAIN.hS;
+        con.setTransform(sc*cos, sc*st*sin, sc*(cos*tan-sin), sc*st*(sin*tan+cos), x*sc*cos+y*sc*(cos*tan-sin)-x, x*sc*st*sin+y*sc*st*(sin*tan+cos)-y);
+        return {x: Math.round(-x-drawing.hW), y: Math.round(-y-drawing.hH), W: drawing.W, H: drawing.H};
+    },
+    color: {}
+});
+Draw.transform.fit = (drawing, { xH, xW }) => xW > 0 && xH > 0 ? xW < xH ? MAIN.S / drawing.W : MAIN.S / drawing.H : 1;
+</script>
