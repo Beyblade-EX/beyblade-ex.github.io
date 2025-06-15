@@ -2,9 +2,10 @@
 <script src=/include/common.js></script>
 <canvas></canvas>
 <form>
-    <label>上載<input type="file" accept="image/*" ></label>
+    <label>上載<input type=file accept="image/*" ></label>
+    <input type=text name=file>
+    <button>下載</button><br>
     <input type=color>
-    <button>下載</button>
     <output name=side></output>
     <fieldset>
         <spin-knob class=fine range='{"min":0.5,"max":4,"value":3.54,"step":0.01,"name":"sc"}'></spin-knob>
@@ -14,33 +15,28 @@
 </form>
 
 <style>
-html {background:white !important
-}
 body {
     display:flex; flex-wrap:wrap; gap:1em;
     align-items:center; justify-content:center;
     margin:.5em;
 }
-input:not([type]) {display:none;}
+form>* {vertical-align: middle;}
+input[name=file] {width:5em;}
 canvas {
     width:400px; height:400px;
     border:.1em solid var(--theme); box-sizing:content-box !important;
 }
-fieldset {
-    border:none;
-}
-spin-knob {
-    margin:.5em;
-}
+input[type=color] {margin:1em;}
+spin-knob {margin:.5em;}
 label,button {
-    margin:1em;
+    margin:0 1em;
     color:var(--theme);
 }
 </style>
 
 <script>
 const MAIN = {
-    con: Q('canvas').getContext('2d', { alpha: false }),
+    con: Q('canvas').getContext('2d', { alpha: true }),
     setSide: S => MAIN.hS = (FORM.side.value = MAIN.S = MAIN.con.canvas.width = MAIN.con.canvas.height = Math.floor(S))/2
 }, FORM = document.forms[0];
 const loadIMG = src => new Promise(res => E('img', {src, onload: function() {res(this);}}));
@@ -57,7 +53,7 @@ Q('input[type=file]').onchange = ev => {
 Q('button').onclick = () => {
     Draw(false);
     E('a', {
-        download: 'canvas_image.png',
+        download: (Q('input[name=file]').value || 'image') + '.png',
         href: Q('canvas').toDataURL('image/png'),
         target: '_blank'
     }).click();

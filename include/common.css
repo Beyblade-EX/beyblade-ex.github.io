@@ -34,8 +34,9 @@ a:target,a.target {
     animation:highlight 1s ease 3;animation-delay:0.5s;
     scroll-margin-top:5rem;
 }
-menu,ol:not(.default),ul:not(.default),dl,dt,dd,summary,figure {
-    list-style:none;margin:0;padding:0;
+menu,ol:not(.default),ul:not(.default),dl,dt,dd,summary,figure,fieldset {
+    list-style:none; border:none;
+    margin:0; padding:0;
 }
 article p {
     text-align:left;

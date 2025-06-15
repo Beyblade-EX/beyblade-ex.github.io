@@ -60,7 +60,6 @@ details {
     }
 }
 fieldset {
-    padding:0; margin:0; border:none;
     font-size:.95em;
     
     &:not(#layer) {
