@@ -65,8 +65,10 @@ label:has(#keihin-m)::after,.keihin-m b::before {content:'\e001';}
     }
     p {
         grid-area:desc;
+        max-width:12em;
         font-size:.7em;
-        margin-top:.2em;
+        line-height:1.2;
+        margin:.3em auto;
 
         a {
             color:green;
@@ -106,7 +108,7 @@ label:has(#keihin-m)::after,.keihin-m b::before {content:'\e001';}
     small,.code {
         display:block;
         color:grey;
-        margin:.3em auto;
+        margin:.2em auto;
     }
     h5 small {
         scale:.95 1;

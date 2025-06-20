@@ -233,10 +233,10 @@ a dl {
     }
     dt:first-of-type {
         justify-self:end;
-        position:absolute;
+        position:absolute; right:0;
         border-bottom: .2em solid;
         transform: translate(-1em,-1.8em);
-        width: 3em;
+        width:3em;
     }
     dd:first-of-type {
         text-align:right;

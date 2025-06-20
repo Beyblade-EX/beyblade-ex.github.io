@@ -1,5 +1,6 @@
 <title>陀螺景品⬧Prizes</title>
 <script src=/include/common.js></script>
+<script src=/products/row.js></script>
 <link rel=stylesheet href=/include/component.css>
 <link rel=stylesheet href=prize.css>
 
@@ -15,7 +16,7 @@
         </a>
     </div>
 </nav>
-<db-status callback="display()"></db-status>
+<db-status callback="Keihin.display()"></db-status>
 <main>
     <ul class=diamonds></ul>
 
@@ -40,41 +41,73 @@
 </main>
 
 <script>
-class Keihin {
-    constructor({type, note, link, date, code, bey, ver, img}, NAMES) {
-        let [blade, ...others] = bey.split(' ');
-        let names = {
-            jap: Keihin.naming(blade, NAMES, 'jap'),
-            chi: Keihin.naming(blade, NAMES, 'chi'),
+let NAMES;
+Bey.comps = {
+    jap: ['ブレード','ラチェット','ビット'],
+    eng: ['Blade','Ratchet','Bit'],
+    CX: {
+        jap: ['ロックチップ','メインブレード','アシストブレード'],
+        eng: ['Lock Chip','Main Blade','Assist Blade']
+    }
+};
+Bey.partial = (abbr, line) => {
+    abbr = abbr.split(line ? '.' : ' ');
+    if (abbr.length === 1 || abbr.some(s => s == '/')) {
+        let i = abbr.findIndex(s => s != '/');
+        return {
+            jap: line ? Bey.comps[line].jap[i] : Bey.comps.jap[i], 
+            eng: line ? Bey.comps[line].eng[i] : Bey.comps.eng[i]
         };
+    }
+}
+Bey.prototype.naming = function() {
+    this.partial = Bey.partial(this.abbr);
+    this.name = {};
+    this.ratchet.sym ??= ''; this.bit.sym ??= '';
+    const comp = [
+        (s, lang) => NAMES.blade.CX.motif[s]?.[lang] ?? '',
+        (s, lang) => NAMES.blade.CX.upper[s]?.[lang] ?? '',
+        s => s == '/' ? '' : s
+    ];
+    if (['BX','UX'].includes(this.blade.line)) {
+        this.name.jap = NAMES.blade[this.blade.sym].jap;
+        this.name.chi = (NAMES.blade[this.blade.sym].chi || '').replace(' ','⬧').replaceAll('\\', '');
+    } else if (['CX'].includes(this.blade.line)) {
+        this.partial = Bey.partial(this.blade.sym, this.blade.line);
+        this.name.jap = this.blade.sym.split('.').map((s,i) => comp[i](s,'jap')).join('');
+        this.name.chi = this.blade.sym.split('.').map((s,i) => comp[i](s,'chi').split(' '));
+        this.name.chi = this.name.chi[0][0] ? [
+            this.name.chi[0][0] + this.name.chi[1][0],
+            (this.name.chi[0][1] || this.name.chi[0][0]) + (this.name.chi[1][1] || this.name.chi[1][0])
+        ].join('⬧') + this.name.chi[2][0] : '';
+    }
+    this.name.jap += ' ' + this.ratchet.sym.replace('-', '‑') + this.bit.sym;
+    this.name.chi && (this.name.chi += ' ' + this.ratchet.sym.replace('-', '‑') + this.bit.sym);
+}
+class Keihin {
+    constructor({type, note, link, date, code, bey, ver, img}) {
+        bey = new Bey(bey);
+        bey.naming();
+        
         this.li = E('li', {classList: `keihin-${type}`}, [
             E('b', Keihin.type[type]), E('p', link ? [E('a', {href: link, innerHTML: note})] : note),
             E('div', [
                 E('figure', [E('img', {src: img[0], style: img[1]})]), 
                 E('h5', [
                     code ? E('span', code, {classList: 'code'}) : '', 
-                    E('span', names.jap), 
-                    ` ${others}`.replace('-', '‑'), 
-                    E('small', {innerHTML: ver[0]})
+                    E('span', bey.name.jap), 
+                    E('small', {innerHTML: [ver?.[0] ?? '', bey.partial ? `（${bey.partial.jap}）` : ''].filter(t => t).join('<br>')})
                 ]),
             ]),
             E('i', [
-                names.chi.replaceAll(' ', '⬧').replaceAll('\\', '') + ` ${names.chi ? others : ''}`.replace('-', '‑') || '　', 
-                E('small', ver[1])
+                bey.name.chi, 
+                E('small', {innerHTML: [ver?.[1] ?? '', bey.partial ? `(${bey.partial.eng})` : ''].filter(t => t).join(' ')})
             ]),
             E('time', date.replace('-','‒'))
         ]);
     }
-    static naming = (blade, NAMES, lang) => {
-        let name = blade.includes('.') ? 
-            blade.split('.').map((c, i) => NAMES.blade.CX[['motif', 'upper'][i]]?.[c]?.[lang] ?? c) : 
-            NAMES.blade[blade][lang];
-        if (lang == 'chi' && Array.isArray(name)) {
-            name = name.map(n => n.split(' '));
-            name = name[0][0] + name[1][0] + ' ' + (name[0][1] ?? name[0][0]) + (name[1][1] ?? name[1][0]) + name[2];
-        }
-        return name;
-    }
+    static firstly = () => Promise.all([DB.get.names(['blade','blade-CX']), Blade.UX()])
+        .then(([names]) => NAMES = names);
     static type = {t: '比賽', d: '抽獎', m: '限定商品', g: '贈品'}
     static all = []
 }
@@ -85,9 +118,10 @@ Q('nav input', (input, _, inputs) => input.onchange = () => {
     onresize();
 })
 
-const display = () =>
-    fetch('/db/prod-keihin.json').then(resp => Promise.all([DB.get.names(['blade', 'blade-CX']), resp.json()]))
-    .then(([names, keihins]) => Q('.diamonds').append(...Keihin.all = keihins.map(k => new Keihin(k, names).li)))
+Keihin.display = () => Keihin.firstly()
+    .then(() => fetch('/db/prod-keihin.json'))
+    .then(resp => resp.json())
+    .then(keihins => Q('.diamonds').append(...Keihin.all = keihins.map(k => new Keihin(k).li)))
     .then(onresize);
 
 onresize = () => {

@@ -1,122 +1,132 @@
 [
     {
         "type":"m", "note":"實物版遊戲同梱", "link":"https://www.cs.furyu.jp/beyblade2025/", "date":"2025-11",
-        "bey":"LN.Fn.T 4-60A", "ver":["レッド Ver.", "Red Ver."],
+        "bey":"LN.Fn.T 4-60 A", "ver":["レッド Ver.", "Red Ver."],
         "img":["https://pbs.twimg.com/media/Gq9VsAaaAAcQkI4?format=jpg&name=large",{"width":"100%"}]
     },
     {
+        "type":"g", "note":"八月號コロコロ合體版雜誌附錄", "date":"2025-07",
+        "bey":"/./.J",
+        "img":["https://corocoro-news.jp/wp-content/uploads/2025/06/dafb3d8b9744b924199470365546d041.jpg"]
+    },
+    {
         "type":"d", "note":"七月號コロコロ雜誌抽選", "date":"2025-06", "link":"https://corocoro-news.jp/news/396610/",
-        "bey":"DR.Ar.S 2-70K", "ver":["メタルコート：ブルー", "Metal Coat: Blue"],
+        "bey":"DR.Ar.S 2-70 K", "ver":["メタルコート：ブルー", "Metal Coat: Blue"],
         "img":["https://corocoro-news.jp/wp-content/uploads/2025/05/f07d92190b453b7cb0b9d2ae5b80b03a.jpg",{"width":"95%","left":"45%"}]
     },
     {
         "type":"m", "note":"六月號コロコロ雜誌應募", "date":"2025-05", "link":"https://corocoro-news.jp/news/396091/",
-        "bey":"SmSt 5-70GF", "ver":["メタルコート：ホワイト", "Metal Coat: White"],
+        "bey":"SmSt 5-70 GF", "ver":["メタルコート：ホワイト", "Metal Coat: White"],
         "img":["https://corocoro-news.jp/wp-content/uploads/2025/04/4e0bd5ecc822c03193ad809c190f0a2d.jpg",{"width":"104%"}]
     },
     {
         "type":"t", "note":"G1 大會冠軍獎品", "date":"2025-05",
-        "bey":"DR.Br.S 6-60V", "ver":["メタルコート：ゴールド", "Metal Coat: Gold"],
+        "bey":"DR.Br.S 6-60 V", "ver":["メタルコート：ゴールド", "Metal Coat: Gold"],
         "img":["https://beyblade.takaratomy.co.jp/beyblade-x/event/_image/gp_pre2025_1.png",{"width":"200%","left":"52%"}]
     },
     {
         "type":"t", "note":"G1 大會亞軍獎品", "date":"2025-05",
-        "bey":"DR.Br.S 6-60V", "ver":["メタルコート：シルバー", "Metal Coat: Silver"],
+        "bey":"DR.Br.S 6-60 V", "ver":["メタルコート：シルバー", "Metal Coat: Silver"],
         "img":["https://beyblade.takaratomy.co.jp/beyblade-x/event/_image/gp_pre2025_2.png",{"width":"200%","left":"52%"}]
     },
     {
         "type":"t", "note":"G1 大會季軍獎品", "date":"2025-05",
-        "bey":"DR.Br.S 6-60V", "ver":["メタルコート：ブロンズ", "Metal Coat: Bronze"],
+        "bey":"DR.Br.S 6-60 V", "ver":["メタルコート：ブロンズ", "Metal Coat: Bronze"],
         "img":["https://beyblade.takaratomy.co.jp/beyblade-x/event/_image/gp_pre2025_3.png",{"width":"200%","left":"54%"}]
     },
     {
-        "type":"t", "note":"G3 大會獎品（集齊後）", "date":"2025-04",
-        "bey":"PR.Dr.B 6-80W", "ver":["メタルコート：ゴールド", "Metal Coat: Gold"],
+        "type":"t", "note":"G3 大會獎品（集齊後）", "date":"2025-04", "code":"BXH-15",
+        "bey":"PR.Dr.B 6-80 W", "ver":["メタルコート：ゴールド", "Metal Coat: Gold"],
         "img":["https://beyblade.takaratomy.co.jp/beyblade-x/event/_image/g3_gift1_2025.webp", {"width":"135%"}]
     },
     {
+        "type":"g", "note":"月費會員加入贈品", "date":"2025-03",
+        "bey":"DR././", "ver":["クリアブラックVer.", "Clear Black Ver."],
+        "img":["https://takaratomymall.jp/img/goods/5/4904810953715_d1e01b6b57d6487e97188c2595366d43.jpg",{"width":"80%"}]
+    },
+    {
         "type":"g", "note":"攻略本附錄", "date":"2025-02", "link":"https://corocoro-news.jp/news/394782/",
-        "code":"BXC-08", "bey":"PhFt", "ver":["メタルコート：オレンジ<br>（ブレード）", "Metal Coat: Orange (Blade)"],
+        "code":"BXC-08", "bey":"PhFt", "ver":["メタルコート：オレンジ", "Metal Coat: Orange"],
         "img":["https://pbs.twimg.com/media/GjzKL90b0AAT4Xv?format=jpg&name=large",{"width":"110%"}]
     },
     {
         "type":"d", "note":"三月號コロコロ雜誌抽選", "date":"2025-02", "link":"https://corocoro-news.jp/news/394535/",
-        "bey":"SmSb 2-70L", "ver":["メタルコート：オレンジ", "Metal Coat: Orange"],
+        "bey":"SmSb 2-70 L", "ver":["メタルコート：オレンジ", "Metal Coat: Orange"],
         "img":["https://pbs.twimg.com/media/GjzKKRDa0AAaxOg?format=jpg&name=large",{"width":"97%"}]
     },
     {
         "type":"m", "note":"二月號コロコロ雜誌應募", "link":"https://corocoro-news.jp/news/393959/", "date":"2025-01",
-        "code":"BXC-07", "bey":"CrCr 2-60Q", "ver":["メタルコート：グリーン", "Metal Coat: Green"],
+        "code":"BXC-07", "bey":"CrCr 2-60 Q", "ver":["メタルコート：グリーン", "Metal Coat: Green"],
         "img":["https://corocoro-news.jp/wp-content/uploads/2025/01/077a8d70f963739b153ad864b87cc523.jpg",{"width":"98%"}]
     },
     {
         "type":"m", "note":"特別版漫畫同梱", "link":"https://lifetunes-mall.jp/shop/g/gR20240002/", "date":"2024-12",
-        "code":"BXC-09", "bey":"DrBs 1-60A", "ver":["メタルコート：レッド", "Metal Coat: Red"],
+        "code":"BXC-09", "bey":"DrBs 1-60 A", "ver":["メタルコート：レッド", "Metal Coat: Red"],
         "img":["https://corocoro.jp/wp-content/uploads/2024/03/f701f1cdac42c7408a4ff6095be0ed1d.jpg"]
     },
     {
         "type":"m", "note":"十月號コロコロ雜誌應募", "link":"https://corocoro.jp/news/388872/", "date":"2024-09",
-        "code":"BXC-05", "bey":"PhWn 9-80DB", "ver":["メタルコート：ネイビー", "Metal Coat: Navy"],
+        "code":"BXC-05", "bey":"PhWn 9-80 DB", "ver":["メタルコート：ネイビー", "Metal Coat: Navy"],
         "img":["https://corocoro.jp/wp-content/uploads/2024/08/7a8cdbff648686aec08ac1c37f7ea737.jpg",{"width":"92%"}]
     },
     {
         "type":"d", "note":"App 抽獎獎品", "date":"2024-07",
-        "code":"BXH-10","bey":"ArPg 3-70A", "ver":["ダブルメタルコート：<br>ブルー×グリーン", "Double Metal Coat: Blue×Green"],
+        "code":"BXH-10","bey":"ArPg 3-70 A", "ver":["ダブルメタルコート：<br>ブルー×グリーン", "Double Metal Coat: Blue×Green"],
         "img":["https://takaratomymall.jp/img/goods/L/4904810941569_baa550db36ea4e828b4688f84fab37a2.jpg"]
     },
     {
         "type":"m", "note":"實物版遊戲同梱", "link":"https://www.cs.furyu.jp/beyblade2024/", "date":"2024-11",
-        "bey":"ShKn 4-60LF", "ver":["メタルコート：ブルー", "Metal Coat: Blue"],
+        "bey":"ShKn 4-60 LF", "ver":["メタルコート：ブルー", "Metal Coat: Blue"],
         "img":["https://www.cs.furyu.jp/beyblade2024/assets/img/guide/special_bey.png",{"width":"90%"}]
     },
     {
         "type":"g", "note":"七月號コロコロ雜誌附錄", "link":"https://corocoro.jp/news/385187/", "date":"2024-06",
-        "bey":"DrSw", "ver":["メタルコート：ブルー<br>（ブレード）", "Metal Coat: Blue (Blade)"],
+        "bey":"DrSw", "ver":["メタルコート：ブルー", "Metal Coat: Blue"],
         "img":["https://corocoro.jp/wp-content/uploads/2024/05/745531bfaf43d87bc17ea9b9d5588099.jpg",{"width":"100%"}]
     },
     {
-        "type":"t", "note":"G3 大會獎品（集齊後）", "date":"2024-06",
-        "bey":"WzRd 5-70DB", "ver":["メタルコート：ゴールド", "Metal Coat: Gold"],
+        "type":"t", "note":"G3 大會獎品（集齊後）", "date":"2024-06", "code":"BXH-09",
+        "bey":"WzRd 5-70 DB", "ver":["メタルコート：ゴールド", "Metal Coat: Gold"],
         "img":["https://beyblade.takaratomy.co.jp/beyblade-x/event/_image/g3_gift1_2024.jpg", {"width":"120%","top":"52%"}]
     },
     {
         "type":"m", "note":"壽司郎推廣活動", "link":"https://www.facebook.com/SUSHIROHONGKONG/posts/407971458462714", "date":"2024-02",
-        "code":"BXA-01", "bey":"DrSw 3-60F", "ver":["〈スシロー〉", "〈Sushiro〉"],
+        "code":"BXA-01", "bey":"DrSw 3-60 F", "ver":["〈スシロー〉", "〈Sushiro〉"],
         "img":["/prize/keihin/sushiro.jpg",{"width":"90%"}]
     },
     {
         "type":"m", "note":"二月號コロコロ雜誌應募", "link":"https://corocoro.jp/news/379029/", "date":"2024-01",
-        "code":"BXC-02", "bey":"HlSc 3-80F", "ver":["スペシャルクロスベイ<br>〈ペルソナ〉", "SPX Bey〈Persona〉"],
+        "code":"BXC-02", "bey":"HlSc 3-80 F", "ver":["スペシャルクロスベイ<br>〈ペルソナ〉", "SPX Bey〈Persona〉"],
         "img":["https://corocoro.jp/wp-content/uploads/2023/12/f919dd35dc468956f947d2d2ab3551d1.jpg",{"width":"115%"}]
     },
     {
         "type":"g", "note":"一月號コロコロ雜誌附錄", "link":"https://corocoro.jp/news/377761/", "date":"2023-12",
-        "code":"BXC-01", "bey":"PhFt", "ver":["（ブレード）", "(Blade)"],
+        "code":"BXC-01", "bey":"PhFt",
         "img":["/img/blade/PhFt.png",{"width":"95%"}]
     },
     {
         "type":"t", "note":"G1 大會冠軍獎品", "date":"2023-12",
-        "bey":"DrSw 3-60F", "ver":["メタルコート：ゴールド", "Metal Coat: Gold"],
+        "bey":"DrSw 3-60 F", "ver":["メタルコート：ゴールド", "Metal Coat: Gold"],
         "img":["https://beyblade.takaratomy.co.jp/beyblade-x/event/_image/g1_4.png",{"width":"200%","left":"52%"}]
     },
     {
         "type":"t", "note":"G1 大會亞軍獎品", "date":"2023-12",
-        "bey":"DrSw 3-60F", "ver":["メタルコート：シルバー", "Metal Coat: Silver"],
+        "bey":"DrSw 3-60 F", "ver":["メタルコート：シルバー", "Metal Coat: Silver"],
         "img":["https://beyblade.takaratomy.co.jp/beyblade-x/event/_image/g1_5.png",{"width":"200%","left":"52%"}]
     },
     {
         "type":"t", "note":"G1 大會季軍獎品", "date":"2023-12",
-        "bey":"DrSw 3-60F", "ver":["メタルコート：ブロンズ", "Metal Coat: Bronze"],
+        "bey":"DrSw 3-60 F", "ver":["メタルコート：ブロンズ", "Metal Coat: Bronze"],
         "img":["https://beyblade.takaratomy.co.jp/beyblade-x/event/_image/g1_6.png",{"width":"200%","left":"54%"}]
     },
     {
         "type":"t", "note":"G3 大會獎品（集齊後）", "date":"2023-12",
-        "code":"BXH-02", "bey":"KnSh 3-80N", "ver":["メタルコート：ゴールド", "Metal Coat: Gold"],
+        "code":"BXH-02", "bey":"KnSh 3-80 N", "ver":["メタルコート：ゴールド", "Metal Coat: Gold"],
         "img":["https://beyblade.takaratomy.co.jp/beyblade-x/event/_image/gift1.jpg",{"width":"120%","top":"52%"}]
     },
     {
         "type":"d", "note":"App 抽獎獎品", "date":"2023-08",
-        "code":"BXH-01", "bey":"CbDr 4-60F", "ver":["メタルコート：ブルー", "Metal Coat: Blue"],
+        "code":"BXH-01", "bey":"CbDr 4-60 F", "ver":["メタルコート：ブルー", "Metal Coat: Blue"],
         "img":["https://takaratomymall.jp/img/goods/L/4904810910510_ac63b10874dd470eb52bd9e7200c55b4.jpg"]
     }
 ]

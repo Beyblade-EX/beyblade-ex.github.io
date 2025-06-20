@@ -1,3 +1,12 @@
+class Bey {
+    constructor(abbr) {
+        this.abbr = abbr;
+        let [blade, ratchet, bit] = abbr.split(' ');
+        [this.blade, this.ratchet, this.bit] = ratchet == '=' ?
+            [new Blade(blade), new Ratchet('/'), new Bit(bit, true)] : 
+            [new Blade(blade), new Ratchet(ratchet), new Bit(bit)];
+    }
+}
 class AbsPart {
     constructor(sym, fusionORsub = false) {
         this.sym = sym;
@@ -55,10 +64,7 @@ class Row {
     create([code, type, abbr, ...others]) {
         if (code == 'BH') return;
         let [video, extra] = ['string', 'object'].map(t => others.find(o => typeof o == t));
-        let [blade, ratchet, bit] = abbr.split(' ');
-        [blade, ratchet, bit] = ratchet == '=' ?
-            [new Blade(blade), new Ratchet('/'), new Bit(bit, true)] : 
-            [new Blade(blade), new Ratchet(ratchet), new Bit(bit)];
+        let {blade, ratchet, bit} = new Bey(abbr);
                 
         this.tr = E('tr', [
             this.create.code(code, type, video), 
