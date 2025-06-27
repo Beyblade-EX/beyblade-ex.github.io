@@ -4,11 +4,11 @@
         "names": {
             "jap": "トリケラプレス",
             "eng": "TriceraPress",
-            "chi": ""
+            "chi": "三角龍壓 三角強襲"
         },
-        "stat": [""],
+        "stat": ["37-"],
         "desc": "擁有大型 Launcher Hook（發射器爪的掛勾）的內重心構造，受到攻擊也難以被撞飛。",
-        "attr": ["def","right",""]
+        "attr": ["def","right"]
     },
     "ScSp": {
         "group": "UX",
@@ -19,7 +19,7 @@
         },
         "stat": ["40-"],
         "desc": "X Dash 時從高化解性防禦性能的圓形六枚刃變形至高攻擊性能的三枚刃。",
-        "attr": ["bal","right",""]
+        "attr": ["bal","right"]
     },
     "ShDr": {
         "group": "BX",
