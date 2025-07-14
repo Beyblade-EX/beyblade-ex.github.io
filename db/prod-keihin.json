@@ -5,6 +5,11 @@
         "img":["https://pbs.twimg.com/media/Gq9VsAaaAAcQkI4?format=jpg&name=large",{"width":"100%"}]
     },
     {
+        "type":"d", "note":"App 抽獎獎品", "date":"2025-07",
+        "bey":"WL.Vl.S 4-70V","ver":["メタルコート：ゴールド","Metal Coat: Gold"],
+        "img":[""]
+    },
+    {
         "type":"g", "note":"八月號コロコロ合體版雜誌附錄", "date":"2025-07",
         "bey":"/./.J",
         "img":["https://corocoro-news.jp/wp-content/uploads/2025/06/dafb3d8b9744b924199470365546d041.jpg"]

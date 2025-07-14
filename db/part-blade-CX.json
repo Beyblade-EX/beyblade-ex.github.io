@@ -1,4 +1,10 @@
 {
+    "WL": {
+        "group": "motif",
+        "names": {"jap": "ワルキューレ", "eng": "Walküre", "chi": ""},
+        "stat": [],
+        "attr": ["right","bbb"]
+    },
     "PG": {
         "group": "motif",
         "names": {"jap": "ペガサス", "eng": "Pegasus", "chi": "天馬"},
@@ -72,6 +78,13 @@
         "stat": [""],
         "desc": "流線形厚重三枚刃擅長撞飛對手。",
         "attr": ["att","right","mfb"]
+    },
+    "Vl": {
+        "group": "upper",
+        "names": {"jap": "ボルト","eng": "Volt","chi": ""},
+        "stat": [""],
+        "desc": "",
+        "attr": ["att","right","bbb"]
     },
     "Fn": {
         "group": "upper",
@@ -161,7 +174,7 @@
         "group": "lower",
         "names": {"jap": "チャージ","eng": "Charge"},
         "stat": ["5="],
-        "desc": "小徑三枚刃，內重心令安定性優秀。",
+        "desc": "小徑三枚刃，内重心令安定性優秀。",
         "attr": ["def","right"]
     },        
     "B": {
@@ -175,7 +188,7 @@
         "group": "lower",
         "names": {"jap": "ラウンド","eng": "Round"},
         "stat": ["5-"],
-        "desc": "內側鏤空的圓形刃徹底提升 Blade 的離心力。",
+        "desc": "内側鏤空的圓形刃徹底提升 Blade 的離心力。",
         "attr": ["sta","right"]
     }
 }
