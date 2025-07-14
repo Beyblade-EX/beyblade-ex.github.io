@@ -2,7 +2,7 @@
 <script src=/include/common.js></script>
 <script src=/products/row.js></script>
 <link rel=stylesheet href=/include/component.css>
-<link rel=stylesheet href=prize.css>
+<link rel=stylesheet href=prize.css> 
 
 <nav>
     <menu>
@@ -67,14 +67,14 @@ Bey.prototype.naming = function() {
     const comp = [
         (s, lang) => NAMES.blade.CX.motif[s]?.[lang] ?? '',
         (s, lang) => NAMES.blade.CX.upper[s]?.[lang] ?? '',
-        s => s == '/' ? '' : s
+        (s, lang, assist)  => lang == 'jap' && assist ? NAMES.blade.CX.lower[s].jap : s == '/' ? '' : s
     ];
     if (['BX','UX'].includes(this.blade.line)) {
         this.name.jap = NAMES.blade[this.blade.sym].jap;
         this.name.chi = (NAMES.blade[this.blade.sym].chi || '').replace(' ','⬧').replaceAll('\\', '');
     } else if (['CX'].includes(this.blade.line)) {
         this.partial = Bey.partial(this.blade.sym, this.blade.line);
-        this.name.jap = this.blade.sym.split('.').map((s,i) => comp[i](s,'jap')).join('');
+        this.name.jap = this.blade.sym.split('.').map((s,i) => comp[i](s,'jap',/^\/\.\/\.[A-z]+$/.test(this.blade.sym))).join('');
         this.name.chi = this.blade.sym.split('.').map((s,i) => comp[i](s,'chi').split(' '));
         this.name.chi = this.name.chi[0][0] ? [
             this.name.chi[0][0] + this.name.chi[1][0],
