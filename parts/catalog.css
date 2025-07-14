@@ -59,6 +59,12 @@ a.mfb::after {
     position:absolute; right:0;
     transform:translate(2em,-1.6em) rotate(15deg);
 }
+a.bbb::after {
+    content:url(/img/reincarnated.svg#bbb); 
+    width:9em; z-index:-1;
+    position:absolute; right:0;
+    transform:translate(2em,-1.6em) rotate(15deg);
+}
 a img {filter:drop-shadow(0 0 .1rem var(--on));}
 a img[alt^=type] {filter:drop-shadow(0 0 .1rem var(--type));}
 a img[src$=BX] {filter:drop-shadow(0 0 .05rem #71bce9);}
