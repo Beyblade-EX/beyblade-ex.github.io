@@ -1,7 +1,7 @@
 {
     "WL": {
         "group": "motif",
-        "names": {"jap": "ワルキューレ", "eng": "Walküre", "chi": ""},
+        "names": {"jap": "ワルキューレ", "eng": "Valkyrie", "chi": ""},
         "stat": [],
         "attr": ["right","bbb"]
     },
