@@ -1,7 +1,7 @@
 {
-    "WL": {
+    "VL": {
         "group": "motif",
-        "names": {"jap": "ワルキューレ", "eng": "Valkyrie", "chi": ""},
+        "names": {"jap": "ワルキューレ", "eng": "Valkyrie", "chi": "戰神"},
         "stat": [],
         "attr": ["right","bbb"]
     },
@@ -81,7 +81,7 @@
     },
     "Vl": {
         "group": "upper",
-        "names": {"jap": "ボルト","eng": "Volt","chi": ""},
+        "names": {"jap": "ボルト","eng": "Volt","chi": "雷動 伏特"},
         "stat": [""],
         "desc": "",
         "attr": ["att","right","bbb"]
