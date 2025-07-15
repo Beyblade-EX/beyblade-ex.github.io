@@ -74,7 +74,7 @@
     },
     "Bl": {
         "group": "upper",
-        "names": {"jap": "ブラスト","eng": "Blast","chi": ""},
+        "names": {"jap": "ブラスト","eng": "Blast","chi": "爆擊"},
         "stat": [""],
         "desc": "流線形厚重三枚刃擅長撞飛對手。",
         "attr": ["att","right","mfb"]

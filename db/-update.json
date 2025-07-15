@@ -1,9 +1,9 @@
 {
-  "part-blade-CX": "2025/06/14 13:35:00",
-  "part-ratchet":  "2025/06/14 01:25:00",
-  "part-blade":    "2025/06/14 01:10:00",
-  "part-bit":      "2025/06/14 14:10:00",
-  "prod-beys":     "2025/06/14 23:10:00",
+  "part-blade-CX": "2025/07/15 11:30:00",
+  "part-ratchet":  "2025/07/15 11:30:00",
+  "part-blade":    "2025/07/15 11:30:00",
+  "part-bit":      "2025/07/15 11:30:00",
+  "prod-beys":     "2025/07/15 11:30:00",
   "part-meta":     "2025/06/14 13:25:00",
   "prod-launchers":"2025/06/14 13:25:00",
   "prod-others":   "2025/02/21 23:15:00",
@@ -29,7 +29,7 @@
       }
     ],
     "2025-08-09":[
-      {"code":"UX-15 deck set","type":"att","name":"",
+      {"code":"UX-15 deck set","type":"att","name":"シャークスケイルデッキセット<br>SharkScale Deck Set",
         "imgs":["https://takaratomymall.jp/img/goods/5/4904810982432_4f344d103fd04ccd8f8c8c7a99f1dd5e.jpg","https://takaratomymall.jp/img/goods/L/4904810982432_3cd2ec8a25f7484d93bae927b1399bd9.jpg","https://m.media-amazon.com/images/S/aplus-media-library-service-media/ae850888-1483-4fc4-bb7a-f3d2709273d6.__CR0,0,970,600_PT0_SX970_V1___.jpg"], 
         "desc":["シャークスケイル4-50UF<br>SharkScale 4-50UF","ティラノロア1-70L<br>TyranoRoar 1-70L","ヘルズブレイブJ3-60GF<br>HellsBrave J3-60GF","【SharkScale】集最低部件於一身","",""]
       },
