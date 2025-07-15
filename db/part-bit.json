@@ -132,7 +132,7 @@
         "attr": ["att"]
     },
     "M": {
-        "group": "round",
+        "group": "sharp",
         "names": {
             "jap": "マージ",
             "eng": "Merge"
