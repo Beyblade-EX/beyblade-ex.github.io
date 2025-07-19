@@ -507,6 +507,17 @@
         "desc": "Upper 形狀三枚刃把對手撞走及給予傷害。（2009 年發售的陀螺之 X 代復刻版）",
         "attr": ["att","right","MFB"]
     },
+    "RLn": {
+        "group": "remake",
+        "names": {
+            "jap": "ロックレオーネ",
+            "eng": "Rock \\Leone",
+            "chi": "岩巖\\獅王 巨岩\\雄獅"
+        },
+        "stat": ["30-"],
+        "desc": "台形形狀六枚刃化解對手攻擊並給予反擊。（2009 年發售的陀螺之 X 代復刻版）",
+        "attr": ["def","right","MFB"]
+    },
     "LLd_u": {
         "group": "remake",
         "names": {
@@ -669,6 +680,18 @@
         "desc": "",
         "attr": ["def","right","BX"],
         "from": "SpCw"
+    },
+    "TcGt": {
+        "group": "hasbro",
+        "names": {
+            "jap": "",
+            "eng": "",
+            "chi": ""
+        },
+        "stat": [""],
+        "desc": "（目前只在孩之寶商品中收錄，稱「Tackle Goat」）",
+        "attr": ["def","right","BX"],
+        "from": "BlSh"
     },
     "ShGl": {
         "group": "hasbro",

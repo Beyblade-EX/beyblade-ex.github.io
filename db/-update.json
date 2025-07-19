@@ -1,9 +1,9 @@
 {
-  "part-bit":      "2025/07/15 12:05:00",
+  "part-bit":      "2025/07/19 10:45:00",
   "part-ratchet":  "2025/07/15 11:30:00",
-  "part-blade-CX": "2025/07/15 22:40:00",
-  "part-blade":    "2025/07/15 22:40:00",
-  "prod-beys":     "2025/07/15 22:40:00",
+  "part-blade-CX": "2025/07/19 10:45:00",
+  "part-blade":    "2025/07/19 10:45:00",
+  "prod-beys":     "2025/07/19 10:45:00",
   "part-meta":     "2025/06/14 22:40:00",
   "prod-launchers":"2025/06/14 22:40:00",
   "prod-others":   "2025/02/21 23:15:00",
@@ -23,7 +23,7 @@
       {"code":"BXG-40 set","name":"T. Rex 1-80GB / Mosasaurus 9-60U","desc":["Jurassic World 角色陀螺"]},
       {"code":"BXG-41 set","name":"Spinosaurus 3-85A / Quetzalcoatlus 4-55D","desc":["Jurassic World 角色陀螺"]},
 
-      {"code":"BXG-20 booster","name":"",
+      {"code":"BXG-20 booster","name":"ロックレオーネ6-80GN<br>Rock Leone 6-80GN",
      
         "desc":[""]
       }
