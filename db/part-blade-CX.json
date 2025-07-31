@@ -1,8 +1,15 @@
 {
+    "SL": {
+        "group": "motif",
+        "names": {"jap": "ソル", "eng": "Sol", "chi": ""},
+        "stat": [""],
+        "attr": ["right","mfb"]
+    },
     "VL": {
         "group": "motif",
         "names": {"jap": "ワルキューレ", "eng": "Valkyrie", "chi": "戰神"},
-        "stat": [],
+        "stat": ["6-"],
+        "desc": "金屬零件增加重量。",
         "attr": ["right","bbb"]
     },
     "PG": {
@@ -65,6 +72,13 @@
         "stat": ["2-"],
         "attr": ["right","mfb"]
     },
+    "Ec": {
+        "group": "upper",
+        "names": {"jap": "エクリプス","eng": "Eclipse","chi": ""},
+        "stat": [""],
+        "desc": "",
+        "attr": ["bal","right","mfb"]
+    },
     "Fl": {
         "group": "upper",
         "names": {"jap": "フレイム","eng": "Flame","chi": "烈焰"},
@@ -82,8 +96,8 @@
     "Vl": {
         "group": "upper",
         "names": {"jap": "ボルト","eng": "Volt","chi": "雷動 伏特"},
-        "stat": [""],
-        "desc": "",
+        "stat": ["31="],
+        "desc": "兼備 Smash 形狀大型三枚刃與空力構造。",
         "attr": ["att","right","bbb"]
     },
     "Fn": {
@@ -128,12 +142,19 @@
         "desc": "三枚大形 Upper 刃加上能產生 Down force 的空力構造。",
         "attr": ["att","right"]
     },
+    "D": {
+        "group": "lower",
+        "names": {"jap": "","eng": ""},
+        "stat": [""],
+        "desc": "",
+        "attr": ["bal","right"]
+    },
     "M": {
         "group": "lower",
         "names": {"jap": "マッシブ","eng": "Massive"},
-        "stat": [""],
+        "stat": ["5+"],
         "desc": "大徑 Smash 形狀五枚刃的連打擅長撞倒對手體勢。",
-        "attr": ["att","right"]
+        "attr": ["bal","right"]
     },
     "W": {
         "group": "lower",

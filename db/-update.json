@@ -1,33 +1,13 @@
 {
-  "part-bit":      "2025/07/19 10:45:00",
-  "part-ratchet":  "2025/07/15 11:30:00",
-  "part-blade-CX": "2025/07/19 10:45:00",
+  "part-bit":      "2025/07/31 22:00:00",
+  "part-ratchet":  "2025/07/31 22:00:00",
+  "part-blade-CX": "2025/07/31 22:00:00",
   "part-blade":    "2025/07/19 10:45:00",
-  "prod-beys":     "2025/07/19 10:45:00",
+  "prod-beys":     "2025/07/31 2:00:00",
   "part-meta":     "2025/06/14 22:40:00",
   "prod-launchers":"2025/06/14 22:40:00",
   "prod-others":   "2025/02/21 23:15:00",
   "news": {
-    "2025-07-19":[
-      {"code":"CX-07 starter","name":"ペガサスブラストATr<br>PegasusBlast ATr","type":"att",
-        "imgs":["https://m.media-amazon.com/images/S/aplus-media-library-service-media/51c5652b-55c7-4f07-a0f2-67c0503fd757.__CR0,0,970,600_PT0_SX970_V1___.jpg",
-        "https://m.media-amazon.com/images/S/aplus-media-library-service-media/eca07a42-7e87-4c25-a434-5a5ecc0bd007.__CR0,0,970,600_PT0_SX970_V1___.jpg"],
-        "desc":["【Blast】Main Blade：流線形重三枚刃容易撞走對手","【Assault】Assist Blade：厚三枚刃","【Turbo】Bit：離心力機關令尖軸端高速回轉時伸出、低速迴轉時收入，提升移動速度"]
-      },
-      {"code":"CX-08 random booster","name":"ケルベロスフレイムW5-80WB<br>CerberusFlame W5-80WB","type":"sta",
-           "imgs":["https://m.media-amazon.com/images/S/aplus-media-library-service-media/080ff19b-b86d-4b98-b437-b3c8c870cad7.__CR0,0,970,600_PT0_SX970_V1___.jpg",
-        "https://m.media-amazon.com/images/S/aplus-media-library-service-media/104489d3-3437-4f35-b7a4-9adaf7b7bc7f.__CR0,0,970,600_PT0_SX970_V1___.jpg"
-           ],
-        "desc":["【Flame】Main Blade：圓滑刃減低空氣抵抗","【Wheel】Assist Blade：圓柱形的刃化解由上而來的攻擊","【Massive】Assist Blade：大徑 Smash 型五枚刃","【Wall Ball】Bit：有筒狀的壁，減低傾側"]
-      },
-      {"code":"BXG-40 set","name":"T. Rex 1-80GB / Mosasaurus 9-60U","desc":["Jurassic World 角色陀螺"]},
-      {"code":"BXG-41 set","name":"Spinosaurus 3-85A / Quetzalcoatlus 4-55D","desc":["Jurassic World 角色陀螺"]},
-
-      {"code":"BXG-20 booster","name":"ロックレオーネ6-80GN<br>Rock Leone 6-80GN",
-     
-        "desc":[""]
-      }
-    ],
     "2025-08-09":[
       {"code":"UX-15 deck set","type":"att","name":"シャークスケイルデッキセット<br>SharkScale Deck Set",
         "imgs":["https://takaratomymall.jp/img/goods/5/4904810982432_4f344d103fd04ccd8f8c8c7a99f1dd5e.jpg","https://takaratomymall.jp/img/goods/L/4904810982432_3cd2ec8a25f7484d93bae927b1399bd9.jpg","https://m.media-amazon.com/images/S/aplus-media-library-service-media/ae850888-1483-4fc4-bb7a-f3d2709273d6.__CR0,0,970,600_PT0_SX970_V1___.jpg"], 
@@ -40,6 +20,25 @@
     ],
     "2025-09":[
       {"code":"CX-09 starter"}
+    ],
+    "2025-10":[
+      {"code":"UX-16 random booster select"},
+      {"code":"BX-46 stadium set"},
+      {"code":"BX-47 launcher"}
+    ],
+    "2025-11":[
+      {"code":"CX-10 booster"},
+      {"code":"CX-11 deck set"}
+    ],
+    "2025-12":[
+      {"code":"UX-17 starter"},
+      {"code":"BXG-22 booster"}
+    ],
+    "2026-01":[
+      {"code":"CX-12 booster"}
+    ],
+    "2026-02":[
+      {"code":"BX-48 random booster"}
     ]
   }
 }
