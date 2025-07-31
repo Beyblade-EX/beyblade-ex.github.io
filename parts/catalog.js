@@ -92,7 +92,7 @@ Object.assign(Part.prototype.catalog.html, {
     icons () {
         let {abbr, line, group, attr} = this.part;
         let icons = new Mapping('left', '\ue01d', 'right', '\ue01e', /^(?:att|def|sta|bal)$/, t => [E('img', {src: `/img/types.svg#${t}`})]);
-        ['hasbro', 'collabo'].includes(group) && (group = attr.find(a => /.X$/.test(a)));
+        ['hasbro','collabo'].includes(group) && (group = attr.find(a => /.X$/.test(a)));
         return E.ul([
             (line || /.X$/.test(group)) && [E('img', {src: `/img/lines.svg#${line ?? group}`})], 
             group == 'remake' && [E('img', {src: `/img/system-${/^D..$/.test(abbr) ? 'BSB' : /\d$/.test(abbr) ? 'BBB' : 'MFB'}.png`})], 
@@ -109,7 +109,7 @@ Object.assign(Part.prototype.catalog.html, {
                 Part.chi(group, attr, names.chi[0]),
                 Part.chi(group, attr, names.chi[1] ?? ''),
                 E('h5', {classList: 'jap', innerHTML: Markup(names.jap, 'parts')}),
-                E('h5', {classList: 'eng', innerHTML: group == 'collabo' ? names.eng : Markup(names.eng, 'parts')}),
+                E('h5', {classList: 'eng', innerHTML: ['hasbro','collabo'].includes(group) ? names.eng : Markup(names.eng, 'parts')}),
             ];
         return children;
     },
