@@ -727,6 +727,28 @@
         "attr": ["def","right","BX"],
         "from": "KnLn"
     },
+    "REDH": {
+        "group": "hasbro",
+        "names": {
+            "jap": "レッド・ハルク",
+            "eng": "Red Hulk",
+            "chi": ""
+        },
+        "stat": [""],
+        "attr": ["att","right","BX"],
+        "from": "TyBt"
+    },
+    "CAPT": {
+        "group": "hasbro",
+        "names": {
+            "jap": "キャプテン・アメリカ",
+            "eng": "Captain America",
+            "chi": ""
+        },
+        "stat": [""],
+        "attr": ["att","right","BX"],
+        "from": "DrSw"
+    },
     "SPID": {
         "group": "collabo",
         "names": {
@@ -792,6 +814,50 @@
         "stat": ["31-"],
         "attr": ["bal","right","BX"],
         "from": "HlSc"
+    },
+    "GENE": {
+        "group": "hasbro",
+        "names": {
+            "jap": "グリーヴァス",
+            "eng": "General Grievous",
+            "chi": ""
+        },
+        "stat": [""],
+        "attr": ["def","right","BX"],
+        "from": "RhHr"
+    },
+    "OBIW": {
+        "group": "hasbro",
+        "names": {
+            "jap": "オビ＝ワン・ケノービ",
+            "eng": "Obi-Wan Kenobi",
+            "chi": ""
+        },
+        "stat": [""],
+        "attr": ["def","right","BX"],
+        "from": "KnLn"
+    },
+    "CHEW": {
+        "group": "hasbro",
+        "names": {
+            "jap": "チューバッカ",
+            "eng": "Chewbacca",
+            "chi": ""
+        },
+        "stat": [""],
+        "attr": ["bal","right","BX"],
+        "from": "ShDr"
+    },
+    "STOR": {
+        "group": "hasbro",
+        "names": {
+            "jap": "ストームトルーパー",
+            "eng": "Stormtrooper",
+            "chi": ""
+        },
+        "stat": [""],
+        "attr": ["def","right","BX"],
+        "from": "RhHr"
     },
     "OPME": {
         "group": "collabo",
