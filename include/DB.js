@@ -87,7 +87,7 @@ const DB = {
     },
     components: ['bit','ratchet','blade','blade-CX'],
 
-    open: (ver) => DB.db ? Promise.resolve() : 
+    open: ver => DB.db ? Promise.resolve() : 
         new Promise(res => Object.assign(indexedDB.open(ver, 1), {onsuccess: res, onupgradeneeded: res}))
         .then(ev => {
             DB.db = ev.target.result;
@@ -110,8 +110,8 @@ const DB = {
         ,
         files: files => Promise.all(files.map(file => 
                 fetch(`/db/${file}.json`)
-                .then(resp => Promise.all([file, resp.json(), /^part-/.test(file) && DB.clear(file) ]))
-            )).then(arr => arr.map(([file, json]) => //in one transaction
+                .then(resp => Promise.allSettled([file, resp.json(), /^part-/.test(file) && DB.clear(file) ]))
+            )).then(arr => arr.map(([{value: file}, {value: json}]) => //in one transaction
                 (DB.actions[file] || DB.put.parts)(json, file)
                 .then(() => console.log(`Updated '${file}'`) ?? Storage('DB', {[file]: Math.round(new Date() / 1000)} ))
                 .catch(er => console.error(file, er))
@@ -129,15 +129,16 @@ const DB = {
     },
     actions: {
         'part-blade': '', 'part-blade-CX': '', 'part-ratchet': '', 'part-bit': '',
-        'part-meta': (json) => DB.put('meta', {part: json}),
-        'prod-launchers': (json) => DB.put('product', {launchers: json}),
-        'prod-others': (json) => DB.put('product', {others: json}),
-        'prod-beys': (beys) => DB.put('product', [{beys}, {schedule: beys.filter(bey => bey[1].includes('BXG') || !bey[1].includes('H')).map(bey => bey[2].split(' '))}]),
+        'part-blade-collab': json => DB.put.parts(json, 'blade'),
+        'part-meta': json => DB.put('meta', {part: json}),
+        'prod-launchers': json => DB.put('product', {launchers: json}),
+        'prod-others': json => DB.put('product', {others: json}),
+        'prod-beys': beys => DB.put('product', [{beys}, {schedule: beys.filter(bey => bey[1].includes('BXG') || !bey[1].includes('H')).map(bey => bey[2].split(' '))}]),
     },
 
-    trans: (store) => DB.tr = Object.assign(DB.db.transaction(DB.store.format(store), 'readwrite')),
+    trans: store => DB.tr = Object.assign(DB.db.transaction(DB.store.format(store), 'readwrite')),
 
-    store: (store) => (s => DB.trans(s).objectStore(s))(DB.store.format(store)),
+    store: store => (s => DB.trans(s).objectStore(s))(DB.store.format(store)),
 
     get: (store, key) => {
         !key && ([store, key] = store.split('.').reverse());
