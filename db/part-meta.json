@@ -15,7 +15,7 @@
             "group": {
                 "motif": {"label": "Chip", "checked": false},
                 "upper": {"label": "Main"},
-                "lower": {"label": "Assist", "checked": false}
+                "lower": {"label": "Assist", "checked": false, "terms": ["重量"," 厚度"]}
             },
             "title": "【CX】鋼鐵戰刃⬧刃擊環⬧Blade",
             "multiple": false,

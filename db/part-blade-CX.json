@@ -152,56 +152,56 @@
     "M": {
         "group": "lower",
         "names": {"jap": "マッシブ","eng": "Massive"},
-        "stat": ["5+"],
+        "stat": ["5+",11],
         "desc": "大徑 Smash 形狀五枚刃的連打擅長撞倒對手體勢。",
         "attr": ["bal","right"]
     },
     "W": {
         "group": "lower",
         "names": {"jap": "ウィール","eng": "Wheel"},
-        "stat": ["7+"],
+        "stat": ["7+",13],
         "desc": "有厚度的圓柱形狀刃持續地把從任何高度而來的攻擊都化解。",
         "attr": ["sta","right"]
     },
     "A": {
         "group": "lower",
         "names": {"jap": "アサルト","eng": "Assault"},
-        "stat": ["5="],
+        "stat": ["5=",11],
         "desc": "有厚度的三枚刃實現高撞擊性能。",
         "attr": ["att","right"]
     },
     "J": {
         "group": "lower",
         "names": {"jap": "ジャギー","eng": "Jaggy"},
-        "stat": ["5="],
+        "stat": ["5=",10],
         "desc": "向下擴闊的低重心九枚刃擅長如下潛的連打攻擊。",
         "attr": ["att","right"]
     },
     "S": {
         "group": "lower",
         "names": {"jap": "スラッシュ","eng": "Slash"},
-        "stat": ["5-"],
+        "stat": ["5-",10],
         "desc": "高度較低的高撞擊性能三枚刃，擅長善用低重心的攻擊性能。",
         "attr": ["att","right"]
     },        
     "T": {
         "group": "lower",
         "names": {"jap": "ターン","eng": "Turn"},
-        "stat": ["6-"],
+        "stat": ["6-",11],
         "desc": "把外周的刃反轉可切換至連擊或化解模式。",
         "attr": ["bal","right"]
     },        
     "C": {
         "group": "lower",
         "names": {"jap": "チャージ","eng": "Charge"},
-        "stat": ["5="],
+        "stat": ["5=",11],
         "desc": "小徑三枚刃，内重心令安定性優秀。",
         "attr": ["def","right"]
     },        
     "B": {
         "group": "lower",
         "names": {"jap": "バンパー","eng": "Bumper"},
-        "stat": ["5+"],
+        "stat": ["5+",11],
         "desc": "容易吸收衝擊的阻尼器形狀的刃緩和並卸走對手攻擊。",
         "attr": ["def","right"]
     },        

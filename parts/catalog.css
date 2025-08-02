@@ -252,6 +252,9 @@ a dl {
     dd:first-of-type~* {
         grid-row-start:2;
     }
+    .blade & dd:nth-of-type(2) {
+        margin-right:1.25em;
+    }
     sup {
         margin-left:.15em;
         line-height:0;

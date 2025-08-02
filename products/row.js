@@ -81,10 +81,10 @@ class Row {
         code (code, type, video) {
             type.split(' ')[0] == 'RB' ? code == Row.current ? Row.RB++ : Row.RB = 1 : Row.RB = 0;
             Row.current = code;
-            video ??= Q(`td[data-video]`, []).findLast(td => new Cell(td)?.text == code)?.dataset.video;
+            video ??= Q(`td[data-video]`, []).findLast(td => td.dataset.code == code)?.dataset.video;
             return E('td', 
                 [code.replace(/^(?=.X-)/, ' '), ...Row.RB ? [E('s', '-'), E('sub', `0${Row.RB}`)] : []], 
-                {dataset: {...Mapping.maps.images.find(code), ...video ? {video} : {}}}
+                {dataset: {code, ...video ? {video} : {}}}
             );
         }
     }
@@ -175,7 +175,7 @@ class Cell {
         image () {
             Cell.popup.classList = 'images';
             Cell.popup.append(
-                E('p', Mapping.maps.note.find(Cell.text(this.td))),
+                E('p', Mapping.maps.note.find(this.td.dataset.code)),
                 ...this.td.dataset.video?.split(',').map(href => E('a', {href: `//youtu.be/${href}?start=60`})) ?? [],
                 ...this.image.parse('main').juxtapose(),
                 ...this.image.parse('more').juxtapose(),
@@ -184,21 +184,22 @@ class Cell {
         },
         _image: {
             parse (type) {
+                let {switch: switchCode, detailUpper, underscore, ...syntax} = Mapping.maps.images.find(this.td.dataset.code);
                 Cell.images = [];
-                let no = (this.td.dataset.switch || Cell.text(this.td)).replace('-', this.td.dataset.underscore ? '_' : '');
-                if (!this.td.dataset[type]) {
-                    this.format(no, type, this.td.dataset.detailUpper);
+                let no = (switchCode || this.td.dataset.code).replace('-', underscore ? '_' : '');
+                if (!syntax[type]) {
+                    this.format(no, type, type == 'detail' && detailUpper);
                 } else {
                     let values = {no};
-                    let expression = this.td.dataset[type].replaceAll(/\$\{.+\}/g, whole => values[whole.match(/[a-z]+/)]);
+                    let expression = syntax[type].replaceAll(/\$\{.+\}/g, whole => values[whole.match(/[a-z]+/)]);
                     let group = expression.match(/(?<=\().+(?=\))/)?.[0];
-                    group.split('|').forEach(s => this.format(expression.replace(`(${group})`, s), type, this.td.dataset.detailUpper));
+                    group.split('|').forEach(s => this.format(expression.replace(`(${group})`, s), type, type == 'detail' && detailUpper));
                 }
                 return this;
             },
             format (no, type, upper) {
                 type == 'main' && Cell.images.push(`${no}@1`);
-                type == 'more' && Cell.images.push(...[...Array(9)].map((_, i) => `${no}_${`${i+1}`.padStart(2, 0)}@1`));
+                type == 'more' && Cell.images.push(...[...Array(Q(`td[data-code=${this.td.dataset.code}]`).length > 2 ? 18 : 9)].map((_, i) => `${no}_${`${i+1}`.padStart(2, 0)}@1`));
                 type == 'detail' && Cell.images.push(`detail_${no.replace(/.+(?=\d)/, s => upper ? s : s.toLowerCase())}`);
             },
             juxtapose () {return [Cell.images].flat().map(src => E('img', {src: this.src(src)}))},

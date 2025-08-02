@@ -114,13 +114,13 @@ Object.assign(Part.prototype.catalog.html, {
         return children;
     },
     stat () {
-        let {abbr, comp, stat, date, attr} = this.part;
+        let {abbr, comp, group, stat, date, attr} = this.part;
         comp == 'ratchet' && stat.length === 1 && stat.push(...abbr.split('-'));
-        let terms = Parts.meta[attr?.includes('fusion') ? 'terms.fusion' : 'terms'];
+        let terms = Parts.meta.group[group].terms ?? Parts.meta[attr?.includes('fusion') ? 'terms.fusion' : 'terms'];
         return [
             date ? E('strong', date) : '',
             E.dl(stat.map((s, i) => [
-                terms[i].replace(/(?<=[A-Z])(?=[一-龢])/, `
+                terms[i].replace(/(?<=[A-Z ])(?=[一-龢])/, `
 `),
                 {innerHTML: Markup(`${s}`, 'stats')}
             ]))
