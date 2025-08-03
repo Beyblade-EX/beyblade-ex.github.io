@@ -208,7 +208,7 @@
     "R": {
         "group": "lower",
         "names": {"jap": "ラウンド","eng": "Round"},
-        "stat": ["5-"],
+        "stat": ["5-",11],
         "desc": "内側鏤空的圓形刃徹底提升 Blade 的離心力。",
         "attr": ["sta","right"]
     }
