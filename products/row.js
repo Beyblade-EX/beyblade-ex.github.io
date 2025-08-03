@@ -184,23 +184,32 @@ class Cell {
         },
         _image: {
             parse (type) {
-                let {switch: switchCode, detailUpper, underscore, ...syntax} = Mapping.maps.images.find(this.td.dataset.code);
                 Cell.images = [];
-                let no = (switchCode || this.td.dataset.code).replace('-', underscore ? '_' : '');
+                let code = this.td.dataset.code;
+                let [, line, number] = /^(.+?)-(\d+)$/.exec(code);
+                let upper = ['BXG','CX'].includes(line) || line == 'BX' && parseInt(number) > 39 || line == 'UX' && parseInt(number) > 13;
+                /^BXG-(01|04|07|14|31|32|11|18|19)$/.test(code) && (upper = false);
+
+                let {switch: switchCode, underscore, ...syntax} = Mapping.maps.images.find(code);
+                code = (switchCode || code).replace('-', underscore ? '_' : '');
                 if (!syntax[type]) {
-                    this.format(no, type, type == 'detail' && detailUpper);
+                    this.format(code, type, type == 'detail' && upper);
                 } else {
-                    let values = {no};
+                    let values = {no: code};
                     let expression = syntax[type].replaceAll(/\$\{.+\}/g, whole => values[whole.match(/[a-z]+/)]);
                     let group = expression.match(/(?<=\().+(?=\))/)?.[0];
-                    group.split('|').forEach(s => this.format(expression.replace(`(${group})`, s), type, type == 'detail' && detailUpper));
+                    group.split('|').forEach(s => this.format(expression.replace(`(${group})`, s), type, type == 'detail' && upper));
                 }
                 return this;
             },
-            format (no, type, upper) {
-                type == 'main' && Cell.images.push(`${no}@1`);
-                type == 'more' && Cell.images.push(...[...Array(Q(`td[data-code=${this.td.dataset.code}]`).length > 2 ? 18 : 9)].map((_, i) => `${no}_${`${i+1}`.padStart(2, 0)}@1`));
-                type == 'detail' && Cell.images.push(`detail_${no.replace(/.+(?=\d)/, s => upper ? s : s.toLowerCase())}`);
+            format (code, type, upper) {
+                if (type == 'main') Cell.images.push(`${code}@1`);
+                if (type == 'more') {
+                    let max = Q(`td[data-code=${this.td.dataset.code}]`).length > 2 ? 18 : 9;
+                    Cell.images.push(...[...Array(max)].map((_, i) => `${code}_${`${i+1}`.padStart(2, 0)}@1`));
+                }
+                if (type == 'detail')
+                    Cell.images.push(`detail_${code.replace(/.+(?=\d)/, s => upper ? s : s.toLowerCase())}`);
             },
             juxtapose () {return [Cell.images].flat().map(src => E('img', {src: this.src(src)}))},
             src: href => /^https|\/img\//.test(href) ? href : `https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/${href}.png`,
