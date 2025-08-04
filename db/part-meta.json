@@ -15,14 +15,14 @@
             "group": {
                 "motif": {"label": "Chip", "checked": false},
                 "upper": {"label": "Main"},
-                "lower": {"label": "Assist", "checked": false, "terms": ["重量"," 厚度"]}
+                "lower": {"label": "Assist", "checked": false}
             },
             "title": "【CX】鋼鐵戰刃⬧刃擊環⬧Blade",
             "multiple": false,
             "info": "<img src=https://beyblade.takaratomy.co.jp/beyblade-x/guide/_image/pict17_cx.webp>CX Blade 分為〖Lock Chip〗、〖Main Blade〗及〖Assist Blade〗三個組件。<br>同一款〖Lock Chip〗可在官方比賽中使用多個，但含金屬的則只能使用一個。"
         },
         "_": {
-            "terms": ["重量"],
+            "terms": ["重量"," 厚度"],
             "filters": ["type","spin"]
         }
     },
@@ -59,7 +59,7 @@
             "filters": ["type","prefix"],
             "prefix": {
                 "B": {"eng": "Bound ", "jap": "バウンド", "desc": "對 Ratchet 能以上下方向陷入"},
-                "D": {"eng": "Disk ",  "jap": "ディスク", "desc": "加上圓盤狀重量"},
+                "D": {"eng": "Disk ",  "jap": "ディスク", "desc": "加上圓盤狀重量器"},
                 "F": {"eng": "Free ",  "jap": "フリー",   "desc": "對於 Ratchet 能自由迴轉"},
                 "G": {"eng": "Gear ",  "jap": "ギア"    , "desc": "齒部延長"},
                 "H": {"eng": "High ",  "jap": "ハイ"    , "desc": "高度提升 10 "},
