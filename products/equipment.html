@@ -41,10 +41,10 @@ const List = {
             let details = E('details', {name: 'panel'}, [
                 E('summary', [
                     E('h3', {innerHTML: `${jap}<br>${eng}`}),
-                    E('small', desc),
+                    E('small', spacing(desc)),
                     E('picture', {style: {backgroundImage: `url(${List.src(colors[1] || colors[0])})`}})
                 ]),
-                p ? E('p', p) : '',
+                p ? E('p', {innerHTML: spacing(p)}) : '',
                 E('ol', {classList: 'boards'})
             ]);
             let size = (colors[1] || colors[0])[3];

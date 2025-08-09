@@ -40,7 +40,7 @@ Parts = {
         keep === true ? (location.hash = groups[0]) : location.hash && Parts.focus();
         document.title = document.title.replace(/^.*?(?= ■ )/, Parts.meta.title?.[groups] ?? Parts.meta.title ?? '');
         let info = typeof Parts.meta.info == 'string' ? Parts.meta.info : Parts.meta.info?.[groups] ?? '';
-        Q('details').hidden = !(Q('details article').innerHTML = info);
+        Q('details').hidden = !(Q('details article').innerHTML = spacing(info));
     },
     focus () {
         Q('.target')?.classList.remove('target');

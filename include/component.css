@@ -82,6 +82,11 @@
         text-align:left;
         margin-bottom:0;
     }
+    dt,dd {display:inline;}
+    dt::before {content:'・';}
+    dd::before {content:'：';}
+    dd::after {content:'\A'; white-space:pre;}
+    rt {margin-top:.5em;}
 }
 
 .boards {

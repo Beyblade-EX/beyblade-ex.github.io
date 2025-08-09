@@ -68,7 +68,7 @@ Part.prototype.catalog.html = function() {
         E('figure', [E('img', {src: `/img/${path}.png`})]),
         ...this.part.stat ? this.html.stat() : [],
         ...this.html.names(),
-        E('p', this.part.desc ?? ''),
+        E('p', spacing(this.part.desc)),
         this.html.icons(),
         this.html.buttons(),
         this.part.from ? E('span', this.part.from, {onclick: ev => ev.preventDefault() ?? (location.href = `/parts/?blade=一體#${ev.target.innerText}`)}) : '',
@@ -92,7 +92,7 @@ Object.assign(Part.prototype.catalog.html, {
     icons () {
         let {abbr, line, group, attr} = this.part;
         let icons = new Mapping('left', '\ue01d', 'right', '\ue01e', /^(?:att|def|sta|bal)$/, t => [E('img', {src: `/img/types.svg#${t}`})]);
-        ['hasbro','collabo'].includes(group) && (group = attr.find(a => /.X$/.test(a)));
+        ['hasbro','collab'].includes(group) && (group = attr.find(a => /.X$/.test(a)));
         return E.ul([
             (line || /.X$/.test(group)) && [E('img', {src: `/img/lines.svg#${line ?? group}`})], 
             group == 'remake' && [E('img', {src: `/img/system-${/^D..$/.test(abbr) ? 'BSB' : /\d$/.test(abbr) ? 'BBB' : 'MFB'}.png`})], 
@@ -109,7 +109,7 @@ Object.assign(Part.prototype.catalog.html, {
                 Part.chi(group, attr, names.chi[0]),
                 Part.chi(group, attr, names.chi[1] ?? ''),
                 E('h5', {classList: 'jap', innerHTML: Markup(names.jap, 'parts')}),
-                E('h5', {classList: 'eng', innerHTML: ['hasbro','collabo'].includes(group) ? names.eng : Markup(names.eng, 'parts')}),
+                E('h5', {classList: 'eng', innerHTML: ['hasbro','collab'].includes(group) ? names.eng : Markup(names.eng, 'parts')}),
             ];
         return children;
     },
@@ -134,7 +134,7 @@ Object.assign(Part.prototype.catalog.html, {
     }
 });
 Part.chi = (group, attr, chi) => E('h5', {
-    innerHTML: Markup(chi, group == 'collabo' || attr.includes('BSB') ? '' : 'parts'), 
+    innerHTML: Markup(chi, group == 'collab' || attr.includes('BSB') ? '' : 'parts'), 
     classList: 'chi'
 });
 

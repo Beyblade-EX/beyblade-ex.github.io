@@ -20,7 +20,7 @@
     },
     "CR": {
         "group": "motif",
-        "names": {"jap": "ケルベロス", "eng": "Cerberus", "chi": "地獄犬"},
+        "names": {"jap": "ケルベロス", "eng": "Cerberus", "chi": "地獄犬 魔犬"},
         "stat": ["2-"],
         "attr": ["right","mfb"]
     },
@@ -82,22 +82,22 @@
     "Fl": {
         "group": "upper",
         "names": {"jap": "フレイム","eng": "Flame","chi": "烈焰"},
-        "stat": ["29-"],
-        "desc": "順滑圓形減少空氣抵抗，擅長持久性能。",
+        "stat": ["29="],
+        "desc": "順滑圓形減少空氣抵抗，持久性能優秀。",
         "attr": ["sta","right","mfb"]
     },
     "Bl": {
         "group": "upper",
         "names": {"jap": "ブラスト","eng": "Blast","chi": "轟裂 爆擊"},
         "stat": ["33-"],
-        "desc": "流線形厚重三枚刃擅長撞飛對手。",
+        "desc": "流線形的厚重三枚刃擅於撞飛對手。",
         "attr": ["att","right","mfb"]
     },
     "Vl": {
         "group": "upper",
         "names": {"jap": "ボルト","eng": "Volt","chi": "雷動 伏特"},
-        "stat": ["31="],
-        "desc": "兼備 Smash 形狀大型三枚刃與空力構造。",
+        "stat": ["31+"],
+        "desc": "兼備Smash形狀大型三枚刃與空力構造。",
         "attr": ["att","right","bbb"]
     },
     "Fn": {
@@ -111,14 +111,14 @@
         "group": "upper",
         "names": {"jap": "ブラッシュ","eng": "Brush","chi": "兇尾 九尾"},
         "stat": ["30+"],
-        "desc": "九枚刃以上下排列，擴闊連打攻擊的範圍同時旨在強力的一擊。",
+        "desc": "逐漸變大的九枚刃能連打同時強攻擊。",
         "attr": ["att","right"]
     },
     "Rp": {
         "group": "upper",
         "names": {"jap": "リーパー","eng": "Reaper","chi": "死神 獵魂"},
         "stat": ["29="],
-        "desc": "有起伏的 Smash 形四枚刃以連打令對手體勢傾倒。",
+        "desc": "有起伏的Smash形四枚刃以連打令對手姿勢崩倒。",
         "attr": ["bal","right"]
     },
     "Dr": {
@@ -132,14 +132,14 @@
         "group": "upper",
         "names": {"jap": "アーク","eng": "Arc","chi": "弧光 至尊"},
         "stat": ["29+"],
-        "desc": "把金屬重量配置在外側的圓弧狀兩枚刃產生強離心力。",
+        "desc": "把金屬重量配置在外側的圓弧狀兩枚刃産生強離心力。",
         "attr": ["sta","right"]
     },
     "Br": {
         "group": "upper",
         "names": {"jap": "ブレイブ","eng": "Brave","chi": "勇者 勇氣"},
         "stat": ["31+"],
-        "desc": "三枚大形 Upper 刃加上能產生 Down force 的空力構造。",
+        "desc": "三枚大形Upper刃加上能産生Down force的空力構造。",
         "attr": ["att","right"]
     },
     "D": {
@@ -153,13 +153,13 @@
         "group": "lower",
         "names": {"jap": "マッシブ","eng": "Massive"},
         "stat": ["5+",11],
-        "desc": "大徑 Smash 形狀五枚刃的連打擅長撞倒對手體勢。",
+        "desc": "大徑Smash形狀五枚刃的連打擅於令對手姿勢崩倒。",
         "attr": ["bal","right"]
     },
     "W": {
         "group": "lower",
         "names": {"jap": "ウィール","eng": "Wheel"},
-        "stat": ["7+",13],
+        "stat": ["7=",13],
         "desc": "有厚度的圓柱形狀刃持續地把從任何高度而來的攻擊都化解。",
         "attr": ["sta","right"]
     },
@@ -173,15 +173,15 @@
     "J": {
         "group": "lower",
         "names": {"jap": "ジャギー","eng": "Jaggy"},
-        "stat": ["5=",10],
-        "desc": "向下擴闊的低重心九枚刃擅長如下潛的連打攻擊。",
+        "stat": ["5-",10],
+        "desc": "向下擴闊的低重心九枚刃擅於如下潛的連打攻擊。",
         "attr": ["att","right"]
     },
     "S": {
         "group": "lower",
         "names": {"jap": "スラッシュ","eng": "Slash"},
         "stat": ["5-",10],
-        "desc": "高度較低的高撞擊性能三枚刃，擅長善用低重心的攻擊性能。",
+        "desc": "高度較低的高撞擊性能三枚刃，擅於善用低重心的攻擊性能。",
         "attr": ["att","right"]
     },        
     "T": {
@@ -209,7 +209,7 @@
         "group": "lower",
         "names": {"jap": "ラウンド","eng": "Round"},
         "stat": ["5-",11],
-        "desc": "内側鏤空的圓形刃徹底提升 Blade 的離心力。",
+        "desc": "内側鏤空的圓形刃徹底提升Blade的離心力。",
         "attr": ["sta","right"]
     }
 }

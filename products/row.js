@@ -175,7 +175,7 @@ class Cell {
         image () {
             Cell.popup.classList = 'images';
             Cell.popup.append(
-                E('p', Mapping.maps.note.find(this.td.dataset.code)),
+                E('p', spacing(Mapping.maps.note.find(this.td.dataset.code))),
                 ...this.td.dataset.video?.split(',').map(href => E('a', {href: `//youtu.be/${href}?start=60`})) ?? [],
                 ...this.image.parse('main').juxtapose(),
                 ...this.image.parse('more').juxtapose(),

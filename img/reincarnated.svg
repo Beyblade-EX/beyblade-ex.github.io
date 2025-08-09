@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -5 120 110">
     <style>
       g:not(:target) {display:none;}
-      #bsb {fill:hsla(0,50%,50%,.2);}
-      #mfb {fill:hsla(200,50%,50%,.2);}
+      #bsb {fill:hsla(0,50%,50%,.3);}
+      #mfb {fill:hsla(200,50%,50%,.3);}
     </style>
     <defs>
         <clipPath id="bsb-clip">

@@ -5,11 +5,11 @@
                 "UX": {"label": "UX"},
                 "BX": {"label": "BX"},
                 "remake": {"label": "復刻", "checked": false},
-                "collabo": {"label": "聯名", "checked": false},
+                "collab": {"label": "聯名", "checked": false},
                 "hasbro": {"label": "未出", "checked": false}
             },
             "title": "【UX】【BX】鋼鐵戰刃⬧刃擊環⬧Blade",
-            "info": "&#xe03c; 圖案代表與所示的 Blade 有相同形狀的塑膠下層。<br>&#xe04d; 圖案代表在官方的單陀螺賽制比賽中禁止使用。"
+            "info": "&#xe03c; 圖案代表與所示的Blade有相同形狀的塑膠下層。<br>&#xe04d; 圖案代表在官方的單陀螺賽制比賽中禁止使用。"
         },
         "CX": {
             "group": {
@@ -19,7 +19,7 @@
             },
             "title": "【CX】鋼鐵戰刃⬧刃擊環⬧Blade",
             "multiple": false,
-            "info": "<img src=https://beyblade.takaratomy.co.jp/beyblade-x/guide/_image/pict17_cx.webp>CX Blade 分為〖Lock Chip〗、〖Main Blade〗及〖Assist Blade〗三個組件。<br>同一款〖Lock Chip〗可在官方比賽中使用多個，但含金屬的則只能使用一個。"
+            "info": "<img src=https://beyblade.takaratomy.co.jp/beyblade-x/guide/_image/pict17_cx.webp>CX Blade分為〖Lock Chip〗、〖Main Blade〗及〖Assist Blade〗三個組件。<br>同一款〖Lock Chip〗可在官方比賽中使用多個，但含金屬的則只能使用一個。"
         },
         "_": {
             "terms": ["重量"," 厚度"],
@@ -34,7 +34,7 @@
                 "high": {"label": "▇"}
             },
             "title": "固鎖輪盤⬧核輪⬧Ratchet",
-            "info": "高度單位為 dmm，10 dmm＝1 mm。（<ruby>d<rt>deci</rt></ruby>＝1/10、<ruby>m<rt>milli</rt></ruby>＝1/1000）"
+            "info": "高度單位為dmm，10 dmm＝1 mm。（<ruby>d<rt>deci</rt></ruby>＝1/10、<ruby>m<rt>milli</rt></ruby>＝1/1000）"
         },
         "_": {
             "height": {"high": 85, "mid": 70, "low": 50},
@@ -51,23 +51,23 @@
             },
             "title": "軸心⬧Bit",
             "variety": {"\ue047":"H,L,U","\ue04a":"M,R","\ue049":"B,F,T","\ue048":"G","\ue04b":"D,W"},
-            "info": "Gear 齒愈多，X Dash 時的速度就愈快，但迴轉速度下降也加快。Shaft 部指與 Ratchet 機關接觸部分，目前以最小直徑計算，愈粗就愈難被擊至爆裂。"
+            "info": "Gear齒愈多，X Dash時的速度就愈快，但迴轉速度下降也加快。Shaft部指與Ratchet機關接觸部分，目前以最小直徑計算，愈粗就愈難被擊至爆裂。"
         },
         "_": {
             "terms": ["重量", "GEAR齒數", "SHAFT粗度"],
             "terms.fusion": ["重量", "GEAR齒數", "BASE高度"],
             "filters": ["type","prefix"],
             "prefix": {
-                "B": {"eng": "Bound ", "jap": "バウンド", "desc": "對 Ratchet 能以上下方向陷入"},
+                "B": {"eng": "Bound ", "jap": "バウンド", "desc": "對Ratchet能以上下方向陷入"},
                 "D": {"eng": "Disk ",  "jap": "ディスク", "desc": "加上圓盤狀重量器"},
-                "F": {"eng": "Free ",  "jap": "フリー",   "desc": "對於 Ratchet 能自由迴轉"},
+                "F": {"eng": "Free ",  "jap": "フリー",   "desc": "對於Ratchet能自由迴轉"},
                 "G": {"eng": "Gear ",  "jap": "ギア"    , "desc": "齒部延長"},
-                "H": {"eng": "High ",  "jap": "ハイ"    , "desc": "高度提升 10 "},
-                "L": {"eng": "Low ",   "jap": "ロー"    , "desc": "高度下降 10 "},
+                "H": {"eng": "High ",  "jap": "ハイ"    , "desc": "高度提升10"},
+                "L": {"eng": "Low ",   "jap": "ロー"    , "desc": "高度下降10"},
                 "M": {"eng": "Metal ", "jap": "メタル"  , "desc": "使用金屬軸端"},
                 "R": {"eng": "Rubber ", "jap": "ラバー" , "desc": "橡膠製"},
                 "T": {"eng": "Trans ", "jap": "トランス" ,"desc": "有高度模式轉換"},
-                "U": {"eng": "Under ", "jap": "アンダー" ,"desc": "高度下降 20 "},
+                "U": {"eng": "Under ", "jap": "アンダー" ,"desc": "高度下降20"},
                 "W": {"eng": "Wall ", "jap": "ウォール" ,"desc": "軸端被筒狀壁包圍"}
             }
         }

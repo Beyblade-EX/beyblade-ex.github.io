@@ -110,7 +110,7 @@ const DB = {
         ,
         files: files => Promise.all(files.map(file => 
                 fetch(`/db/${file}.json`)
-                .then(resp => Promise.allSettled([file, resp.json(), /^part-/.test(file) && DB.clear(file) ]))
+                .then(resp => Promise.allSettled([file, resp.json(), file == 'part-blade-collab' && DB.clear('blade','hasbro') ]))
             )).then(arr => arr.map(([{value: file}, {value: json}]) => //in one transaction
                 (DB.actions[file] || DB.put.parts)(json, file)
                 .then(() => console.log(`Updated '${file}'`) ?? Storage('DB', {[file]: Math.round(new Date() / 1000)} ))
@@ -140,7 +140,7 @@ const DB = {
 
     store: store => (s => DB.trans(s).objectStore(s))(DB.store.format(store)),
 
-    get: (store, key) => {
+    get (store, key) {
         !key && ([store, key] = store.split('.').reverse());
         /^.X$/.test(store) && (store = `blade-${store}`);
         store == 'user' && (DB.tr = null);
@@ -154,7 +154,11 @@ const DB = {
         DB.trans(store);
         return Promise.all(items.map(item => DB.put(store, item, callback))).then(res).catch(er => console.error(store, er));
     }),
-    clear: file => new Promise(res => DB.store(file).clear().onsuccess = () => res(Storage('DB', {[file]: null})))
+    clear (store, value) {
+        store = DB.store(store);
+        return new Promise(res => store.index('group').getAll(IDBKeyRange.only(value))
+            .onsuccess = ev => res(ev.target.result.forEach(({abbr}) => store.delete(abbr))));
+    }
 }
 DB.store.format = store => {
     if (Array.isArray(store)) return store.map(DB.store.format);

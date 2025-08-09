@@ -128,6 +128,7 @@ const doubletap = (ev, timestore, actionORtarget) => {
     } 
     timestore.lastTap = now;
 }
+const spacing = text => text?.replace(/(?<=\w)(?=[一-龢])/g, ' ').replace(/(?<=[一-龢])(?=\w)/g, ' ') ?? '';
 class Mapping {
     constructor(...map) {
         this.default = map.length % 2 ? map.pop() : null;
