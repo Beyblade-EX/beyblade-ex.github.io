@@ -4,23 +4,15 @@
   "part-blade-CX":    "2025/08/10 00:35:00",
   "part-blade-collab":"2025/08/10 00:35:00",
   "part-blade":       "2025/08/10 00:35:00",
-  "part-meta":        "2025/08/10 00:35:00",
+  "part-meta":        "2025/08/11 23:00:00",
   "prod-beys":        "2025/07/31 22:00:00",
   "prod-launchers":   "2025/06/14 22:40:00",
   "prod-others":      "2025/02/21 23:15:00",
   "news": {
-    "2025-08-09":[
-      {"code":"UX-15 deck set","type":"att","name":"シャークスケイルデッキセット<br>SharkScale Deck Set",
-        "imgs":["https://takaratomymall.jp/img/goods/5/4904810982432_4f344d103fd04ccd8f8c8c7a99f1dd5e.jpg","https://takaratomymall.jp/img/goods/L/4904810982432_3cd2ec8a25f7484d93bae927b1399bd9.jpg","https://m.media-amazon.com/images/S/aplus-media-library-service-media/ae850888-1483-4fc4-bb7a-f3d2709273d6.__CR0,0,970,600_PT0_SX970_V1___.jpg"], 
-        "desc":["シャークスケイル4-50UF<br>SharkScale 4-50UF","ティラノロア1-70L<br>TyranoRoar 1-70L","ヘルズブレイブJ3-60GF<br>HellsBrave J3-60GF","【SharkScale】集最低部件於一身","",""]
-      },
-      {"code":"BX-45 booster","type":"bal","name":"サムライカリバー6-70M<br>SamuraiCalibur 6-70M",
-        "imgs":["https://takaratomymall.jp/img/goods/5/4904810939580_a910958f6bd649d694b091b6fe40a2ca.jpg","https://takaratomymall.jp/img/goods/C/4904810939580_7d3b95d0bd7f4c839357bd2047a05d92.jpg","https://m.media-amazon.com/images/S/aplus-media-library-service-media/1d140a8a-5ecb-47fd-aafb-66f11ca6e0cf.__CR0,0,970,600_PT0_SX970_V1___.jpg"],
-        "desc":["【SamuraiCalibur】：水平時防禦、傾側後攻擊","【Merge】bit：外橡膠、内球軸"]
-      }
-    ],
     "2025-09":[
-      {"code":"CX-09 starter"}
+      {"code":"CX-09 starter","type":"bal","name":"ソルエクリプスD5-70TK<br>SolEclipse D5-70K",
+      "imgs":["https://takaratomymall.jp/img/goods/5/4904810995678_2454becf6c2b468aa754c722f8defa69.jpg","https://takaratomymall.jp/img/goods/C/4904810995678_0981d66eafea472cbfc188042eec4556.jpg","https://takaratomymall.jp/img/goods/L/4904810995678_ffa0851137534d5dba8b322a4c50fbe0.jpg","https://takaratomymall.jp/img/goods/2/4904810995678_d1424a6e609a4de3948bfecfa9ff4bd9.jpg"],
+      "desc":["Main Blade 及 Assist Blade 都可反轉切換模式"]}
     ],
     "2025-10":[
       {"code":"UX-16 random booster select"},
