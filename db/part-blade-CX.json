@@ -76,7 +76,7 @@
         "group": "upper",
         "names": {"jap": "エクリプス","eng": "Eclipse","chi": ""},
         "stat": [""],
-        "desc": "",
+        "desc": "反轉可切換模式：Upper模式擅於以五枚刃撞飛對手的攻擊、Smash模式擅於以十枚刃砸下對手攻擊的防禦。",
         "attr": ["bal","right","mfb"]
     },
     "Fl": {
@@ -144,9 +144,9 @@
     },
     "D": {
         "group": "lower",
-        "names": {"jap": "","eng": ""},
+        "names": {"jap": "デュアル","eng": "Dual"},
         "stat": [""],
-        "desc": "",
+        "desc": "把外周的刃反轉可切換至Upper或Smash模式。",
         "attr": ["bal","right"]
     },
     "M": {
