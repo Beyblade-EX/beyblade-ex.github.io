@@ -193,9 +193,16 @@ Object.assign(Finder, {
         Table.show.count();
 
         let [comp, abbr] = obake ? [...new O(Finder.target.parts)][0] : [];
-        abbr &&= comp == 'blade' ? NAMES[comp][abbr].jap : abbr;
-        comp &&= {blade: 'ブレード', ratchet: 'ラチェット', bit: 'ビット'}[comp];
-        Q('a[href*=obake]').href = 'http://obakeblader.com/' + (obake && Table.count.value > 1 ? `${comp}-${abbr}/#toc2` : `?s=入手法`);
+        let path = comp && [comp, ...typeof abbr[0] == 'object' ? new O(abbr[0]).path(a => a[0]) : abbr];
+        abbr &&= path.includes('upper') || path[0] == 'blade' && path.length == 2 ? new O(NAMES).at(path).jap : path.at(-1);
+        comp &&= new O({
+            blade: {
+                _: 'ブレード', 
+                CX: {upper: {_: 'メインブレード'}, lower: {_: 'アシストブレード'}},
+            },
+            ratchet: {_: 'ラチェット'}, bit: {_: 'ビット'},
+        }).at(path.slice(0, -1))?._;
+        Q('a[href*=obake]').href = 'http://obakeblader.com/' + (obake && comp && Table.count.value > 1 ? `${comp}-${abbr}/#toc2` : `?s=入手法`);
     },
     events () {
         Finder.free.onkeypress = ({keyCode}) => keyCode == 13 ? Finder.find() : '';

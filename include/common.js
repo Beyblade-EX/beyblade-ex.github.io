@@ -26,6 +26,20 @@ const O = class {
     prepend (...objs) {
         return objs.reduce((summed, o) => new O(summed).map(([k, v]) => [k, (o[k] ?? '') + v]), this);
     }
+    path (extractor) {
+        const keys = [];
+        let current = this, key, value;
+        while (current && typeof current == 'object' && !Array.isArray(current)) {
+            [key, value] = Object.entries(current)[0];
+            keys.push(key);
+            current = current[key];
+        }
+        extractor && keys.push(extractor(value));
+        return keys;
+    }
+    at (path) {
+        return (typeof path == 'string' ? path.split('.') : path).reduce((obj, key) => obj?.[key], this);
+    }
 }
 const E = (el, ...stuff) => {
     stuff = E.prop.already(...stuff);

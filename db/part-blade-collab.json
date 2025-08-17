@@ -162,7 +162,7 @@
         "names": {
             "jap": "アイアンマン",
             "eng": "Ironman",
-            "chi": "鋼鐵人"
+            "chi": "鐵甲奇俠 鋼鐵人"
         },
         "stat": ["32+"],
         "attr": ["def","right","BX"],
@@ -173,7 +173,7 @@
         "names": {
             "jap": "サノス",
             "eng": "Thanos",
-            "chi": "薩諾斯"
+            "chi": "魁隆 薩諾斯"
         },
         "stat": ["29+"],
         "attr": ["def","right","BX"],
@@ -206,7 +206,7 @@
         "names": {
             "jap": "スパイダーマン",
             "eng": "Spiderman",
-            "chi": "蜘蛛人"
+            "chi": "蜘蛛俠 蜘蛛人"
         },
         "stat": ["33="],
         "attr": ["sta","right","BX"],
@@ -217,7 +217,7 @@
         "names": {
             "jap": "ヴェノム",
             "eng": "Venom",
-            "chi": "猛毒"
+            "chi": "毒魔 猛毒"
         },
         "stat": ["34+"],
         "attr": ["att","right","BX"],
@@ -316,7 +316,7 @@
         "names": {
             "jap": "オプティマスプライム",
             "eng": "Optimus Prime",
-            "chi": "柯博文"
+            "chi": "柯柏文 柯博文"
         },
         "stat": ["33="],
         "attr": ["def","right","BX"],
@@ -327,7 +327,7 @@
         "names": {
             "jap": "メガトロン",
             "eng": "Megatron",
-            "chi": "密卡登"
+            "chi": "麥加登 密卡登"
         },
         "stat": ["32-"],
         "attr": ["bal","right","BX"],
@@ -338,7 +338,7 @@
         "names": {
             "jap": "オプティマスプライマル",
             "eng": "Optimus Primal",
-            "chi": "金剛王"
+            "chi": "奧狄武 金剛王"
         },
         "stat": ["36-"],
         "attr": ["att","right","BX"],
@@ -349,7 +349,7 @@
         "names": {
             "jap": "スタースクリーム",
             "eng": "Starscream",
-            "chi": "天王星"
+            "chi": "星星叫 天王星"
         },
         "stat": ["29+"],
         "attr": ["sta","right","BX"],
