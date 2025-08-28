@@ -547,5 +547,17 @@
         "desc": "",
         "attr": ["def","right","BX"],
         "from": "SpCw"
+    },
+    "GtTc": {
+        "group": "BX",
+        "names": {
+            "jap": "ゴートタックル",
+            "eng": "GoatTackle",
+            "chi": ""
+        },
+        "stat": [""],
+        "desc": "擅於抵禦從低位置而來的攻擊。",
+        "attr": ["def","right","BX"],
+        "from": "BlSh"
     }
 }

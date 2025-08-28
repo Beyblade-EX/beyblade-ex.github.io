@@ -22,18 +22,7 @@
         "attr": ["def","right","BX"],
         "from": "WyGl"
     },
-    "TcGt": {
-        "group": "hasbro",
-        "names": {
-            "jap": "",
-            "eng": "",
-            "chi": ""
-        },
-        "stat": [""],
-        "desc": "（目前只在孩之寶商品中收錄，稱「Tackle Goat」）",
-        "attr": ["def","right","BX"],
-        "from": "BlSh"
-    },
+
     "ShGl": {
         "group": "hasbro",
         "names": {

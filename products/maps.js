@@ -10,6 +10,7 @@ Mapping.maps = {
         ['CX-05','CX-08'], '封入比例：01×3；03×5；其餘各4',
     ),
     images: new Mapping(
+        'BX-46', {detail: '${no}(_01|_02)'},
         'UX-15', {detail: '${no}(|_2|_3)'},
         'CX-04', {detail: '${no}_(d|p)'},
         'UX-07', {detail: '${no}_(r|g|b)', more: '${no}_(r|g|b)'},

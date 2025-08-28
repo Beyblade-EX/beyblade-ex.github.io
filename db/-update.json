@@ -3,9 +3,9 @@
   "part-ratchet":     "2025/08/10 00:35:00",
   "part-blade-CX":    "2025/08/12 12:30:00",
   "part-blade-collab":"2025/08/18 00:00:00",
-  "part-blade":       "2025/08/10 00:35:00",
+  "part-blade":       "2025/08/28 12:50:00",
+  "prod-beys":        "2025/08/28 12:50:00",
   "part-meta":        "2025/08/11 23:00:00",
-  "prod-beys":        "2025/07/31 22:00:00",
   "prod-launchers":   "2025/06/14 22:40:00",
   "prod-others":      "2025/02/21 23:15:00",
   "news": {
@@ -14,9 +14,10 @@
       "imgs":["https://takaratomymall.jp/img/goods/5/4904810995678_2454becf6c2b468aa754c722f8defa69.jpg","https://takaratomymall.jp/img/goods/C/4904810995678_0981d66eafea472cbfc188042eec4556.jpg","https://takaratomymall.jp/img/goods/L/4904810995678_ffa0851137534d5dba8b322a4c50fbe0.jpg","https://takaratomymall.jp/img/goods/2/4904810995678_d1424a6e609a4de3948bfecfa9ff4bd9.jpg"],
       "desc":["Main Blade 及 Assist Blade 都可反轉切換模式"]}
     ],
-    "2025-10":[
+    "2025-10-11":[
+      {"code":"BX-46 stadium set","name":"バトルエントリーセット∞<br>Battle Entry Set <ruby>∞<rt>infinity</ruby>",
+      "imgs":[],"desc":"雙方向X Line及Over/Xtreme Zone，大幅提升擊出機會"},
       {"code":"UX-16 random booster select"},
-      {"code":"BX-46 stadium set"},
       {"code":"BX-47 launcher"}
     ],
     "2025-11":[
