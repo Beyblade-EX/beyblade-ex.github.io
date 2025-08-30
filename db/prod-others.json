@@ -60,5 +60,13 @@
         "colors":[
             ["SS","BX-37","BX37_02@1",120]
         ]
+    },
+    {
+        "eng": "Infinity Stadium",
+        "jap": "インフィニティスタジアム",
+        "desc": "設有雙方向X Line及Xtreme、Over Zone的對戰盤",
+        "colors":[
+            ["SS","BX-46","BX46_13@1",120]
+        ]
     }
 ]

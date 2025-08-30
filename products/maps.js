@@ -22,7 +22,7 @@ Mapping.maps = {
         'BXG-14', {alias: 'BXG-09'},
         'BXG-12', {alias: 'BXG-00'},
         'BXG-09', {alias: 'BXG-14'},
-        'BXG-07', {underscore: true, detail: '${no}_(1|2)'},
+        'BXG-07', {_: true, detail: '${no}_(1|2)'},
         'BX-08', {detail: '${no}_(r|g|y)', more: '${no}_(r|g|y)'},
     )
 }

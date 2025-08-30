@@ -186,14 +186,14 @@ class Cell {
             parse (type) {
                 Cell.images = [];
                 let code = this.td.dataset.code, lower;
-                let {alias, underscore, ...syntax} = Mapping.maps.images.find(code);
+                let {alias, _, ...syntax} = Mapping.maps.images.find(code);
                 if (type == 'detail') {
                     let [, line, number] = /^(.+?)-(\d+)$/.exec(code);
                     lower = /^BXG-(01|04|07|14|31|32|11|18|19)$/.test(code) 
                     || line == 'BX' && parseInt(number) <= 39 
                     || line == 'UX' && parseInt(number) <= 13;
                 }
-                code = (alias || code).replace('-', underscore ? '_' : '')[lower ? 'toLowerCase' : 'toUpperCase']();
+                code = (alias || code).replace('-', _ ? '_' : '')[lower ? 'toLowerCase' : 'toUpperCase']();
                 if (!syntax[type]) {
                     this.format(code, type);
                 } else {
