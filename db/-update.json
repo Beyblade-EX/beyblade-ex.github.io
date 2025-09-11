@@ -17,8 +17,12 @@
     "2025-10-11":[
       {"code":"BX-46 stadium set","name":"バトルエントリーセット∞<br>Battle Entry Set <ruby>∞<rt>infinity</ruby>",
       "imgs":[],"desc":"雙方向X Line及Over/Xtreme Zone，大幅提升擊出機會"},
-      {"code":"UX-16 random booster select"},
-      {"code":"BX-47 launcher"}
+      {"code":"UX-16 random booster select","name":"クロックミラージュ9-65B<br>ClockMirage 9-65B",
+      "type":"sta",
+    "imgs":["https://takaratomymall.jp/img/goods/5/4904810990154_ed1ca8fdfcf4437184350497660bd3f4.jpg","https://takaratomymall.jp/img/goods/L/4904810990154_82e67799a6c947a9a310c63ffdd0cc81.jpg"],
+    "desc":["ClockMirage：圓形60枚刃。只能使用Simple Joint的Ratchet。"]},
+      {"code":"BX-47 launcher","name":"ストリングランチャーL レッドVer.<br>String Launcher L Red Ver.",
+    "imgs":["https://m.media-amazon.com/images/I/51iY8Uje8cL._AC_SX679_.jpg"],"desc":"左迴轉發射器"}
     ],
     "2025-11":[
       {"code":"CX-10 booster"},
