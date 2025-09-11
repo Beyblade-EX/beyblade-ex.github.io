@@ -166,6 +166,12 @@ a ul {
         }
     }
 }
+.blade.simple ul li:last-child {
+    position: absolute; bottom: 80%; left: 1.6em;
+}
+.ratchet.simple ul li {
+    position: absolute; bottom: 80%;
+}
 a.hall::after {
     content:'\e04d';
     font-size: 1.2em;

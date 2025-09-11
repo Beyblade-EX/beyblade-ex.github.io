@@ -91,7 +91,8 @@ Object.assign(Part.prototype.catalog.html, {
     },
     icons () {
         let {abbr, line, group, attr} = this.part;
-        let icons = new Mapping('left', '\ue01d', 'right', '\ue01e', /^(?:att|def|sta|bal)$/, t => [E('img', {src: `/img/types.svg#${t}`})]);
+        let icons = new Mapping('left', '\ue01d', 'right', '\ue01e', 'simple', '\ue015', 
+            /^(?:att|def|sta|bal)$/, t => [E('img', {src: `/img/types.svg#${t}`})]);
         ['hasbro','collab'].includes(group) && (group = attr.find(a => /.X$/.test(a)));
         return E.ul([
             (line || /.X$/.test(group)) && [E('img', {src: `/img/lines.svg#${line ?? group}`})], 
