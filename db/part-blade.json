@@ -19,7 +19,7 @@
         },
         "stat": [""],
         "desc": "產生驚異持久力的圓盤形狀六十枚刃，特化於長時間持續迴轉。",
-        "attr": ["sta","right","simple"]
+        "attr": ["sta","right","mfb","simple"]
     },
     "SmCl": {
         "group": "BX",
