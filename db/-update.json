@@ -1,12 +1,12 @@
 {
-  "part-bit":         "2025/09/03 14:20:00",
-  "part-ratchet":     "2025/08/10 00:35:00",
+  "part-ratchet":     "2025/09/12 21:40:00",
+  "part-blade-collab":"2025/09/12 21:40:00",
+  "part-blade":       "2025/09/12 21:40:00",
+  "prod-beys":        "2025/09/12 21:40:00",
+  "prod-launchers":   "2025/09/12 21:40:00",
   "part-blade-CX":    "2025/08/12 12:30:00",
-  "part-blade-collab":"2025/08/18 00:00:00",
-  "part-blade":       "2025/08/28 12:50:00",
-  "prod-beys":        "2025/08/28 12:50:00",
+  "part-bit":         "2025/09/03 14:20:00",
   "part-meta":        "2025/08/11 23:00:00",
-  "prod-launchers":   "2025/09/01 00:25:00",
   "prod-others":      "2025/08/30 12:45:00",
   "news": {
     "2025-09-27":[
@@ -19,10 +19,10 @@
       "imgs":[],"desc":"雙方向X Line及Over/Xtreme Zone，大幅提升擊出機會"},
       {"code":"UX-16 random booster select","name":"クロックミラージュ9-65B<br>ClockMirage 9-65B",
       "type":"sta",
-    "imgs":["https://takaratomymall.jp/img/goods/5/4904810990154_ed1ca8fdfcf4437184350497660bd3f4.jpg","https://takaratomymall.jp/img/goods/L/4904810990154_82e67799a6c947a9a310c63ffdd0cc81.jpg"],
-    "desc":["ClockMirage：圓形60枚刃。只能使用Simple Joint的Ratchet。"]},
+    "imgs":[],
+    "desc":["ClockMirage：圓形60枚刃。只能使用簡化形的Ratchet。"]},
       {"code":"BX-47 launcher","name":"ストリングランチャーL レッドVer.<br>String Launcher L Red Ver.",
-    "imgs":["https://m.media-amazon.com/images/I/51iY8Uje8cL._AC_SX679_.jpg"],"desc":"左迴轉發射器"}
+    "imgs":[],"desc":"左迴轉發射器"}
     ],
     "2025-11":[
       {"code":"CX-10 booster"},

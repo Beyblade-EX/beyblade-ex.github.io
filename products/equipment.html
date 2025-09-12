@@ -54,12 +54,12 @@ const List = {
         }
     },
     products: (where, colors) => {
-        where.Q('ol').append(...colors.map(([classList, no, img, size]) => {
+        where.Q('ol').append(...colors.map(([classList, no, img, style]) => {
+            style = typeof style == 'number' ? {width: style + '%'} : style || {};
             let li = E('li', [
                 E('code', no.replace('<br>', String.fromCharCode(10))),
-                E('figure', [E('img', {src: List.src([, no, img]), alt: no})])
+                E('figure', [E('img', {src: List.src([, no, img]), alt: no, style})])
             ], {classList})
-            size && li.Q('img').style.setProperty('--size', size + '%');
             return li;
         }))
     },

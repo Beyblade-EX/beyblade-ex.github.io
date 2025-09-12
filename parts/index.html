@@ -18,7 +18,7 @@
 <!--ps: Get-ChildItem -Filter *.png | ForEach-Object {
     $f = $_.Name
     magick mogrify -fuzz 5% -trim $f
-    pngquant --quality=65-80 $f -o "op/$($f)"
+    .\pngquant --quality=65-80 $f -o "op/$($f)"
 }
     ukenagashi: 卸走/開  inashi: 化解
     -->

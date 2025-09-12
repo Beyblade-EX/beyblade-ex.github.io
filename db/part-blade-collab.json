@@ -1,15 +1,4 @@
 {
-    "WyHv": {
-        "group": "hasbro",
-        "names": {
-            "jap": "",
-            "eng": "",
-            "chi": ""
-        },
-        "stat": ["35="],
-        "desc": "（目前只在孩之寶商品中收錄，稱「Hover Wyvern」）",
-        "attr": ["def","right","UX"]
-    },
     "KnYl": {
         "group": "hasbro",
         "names": {

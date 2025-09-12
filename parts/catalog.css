@@ -139,6 +139,7 @@ a object {
 
 a ul {
     display:flex; gap:.2em;
+    position: relative;
 
     li {
         ul:not(:has(img[alt^=type])) &:first-child {margin-left:auto;}

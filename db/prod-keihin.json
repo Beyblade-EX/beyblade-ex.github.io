@@ -10,6 +10,16 @@
         "img":["https://pbs.twimg.com/media/Gq9VsAaaAAcQkI4?format=jpg&name=large",{"width":"100%"}]
     },
     {
+        "type":"d", "note":"DMM くじ Last Chance 賞", "date":"2025-10", "link": "https://scratch.dmm.com/s3/dmmkuji_long_img/FUQSww6SpjwWNQJ5XcMisya7uu3pvDxk26JkdJ2Y.jpeg",
+        "bey":"WyHv 2-80 GN","ver":["メタルコート：バイオレット","Metal Coat: Violet"],
+        "img":["https://scratch.dmm.com/s3/dmmkuji_double_long_img/16/qcnjiLiMCt5LfHJ7cNY3iSbEaT295DHtBecaOTFG.jpeg",{"width":"364%","left":"-20%","top":"43%"}]
+    },
+    {
+        "type":"d", "note":"DMM くじ A 賞", "date":"2025-10", "link": "https://scratch.dmm.com/s3/dmmkuji_long_img/FUQSww6SpjwWNQJ5XcMisya7uu3pvDxk26JkdJ2Y.jpeg",
+        "bey":"WyHv 2-80 GN",
+        "img":["https://scratch.dmm.com/s3/dmmkuji_double_long_img/16/qcnjiLiMCt5LfHJ7cNY3iSbEaT295DHtBecaOTFG.jpeg",{"width":"365%","left":"120%","top":"43%"}]
+    },
+    {
         "type":"d", "note":"App 抽獎獎品", "date":"2025-07",
         "bey":"VL.Vl.S 4-70 V","ver":["メタルコート：ゴールド","Metal Coat: Gold"],
         "img":["https://takaratomymall.jp/img/goods/5/4904810954316_6c4a390e451f4e0d88c55a5dbf3f1f5a.png"]

@@ -9,7 +9,7 @@
                 "hasbro": {"label": "未出", "checked": false}
             },
             "title": "【UX】【BX】鋼鐵戰刃⬧刃擊環⬧Blade",
-            "info": "&#xe03c; 圖案代表與所示的Blade有相同形狀的塑膠下層。<br>&#xe04d; 圖案代表在官方的單陀螺賽制比賽中禁止使用。"
+            "info": "&#xe03c; 圖案代表與所示的Blade有相同形狀的塑膠下層。<br>&#xe015; 只能使用簡化形的Ratchet。"
         },
         "CX": {
             "group": {
@@ -34,10 +34,10 @@
                 "high": {"label": "▇"}
             },
             "title": "固鎖輪盤⬧核輪⬧Ratchet",
-            "info": "高度單位為dmm，10 dmm＝1 mm。（<ruby>d<rt>deci</rt></ruby>＝1/10、<ruby>m<rt>milli</rt></ruby>＝1/1000）<br>&#xe015; 表示屬Simple Joint，即所裝上之Bit的粗度不對Burst抵禦性有影響。"
+            "info": "高度單位為dmm，10 dmm＝1 mm。（<ruby>d<rt>deci</rt></ruby>＝1/10、<ruby>m<rt>milli</rt></ruby>＝1/1000）<br>&#xe015; 表示屬簡化形，即所裝上之Bit的粗度不對Burst抵禦性有影響。"
         },
         "_": {
-            "height": {"high": 85, "mid": 70, "low": 50},
+            "height": {"high": 80, "mid": 65, "low": 50},
             "terms": ["重量", "RING刃數", "BASE高度"]
         }
     },

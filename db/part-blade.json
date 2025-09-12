@@ -1,4 +1,26 @@
 {
+    "WyHv": {
+        "group": "UX",
+        "names": {
+            "jap": "ワイバーンホバー",
+            "eng": "WyvernHover",
+            "chi": ""
+        },
+        "stat": ["35="],
+        "desc": "",
+        "attr": ["def","right","UX"]
+    },
+    "ClMr": {
+        "group": "UX",
+        "names": {
+            "jap": "クロックミラージュ",
+            "eng": "ClockMirage",
+            "chi": ""
+        },
+        "stat": [""],
+        "desc": "產生驚異持久力的圓盤形狀六十枚刃，特化於長時間持續迴轉。",
+        "attr": ["sta","right","simple"]
+    },
     "SmCl": {
         "group": "BX",
         "names": {
@@ -556,7 +578,7 @@
             "chi": ""
         },
         "stat": [""],
-        "desc": "擅於抵禦從低位置而來的攻擊。",
+        "desc": "向下的八枚刃擅於抵禦從低位置而來的攻擊。",
         "attr": ["def","right","BX"],
         "from": "BlSh"
     }
