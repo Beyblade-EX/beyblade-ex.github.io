@@ -577,7 +577,7 @@
             "eng": "GoatTackle",
             "chi": ""
         },
-        "stat": [""],
+        "stat": ["32-"],
         "desc": "向下的八枚刃擅於抵禦從低位置而來的攻擊。",
         "attr": ["def","right","BX"],
         "from": "BlSh"
