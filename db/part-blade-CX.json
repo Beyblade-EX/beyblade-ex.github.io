@@ -1,8 +1,8 @@
 {
     "SL": {
         "group": "motif",
-        "names": {"jap": "ソル", "eng": "Sol", "chi": ""},
-        "stat": [""],
+        "names": {"jap": "ソル", "eng": "Sol", "chi": "天陽 焰神"},
+        "stat": ["2-"],
         "attr": ["right","mfb"]
     },
     "VL": {
@@ -74,8 +74,8 @@
     },
     "Ec": {
         "group": "upper",
-        "names": {"jap": "エクリプス","eng": "Eclipse","chi": ""},
-        "stat": [""],
+        "names": {"jap": "エクリプス","eng": "Eclipse","chi": "光噬 滅世"},
+        "stat": ["32+"],
         "desc": "反轉可切換模式：Upper模式擅於以五枚刃撞飛對手的攻擊、Smash模式擅於以十枚刃砸下對手攻擊的防禦。",
         "attr": ["bal","right","mfb"]
     },
@@ -145,7 +145,7 @@
     "D": {
         "group": "lower",
         "names": {"jap": "デュアル","eng": "Dual"},
-        "stat": [""],
+        "stat": ["6-"],
         "desc": "把外周的刃反轉可切換至Upper或Smash模式。",
         "attr": ["bal","right"]
     },
