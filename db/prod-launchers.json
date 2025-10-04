@@ -1,6 +1,6 @@
 [
     {
-        "eng": "STRING LAUNCHER",
+        "eng": "string launcher",
         "jap": "ストリングランチャー",
         "desc": "標準拉線型發射器",
         "colors":[
@@ -22,28 +22,28 @@
         ]
     },
     {
-        "eng": "HOLD LAUNCHER",
+        "eng": "hold launcher",
         "jap": "ホールドランチャー",
         "desc": "與手把一體化的拉條型發射器，拉條亦稍長，亦包括四塊橡膠Panel",
         "colors":[
-            ["S r plus-2","BXG-13","BXG13_05@1",100],
-            ["S r plus-2","UX-09","UX09_05@1",100]
+            ["S r long","BXG-13","BXG13_05@1",100],
+            ["S r long","UX-09","UX09_05@1",100]
         ]
     },
     {
-        "eng": "WINDER LAUNCHER",
+        "eng": "winder launcher",
         "jap": "ワインダーランチャー",
         "desc": "標準拉條型發射器",
         "colors":[
             ["SS r","BX-46","BX46_11@1",140],
             ["SS r","BX-46","BX46_12@1",140],
-            ["S r plus-2","CX-09","CX09_12@1",120],
-            ["S r plus-2","BXG-45","BXG45_07@1",120],
-            ["S r plus-2","CX-07","CX07_07@1",120],
-            ["S r plus-2","UX-14","UX14_05@1",120],
+            ["S r long","CX-09","CX09_12@1",120],
+            ["S r long","BXG-45","BXG45_07@1",120],
+            ["S r long","CX-07","CX07_07@1",120],
+            ["S r long","UX-14","UX14_05@1",120],
             ["B l","BX-40","BX40@1",100],
             ["St r","BXG-12","BXG00_12@1",140],
-            ["St l plus-1","BXG-12","BXG00_09@1"],
+            ["St l dragon","BXG-12","BXG00_09@1"],
             ["SS r","CX-04","CX04_04@1"],
             ["SS r","CX-04","CX04_03@1"],
             ["S r","CX-01 CX-02","CX01_08@1",120],
@@ -61,7 +61,7 @@
         ]
     },
     {
-        "eng": "ENTRY LAUNCHER",
+        "eng": "entry launcher",
         "jap": "エントリーランチャー",
         "desc": "試玩型發射器",
         "colors":[

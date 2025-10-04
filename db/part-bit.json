@@ -122,8 +122,8 @@
         "attr": ["bal"]
     },
     "TK": {
-        "stat": [],
-        "desc": ""
+        "stat": ["2="],
+        "desc": "軸端亦較幼細。"
     },
     "L": {
         "group": "flat",

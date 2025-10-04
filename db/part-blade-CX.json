@@ -145,7 +145,7 @@
     "D": {
         "group": "lower",
         "names": {"jap": "デュアル","eng": "Dual"},
-        "stat": ["6-"],
+        "stat": ["6=",11],
         "desc": "把外周的刃反轉可切換至Upper或Smash模式。",
         "attr": ["bal","right"]
     },

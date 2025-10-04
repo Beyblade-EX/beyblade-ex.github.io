@@ -68,8 +68,8 @@ const List = {
         /^\d\//.test(href) ? `https://takaratomymall.jp/img/goods/${href}.jpg` :
         `https://pbs.twimg.com/media/${href}?format=jpg&name=large`,
     determinant: {
-        launchers: eng => eng.includes('STRING') ? 1 : 2,
-        others: eng => eng.includes('Stadium') ? 2 : 1
+        launchers: eng => eng.includes('string') ? 1 : 2,
+        others: eng => eng.includes('stadium') ? 2 : 1
     }
 };
 (onhashchange = async () => {

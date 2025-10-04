@@ -184,8 +184,8 @@
         content:"\e01d";
         left:-1.2em;
     }
-    .plus-1::after {content:'+';}
-    .plus-2::after {content:'++';}
+    .dragon::after {content:'+';}
+    .long::after {content:'++';}
 }
 
 .scroller {
