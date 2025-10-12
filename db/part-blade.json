@@ -544,7 +544,7 @@
         },
         "stat": ["36="],
         "desc": "具重量的三枚刃擅長強力地撞走對手。",
-        "attr": ["att","right","BX"],
+        "attr": ["att","right"],
         "from": "PhWn"
     },
     "TrSp": {
@@ -556,7 +556,7 @@
         },
         "stat": ["30-"],
         "desc": "",
-        "attr": ["def","right","BX"],
+        "attr": ["def","right"],
         "from": "SpCw"
     },
     "GtTc": {
@@ -568,11 +568,11 @@
         },
         "stat": ["32-"],
         "desc": "向下的八枚刃擅於抵禦從低位置而來的攻擊。",
-        "attr": ["def","right","BX"],
+        "attr": ["def","right"],
         "from": "BlSh"
     },
     "ShGl": {
-        "group": "hasbro",
+        "group": "BX",
         "names": {
             "jap": "",
             "eng": "",
@@ -580,7 +580,7 @@
         },
         "stat": ["30="],
         "desc": "",
-        "attr": ["bal","right","BX"],
+        "attr": ["bal","right"],
         "from": "ShDr"
     },
     "WyHv": {
@@ -592,6 +592,6 @@
         },
         "stat": ["35="],
         "desc": " (暫只於Hasbro產品及日本抽籤商品中出現)",
-        "attr": ["def","right","UX"]
+        "attr": ["def","right"]
     }
 }
