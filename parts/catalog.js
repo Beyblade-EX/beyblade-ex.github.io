@@ -95,7 +95,7 @@ Object.assign(Part.prototype.catalog.html, {
             /^(?:att|def|sta|bal)$/, t => [E('img', {src: `/img/types.svg#${t}`})]);
         ['hasbro','collab'].includes(group) && (group = attr.find(a => /.X$/.test(a)));
         return E.ul([
-            (line || /.X$/.test(group)) && [E('img', {src: `/img/lines.svg#${line ?? group}`})], 
+            (line || /.X$/.test(group)) && [E('img', {src: `/img/lines.svg#${line || group}`})], 
             group == 'remake' && [E('img', {src: `/img/system-${/^D..$/.test(abbr) ? 'BSB' : /\d$/.test(abbr) ? 'BBB' : 'MFB'}.png`})], 
             ...(attr ?? []).map(a => icons.find(a, true))
         ]);

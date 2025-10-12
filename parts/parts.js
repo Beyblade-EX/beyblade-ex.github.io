@@ -26,7 +26,9 @@ Parts = {
                 p.split('.').map(sp => DB.get('blade-CX', sp)) : DB.get(['blade','ratchet','bit'][i], p)
             )
         ));
-        Parts.all = Parts.all.map(p => DB.get.meta(p.comp, '_').then(() => new Part(p).prepare()).then(p => p.catalog(true)));
+        Parts.all = Parts.all.map(p => DB.get.meta(p.comp, '_')
+            .then(() => new Part(p, p.abbr.length <= 2 && p.comp == 'blade' ? 'CX' : '').prepare()).then(p => p.catalog(true))
+        );
     },
     after () {
         let hash = decodeURI(location.hash.substring(1));
