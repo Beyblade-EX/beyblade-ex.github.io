@@ -21,8 +21,12 @@ Parts = {
         Parts.all = await Parts.all;
     },
     async listing () {
-        Parts.all = await Promise.all(location.hash.substring(1).split(',').map(p => DB.get(p)));
-        Parts.all = Parts.all.map(p => new Part(p).prepare().catalog(true));
+        Parts.all = await Promise.all(location.hash.substring(1).split('&').flatMap(bey => 
+            bey.split(',').flatMap((p, i) => p.includes('.') ? 
+                p.split('.').map(sp => DB.get('blade-CX', sp)) : DB.get(['blade','ratchet','bit'][i], p)
+            )
+        ));
+        Parts.all = Parts.all.map(p => DB.get.meta(p.comp, '_').then(() => new Part(p).prepare()).then(p => p.catalog(true)));
     },
     after () {
         let hash = decodeURI(location.hash.substring(1));
