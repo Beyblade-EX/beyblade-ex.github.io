@@ -11,19 +11,6 @@
         "attr": ["def","right","BX"],
         "from": "WyGl"
     },
-
-    "ShGl": {
-        "group": "hasbro",
-        "names": {
-            "jap": "",
-            "eng": "",
-            "chi": ""
-        },
-        "stat": ["30="],
-        "desc": "（目前只在孩之寶商品中收錄，稱「Gill Shark」）",
-        "attr": ["bal","right","BX"],
-        "from": "ShDr"
-    },
     "DRS": {
         "group": "remake",
         "names": {

@@ -1,23 +1,12 @@
 {
-    "WyHv": {
-        "group": "UX",
-        "names": {
-            "jap": "ワイバーンホバー",
-            "eng": "WyvernHover",
-            "chi": ""
-        },
-        "stat": ["35="],
-        "desc": "",
-        "attr": ["def","right","UX"]
-    },
-    "ClMr": {
+   "ClMr": {
         "group": "UX",
         "names": {
             "jap": "クロックミラージュ",
             "eng": "ClockMirage",
-            "chi": ""
+            "chi": "時鐘幽景 時鐘幻象"
         },
-        "stat": [""],
+        "stat": ["37+"],
         "desc": "產生驚異持久力的圓盤形狀六十枚刃，特化於長時間持續迴轉。",
         "attr": ["sta","right","mfb","simple"]
     },
@@ -575,11 +564,34 @@
         "names": {
             "jap": "ゴートタックル",
             "eng": "GoatTackle",
-            "chi": ""
+            "chi": "凶羊截擊"
         },
         "stat": ["32-"],
         "desc": "向下的八枚刃擅於抵禦從低位置而來的攻擊。",
         "attr": ["def","right","BX"],
         "from": "BlSh"
+    },
+    "ShGl": {
+        "group": "hasbro",
+        "names": {
+            "jap": "",
+            "eng": "",
+            "chi": ""
+        },
+        "stat": ["30="],
+        "desc": "",
+        "attr": ["bal","right","BX"],
+        "from": "ShDr"
+    },
+    "WyHv": {
+        "group": "UX",
+        "names": {
+            "jap": "ワイバーンホバー",
+            "eng": "WyvernHover",
+            "chi": ""
+        },
+        "stat": ["35="],
+        "desc": " (暫只於Hasbro產品及日本抽籤商品中出現)",
+        "attr": ["def","right","UX"]
     }
 }

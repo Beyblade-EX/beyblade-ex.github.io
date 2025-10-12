@@ -71,7 +71,6 @@ const Head = {
       "background_color":"black",
       "icons":[{"src":"https://beyblade-ex.github.io/favicon.png","type":"image/png","sizes":"192x192"},{"src":"https://beyblade-ex.github.io/favicon.ico","type":"image/png","sizes":"512x512","purpose":"maskable"}]
     }'>
-    <!--script src="https://beybladeburst.github.io/QOE.js"></script-->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MJMB14RTQP"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
