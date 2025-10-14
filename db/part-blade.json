@@ -591,7 +591,7 @@
         },
         "stat": ["30="],
         "desc": "",
-        "attr": ["bal","right"],
+        "attr": ["sta","right"],
         "from": "ShDr"
     },
     "WyHv": {
