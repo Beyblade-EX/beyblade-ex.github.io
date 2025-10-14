@@ -1,4 +1,15 @@
 {
+   "OrCl": {
+        "group": "UX",
+        "names": {
+            "jap": "オロチクラスター",
+            "eng": "OrochiCluster",
+            "chi": ""
+        },
+        "stat": [""],
+        "desc": "",
+        "attr": ["att","right"]
+    },
    "ClMr": {
         "group": "UX",
         "names": {
