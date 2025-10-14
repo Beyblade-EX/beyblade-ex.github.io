@@ -1,27 +1,20 @@
 {
   "part-ratchet":     "2025/09/12 21:40:00",
   "prod-launchers":   "2025/09/26 23:02:00",
-  "part-blade":       "2025/10/12 21:35:00",
   "prod-beys":        "2025/10/12 21:30:00",
+  "part-blade":       "2025/10/12 21:35:00",
   "part-blade-collab":"2025/10/12 21:30:00",
   "part-blade-CX":    "2025/10/12 21:30:00",
   "part-bit":         "2025/10/12 21:30:00",
   "part-meta":        "2025/09/13 12:55:00",
   "prod-others":      "2025/08/30 12:45:00",
   "news": {
-    "2025-10-11":[
-      {"code":"BX-46 stadium set","name":"バトルエントリーセット∞<br>Battle Entry Set <ruby>∞<rt>infinity</ruby>",
-      "imgs":[],"desc":"雙方向X Line及Over/Xtreme Zone，大幅提升擊出機會"},
-      {"code":"UX-16 random booster select","name":"クロックミラージュ9-65B<br>ClockMirage 9-65B",
-      "type":"sta",
-    "imgs":[],
-    "desc":["ClockMirage：圓形60枚刃。只能使用簡化形的Ratchet。"]},
-      {"code":"BX-47 launcher","name":"ストリングランチャーL レッドVer.<br>String Launcher L Red Ver.",
-    "imgs":[],"desc":"左迴轉發射器"}
+    "2025-11-01":[
+      {"code":"CX-10 booster","name":"ウルフハントF0-60DB<br>WolfHunt F0-60DB","desc":["【Free】Assist blade：外周自由迴轉"]},
+      {"code":"CX-11 deck set","name":"エンペラーマイトHOp<br>EmperorMight HOp","desc":["Lock chip 及 Assist blade 都有金屬，重量特化型","【Operate】Bit：近似手動切換版【Tr】"]}
     ],
     "2025-11":[
-      {"code":"CX-10 booster"},
-      {"code":"CX-11 deck set"}
+
     ],
     "2025-12":[
       {"code":"UX-17 starter"},

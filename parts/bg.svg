@@ -5,7 +5,7 @@
     const add = (html, where) => where.insertAdjacentHTML('beforeend', html);
     const root = document.querySelector(':root');
     root.style.setProperty('--c', q.hue ?? 60);
-    root.style.setProperty('--base-b', (q.hue == 245 ? 10 : 0) + '%');
+    root.style.setProperty('--base-b', (q.hue == 245 ? 5 : 0) + '%');
     // ]]></script>
     <style>
     :root {

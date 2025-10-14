@@ -6,7 +6,7 @@
             "eng": "ClockMirage",
             "chi": "時鐘幽景 時鐘幻象"
         },
-        "stat": ["37+"],
+        "stat": ["38-"],
         "desc": "產生驚異持久力的圓盤形狀六十枚刃，特化於長時間持續迴轉。",
         "attr": ["sta","right","mfb","simple"]
     },
