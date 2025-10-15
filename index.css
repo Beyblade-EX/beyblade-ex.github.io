@@ -210,7 +210,7 @@ a[data-icon]::before {
     p:nth-of-type(5) {order:11;}
     figure:nth-of-type(7) {order:12;}
     p:nth-of-type(6) {order:13;}
-    figure:nth-of-type(8) {order:14;}
+    figure:nth-of-type(n+8) {order:14;}
     p:nth-of-type(n+7) {order:15;}
 }
 
