@@ -62,14 +62,15 @@ const Head = {
     <meta name=viewport content='width=device-width,initial-scale=1'>
     <meta name=theme-color content='#b0ff50'>
     <link rel=stylesheet href=/include/common.css>
-    <link rel=apple-touch-icon href=/favicon.ico>
+    <link rel=apple-touch-icon href="https://${location.host}/img/blade/CX-motif/EM.png" type="image/png">
+    <link rel=icon href="https://${location.host}/img/blade/CX-motif/EM.png" type="image/png">
     <link rel=manifest href='data:application/manifest+json,{
       "name":"非官方資訊站",
       "display":"standalone",
       "start_url":"https://beyblade-ex.github.io/",
       "theme_color":"rgb(181,251,92)",
       "background_color":"black",
-      "icons":[{"src":"https://beyblade-ex.github.io/favicon.png","type":"image/png","sizes":"192x192"},{"src":"https://beyblade-ex.github.io/favicon.ico","type":"image/png","sizes":"512x512","purpose":"maskable"}]
+      "icons":[{"src":"https://${location.host}/img/blade/CX-motif/EM.png","type":"image/png","sizes":"192x192"},{"src":"https://${location.host}/img/blade/CX-motif/EM.png","type":"image/png","sizes":"512x512","purpose":"maskable"}]
     }'>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MJMB14RTQP"></script>
     <script>
