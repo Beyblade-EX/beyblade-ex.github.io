@@ -62,7 +62,7 @@ Bey.partial = (abbr, line) => {
 }
 Bey.prototype.naming = function() {
     this.partial = Bey.partial(this.abbr);
-    this.name = {};
+    this.name = {jap: '', chi: ''};
     this.ratchet.sym ??= ''; this.bit.sym ??= '';
     const comp = [
         (s, lang) => NAMES.blade.CX.motif[s]?.[lang] ?? '',
@@ -81,7 +81,7 @@ Bey.prototype.naming = function() {
             (this.name.chi[0][1] || this.name.chi[0][0]) + (this.name.chi[1][1] || this.name.chi[1][0])
         ].join('⬧') + this.name.chi[2][0] : '';
     }
-    this.name.jap += ' ' + this.ratchet.sym.replace('-', '‑') + this.bit.sym;
+    this.name.jap += ' ' + (this.ratchet.sym == '/' ? '' : this.ratchet.sym.replace('-', '‑')) + this.bit.sym;
     this.name.chi && (this.name.chi += ' ' + this.ratchet.sym.replace('-', '‑') + this.bit.sym);
 }
 class Keihin {

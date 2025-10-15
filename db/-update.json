@@ -1,12 +1,12 @@
 {
-  "part-ratchet":     "2025/09/12 21:40:00",
   "prod-launchers":   "2025/09/26 23:02:00",
   "prod-beys":        "2025/10/14 23:15:00",
-  "part-blade":       "2025/10/14 23:15:00",
   "part-blade-collab":"2025/10/12 21:30:00",
-  "part-blade-CX":    "2025/10/12 21:30:00",
-  "part-bit":         "2025/10/12 21:30:00",
-  "part-meta":        "2025/09/13 12:55:00",
+  "part-blade":       "2025/10/15 12:30:00",
+  "part-ratchet":     "2025/10/15 12:30:00",
+  "part-blade-CX":    "2025/10/15 12:30:00",
+  "part-bit":         "2025/10/15 12:30:00",
+  "part-meta":        "2025/10/15 12:30:00",
   "prod-others":      "2025/08/30 12:45:00",
   "news": {
     "2025-11-01":[
@@ -18,7 +18,7 @@
       "desc":["Lock chip 及 Assist blade 都有金屬，重量特化型","【Operate】Bit：手動切換球軸伸出或縮入"]}
     ],
     "2025-11-15":[
-      {"code":"コロコロ雜誌全員service應募品（填寫雜誌内表格訂購）","type":"att","name":"オロチクラスター6-60LF<br><a href=https://zh.wikipedia.org/wiki/八岐大蛇 target=_blank>Orochi</a>Cluster 6-60LF","desc":["設計基於早前玩家的投稿"],
+      {"code":"コロコロ雜誌全員service應募品（填寫雜誌内表格訂購）","type":"att","name":"オロチクラスタ6-60LF<br><a href=https://zh.wikipedia.org/wiki/八岐大蛇 target=_blank>Orochi</a>Cluster 6-60LF","desc":["設計基於早前玩家的投稿"],
       "imgs":[]}
     ],
     "2025-12":[

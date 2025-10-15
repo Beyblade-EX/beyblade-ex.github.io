@@ -1,5 +1,10 @@
 [
     {
+        "type":"m", "note":"Full color 版漫畫同梱", "date":"2026-05", "link":"https://lifetunes-mall.jp/shop/g/gR20250033/",
+        "bey":"DR.Ar.S 2-70 K", "ver":["メタルコート：ブルー", "Metal Coat: Blue"],
+        "img":["https://corocoro-news.jp/wp-content/uploads/2025/05/f07d92190b453b7cb0b9d2ae5b80b03a.jpg",{"width":"95%","left":"45%"}]
+    },
+    {
         "type":"m", "note":"Full color 版漫畫同梱", "date":"2026-02", "link":"https://lifetunes-mall.jp/shop/g/gR20250030/",
         "bey":"SmSb 2-70 L", "ver":["メタルコート：オレンジ", "Metal Coat: Orange"],
         "img":["https://pbs.twimg.com/media/GjzKKRDa0AAaxOg?format=jpg&name=large",{"width":"97%"}]
@@ -8,6 +13,11 @@
         "type":"m", "note":"實物版遊戲同梱", "link":"https://www.cs.furyu.jp/beyblade2025/", "date":"2025-11",
         "bey":"LN.Fn.T 4-60 A", "ver":["レッド Ver.", "Red Ver."],
         "img":["https://pbs.twimg.com/media/Gq9VsAaaAAcQkI4?format=jpg&name=large",{"width":"100%"}]
+    },
+    {
+        "type":"g", "note":"購物滿額贈品", "link":"https://beyblade.takaratomy.co.jp/beyblade-x/news/news251015_3.html", "date":"2025-11",
+        "bey":"/ / P", "ver":["スペシャル Ver.", "Special Ver."],
+        "img":["https://beyblade.takaratomy.co.jp/beyblade-x/news/_image/news251015_3_point.webp",{"width":"200%"}]
     },
     {
         "type":"d", "note":"DMM くじ Last Chance 賞", "date":"2025-10", "link": "https://scratch.dmm.com/s3/dmmkuji_long_img/FUQSww6SpjwWNQJ5XcMisya7uu3pvDxk26JkdJ2Y.jpeg",
@@ -28,11 +38,6 @@
         "type":"g", "note":"コロコロ合體版雜誌附錄", "link":"https://corocoro-news.jp/news/397017/", "date":"2025-07",
         "bey":"/./.J",
         "img":["https://corocoro-news.jp/wp-content/uploads/2025/06/dafb3d8b9744b924199470365546d041.jpg"]
-    },
-    {
-        "type":"d", "note":"コロコロ雜誌抽選", "date":"2025-06", "link":"https://corocoro-news.jp/news/396610/",
-        "bey":"DR.Ar.S 2-70 K", "ver":["メタルコート：ブルー", "Metal Coat: Blue"],
-        "img":["https://corocoro-news.jp/wp-content/uploads/2025/05/f07d92190b453b7cb0b9d2ae5b80b03a.jpg",{"width":"95%","left":"45%"}]
     },
     {
         "type":"m", "note":"コロコロ雜誌應募", "date":"2025-05", "link":"https://corocoro-news.jp/news/396091/",

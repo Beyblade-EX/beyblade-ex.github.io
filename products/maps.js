@@ -11,7 +11,7 @@ Mapping.maps = {
     ),
     images: new Mapping(
         'BX-46', {detail: '${no}(_01|_02)'},
-        'UX-15', {detail: '${no}(|_2|_3)'},
+        ['UX-15','CX-11'], {detail: '${no}(|_2|_3)'},
         'CX-04', {detail: '${no}_(d|p)'},
         'UX-07', {detail: '${no}_(r|g|b)', more: '${no}_(r|g|b)'},
         'BX-21', {detail: '${no}_(p|y|o)', more: '${no}_(p|y|o)'},

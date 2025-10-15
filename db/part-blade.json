@@ -2,7 +2,7 @@
    "OrCl": {
         "group": "UX",
         "names": {
-            "jap": "オロチクラスター",
+            "jap": "オロチクラスタ",
             "eng": "OrochiCluster",
             "chi": ""
         },
@@ -590,7 +590,7 @@
             "chi": ""
         },
         "stat": ["30="],
-        "desc": "",
+        "desc": "滑順圓形兩枚刃卸開對手攻擊，提高持久力。",
         "attr": ["sta","right"],
         "from": "ShDr"
     },
