@@ -2,7 +2,7 @@
     "EM": {
         "group": "motif",
         "names": {"jap": "エンペラー", "eng": "Emperor", "chi": ""},
-        "stat": [""],
+        "stat": ["5-"],
         "desc": "金屬零件增加重量。",
         "attr": ["right"]
     },
@@ -88,14 +88,14 @@
     "Mg": {
         "group": "upper",
         "names": {"jap": "マイト","eng": "Might","chi": ""},
-        "stat": [""],
+        "stat": ["33+"],
         "desc": "在側面擁有多面銳角形狀的重量級八枚刃把對手迴轉力削弱。",
         "attr": ["bal","right"]
     },
     "Hn": {
         "group": "upper",
         "names": {"jap": "ハント","eng": "Hunt","chi": ""},
-        "stat": [""],
+        "stat": ["32-"],
         "desc": "重量集中外周的圓滑形狀連打刃，兼備高持久性能及攻擊性能。",
         "attr": ["sta","right","bsb"]
     },
@@ -172,14 +172,14 @@
     "H": {
         "group": "lower",
         "names": {"jap": "ヘビー","eng": "Heavy"},
-        "stat": [""],
+        "stat": ["8-"],
         "desc": "搭載金屬零件以提高離心力的低處六枚刃，強化打擊力及安定性。",
         "attr": ["bal","right"]
     },
     "F": {
         "group": "lower",
         "names": {"jap": "フリー","eng": "Free"},
-        "stat": [""],
+        "stat": ["6-"],
         "desc": "外周Free Ring可迴轉，卸開攻擊以維持持久。",
         "attr": ["sta","right"]
     },
