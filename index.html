@@ -103,7 +103,7 @@ const announce = news => [...new O(news)].forEach(([date, beys]) => {
             E('h5', type? [E('ruby', {classList: [`below`, type]}, [E('img', {src: `/img/types.svg#${type}`}), E('rt', types[type])]), code] : code),
             E('h4', {innerHTML: name || ''}), 
             ...imgs.map(src => E('figure', [E('a', '🖼️', {href: src}), E('img', {src})])), 
-            ...([desc ?? []].flat()).map(d => E('p', {innerHTML: spacing(d).replaceAll('-', '‑')}))
+            ...([desc ?? []].flat()).map(d => E('p', {innerHTML: spacing(d)}))
         ], {classList: [`scroller`, cl || announce.colors.find(code)]});
 
         Q('#products').appendChild(div);
