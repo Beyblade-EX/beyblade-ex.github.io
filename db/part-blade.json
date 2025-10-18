@@ -28,7 +28,7 @@
             "eng": "SamuraiCalibur",
             "chi": "武士聖劍 武士魂斬"
         },
-        "stat": ["36="],
+        "stat": ["36-"],
         "desc": "一併擁有角度不同的大型刃及小型刃，在水平時發揮防禦、傾斜時發揮攻擊性能。",
         "attr": ["bal","right"]
     },
@@ -39,7 +39,7 @@
             "eng": "SharkScale",
             "chi": "烈鯊鱗甲 鮫鯊狂鱗"
         },
-        "stat": ["38-"],
+        "stat": ["37+"],
         "desc": "備有複數打擊部位的大型兩枚刃，特化於從低位置的強烈Upper攻擊。",
         "attr": ["att","right"]
     },
@@ -261,7 +261,7 @@
         },
         "stat": ["35+"],
         "desc": "外重心又大徑幅的五枚刃形狀，特化於産生離心力。",
-        "attr": ["sta","right","hall"]
+        "attr": ["sta","right"]
     },
     "HlHm": {
         "group": "UX",
