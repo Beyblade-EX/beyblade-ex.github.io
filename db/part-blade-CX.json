@@ -1,7 +1,7 @@
 {
     "EM": {
         "group": "motif",
-        "names": {"jap": "エンペラー", "eng": "Emperor", "chi": ""},
+        "names": {"jap": "エンペラー", "eng": "Emperor", "chi": "帝皇"},
         "stat": ["5-"],
         "desc": "金屬零件增加重量。",
         "attr": ["right"]
@@ -87,14 +87,14 @@
     },
     "Mg": {
         "group": "upper",
-        "names": {"jap": "マイト","eng": "Might","chi": ""},
+        "names": {"jap": "マイト","eng": "Might","chi": "霸權 威能"},
         "stat": ["33+"],
         "desc": "在側面擁有多面銳角形狀的重量級八枚刃把對手迴轉力削弱。",
         "attr": ["bal","right"]
     },
     "Hn": {
         "group": "upper",
-        "names": {"jap": "ハント","eng": "Hunt","chi": ""},
+        "names": {"jap": "ハント","eng": "Hunt","chi": "狩獵"},
         "stat": ["32-"],
         "desc": "重量集中外周的圓滑形狀連打刃，兼備高持久性能及攻擊性能。",
         "attr": ["sta","right","bsb"]
