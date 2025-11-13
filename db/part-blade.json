@@ -18,8 +18,8 @@
             "chi": ""
         },
         "stat": [""],
-        "desc": "",
-        "attr": ["sta","right"]
+        "desc": "依迴轉速度變形：初段時彈出Counter刃作反擊、後段時以近圓形狀防守到尾。",
+        "attr": ["def","right"]
     },
    "MtDg": {
         "group": "UX",
@@ -29,7 +29,7 @@
             "chi": ""
         },
         "stat": [""],
-        "desc": "",
+        "desc": "搭載大型橡膠的三枚刃不斷作出強烈一擊。",
         "attr": ["att","left","bsb"]
     },
    "ClMr": {

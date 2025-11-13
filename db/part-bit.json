@@ -114,11 +114,11 @@
     "J": {
         "group": "flat",
         "names": {
-            "jap": "",
-            "eng": ""
+            "jap": "ジョルト",
+            "eng": "Jolt"
         },
         "stat": [],
-        "desc": "",
+        "desc": "一併展現以幼細平坦軸端來壓抑持久損失的攻擊、及大型Gear的高速X Dash。",
         "attr": ["att"]
     },
     "K": {
