@@ -9,21 +9,19 @@
   "part-meta":        "2025/10/15 12:30:00",
   "prod-others":      "2025/08/30 12:45:00",
   "news": {
-    "2025-11-01":[
-      {"code":"CX-10 booster","name":"ウルフハントF0-60DB<br>WolfHunt F0-60DB","type":"sta",
-      "imgs":["https://m.media-amazon.com/images/S/aplus-media-library-service-media/ea508fb0-aafb-46c1-bd26-dc59ca789415.__CR0,0,970,600_PT0_SX970_V1___.jpg"],
-      "desc":["【Free】Assist blade：外周自由迴轉"]},
-      {"code":"CX-11 deck set","name":"エンペラーマイトHOp<br>EmperorMight HOp","type":"bal",
-      "imgs":["https://m.media-amazon.com/images/S/aplus-media-library-service-media/7e30c06f-02af-4df1-abec-c267c3713a7b.__CR0,0,970,600_PT0_SX970_V1___.jpg","https://m.media-amazon.com/images/S/aplus-media-library-service-media/f9fdf003-8572-4e8e-b3d7-1a0f5520ed41.__CR0,0,970,600_PT0_SX970_V1___.jpg","https://m.media-amazon.com/images/S/aplus-media-library-service-media/7d8229b2-ea94-4a19-96fa-9d977e848e11.__CR0,0,970,600_PT0_SX970_V1___.jpg"],
-      "desc":["Lock chip 及 Assist blade 都有金屬，重量特化型","【Operate】Bit：手動切換尖軸伸出或縮入"]}
-    ],
     "2025-11-15":[
       {"code":"コロコロ雜誌全員service應募品（填寫雜誌内表格訂購）","type":"att","name":"オロチクラスタ6-60LF<br><a href=https://zh.wikipedia.org/wiki/八岐大蛇 target=_blank>Orochi</a>Cluster 6-60LF","desc":["設計基於早前玩家的投稿"],
       "imgs":["https://corocoro-news.jp/wp-content/uploads/2025/10/769ec69bf4024f902aa8b4908054b884.jpg"]}
     ],
     "2025-12":[
-      {"code":"UX-17 starter"},
-      {"code":"BXG-22 booster"},
+      {"code":"UX-17 starter","type":"att","name":"メテオドラグーン3-70J<br>MeteorDragoon 3-70J",
+    "imgs":["https://takaratomymall.jp/img/goods/1/4904810997627_bfab3632933646f98be180f098a12a51.jpg","https://takaratomymall.jp/img/goods/C/4904810997627_1bcaebcc6d9849f782a9dae33168efd2.jpg","https://takaratomymall.jp/img/goods/5/4904810997627_e6c4bd4983044a0ca90b671cc38aa9e1.jpg"],
+    "desc":["橡膠吸收右迴轉對手"]},
+      {"code":"UX-18 random booster","type":"def","name":"マミーカース7-55W<br>MummyCurse 7-55W",
+    "imgs":["https://takaratomymall.jp/img/goods/L/4904810097167_0441c4059c4540cc829fde63a193bc74.jpg","https://takaratomymall.jp/img/goods/5/4904810097167_a632e3b9d7644637b1bcbf252b5bc3c0.jpg"],
+    "desc":["迴轉速度下降時由「Counter Form」變形至「Guard Form」"]},
+      {"code":"BXG-22 booster","type":"att","name":"ドラグーンストーム4-60RA<br>Dragoon S 4-60RA",
+      "imgs":["https://takaratomymall.jp/img/goods/C/4904810099468_af2d90ce59f34fdfbf261735a0b26603.jpg"]},
       {"code":"",
       "type":"att","imgs":["https://corocoro-news.jp/wp-content/uploads/2025/10/417f0dd7473ce6612a4c9b3cd7d6de62.jpg"],
     "desc":["與釣魚模擬實體機台遊戲<a target=_blank href=https://trsp.bn-am.net/#aboutCol>「釣りスピリッツ」</a>的collaboration"]}

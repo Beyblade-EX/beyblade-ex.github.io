@@ -10,6 +10,28 @@
         "desc": "",
         "attr": ["att","right"]
     },
+   "MmCr": {
+        "group": "UX",
+        "names": {
+            "jap": "マミーカース",
+            "eng": "MummyCurse",
+            "chi": ""
+        },
+        "stat": [""],
+        "desc": "",
+        "attr": ["sta","right"]
+    },
+   "MtDg": {
+        "group": "UX",
+        "names": {
+            "jap": "メテオドラグーン",
+            "eng": "MeteorDragoon",
+            "chi": ""
+        },
+        "stat": [""],
+        "desc": "",
+        "attr": ["att","left","bsb"]
+    },
    "ClMr": {
         "group": "UX",
         "names": {
