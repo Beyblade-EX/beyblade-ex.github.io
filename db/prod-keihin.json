@@ -11,6 +11,11 @@
     },
     {
         "type":"m", "note":"コロコロ雜誌應募", "date":"2025-12",
+        "bey":"ShEd 2-60 GP", "ver":["メタルコート：ブラック", "Metal Coat: Black"],
+        "img":["https://beyblade.takaratomy.co.jp/beyblade-x/news/_image/news251114_4_img5.jpg",{"width":"312%","left":"113%","top":"63%"}]
+    },
+    {
+        "type":"m", "note":"コロコロ雜誌應募", "date":"2025-11", "link":"https://corocoro-news.jp/news/398602/",
         "bey":"OrCl 6-60 LF",
         "img":["https://corocoro-news.jp/wp-content/uploads/2025/10/769ec69bf4024f902aa8b4908054b884.jpg"]
     },

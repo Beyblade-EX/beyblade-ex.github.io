@@ -24,13 +24,13 @@
    "MtDg": {
         "group": "UX",
         "names": {
-            "jap": "メテオドラグーン",
-            "eng": "MeteorDragoon",
+            "jap": "メテオ\\ドラグーン",
+            "eng": "Meteor\\Dragoon",
             "chi": ""
         },
         "stat": [""],
         "desc": "搭載大型橡膠的三枚刃不斷作出強烈一擊。",
-        "attr": ["att","left","bsb"]
+        "attr": ["att","left","bsb","mfb"]
     },
    "ClMr": {
         "group": "UX",
@@ -623,8 +623,8 @@
             "eng": "WyvernHover",
             "chi": ""
         },
-        "stat": ["35="],
-        "desc": " (暫只於Hasbro產品及日本抽籤商品中出現)",
+        "stat": ["35+"],
+        "desc": "向下收窄的階梯構造擅於抵受攻擊並從上方壓制，不論對手的形狀。",
         "attr": ["def","right"]
     }
 }

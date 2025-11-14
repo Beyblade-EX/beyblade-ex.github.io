@@ -1,11 +1,11 @@
 {
-  "prod-launchers":   "2025/09/26 23:02:00",
-  "prod-beys":        "2025/11/13 23:30:00",
   "part-blade-collab":"2025/10/12 21:30:00",
-  "part-blade":       "2025/11/13 23:30:00",
-  "part-ratchet":     "2025/11/13 23:30:00",
-  "part-bit":         "2025/11/13 23:30:00",
-  "part-blade-CX":    "2025/11/01 09:45:00",
+  "prod-launchers":   "2025/11/14 12:15:00",
+  "prod-beys":        "2025/11/14 12:15:00",
+  "part-blade":       "2025/11/14 12:15:00",
+  "part-ratchet":     "2025/11/14 12:15:00",
+  "part-bit":         "2025/11/14 12:15:00",
+  "part-blade-CX":    "2025/11/14 12:15:00",
   "part-meta":        "2025/10/15 12:30:00",
   "prod-others":      "2025/08/30 12:45:00",
   "news": {
@@ -22,8 +22,8 @@
     "desc":["迴轉速度下降時由「Counter Form」變形至「Guard Form」"]},
       {"code":"BXG-22 booster","type":"att","name":"ドラグーンストーム4-60RA<br>Dragoon S 4-60RA",
       "imgs":["https://takaratomymall.jp/img/goods/C/4904810099468_af2d90ce59f34fdfbf261735a0b26603.jpg"]},
-      {"code":"",
-      "type":"att","imgs":["https://corocoro-news.jp/wp-content/uploads/2025/10/417f0dd7473ce6612a4c9b3cd7d6de62.jpg"],
+      {"code":"コロコロ雜誌6000名應募品",
+      "type":"att","imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/news/news251114_4.html"],
     "desc":["與釣魚模擬實體機台遊戲<a target=_blank href=https://trsp.bn-am.net/#aboutCol>「釣りスピリッツ」</a>的collaboration"]}
     ],
     "2026-01":[
