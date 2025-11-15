@@ -48,22 +48,18 @@
     -webkit-user-drag:none;
 }
 a.bsb::after {
-    content:url(/img/reincarnated.svg#bsb); 
-    width:10em; z-index:-1;
-    position:absolute; right:0;
-    transform:rotate(-135deg) translate(-.15em,1.9em);
+    --reincar2: url(../img/reincarnated.svg#bsb) no-repeat center / 70%;
 }
 a.mfb::after {
-    content:url(/img/reincarnated.svg#mfb); 
-    width:9em; z-index:-1;
-    position:absolute; right:0;
-    transform:translate(2em,-1.6em) rotate(15deg);
+    --reincar1: url(../img/reincarnated.svg#mfb) no-repeat 50% 74% / 60%;
 }
 a.bbb::after {
-    content:url(/img/reincarnated.svg#bbb); 
-    width:9em; z-index:-1;
-    position:absolute; right:0;
-    transform:translate(2em,-1.6em) rotate(15deg);
+    content: url(../img/reincarnated.svg#bbb); 
+}
+a::after {
+    content: '';
+    background: var(--reincar1,linear-gradient(transparent)), var(--reincar2,linear-gradient(transparent));
+    transform: rotate(225deg) translate(0,5.43em);
 }
 a img {filter:drop-shadow(0 0 .1rem var(--on));}
 a img[alt^=type] {filter:drop-shadow(0 0 .1rem var(--type));}

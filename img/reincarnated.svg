@@ -16,6 +16,6 @@
         <polygon points="13,45 -999,80 46,80"/>
     </g>
     <g id="mfb">
-        <polygon points="0,50 43.3013,25 43.3013,-25 0,-50 -43.3013,-25 -43.3013,25" transform="translate(50 50)"/>
+        <polygon points="0,50 43.3013,25 43.3013,-25 0,-50 -43.3013,-25 -43.3013,25" transform="translate(50 50) rotate(90)"/>
     </g>
 </svg>
