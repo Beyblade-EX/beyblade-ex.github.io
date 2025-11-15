@@ -56,7 +56,7 @@ a.mfb::after {
 a.bbb::after {
     content: url(../img/reincarnated.svg#bbb); 
 }
-.catalog::after {
+.catalog a[id]::after {
     content: '';
     position: absolute; inset: 0;
     background: var(--reincar1,linear-gradient(transparent)), var(--reincar2,linear-gradient(transparent));
