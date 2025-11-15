@@ -58,6 +58,7 @@ a.bbb::after {
 }
 a::after {
     content: '';
+    position: absolute; inset: 0;
     background: var(--reincar1,linear-gradient(transparent)), var(--reincar2,linear-gradient(transparent));
     transform: rotate(225deg) translate(0,5.43em);
 }
