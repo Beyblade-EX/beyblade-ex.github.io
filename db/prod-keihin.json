@@ -20,14 +20,29 @@
         "img":["https://corocoro-news.jp/wp-content/uploads/2025/10/769ec69bf4024f902aa8b4908054b884.jpg"]
     },
     {
-        "type":"m", "note":"實物版遊戲同梱", "link":"https://www.cs.furyu.jp/beyblade2025/", "date":"2025-11",
-        "bey":"LN.Fn.T 4-60 A", "ver":["レッド Ver.", "Red Ver."],
-        "img":["https://pbs.twimg.com/media/Gq9VsAaaAAcQkI4?format=jpg&name=large",{"width":"100%"}]
+        "type":"g", "note":"購物滿額贈品", "link":"https://beyblade.takaratomy.co.jp/beyblade-x/news/news251114.html", "date":"2025-12",
+        "bey":"/ / O", "ver":["スペシャル Ver.", "Special Ver."],
+        "img":["https://beyblade.takaratomy.co.jp/beyblade-x/news/_image/news251114_bitO.webp",{"width":"200%"}]
+    },
+    {
+        "type":"g", "note":"購物滿額贈品", "link":"https://beyblade.takaratomy.co.jp/beyblade-x/news/news251114.html", "date":"2025-12",
+        "bey":"/ / D", "ver":["スペシャル Ver.", "Special Ver."],
+        "img":["https://beyblade.takaratomy.co.jp/beyblade-x/news/_image/news251114_bitD.webp",{"width":"200%"}]
+    },
+    {
+        "type":"g", "note":"購物滿額贈品", "link":"https://beyblade.takaratomy.co.jp/beyblade-x/news/news251114.html", "date":"2025-12",
+        "bey":"/ / V", "ver":["スペシャル Ver.", "Special Ver."],
+        "img":["https://beyblade.takaratomy.co.jp/beyblade-x/news/_image/news251114_bitV.webp",{"width":"200%"}]
     },
     {
         "type":"g", "note":"購物滿額贈品", "link":"https://beyblade.takaratomy.co.jp/beyblade-x/news/news251015_3.html", "date":"2025-11",
         "bey":"/ / P", "ver":["スペシャル Ver.", "Special Ver."],
         "img":["https://beyblade.takaratomy.co.jp/beyblade-x/news/_image/news251015_3_point.webp",{"width":"200%"}]
+    },
+    {
+        "type":"m", "note":"實物版遊戲同梱", "link":"https://www.cs.furyu.jp/beyblade2025/", "date":"2025-11",
+        "bey":"LN.Fn.T 4-60 A", "ver":["レッド Ver.", "Red Ver."],
+        "img":["https://pbs.twimg.com/media/Gq9VsAaaAAcQkI4?format=jpg&name=large",{"width":"100%"}]
     },
     {
         "type":"d", "note":"DMM くじ Last Chance 賞", "date":"2025-10", "link": "https://scratch.dmm.com/s3/dmmkuji_long_img/FUQSww6SpjwWNQJ5XcMisya7uu3pvDxk26JkdJ2Y.jpeg",
