@@ -185,14 +185,14 @@
     "H": {
         "group": "lower",
         "names": {"jap": "ヘビー","eng": "Heavy"},
-        "stat": ["8-"],
+        "stat": ["8-",10],
         "desc": "搭載金屬零件以提高離心力的低處六枚刃，強化打擊力及安定性。",
         "attr": ["bal","right"]
     },
     "F": {
         "group": "lower",
         "names": {"jap": "フリー","eng": "Free"},
-        "stat": ["6-"],
+        "stat": ["6-",11],
         "desc": "外周Free Ring可迴轉，卸開攻擊以維持持久。",
         "attr": ["sta","right"]
     },
