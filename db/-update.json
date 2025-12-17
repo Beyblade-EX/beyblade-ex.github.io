@@ -9,14 +9,10 @@
   "part-meta":        "2025/10/15 12:30:00",
   "prod-others":      "2025/08/30 12:45:00",
   "news": {
-    "2025-11-15":[
-      {"code":"コロコロ雜誌全員service應募品（填寫雜誌内表格訂購）","type":"att","name":"オロチクラスタ6-60LF<br><a href=https://zh.wikipedia.org/wiki/八岐大蛇 target=_blank>Orochi</a>Cluster 6-60LF","desc":["設計基於早前玩家的投稿"],
-      "imgs":["https://corocoro-news.jp/wp-content/uploads/2025/10/769ec69bf4024f902aa8b4908054b884.jpg"]}
-    ],
     "2025-12-12":[
     {"code":"コロコロ雜誌6000名應募品",
-      "type":"att","imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/news/_image/news251114_4_img5.jpg"],
-    "desc":["與釣魚模擬實體機台遊戲<a target=_blank href=https://trsp.bn-am.net/#aboutCol>「釣りスピリッツ」</a>的collaboration"]}
+      "type":"bal","name":"シャークエッジ2-60GP<br>SharkEdge 2-60GP",
+      "imgs":["https://corocoro-news.jp/wp-content/uploads/2025/11/ffa922810e98c8f245f5a2f52d470c71.jpg"]}
     ],
     "2025-12-27":[
       {"code":"UX-17 starter","type":"att","name":"メテオドラグーン3-70J<br>MeteorDragoon 3-70J",
@@ -33,6 +29,21 @@
     ],
     "2026-02":[
       {"code":"BX-48 random booster"}
+    ],
+    "2026-03":[
+      {"code":"CX-13 starter"},
+      {"code":"CX-14 starter"},
+      {"code":"CX-15 booster"},
+      {"code":"CX-16 entry set"},
+      {"code":"BXG-21 starter"}
+    ],
+    "2026-04":[
+      {"code":"CX-17 random booster"},
+      {"code":"UX-19 starter"}
+    ],
+    "2026-05-30":[
+      {"code":"BX-49 starter"},
+      {"code":"BXG-51 booster","name":"ドランブレイブS6-60V<br>メタルコート:ブラック<br>DranBrave S6-60V<br>Metal Coat: Black"}
     ]
   }
 }
