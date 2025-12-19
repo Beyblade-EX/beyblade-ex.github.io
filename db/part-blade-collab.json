@@ -1,4 +1,28 @@
 {
+    "VkHc": {
+        "group": "hasbro",
+        "names": {
+            "jap": "",
+            "eng": "",
+            "chi": ""
+        },
+        "stat": [""],
+        "desc": "（目前只在孩之寶商品中收錄，稱「Hack Viking」）",
+        "attr": ["bal","right","UX"],
+        "from": "HlHm"
+    },
+    "MdSt": {
+        "group": "hasbro",
+        "names": {
+            "jap": "",
+            "eng": "",
+            "chi": ""
+        },
+        "stat": [""],
+        "desc": "（目前只在孩之寶商品中收錄，稱「Stun Medusa」）",
+        "attr": ["sta","right","UX"],
+        "from": "ShSh"
+    },
     "KnYl": {
         "group": "hasbro",
         "names": {
