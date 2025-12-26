@@ -17,7 +17,7 @@
             "eng": "MummyCurse",
             "chi": ""
         },
-        "stat": [""],
+        "stat": ["37+"],
         "desc": "依迴轉速度變形：初段時彈出Counter刃作反擊、後段時以近圓形狀防守到尾。",
         "attr": ["def","right"]
     },
@@ -28,7 +28,7 @@
             "eng": "Meteor\\Dragoon",
             "chi": ""
         },
-        "stat": [""],
+        "stat": ["39-"],
         "desc": "搭載大型橡膠的三枚刃不斷作出強烈一擊。",
         "attr": ["att","left","bsb","mfb"]
     },
