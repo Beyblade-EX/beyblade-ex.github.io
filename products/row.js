@@ -188,7 +188,7 @@ class Cell {
                 let code = this.td.dataset.code, lower;
                 let {alias, _, ...syntax} = Mapping.maps.images.find(code);
                 if (type == 'detail') {
-                    let [, line, number] = /^(.+?)-(\d+)$/.exec(code);
+                    let [, line, number] = /^(.+?)-(\d*)$/.exec(code);
                     lower = /^BXG-(01|04|07|14|31|32|11|18|19)$/.test(code) 
                     || line == 'BX' && parseInt(number) <= 39 
                     || line == 'UX' && parseInt(number) <= 13;
