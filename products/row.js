@@ -193,7 +193,8 @@ class Cell {
                     || line == 'BX' && parseInt(number) <= 39 
                     || line == 'UX' && parseInt(number) <= 13;
                 }
-                code = (alias || code).replace('-', _ ? '_' : '')[lower ? 'toLowerCase' : 'toUpperCase']();
+                code = (alias || code).replace('-', _ ? '_' : '');
+                alias || (code = code[lower ? 'toLowerCase' : 'toUpperCase']());
                 if (!syntax[type]) {
                     this.format(code, type);
                 } else {
