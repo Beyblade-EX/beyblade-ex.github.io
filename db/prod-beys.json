@@ -1,7 +1,7 @@
 [
   ["BXG-51","B H","DR.Br.S 6-60 V",{"coat":"black"}],
   ["BXG-24","B H","ArPg 3-70 A"],
-  ["CX-12","B","PH.Fr.Z 9-80 WW"],
+  ["CX-12","B","PH.Fr.Z 9-80 WW",{"coat":"red"}],
   ["BH","hidden","OrCl"],
   ["BXG-22","B H","DGS 4-60 RA","fEeN7ONXD_8"],
   ["UX-18","RB","MmCr 7-55 W","FUezg_-xf_M"],["UX-18","RB H","MmCr 4-60 C"],["UX-18","RB H","PG.Bs.M 3-85 W"],
