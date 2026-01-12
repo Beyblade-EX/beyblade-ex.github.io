@@ -60,7 +60,7 @@
         "attr": ["def"]
     },
     "E": {
-        "group": "round",
+        "group": "flat",
         "names": {
             "jap": "エレベート",
             "eng": "Elevate"
