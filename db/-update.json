@@ -5,18 +5,19 @@
   "part-blade":       "2025/12/27 00:00:00",
   "part-ratchet":     "2025/11/14 12:15:00",
   "part-bit":         "2025/12/29 20:45:00",
-  "part-blade-CX":    "2025/11/14 12:15:00",
+  "part-blade-CX":    "2026/01/14 23:15:00",
   "part-meta":        "2025/10/15 12:30:00",
   "prod-others":      "2025/08/30 12:45:00",
   "news": {
     "2026-01-24":[
       {"code":"CX-12 booster","name":"フェニックスフレアZ9-80WW<br>PhoenixFlare Z9-80WW","type":"def",
       "imgs":["https://m.media-amazon.com/images/S/aplus-media-library-service-media/e7a847e4-adca-4efa-89fa-408442c232c4.__CR0,0,970,600_PT0_SX970_V1___.jpg","https://m.media-amazon.com/images/S/aplus-media-library-service-media/676d5dec-cfd8-4851-acf1-18824ab2cce9.__CR0,0,970,600_PT0_SX970_V1___.jpg"],
-      "desc":""}
+      "desc":"以連打進行防禦"}
     ],
     "2026-02-14":[
       {"code":"BX-48 random booster",
-    "imgs":["https://m.media-amazon.com/images/S/aplus-media-library-service-media/607b125b-f9d1-4c8c-bc88-d474777b51c2.__CR0,0,970,600_PT0_SX970_V1___.jpg"]}
+      "imgs":["https://m.media-amazon.com/images/I/6172vsspkyL._AC_SX679_.jpg","https://m.media-amazon.com/images/S/aplus-media-library-service-media/607b125b-f9d1-4c8c-bc88-d474777b51c2.__CR0,0,970,600_PT0_SX970_V1___.jpg"],
+      "desc":"舊陀螺加上少許Arrange（色變更）再發售"}
     ],
     "2026-02-21":[
       {"code":"BXG-24 booster","name":"エアロペガサス3ｰ70A<br>レッドVer.<br>AeroPegasus 3-70A<br>Red Ver.","type":"att",
