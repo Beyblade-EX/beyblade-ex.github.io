@@ -52,7 +52,7 @@
     "LN": {
         "group": "motif",
         "names": {"jap": "レオン", "eng": "Leon", "chi": "獅王 雄獅"},
-        "stat": [],
+        "stat": ["2-"],
         "attr": ["right"]
     },
     "FX": {
