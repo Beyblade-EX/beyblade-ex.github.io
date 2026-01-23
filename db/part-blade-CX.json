@@ -93,7 +93,7 @@
     },
     "Fr": {
         "group": "upper",
-        "names": {"jap": "フレア","eng": "Flare","chi": ""},
+        "names": {"jap": "フレア","eng": "Flare","chi": "炎光 閃焰"},
         "stat": ["31+"],
         "desc": "高連打性能的具厚度十五枚刃令反擊性能優秀。",
         "attr": ["def","right"]
