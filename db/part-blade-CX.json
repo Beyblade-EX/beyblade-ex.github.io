@@ -94,7 +94,7 @@
     "Fr": {
         "group": "upper",
         "names": {"jap": "フレア","eng": "Flare","chi": ""},
-        "stat": [""],
+        "stat": ["31+"],
         "desc": "高連打性能的具厚度十五枚刃令反擊性能優秀。",
         "attr": ["def","right"]
     },
@@ -269,7 +269,7 @@
     "Z": {
         "group": "lower",
         "names": {"jap": "ジリオン","eng": "Zillion"},
-        "stat": [],
+        "stat": ["7-"],
         "desc": "排列成圓形的重厚十二枚刃把攻擊撞開及抵耐。",
         "attr": ["def","right"]
     }
