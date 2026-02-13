@@ -9,11 +9,6 @@
   "part-meta":        "2025/10/15 12:30:00",
   "prod-others":      "2025/08/30 12:45:00",
   "news": {
-    "2026-01-24":[
-      {"code":"CX-12 booster","name":"フェニックスフレアZ9-80WW<br>PhoenixFlare Z9-80WW","type":"def",
-      "imgs":["https://m.media-amazon.com/images/S/aplus-media-library-service-media/e7a847e4-adca-4efa-89fa-408442c232c4.__CR0,0,970,600_PT0_SX970_V1___.jpg","https://m.media-amazon.com/images/S/aplus-media-library-service-media/676d5dec-cfd8-4851-acf1-18824ab2cce9.__CR0,0,970,600_PT0_SX970_V1___.jpg"],
-      "desc":"以連打進行防禦"}
-    ],
     "2026-02-14":[
       {"code":"BX-48 random booster",
       "imgs":["https://m.media-amazon.com/images/I/6172vsspkyL._AC_SX679_.jpg","https://m.media-amazon.com/images/S/aplus-media-library-service-media/607b125b-f9d1-4c8c-bc88-d474777b51c2.__CR0,0,970,600_PT0_SX970_V1___.jpg"],
@@ -29,12 +24,17 @@
       {"code":"BXG-53 starter","name":"コバルトドラグーン9-60F<br>メタルコート:ホワイト JリーグVer.","type":"att",
     "desc":"日本球場活動及<a href=https://store.jleague.jp/search/lcd-15/mcd-17/>網店售賣</a>"}
     ],
-    "2026-03":[
-      {"code":"CX-13 starter","type":"att"},
-      {"code":"CX-14 starter","type":"def"},
-      {"code":"CX-15 booster","type":"sta"},
-      {"code":"CX-16 entry set"},
-      {"code":"BXG-21 starter"}
+    "2026-03-28":[
+      {"code":"CX-13 starter","name":"バハムートブリッツBK1-50I<br>BahamutBlitz BK1-50I","type":"att",
+    "desc":"CX新結構：分為四層。上層塑膠【Over Blade】及中層金屬【Metal Blade】",
+  "imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/slider/_image/bnrCX13_sch@1x.webp"]},
+      {"code":"CX-14 starter","name":"ナイトフォートレスGV8-70UN<br>KnightFortress GV8-70UN","type":"def",
+    "imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/slider/_image/bnrCX14_sch@1x.webp"]},
+      {"code":"CX-15 booster","name":"ラグナレイジFE4-55Y<br>RagnaRage FE4-55Y","type":"sta",
+    "imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/slider/_image/bnrCX15_sch@1x.webp"]},
+      {"code":"CX-16 entry set","name":"スタートダッシュセットＣ<br>Start Dash Set C","type":"att",
+      "imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/slider/_image/bnrCX16_sch@1x.webp"]},
+      {"code":"BXG-21 starter","name":"ロストロンギヌス<br>LostLonginus","type":"att"}
     ],
     "2026-04":[
       {"code":"CX-17 random booster"},
