@@ -26,12 +26,14 @@
     ],
     "2026-03-28":[
       {"code":"CX-13 starter","name":"バハムートブリッツBK1-50I<br>BahamutBlitz BK1-50I","type":"att",
-    "desc":"CX新結構：分為四層。上層塑膠【Over Blade】及中層金屬【Metal Blade】",
+    "desc":["CX新結構：分為四層。上層塑膠【Over Blade】及中層金屬【Metal Blade】","三層都有偏重心，加強一處的攻擊","【Ignition】Bit：多處突起的大圓筒軸，高速跑動"],
   "imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_CX13.png"]},
       {"code":"CX-14 starter","name":"ナイトフォートレスGV8-70UN<br>KnightFortress GV8-70UN","type":"def",
-    "imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_CX14.png"]},
+    "imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_CX14.png"],
+    "desc":[""]},
       {"code":"CX-15 booster","name":"ラグナレイジFE4-55Y<br>RagnaRage FE4-55Y","type":"sta",
-    "imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_CX15.png"]},
+    "imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_CX15.png"],
+    "desc":["【Yielding】Bit：大型球狀軸加上向四方突出的重物保持姿勢"]},
       {"code":"CX-16 entry set","name":"スタートダッシュセットＣ<br>Start Dash Set C","type":"att",
       "imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_CX16.png"]},
       {"code":"BXG-21 starter"}
