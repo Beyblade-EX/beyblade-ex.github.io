@@ -34,7 +34,7 @@
     "imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/slider/_image/bnrCX15_sch@1x.webp"]},
       {"code":"CX-16 entry set","name":"スタートダッシュセットＣ<br>Start Dash Set C","type":"att",
       "imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/slider/_image/bnrCX16_sch@1x.webp"]},
-      {"code":"BXG-21 starter","name":"ロストロンギヌス<br>LostLonginus","type":"att"}
+      {"code":"BXG-21 starter"}
     ],
     "2026-04":[
       {"code":"CX-17 random booster"},
