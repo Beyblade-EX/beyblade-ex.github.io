@@ -36,14 +36,18 @@
     "desc":["【Yielding】Bit：大型球狀軸加上向四方突出的重物保持姿勢"]},
       {"code":"CX-16 entry set","name":"スタートダッシュセットＣ<br>Start Dash Set C","type":"att",
       "imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_CX16.png"]},
+      {"code":"BXG-62","name":"ストリングランチャー<br>B4ストア限定カラーVer.<br>String Launcher<br>B4 Store Limited Color"},
       {"code":"BXG-21 starter"}
     ],
     "2026-04":[
       {"code":"CX-17 random booster"},
-      {"code":"UX-19 starter"}
-    ],
+      {"code":"UX-19 starter","name":"バレットグリフォンH","type":"bal",
+    "imgs":["https://i0.wp.com/fenixnests.com/wp-content/uploads/2026/02/G4561AS00_detail_2_26_tif_2000px_300DPI.jpg?resize=300%2C300&ssl=1"],
+    "desc":["首個Blade—Ratchet一體型陀螺"]
+    }],
     "2026-05-30":[
-      {"code":"BX-49 starter"},
+      {"code":"BX-49 starter","name":"ドランストライク4-50FF<br>DranStrike 4-50FF","type":"att",
+    "imgs":["https://i0.wp.com/fenixnests.com/wp-content/uploads/2026/02/G2742AS20_detail_2_26_tif_2000px_300DPI.jpg?fit=1024%2C1024&ssl=1"]},
       {"code":"BXG-51 booster","name":"ドランブレイブS6-60V<br>メタルコート:ブラック<br>DranBrave S6-60V<br>Metal Coat: Black"}
     ]
   }
