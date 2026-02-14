@@ -1,5 +1,15 @@
 [
     {
+        "type":"m", "note":"機台遊戲 Fanbook 同梱", "date":"2026-03", "link":"https://trsp.bn-am.net/special/collabo_fanbook2025/#contents03",
+        "bey":"WhWv 1-80 GF", "ver":["メタルコート：ブルー", "Metal Coat: Blue"],
+        "img":["https://pbs.twimg.com/media/HBFj5r8b0AAk_hl?format=jpg&name=large",{"width":"95%"}]
+    },
+    {
+        "type":"g", "note":"攻略本附錄", "date":"2026-02",
+        "bey":"DrSw", "ver":["メタルコート：レッド", "Metal Coat: Red"],
+        "img":["https://pbs.twimg.com/media/HBFj0c8bsAAeKbg?format=jpg&name=large",{"width":"110%"}]
+    },
+    {
         "type":"m", "note":"Full color 版漫畫同梱", "date":"2026-05", "link":"https://lifetunes-mall.jp/shop/g/gR20250033/",
         "bey":"DR.Ar.S 2-70 K", "ver":["メタルコート：ブルー", "Metal Coat: Blue"],
         "img":["https://corocoro-news.jp/wp-content/uploads/2025/05/f07d92190b453b7cb0b9d2ae5b80b03a.jpg",{"width":"95%","left":"45%"}]
