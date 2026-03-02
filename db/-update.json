@@ -1,0 +1,54 @@
+{
+  "part-blade-collab":"2025/12/20 00:30:00",
+  "prod-launchers":   "2025/11/14 12:15:00",
+  "prod-beys":        "2026/01/17 22:30:00",
+  "part-blade":       "2026/01/22 22:52:00",
+  "part-ratchet":     "2025/11/14 12:15:00",
+  "part-bit":         "2026/01/23 19:28:00",
+  "part-blade-CX":    "2026/01/24 00:34:00",
+  "part-meta":        "2025/10/15 12:30:00",
+  "prod-others":      "2025/08/30 12:45:00",
+  "news": {
+    "2026-02-14":[
+      {"code":"BX-48 random booster",
+      "imgs":["https://m.media-amazon.com/images/I/6172vsspkyL._AC_SX679_.jpg","https://m.media-amazon.com/images/S/aplus-media-library-service-media/607b125b-f9d1-4c8c-bc88-d474777b51c2.__CR0,0,970,600_PT0_SX970_V1___.jpg"],
+      "desc":"舊陀螺加上少許Arrange（色變更）再發售"}
+    ],
+    "2026-02-21":[
+      {"code":"BXG-24 booster","name":"エアロペガサス3ｰ70A<br>レッドVer.<br>AeroPegasus 3-70A<br>Red Ver.","type":"att",
+      "desc":"App 抽獎購買品"}
+    ],
+    "2026-03-14":[
+      {"code":"BXG-52 starter","name":"ドランソード1-60V<br>メタルコート:ブラック JリーグVer.","type":"att",
+    "desc":"日本球場活動及<a href=https://store.jleague.jp/search/lcd-15/mcd-17/>網店售賣</a>"},
+      {"code":"BXG-53 starter","name":"コバルトドラグーン9-60F<br>メタルコート:ホワイト JリーグVer.","type":"att",
+    "desc":"日本球場活動及<a href=https://store.jleague.jp/search/lcd-15/mcd-17/>網店售賣</a>"}
+    ],
+    "2026-03-28":[
+      {"code":"CX-13 starter","name":"バハムートブリッツBK1-50I<br>BahamutBlitz BK1-50I","type":"att",
+    "desc":["CX新結構：分為四層。上層塑膠【Over Blade】及中層金屬【Metal Blade】","三層都有偏重心，加強一處的攻擊","【Ignition】Bit：多處突起的大圓筒軸，高速跑動"],
+  "imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_CX13.png"]},
+      {"code":"CX-14 starter","name":"ナイトフォートレスGV8-70UN<br>KnightFortress GV8-70UN","type":"def",
+    "imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_CX14.png"],
+    "desc":[""]},
+      {"code":"CX-15 booster","name":"ラグナレイジFE4-55Y<br>RagnaRage FE4-55Y","type":"sta",
+    "imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_CX15.png"],
+    "desc":["【Yielding】Bit：大型球狀軸加上向四方突出的重物保持姿勢"]},
+      {"code":"CX-16 entry set","name":"スタートダッシュセットＣ<br>Start Dash Set C","type":"att",
+      "imgs":["https://beyblade.takaratomy.co.jp/beyblade-x/lineup/_image/detail_CX16.png"]},
+      {"code":"BXG-62","name":"ストリングランチャー<br>B4ストア限定カラーVer.<br>String Launcher<br>B4 Store Limited Color"},
+      {"code":"BXG-21 starter"}
+    ],
+    "2026-04":[
+      {"code":"CX-17 random booster"},
+      {"code":"UX-19 starter","name":"バレットグリフォンH","type":"bal",
+    "imgs":["https://i0.wp.com/fenixnests.com/wp-content/uploads/2026/02/G4561AS00_detail_2_26_tif_2000px_300DPI.jpg?resize=300%2C300&ssl=1"],
+    "desc":["首個Blade—Ratchet一體型陀螺"]
+    }],
+    "2026-05-30":[
+      {"code":"BX-49 starter","name":"ドランストライク4-50FF<br>DranStrike 4-50FF","type":"att",
+    "imgs":["https://i0.wp.com/fenixnests.com/wp-content/uploads/2026/02/G2742AS20_detail_2_26_tif_2000px_300DPI.jpg?fit=1024%2C1024&ssl=1"]},
+      {"code":"BXG-51 booster","name":"ドランブレイブS6-60V<br>メタルコート:ブラック<br>DranBrave S6-60V<br>Metal Coat: Black"}
+    ]
+  }
+}

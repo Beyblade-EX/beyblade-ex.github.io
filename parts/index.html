@@ -1,0 +1,44 @@
+<title>陀螺部件⬧Parts</title>
+<script src=/include/common.js></script>
+<script defer src=catalog.js></script>
+<script defer src=parts.js></script>
+<link rel=stylesheet href=catalog.css>
+<script>!location.search && !location.hash && (location.href = '?blade=CX')</script>
+
+<nav>
+    <menu>
+        <li><a href="?blade=CX"></a>
+        <li><a href="?blade=一體"></a>
+        <li><a href="?ratchet=一體"></a>
+        <li><a href="?bit=軸心"></a>
+    </menu>
+    <data class=part-result></data>
+</nav>
+<script>
+    const reset = message => Promise.all([
+        DB.discard('V3', ev => message.innerText = ev.type == 'blocked' ? '請先關閉所有本網的分頁' : ev.type),
+        caches.delete('V3'), caches.delete('parts'),
+        navigator.serviceWorker.getRegistrations().then(([reg]) => reg.unregister())
+    ]);
+    const redirect=()=>reset().then(()=>location.href='https://go-shoot.github.io/x/')
+    .catch(er=>[document.body.prepend(er),console.error(er),setTimeout(()=>location.href='https://go-shoot.github.io/x/',2000)]);
+    redirect();
+</script>
+<!--ps: Get-ChildItem -Filter *.png | Where-Object { $_.Name -notmatch '^image' } | ForEach-Object {
+    $f = $_.Name
+    magick mogrify -fuzz 5% -trim $f
+    .\pngquant --quality=65-80 $f -o "op/$($f)"
+}
+    ukenagashi: 卸走/開  inashi: 化解
+    -->
+<main id=catalog>
+    <span class=loading></span>
+    <details hidden open>
+        <summary>&#xe026;</summary>
+        <article></article>
+    </details>
+    <section class=catalog></section>
+</main>
+<div hidden class=blade></div>
+<div hidden class=ratchet></div>
+<div hidden class=bit></div>

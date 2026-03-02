@@ -1,0 +1,72 @@
+[
+    {
+        "eng": "RUBBER custom grip",
+        "jap": "ラバーカスタムグリップ",
+        "desc": "四塊可拆除橡膠Panel，以調節最適握感",
+        "details": "四塊分別是：<dl><dt><ruby>Rubber Side Panel<rt>ラバーサイドパネル</ruby> L<dd>放四根手指用<dt><ruby>Rubber Side Panel<rt>ラバーサイドパネル</ruby> M<dd>容易握的平坦形<dt><ruby>Rubber Side Panel<rt>ラバーサイドパネル</ruby> S<dd>放姆指用<dt><ruby>Rubber Grip Panel<rt>ラバーグリップパネル</ruby><dd>一端的突起減少滑手</dl>",
+        "colors":[
+            ["B","BX-42","BX42@1",115],
+            ["B","BX-41","BX41@1",115]
+        ]
+    },
+    {
+        "eng": "custom grip",
+        "jap": "カスタムグリップ",
+        "desc": "四塊可拆除Panel，以調節最適握感",
+        "details": "四塊分別是：<dl><dt><ruby>Long Side Panel<rt>ロングサイドパネル</ruby><dd>放四根手指用<dt><ruby>Grip Panel<rt>グリップパネル</ruby><dd>掌心用的平坦形<dt><ruby>Short Side Panel<rt>ショートサイドパネル</ruby><dd>放姆指用<dt><ruby>Hybrid Panel<rt>ハイグリップパネル</ruby><dd>一端的突起減少滑手</dl>",
+        "colors":[
+            ["B","BXG-10","BXG07@1",110],
+            ["B","BX-30","BX30@1",110],
+            ["B","BX-29","BX29@1",110]
+        ]
+    },
+    {
+        "eng": "LAUNCHER grip",
+        "jap": "ランチャーグリップ",
+        "desc": "一塊可拆除Panel的發射器手把",
+        "colors":[
+            ["B","BX-11","BX11@1",120],
+            ["SS","BX-07","BX07_05@1"]
+        ]
+    },
+    {
+        "eng": "Xtreme stadium",
+        "jap": "エクストリームスタジアム",
+        "desc": "基本對戰盤",
+        "details": "下方兩側為2分Over Zone，中間為3分Xtreme Zone。",
+        "colors":[
+            ["SS","CX-04","CX04_05@1"],
+            ["SS","BXG-19","BXG19_07@1"],
+            ["SS","UX-04","UX04_07@1"],
+            ["SS","BX-17","BX17_07@1"],
+            ["B","BX-10","BX10_02@1",130],
+            ["SS","BX-07","BX07_07@1",130],
+            ["B","BXG-02<br>BXH-08","BXG02@1"]
+        ]
+    },
+    {
+        "eng": "Wide Xtreme stadium",
+        "jap": "ワイドエクストリームスタジアム",
+        "desc": "供三人用的對戰盤",
+        "details": "上方兩個角落為3分Xtreme Zone，下方中間為2分Over Zone。最後一顆生存的陀螺為勝，依其餘兩顆如何落敗而加總得分。例如兩顆陀螺互相碰撞後分別從2分區及3分區離開對戰盤，剩餘的一顆就取得5分。",
+        "colors":[
+            ["B","BX-32","BX32@1",120]
+        ]
+    },
+    {
+        "eng": "Double Xtreme stadium",
+        "jap": "ダブルエクストリームスタジアム",
+        "desc": "設有以電動上下移動的中央圓盤的對戰盤",
+        "colors":[
+            ["SS","BX-37","BX37_02@1",120]
+        ]
+    },
+    {
+        "eng": "Infinity stadium",
+        "jap": "インフィニティスタジアム",
+        "desc": "設有雙方向X Line及Xtreme、Over Zone的對戰盤",
+        "colors":[
+            ["SS","BX-46","BX46_13@1",120]
+        ]
+    }
+]

@@ -1,0 +1,167 @@
+<title>陀螺景品⬧Prizes</title>
+<script src=/include/common.js></script>
+<script src=/products/row.js></script>
+<link rel=stylesheet href=/include/component.css>
+<link rel=stylesheet href=prize.css> 
+
+<nav>
+    <menu>
+        <li><a href="/products/" data-icon=""></a>
+        <li><a href="/parts/?blade=一體" data-icon=""></a>
+    </menu>
+    <div class="led">
+        <a href="https://beyblade.takaratomy.co.jp/beyblade-x/news/news_stickerlist.html">
+            <img src="https://beyblade.takaratomy.co.jp/beyblade-x/news/_image/news_stickerlist_12.png">
+            <span>各款貼紙</span>
+        </a>
+    </div>
+</nav>
+<script>
+    const reset = message => Promise.all([
+        DB.discard('V3', ev => message.innerText = ev.type == 'blocked' ? '請先關閉所有本網的分頁' : ev.type),
+        caches.delete('V3'), caches.delete('parts'),
+        navigator.serviceWorker.getRegistrations().then(([reg]) => reg.unregister())
+    ]);
+    const redirect=()=>reset().then(()=>location.href='https://go-shoot.github.io/x/')
+    .catch(er=>[document.body.prepend(er),console.error(er),setTimeout(()=>location.href='https://go-shoot.github.io/x/',2000)]);
+    redirect();
+</script>
+<main>
+    <ul class=diamonds></ul>
+
+    <article class=groups hidden>
+        <details id=driver>
+            <summary><h3>Driver<picture><img src alt=Driver></picture></h3></summary>
+            <h4>抽選 &#xe02f;</h4>
+            <ul>
+                <li data-url=img/wp/20220315/BUD/0003.png><h5>MBD</h5><time>2022-08</time>
+            </ul>
+            <h4>購物贈品 &#xe02e;</h4>
+            <ul>
+            </ul>
+            <h4>大會積分兌換 &#xe030;</h4>
+            <ul>
+            </ul>
+            <h4>コロコロ雜誌應募 &#xe02e;</h4>
+            <ul>
+            </ul>
+        </details>
+    </article>
+</main>
+
+<script>
+let NAMES;
+Bey.comps = {
+    jap: ['ブレード','ラチェット','ビット'],
+    eng: ['Blade','Ratchet','Bit'],
+    CX: {
+        jap: ['ロックチップ','メインブレード','アシストブレード'],
+        eng: ['Lock Chip','Main Blade','Assist Blade']
+    }
+};
+Bey.partial = (abbr, line) => {
+    abbr = abbr.split(line ? '.' : ' ');
+    if (abbr.length === 1 || abbr.some(s => s == '/')) {
+        let i = abbr.findIndex(s => s != '/');
+        return {
+            jap: line ? Bey.comps[line].jap[i] : Bey.comps.jap[i], 
+            eng: line ? Bey.comps[line].eng[i] : Bey.comps.eng[i]
+        };
+    }
+}
+Bey.prototype.naming = function() {
+    this.partial = Bey.partial(this.abbr);
+    this.name = {jap: '', chi: ''};
+    this.ratchet.sym ??= ''; this.bit.sym ??= '';
+    const comp = [
+        (s, lang) => NAMES.blade.CX.motif[s]?.[lang] ?? '',
+        (s, lang) => NAMES.blade.CX.upper[s]?.[lang] ?? '',
+        (s, lang, assist)  => lang == 'jap' && assist ? NAMES.blade.CX.lower[s].jap : s == '/' ? '' : s
+    ];
+    if (['BX','UX'].includes(this.blade.line)) {
+        this.name.jap = NAMES.blade[this.blade.sym].jap;
+        this.name.chi = (NAMES.blade[this.blade.sym].chi || '').replace(' ','⬧').replaceAll('\\', '');
+    } else if (['CX'].includes(this.blade.line)) {
+        this.partial = Bey.partial(this.blade.sym, this.blade.line);
+        this.name.jap = this.blade.sym.split('.').map((s,i) => comp[i](s,'jap',/^\/\.\/\.[A-z]+$/.test(this.blade.sym))).join('');
+        this.name.chi = this.blade.sym.split('.').map((s,i) => comp[i](s,'chi').split(' '));
+        this.name.chi = this.name.chi[0][0] ? [
+            this.name.chi[0][0] + this.name.chi[1][0],
+            (this.name.chi[0][1] || this.name.chi[0][0]) + (this.name.chi[1][1] || this.name.chi[1][0])
+        ].join('⬧') + this.name.chi[2][0] : '';
+    }
+    this.name.jap += ' ' + (this.ratchet.sym == '/' ? '' : this.ratchet.sym.replace('-', '‑')) + this.bit.sym;
+    this.name.chi && (this.name.chi += ' ' + this.ratchet.sym.replace('-', '‑') + this.bit.sym);
+}
+class Keihin {
+    constructor({type, note, link, date, code, bey, ver, img}) {
+        bey = new Bey(bey);
+        bey.naming();
+        
+        this.li = E('li', {classList: `keihin-${type}`}, [
+            E('b', Keihin.type[type]), E('p', link ? [E('a', {href: link, innerHTML: note})] : note),
+            E('div', [
+                E('figure', [E('img', {src: img[0], style: img[1]})]), 
+                E('h5', [
+                    code ? E('span', code, {classList: 'code'}) : '', 
+                    E('span', bey.name.jap), 
+                    E('small', {innerHTML: [ver?.[0] ?? '', bey.partial ? `（${bey.partial.jap}）` : ''].filter(t => t).join('<br>')})
+                ]),
+            ]),
+            E('i', [
+                bey.name.chi, 
+                E('small', {innerHTML: [ver?.[1] ?? '', bey.partial ? `(${bey.partial.eng})` : ''].filter(t => t).join(' ')})
+            ]),
+            E('time', date.replace('-','‒'))
+        ]);
+    }
+    static firstly = () => Promise.all([DB.get.names(['blade','blade-CX']), Blade.UX()])
+        .then(([names]) => NAMES = names);
+    static type = {t: '比賽', d: '抽獎', m: '限定商品', g: '贈品'}
+    static all = []
+}
+Q('nav div').append(...E.checkboxes(Object.keys(Keihin.type).map(t => ({id: `keihin-${t}`, checked: true}) )));
+Q('nav input', (input, _, inputs) => input.onchange = () => {
+    let show = [...inputs].filter(i => i.checked).map(i => i.id);
+    Keihin.all.forEach(k => k.hidden = !show.includes(k.classList[0]));
+    onresize();
+})
+
+Keihin.display = () => Keihin.firstly()
+    .then(() => fetch('/db/prod-keihin.json'))
+    .then(resp => resp.json())
+    .then(keihins => Q('.diamonds').append(...Keihin.all = keihins.map(k => new Keihin(k).li)))
+    .then(onresize);
+
+onresize = () => {
+    //nw+(n-1)g=W, n=(W+g)/(w+g)
+    //nw+(n-1)g=W-(w+g/2), n=(2W-w+g)/2(w+g)  
+    Keihin.all.forEach(li => li.classList.remove('left', 'center', 'right', 'next'));
+    let showing = Keihin.all.filter(li => !li.hidden);
+    if (!showing.length) return;
+    
+    let W = Q('.diamonds').getBoundingClientRect().width, 
+        g = parseFloat(getComputedStyle(Q('.diamonds')).gap),
+        w = showing[0].getBoundingClientRect().width;
+    let more = Math.floor((W + g) / (w + g)),
+        less = Math.floor((2*W - w + g) / 2 / (w + g));
+
+    if (more === less)
+        return showing.forEach((li, i) => li.classList.add(Math.ceil((i+1)/more)%2 === 0 ? 'right' : 'left'));
+    
+    let n = 1, k;
+    while (showing[k = (2*more-1)*n-(more-1)]) {
+        let [last, ...others] = showing.slice(k, k+less+1).reverse();
+        last.classList.add(last == showing.at(-1) && (others.length == less - 1 || !others.length) ? 'center' : 'next');
+        others.forEach(li => li.classList.add('center'));
+        n++;
+    }
+}
+onclick = ev => {
+    let h5 = ev.target.closest('h5')?.cloneNode(true);
+    if (!h5) return;
+    h5.Q('.code')?.remove();
+    navigator.clipboard.writeText([...h5.children].map(el => el.innerText.replace(' ', '')).join(' '));
+}
+location.hash && Q(location.hash)?.setAttribute('open', true);
+</script>

@@ -1,0 +1,276 @@
+{
+    "PH": {
+        "group": "motif",
+        "names": {"jap": "フェニックス", "eng": "Phoenix", "chi": "鳳凰"},
+        "stat": ["2-"],
+        "attr": ["right"]
+    },
+    "EM": {
+        "group": "motif",
+        "names": {"jap": "エンペラー", "eng": "Emperor", "chi": "帝皇"},
+        "stat": ["5-"],
+        "desc": "金屬零件增加重量。",
+        "attr": ["right"]
+    },
+    "WL": {
+        "group": "motif",
+        "names": {"jap": "ウルフ", "eng": "Wolf", "chi": "戰狼 銀狼"},
+        "stat": ["2-"],
+        "attr": ["right","bsb"]
+    },
+    "SL": {
+        "group": "motif",
+        "names": {"jap": "ソル", "eng": "Sol", "chi": "天陽 焰神"},
+        "stat": ["2-"],
+        "attr": ["right","mfb"]
+    },
+    "VL": {
+        "group": "motif",
+        "names": {"jap": "ワルキューレ", "eng": "Valkyrie", "chi": "戰神"},
+        "stat": ["6-"],
+        "desc": "金屬零件增加重量。",
+        "attr": ["right","bbb"]
+    },
+    "PG": {
+        "group": "motif",
+        "names": {"jap": "ペガサス", "eng": "Pegasus", "chi": "天馬"},
+        "stat": ["2-"],
+        "attr": ["right","mfb"]
+    },
+    "CR": {
+        "group": "motif",
+        "names": {"jap": "ケルベロス", "eng": "Cerberus", "chi": "地獄犬 魔犬"},
+        "stat": ["2-"],
+        "attr": ["right","mfb"]
+    },
+    "WH": {
+        "group": "motif",
+        "names": {"jap": "ホエール", "eng": "Whale", "chi": "戰鯨 巨鯨"},
+        "stat": ["2-"],
+        "attr": ["right"]
+    },
+    "LN": {
+        "group": "motif",
+        "names": {"jap": "レオン", "eng": "Leon", "chi": "獅王 雄獅"},
+        "stat": ["2-"],
+        "attr": ["right"]
+    },
+    "FX": {
+        "group": "motif",
+        "names": {"jap": "フォックス", "eng": "Fox", "chi": "妖狐 極狐"},
+        "stat": ["2-"],
+        "attr": ["right"]
+    },
+    "HL": {
+        "group": "motif",
+        "names": {"jap": "ヘルズ", "eng": "Hells", "chi": "煉獄 惡魔"},
+        "stat": ["2-"],
+        "attr": ["right"]
+    },
+    "RH": {
+        "group": "motif",
+        "names": {"jap": "ライノ", "eng": "Rhino", "chi": "犀牛 戰犀"},
+        "stat": ["2-"],
+        "attr": ["right"]
+    },
+    "DR": {
+        "group": "motif",
+        "names": {"jap": "ドラン", "eng": "Dran", "chi": "翔龍 蒼龍"},
+        "stat": ["2-"],
+        "attr": ["right"]
+    },
+    "WZ": {
+        "group": "motif",
+        "names": {"jap": "ウィザード", "eng": "Wizard", "chi": "巫師 魔導"},
+        "stat": ["2-"],
+        "attr": ["right"]
+    },
+    "PR": {
+        "group": "motif",
+        "names": {"jap": "ペルセウス", "eng": "Perseus", "chi": "英仙"},
+        "stat": ["2-"],
+        "attr": ["right","mfb"]
+    },
+    "Fr": {
+        "group": "upper",
+        "names": {"jap": "フレア","eng": "Flare","chi": "炎光 閃焰"},
+        "stat": ["31+"],
+        "desc": "高連打性能的具厚度十五枚刃令反擊性能優秀。",
+        "attr": ["def","right"]
+    },
+    "Mg": {
+        "group": "upper",
+        "names": {"jap": "マイト","eng": "Might","chi": "霸權 威能"},
+        "stat": ["33+"],
+        "desc": "在側面擁有多面銳角形狀的重量級八枚刃把對手迴轉力削弱。",
+        "attr": ["bal","right"]
+    },
+    "Hn": {
+        "group": "upper",
+        "names": {"jap": "ハント","eng": "Hunt","chi": "狩獵"},
+        "stat": ["32-"],
+        "desc": "重量集中外周的圓滑形狀連打刃，兼備高持久性能及攻擊性能。",
+        "attr": ["sta","right","bsb"]
+    },
+    "Ec": {
+        "group": "upper",
+        "names": {"jap": "エクリプス","eng": "Eclipse","chi": "光噬 滅世"},
+        "stat": ["32+"],
+        "desc": "反轉可切換模式：Upper模式擅於以五枚刃撞飛對手的攻擊、Smash模式擅於以十枚刃砸下對手攻擊的防禦。",
+        "attr": ["bal","right","mfb"]
+    },
+    "Fl": {
+        "group": "upper",
+        "names": {"jap": "フレイム","eng": "Flame","chi": "烈焰"},
+        "stat": ["29="],
+        "desc": "滑順圓形減少空氣抵抗，持久性能優秀。",
+        "attr": ["sta","right","mfb"]
+    },
+    "Bl": {
+        "group": "upper",
+        "names": {"jap": "ブラスト","eng": "Blast","chi": "轟裂 爆擊"},
+        "stat": ["33-"],
+        "desc": "流線形的厚重三枚刃擅於撞飛對手。",
+        "attr": ["att","right","mfb"]
+    },
+    "Vl": {
+        "group": "upper",
+        "names": {"jap": "ボルト","eng": "Volt","chi": "雷動 伏特"},
+        "stat": ["31+"],
+        "desc": "兼備Smash形狀大型三枚刃與空力構造。",
+        "attr": ["att","right","bbb"]
+    },
+    "Fn": {
+        "group": "upper",
+        "names": {"jap": "ファング","eng": "Fang","chi": ""},
+        "stat": ["30="],
+        "desc": "向下的鋸齒尖刺形四枚刃削弱對手持久。",
+        "attr": ["att","right"]
+    },
+    "Bs": {
+        "group": "upper",
+        "names": {"jap": "ブラッシュ","eng": "Brush","chi": "兇尾 九尾"},
+        "stat": ["30+"],
+        "desc": "逐漸變大的九枚刃能連打同時強攻擊。",
+        "attr": ["att","right"]
+    },
+    "Rp": {
+        "group": "upper",
+        "names": {"jap": "リーパー","eng": "Reaper","chi": "死神 獵魂"},
+        "stat": ["29="],
+        "desc": "有起伏的Smash形四枚刃以連打令對手姿勢崩倒。",
+        "attr": ["bal","right"]
+    },
+    "Dr": {
+        "group": "upper",
+        "names": {"jap": "ダーク","eng": "Dark","chi": "幽暗 幽冥"},
+        "stat": ["30+"],
+        "desc": "波浪形狀的連打六枚刃抵受並撞回攻擊。",
+        "attr": ["def","right","mfb"]
+    },
+    "Ar": {
+        "group": "upper",
+        "names": {"jap": "アーク","eng": "Arc","chi": "弧光 至尊"},
+        "stat": ["29+"],
+        "desc": "把金屬重量配置在外側的圓弧狀兩枚刃産生強離心力。",
+        "attr": ["sta","right"]
+    },
+    "Br": {
+        "group": "upper",
+        "names": {"jap": "ブレイブ","eng": "Brave","chi": "勇者 勇氣"},
+        "stat": ["31+"],
+        "desc": "三枚大形Upper刃加上能産生Down force的空力構造。",
+        "attr": ["att","right"]
+    },
+    "H": {
+        "group": "lower",
+        "names": {"jap": "ヘビー","eng": "Heavy"},
+        "stat": ["8-",10],
+        "desc": "搭載金屬零件以提高離心力的低處六枚刃，強化打擊力及安定性。",
+        "attr": ["bal","right"]
+    },
+    "F": {
+        "group": "lower",
+        "names": {"jap": "フリー","eng": "Free"},
+        "stat": ["6-",11],
+        "desc": "外周Free Ring可迴轉，卸開攻擊以維持持久。",
+        "attr": ["sta","right"]
+    },
+    "D": {
+        "group": "lower",
+        "names": {"jap": "デュアル","eng": "Dual"},
+        "stat": ["6=",11],
+        "desc": "把外周的刃反轉可切換至Upper或Smash模式。",
+        "attr": ["bal","right"]
+    },
+    "M": {
+        "group": "lower",
+        "names": {"jap": "マッシブ","eng": "Massive"},
+        "stat": ["5+",11],
+        "desc": "大徑Smash形狀五枚刃的連打擅於令對手姿勢崩倒。",
+        "attr": ["bal","right"]
+    },
+    "W": {
+        "group": "lower",
+        "names": {"jap": "ウィール","eng": "Wheel"},
+        "stat": ["7=",13],
+        "desc": "有厚度的圓柱形狀刃持續地把從任何高度而來的攻擊都化解。",
+        "attr": ["sta","right"]
+    },
+    "A": {
+        "group": "lower",
+        "names": {"jap": "アサルト","eng": "Assault"},
+        "stat": ["5=",11],
+        "desc": "有厚度的三枚刃實現高撞擊性能。",
+        "attr": ["att","right"]
+    },
+    "J": {
+        "group": "lower",
+        "names": {"jap": "ジャギー","eng": "Jaggy"},
+        "stat": ["5-",10],
+        "desc": "向下擴闊的低重心九枚刃擅於如下潛的連打攻擊。",
+        "attr": ["att","right"]
+    },
+    "S": {
+        "group": "lower",
+        "names": {"jap": "スラッシュ","eng": "Slash"},
+        "stat": ["5-",10],
+        "desc": "高度較低的高撞擊性能三枚刃，擅於善用低重心的攻擊性能。",
+        "attr": ["att","right"]
+    },        
+    "T": {
+        "group": "lower",
+        "names": {"jap": "ターン","eng": "Turn"},
+        "stat": ["6-",11],
+        "desc": "把外周的刃反轉可切換至連擊或化解模式。",
+        "attr": ["bal","right"]
+    },        
+    "C": {
+        "group": "lower",
+        "names": {"jap": "チャージ","eng": "Charge"},
+        "stat": ["5=",11],
+        "desc": "小徑三枚刃，内重心令安定性優秀。",
+        "attr": ["def","right"]
+    },        
+    "B": {
+        "group": "lower",
+        "names": {"jap": "バンパー","eng": "Bumper"},
+        "stat": ["5+",11],
+        "desc": "容易吸收衝擊的阻尼器形狀的刃緩和並卸走對手攻擊。",
+        "attr": ["def","right"]
+    },        
+    "R": {
+        "group": "lower",
+        "names": {"jap": "ラウンド","eng": "Round"},
+        "stat": ["5-",11],
+        "desc": "内側鏤空的圓形刃徹底提升Blade的離心力。",
+        "attr": ["sta","right"]
+    },
+    "Z": {
+        "group": "lower",
+        "names": {"jap": "ジリオン","eng": "Zillion"},
+        "stat": ["7-"],
+        "desc": "排列成圓形的重厚十二枚刃把攻擊撞開及抵耐。",
+        "attr": ["def","right"]
+    }
+}
