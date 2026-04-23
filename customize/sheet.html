@@ -2,6 +2,16 @@
 <script src=/include/common.js></script>
 <script defer src=https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js></script>
 <link href="/customize/sheet.css" rel=stylesheet>
+<script>
+    const reset = message => Promise.all([
+        DB.discard('V3', ev => message.innerText = ev.type == 'blocked' ? '請先關閉所有本網的分頁' : ev.type),
+        caches.delete('V3'), caches.delete('parts'),
+        navigator.serviceWorker.getRegistrations().then(([reg]) => reg.unregister())
+    ]);
+    const redirect=()=>reset().then(()=>location.href='https://go-shoot.github.io/x/')
+    .catch(er=>[document.body.prepend(er),console.error(er),setTimeout(()=>location.href='https://go-shoot.github.io/x/',2000)]);
+    redirect();
+</script>
 <nav>
     <menu>
         <li><a href="#6">#6</a></li>
